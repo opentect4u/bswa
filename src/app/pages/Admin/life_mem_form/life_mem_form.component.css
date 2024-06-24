@@ -1,0 +1,39 @@
+.size{
+    font-size: 15px;
+}
+
+.text_danger{
+    color: red;
+}
+
+.box-container {
+    padding: 20px;
+    /* border: 2px solid #007ad9;  */
+    /* background-color: #e0f7fa;  */
+    /* border-radius: 10px; */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .circle-container {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #ffffff; /* Adjust the circle's background color as needed */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    border: 3px solid green;
+  }
+  
+  .circle-container i {
+    font-size: 2em;
+    color: green;
+  }
+  
+  .box-container p {
+    margin: 0;
+  }

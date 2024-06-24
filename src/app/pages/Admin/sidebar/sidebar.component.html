@@ -1,0 +1,214 @@
+<div class="menu">
+  <!-- ======================================================= -->
+  <!-- =============== Dynamic Menu With Model =============== -->
+  <!-- <div
+    *ngFor="let i = index; let menu; of: sideMenuItem"
+    id="{{ i }}"
+    class="menu-item"
+  >
+    <a
+      *ngIf="menu.items == undefined"
+      routerLink="/main/dashboard"
+      class="menu-text flex"
+      [ngClass]="getRoute() == '/' + menu.link ? 'active-menu' : ''"
+    >
+      <i class="pi {{ menu.icon }} menu-icon flex"></i>
+      <span class="menu-text-inner flex-grow-1">{{ menu.label }}</span>
+    </a>
+
+    <div
+      *ngIf="menu.items != undefined"
+      class="menu-text flex"
+      (click)="onClick(i)"
+    >
+      <i class="pi {{ menu.icon }} menu-icon flex"></i>
+      <span class="menu-text-inner flex-grow-1">{{ menu.label }}</span>
+      <i class="pi pi-chevron-down flex menu-arrow"></i>
+    </div>
+
+    <ul *ngIf="menu.items != undefined">
+      <li *ngFor="let submenu of menu.items">
+        <a
+          routerLink="{{ submenu.link }}"
+          [ngClass]="getRoute() == '/' + submenu.link ? 'active-menu' : ''"
+          ><i class="pi {{ submenu.icon }}"></i>{{ submenu.label }}</a
+        >
+      </li>
+    </ul>
+  </div> -->
+  <!-- End Dynamic Menu -->
+  <!-- ======================================================= -->
+
+  <!-- ======================================================= -->
+  <!-- Static Menu No-Model -->
+  <!-- <div id="menu_index" class="menu-item">
+    <div class="menu-text flex align-items-center" (click)="onClick('menu_index')">
+      <i class="pi pi-bars menu-icon flex"></i>
+      <span class="menu-text-inner flex-grow-1">Static Group Menu</span>
+      <i class="pi pi-chevron-down flex menu-arrow"></i>
+    </div>
+    <ul>
+      <li>
+        <a
+          routerLink="submenu1"
+          [ngClass]="getRoute() == '/submenu1' ? 'active-menu' : ''"
+          ><i class="pi pi-angle-right"></i>Static Sub Menu 1</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="submenu2"
+          [ngClass]="getRoute() == '/submenu2' ? 'active-menu' : ''"
+          ><i class="pi pi-angle-right"></i>Static Sub Menu 2</a
+        >
+      </li>
+    </ul>
+  </div> -->
+
+  <div class="menu-item">
+    <a routerLink="dashboard" class="menu-text flex" [ngClass]="getRoute() == '/menu' ? 'active-menu' : ''">
+      <i class="pi pi-microsoft menu-icon flex"></i>
+      <span class="menu-text-inner flex-grow-1"><b>Dashboard</b></span>
+    </a>
+  </div>
+
+  <p-divider></p-divider>
+
+  <!-- <div class="menu-item">
+    <a routerLink="fee_type" class="menu-text flex" [ngClass]="getRoute() == '/menu' ? 'active-menu' : ''">
+      <i class="pi pi-wallet menu-icon flex"></i>
+      <span class="menu-text-inner flex-grow-1"><b>Fees Type</b></span>
+    </a>
+  </div>
+
+  <p-divider></p-divider> -->
+
+
+  <div class="menu-item">
+    <a routerLink="admin_approve" class="menu-text flex" [ngClass]="getRoute() == '/menu' ? 'active-menu' : ''">
+      <i class="pi pi-hourglass menu-icon flex"></i>
+      <span class="menu-text-inner flex-grow-1"><b>Accept / Reject Membership Form</b></span>
+    </a>
+  </div>
+
+  <p-divider></p-divider>
+
+  <div class="menu-item">
+    <a routerLink="approve_form" class="menu-text flex" [ngClass]="getRoute() == '/menu' ? 'active-menu' : ''">
+      <i class="pi pi-check-square menu-icon flex"></i>
+      <span class="menu-text-inner flex-grow-1"><b>Approve Membership Form</b></span>
+    </a>
+  </div>
+
+  <p-divider></p-divider>
+
+  <div class="menu-item">
+    <a routerLink="admin_premium_approve" class="menu-text flex" [ngClass]="getRoute() == '/menu' ? 'active-menu' : ''">
+      <i class="pi pi-hourglass menu-icon flex"></i>
+      <span class="menu-text-inner flex-grow-1"><b>Accept / Reject Super Topup Policy Form</b></span>
+    </a>
+  </div>
+
+  <p-divider></p-divider>
+
+  <div class="menu-item">
+    <a routerLink="super_policy_approve" class="menu-text flex" [ngClass]="getRoute() == '/menu' ? 'active-menu' : ''">
+      <i class="pi pi-check-square menu-icon flex"></i>
+      <span class="menu-text-inner flex-grow-1"><b>Approve Super Topup Policy Form</b></span>
+    </a>
+  </div>
+
+  <p-divider></p-divider>
+
+  <div class="menu-item">
+    <a routerLink="admin_group_premium_approve" class="menu-text flex"
+      [ngClass]="getRoute() == '/menu' ? 'active-menu' : ''">
+      <i class="pi pi-hourglass menu-icon flex"></i>
+      <span class="menu-text-inner flex-grow-1"><b>Accept / Reject Group Policy Form</b></span>
+    </a>
+  </div>
+
+  <p-divider></p-divider>
+
+  <div class="menu-item">
+    <a routerLink="group_policy_approve_form" class="menu-text flex"
+      [ngClass]="getRoute() == '/menu' ? 'active-menu' : ''">
+      <i class="pi pi-check-square menu-icon flex"></i>
+      <span class="menu-text-inner flex-grow-1"><b>Approve Group Policy Form</b></span>
+    </a>
+  </div>
+
+  <p-divider></p-divider>
+
+
+  <!-- <div class="menu-item">
+    <a routerLink="member_form" class="menu-text flex" [ngClass]="getRoute() == '/menu' ? 'active-menu' : ''">
+      <i class="pi pi-book menu-icon flex"></i>
+      <span class="menu-text-inner flex-grow-1"><b>General Membership Form</b></span>
+    </a>
+  </div> -->
+
+  <!-- <p-divider></p-divider>
+
+  <div class="menu-item">
+    <a routerLink="life_form" class="menu-text flex" [ngClass]="getRoute() == '/menu' ? 'active-menu' : ''">
+      <i class="pi pi-id-card menu-icon flex"></i>
+      <span class="menu-text-inner flex-grow-1"><b>Life Membership Form</b></span>
+    </a>
+  </div>
+
+  <p-divider></p-divider> -->
+
+  <!-- 
+  <div class="menu-item">
+    <a routerLink="asso_mem_form" class="menu-text flex" [ngClass]="getRoute() == '/menu' ? 'active-menu' : ''">
+      <i class="pi pi-id-card menu-icon flex"></i>
+      <span class="menu-text-inner flex-grow-1"><b>Associate Membership Form</b></span>
+    </a>
+  </div> -->
+
+  <!-- <p-divider></p-divider> -->
+
+
+
+
+  <!-- <div class="menu-item">
+    <a
+      routerLink="documentation"
+      class="menu-text flex"
+      [ngClass]="getRoute() == '/documentation' ? 'active-menu' : ''"
+    >
+      <i class="pi pi-book menu-icon flex"></i>
+      <span class="menu-text-inner flex-grow-1">Documentation</span>
+    </a>
+  </div> -->
+
+  <!-- <div class="menu-item">
+    <a
+      href="http://primefaces.org/primeng/"
+      target="_blank"
+      class="menu-text flex"
+    >
+      <i class="pi pi-prime menu-icon flex"></i>
+      <span class="menu-text-inner flex-grow-1">About PrimeNG</span>
+    </a>
+  </div> -->
+
+  <!-- <div class="menu-item">
+    <a
+      href="https://github.com/fachrosi/primengsimpleadmin"
+      target="_blank"
+      class="menu-text flex"
+    >
+      <i class="pi pi-github menu-icon flex"></i>
+      <span class="menu-text-inner flex-grow-1">Get on Github</span>
+    </a>
+  </div> -->
+  <!-- End Static Menu -->
+  <!-- ======================================================= -->
+  <!-- <div style="height: 1200px;"> </div> -->
+</div>
+
+<!-- <div class="sidebar">
+  <a routerLink="main/dashboard" routerLinkActive="active">Home</a>
+</div> -->

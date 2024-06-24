@@ -1,0 +1,18 @@
+.add_btn {
+    display: flex;
+    flex-direction: row-reverse;
+    float: right;
+    margin-top: -20px;
+  }
+
+  .custom-tooltip {
+    font-size: 12px !important;
+    padding: 6px 20px !important;
+    margin-bottom: 32vw !important;
+    margin-top: 2vw;
+    /* color: #6c757d; */
+  }
+
+  .size{
+    font-size: 16px;
+}

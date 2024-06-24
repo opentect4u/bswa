@@ -1,0 +1,13 @@
+.size{
+    font-size: 15px;
+}
+
+.form-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  p-card.p-element{
+    width: 85%;
+  }

@@ -1,0 +1,37 @@
+.table_space {
+    margin-left: 14px;
+}
+
+.letter{
+    margin-left: 19px;
+    margin: 6PX;
+    padding: 0;
+}
+
+.letter_style{
+    margin-left: 22px;
+    margin: 17PX;
+    padding: 0;
+}
+
+p-button.p-element, .print_btn {
+    bottom: 15px;
+  }
+
+  .size{
+    margin-left: 67px;
+}
+
+.margin{
+    margin-left: 65vw;
+}
+
+p-card.p-element{
+    width: 85%;
+  }
+
+  .form-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }

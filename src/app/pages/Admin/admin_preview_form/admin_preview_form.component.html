@@ -1,0 +1,13 @@
+<p-card>
+  <div class="row">
+    <!-- <p-button icon="pi pi-arrow-left" styleClass="p-button-rounded" (click)="goback()"></p-button> -->
+    <h3 class="head_active">
+      <a class="heading" (click)="back()">Dashboard</a> / Upload Image
+    </h3>
+  </div>
+
+  <ng-container>
+    <app-gen_img_upload (fileSelected)="onFileSelected($event)"></app-gen_img_upload>
+  </ng-container>
+  <button pButton pRipple type="button" label="Submit" class="p-button-raised sub_btn" (click)="submit()"></button>
+</p-card>

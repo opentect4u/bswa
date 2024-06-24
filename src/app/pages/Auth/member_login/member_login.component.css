@@ -1,0 +1,64 @@
+.container {
+    /* height: 97vh; */
+    /* width: 30vh; */
+    /* background-image: url("/assets/imgs/logo.jpg"); */
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+  .container .login {
+    height: 97vh;
+    width: 72vh;
+    max-width: 590px;
+    min-width: 350px;
+    margin-left: auto;
+    margin-right: 0px;
+    background-color: #ffffff;
+    /* background-color: #b3d5e7; */
+    padding: 40px;
+    opacity: 100%;
+    font-family: Arial;
+  }
+  .container .login .p-inputgroup {
+    margin-bottom: 20px;
+    color: black;
+  }
+  .container .login p {
+    text-align: center;
+    margin-top: 20px;
+  }
+  .container .login p a {
+    text-decoration: none;
+    color: #666;
+  }
+  .container .login p a:hover {
+    color: var(--red-500);
+  }
+  .foot {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: #fff;
+  }
+  .foot a {
+    color: #fff;
+  }
+  
+  .logo_img{
+    height: 45vh;
+    width: 45vh;
+    margin-left: 3vw;
+  }
+  
+  .p-inputgroup-addon{
+    color: black;
+    border-radius: 1px;
+  
+    /* border-color: black; */
+  }
+  
+  /* .p-inputtext{
+    border-radius: 1px;
+  } */

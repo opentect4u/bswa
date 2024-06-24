@@ -1,0 +1,36 @@
+<h3 class="text-center"><b>Introducer Details</b></h3>
+<p-divider type="dashed"></p-divider>
+
+<form [formGroup]="form">
+  <div class="flex flex-row">
+    <div class="field col-12 md:col-4">
+      <label for="intro_name" class="size"><b>Introducer Name:<span class="text-red-700">*</span></b></label>&nbsp;
+      <input id="intro_name" type="text" formControlName="intro_name" placeholder="Enter Introducer name"
+        class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+      <div *ngIf="intro_name?.touched || intro_name?.dirty">
+        <small class="text-red-900" *ngIf="intro_name?.errors">Introducer Name is required.</small>
+      </div>
+    </div>
+    <div class="field col-12 md:col-4">
+      <label for="mem_no" class="size"><b>Member ID No:<span class="text-red-700">*</span></b></label>&nbsp;
+      <input id="mem_no" type="text" formControlName="mem_no" placeholder="Enter Member ID No"
+        class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+      <div *ngIf="mem_no?.touched || mem_no?.dirty">
+        <small class="text-red-900" *ngIf="mem_no?.errors">Member ID No is required.</small>
+      </div>
+    </div>
+    <div class="field col-12 md:col-3">
+      <label for="relation" class="size"><b>Relationship:<span class="text-red-700">*</span></b></label>&nbsp;
+      <select id="relation" formControlName="relation"
+        class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+        style="appearance: auto; height: 3vw; border-radius: 7px">
+        <option value="">Select Relationship</option>
+        <option *ngFor="let option of responsedata_rel" [value]="option.id">{{ option.relation_name }}</option>
+
+      </select>
+      <div *ngIf="relation?.touched || relation?.dirty">
+        <small class="text-red-900" *ngIf="relation?.errors">Relationship is required.</small>
+      </div>
+    </div>
+  </div>
+</form>

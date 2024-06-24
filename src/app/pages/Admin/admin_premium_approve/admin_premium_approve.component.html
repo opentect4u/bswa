@@ -1,0 +1,60 @@
+<p-card>
+
+  <div class="row align-items-center">
+    <h3 class="flex align-items-center">
+      <i class="pi pi-hourglass menu-icon"></i>&nbsp;
+      <b>Admin Accept / Reject Super Topup Policy Form</b>
+    </h3>
+  </div>
+
+  <form [formGroup]="form">
+    <div class="formgrid grid mt-4">
+      <div class="field col-12 md:col-6">
+        <input id="form_no" type="text" formControlName="form_no" placeholder="Enter Form No / Member Name here...."
+          class="text-base text-color surface-overlay p-3 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+      </div>
+      <div class="field col-12 md:col-6">
+        <p-button class="add_btn" label="Submit" styleClass="p-button-rounded p-button-text p-button-raised"
+          [style]="{'background-color': 'rgb(140 202 231)', 'border-color': '#50b0dd', 'color': '#ffff'}"
+          (click)="submit()"></p-button>
+      </div>
+    </div>
+  </form>
+
+
+  <div class="card mt-4">
+    <p-table [value]="userData" #dt2 dataKey="id" [rows]="10" [showCurrentPageReport]="true"
+      [rowsPerPageOptions]="[10, 25, 50]" [paginator]="false"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [globalFilterFields]="['memb_type']" [tableStyle]="{
+        'min-width': '55rem',
+        'box-shadow': '0 10px 28px rgba(1.5, 1.5, 1.5, 1.5)',
+      }">
+      <ng-template pTemplate="header">
+        <tr>
+          <th id="table_color">Form No</th>
+          <th id="table_color">Form Date</th>
+          <!-- <th id="table_color">Policy Name</th> -->
+          <th id="table_color">Member Name</th>
+          <th id="table_color">View</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-customer>
+        <tr>
+          <td class="text-center"><b>{{ customer.form_no }}</b></td>
+          <td class="text-center"><b>{{ customer.form_dt | date: 'dd/MM/yyyy' }}</b></td>
+          <!-- <td class="text-center"><b>{{ customer.memb_name }}</b></td> -->
+          <td class="text-center"><b>{{ customer.memb_name }}</b></td>
+          <td class="text-center"><b><a pTooltip="View" tooltipPosition="bottom"
+                (click)="preview(customer.form_no, customer.member_id)"><i class="pi pi-eye editLink"></i></a></b>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="6" class="text-center text-red-900">No data available</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</p-card>

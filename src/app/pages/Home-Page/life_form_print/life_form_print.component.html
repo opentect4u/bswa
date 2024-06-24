@@ -1,0 +1,295 @@
+<style>
+  table {
+    width: 96%;
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+  th {
+    background-color: #f2f2f2;
+    text-align: left;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  /* tr:hover {
+      background-color: #ddd;
+  } */
+  th,
+  td {
+    padding: 15px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+  }
+</style>
+
+<div class="banner_sec">
+  <div class="form-container">
+    <p-card id="divToPrint">
+      <div class="row">
+        <div class="col-md-6">
+          <h4 class="color">
+            <b><u>LIFE MEMBERSHIP FORM</u></b>
+          </h4>
+        </div>
+        <div class="col-md-6 text-right">
+          <h5 class="" style="color: black">
+            <b><u>ANNEXURE III</u></b>
+          </h5>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <h4 class="letter" style="color: black">TO</h4>
+          <h4 class="letter" style="color: black">The Secreatry</h4>
+          <h3 class="letter" style="color: black">
+            BOKARO STEEL PEOPLE WELFARE ASSOCIATION
+          </h3>
+          <h4 class="letter" style="color: black">13, Camac Street</h4>
+          <h4 class="letter" style="color: black">Kolkata 700017</h4>
+          <h4 class="letter" style="color: black">Dear Sir,</h4>
+          <h4 class="size" style="color: black">
+            I am desirous to take the membership of the Association, Details in
+            regard to me, my spouse and the family are as below. This is also to
+            inform you that I am an employee / ex employee of SAIL,
+          </h4>
+        </div>
+      </div>
+
+      <div class="row">
+        <table class="table_space">
+          <tr>
+            <th colspan="3" class="text-center" style="background-color: aliceblue">
+              <label for="member_type" class="label_field color2"><b>DETAILS OF THE MEMBER</b></label>
+            </th>
+          </tr>
+          <tr>
+            <th colspan="2">
+              <label for="form_no" class="label_field"><b>Form No : </b><span class="span_space">{{ form_no
+                  }}</span></label>
+            </th>
+            <th class="text-center" rowspan="7" style="width: 20%;">
+              <img src="{{membInfo?.memb_pic ? api_base_url + '/' + membInfo?.memb_pic : ''}}" height="100%"
+                width="100%" alt="" />
+              <!-- <label for="photo" class="label_field"><b><u>PHOTOGRAPH</u></b></label> -->
+            </th>
+          </tr>
+          <tr>
+            <th colspan="2">
+              <label for="mem_name" class="label_field"><b>NAME :</b><span class="span_space">{{ membInfo?.memb_name
+                  }}</span></label>
+            </th>
+          </tr>
+          <tr>
+            <th colspan="2">
+              <label for="member_type" class="label_field"><b>TYPE OF MEMBERSHIP :</b><span class="span_space">{{
+                  membInfo?.mem_type == "G"
+                  ? "General Membership"
+                  : membInfo?.mem_type == "L"
+                  ? "Life Membership"
+                  : "Associate
+                  Membership"
+                  }}</span></label>
+            </th>
+          </tr>
+          <tr>
+            <th colspan="2">
+              <label for="unit" class="label_field"><b>NAME OF THE UNIT FROM WHERE SUPERANNUATED :</b><span
+                  class="span_space">{{ membInfo?.unit_name }}</span></label>
+            </th>
+          </tr>
+          <tr>
+            <th colspan="2">
+              <label for="staff_no" class="label_field"><b>STAFF NO :</b><span class="span_space">{{ membInfo?.staff_nos
+                  }}</span></label>
+            </th>
+          </tr>
+          <tr>
+            <th colspan="2">
+              <label for="pers_no" class="label_field"><b>PERS NO :</b><span class="span_space">{{ membInfo?.pers_no
+                  }}</span></label>
+            </th>
+          </tr>
+          <tr>
+            <th colspan="2">
+              <label for="gurd_name" class="label_field"><b>FATHER'S Name :</b><span class="span_space">{{
+                  membInfo?.gurdian_name }}</span></label>
+            </th>
+          </tr>
+          <tr>
+            <th colspan="3">
+              <label for="addr" class="label_field"><b>ADDRESS :</b><span class="span_space">{{ membInfo?.memb_address
+                  }}</span></label>
+            </th>
+          </tr>
+          <tr>
+            <th>
+              <label for="ps" class="label_field"><b>P.S. </b><span class="span_space">{{ membInfo?.ps }}</span></label>
+            </th>
+            <th>
+              <label for="phone" class="label_field"><b>PHONE NO. </b><span class="span_space">{{ membInfo?.phone_no
+                  }}</span></label>
+            </th>
+            <th>
+              <label for="blood_grp" class="label_field"><b>BLOOD GROUP :</b><span class="span_space">{{
+                  membInfo?.blood_grp
+                  }}</span></label>
+            </th>
+          </tr>
+          <tr>
+            <th>
+              <label for="dob" class="label_field"><b>DATE OF BIRTH :</b><span class="span_space">{{ membInfo?.dob |
+                  date:
+                  'dd/MM/yyyy' }}</span></label>
+            </th>
+            <th colspan="2">
+              <label for="email_id" class="label_field"><b>EMAIL NO. </b><span class="span_space">{{ membInfo?.email_id
+                  }}</span></label>
+            </th>
+          </tr>
+          <tr>
+            <th>
+              <label for="min_no" class="label_field"><b>MIN NO. (SELF) :</b><span class="span_space">{{
+                  membInfo?.min_no
+                  }}</span></label>
+            </th>
+            <th colspan="2">
+              <label for="min_no_spou" class="label_field"><b>MIN NO. (SPOUSE) :</b><span class="span_space">{{
+                  spouseInfo?.spou_min }}</span></label>
+            </th>
+          </tr>
+          <tr>
+            <th colspan="3" class="text-center" style="background-color: aliceblue">
+              <label for="member_type" class="label_field color2"><b>DETAILS OF THE SPOUSE</b></label>
+            </th>
+          </tr>
+          <tr>
+            <th colspan="2">
+              <label for="spou_name" class="label_field"><b>NAME :</b><span class="span_space">{{
+                  spouseInfo?.dependent_name
+                  }}</span></label>
+            </th>
+            <th class="text-center" rowspan="4" style="width: 20%;">
+              <img src="{{spouseInfo?.spou_pic ? api_base_url + '/' + spouseInfo?.spou_pic : ''}}" height="100%"
+                width="100%" src="" alt="Photograph" />
+            </th>
+          </tr>
+          <tr>
+            <th colspan="2">
+              <label for="spou_blood" class="label_field"><b>BLOOD GROUP :</b><span class="span_space">{{
+                  spouseInfo?.spou_blood_grp
+                  }}</span></label>
+            </th>
+          </tr>
+          <tr>
+            <th colspan="2">
+              <label for="father_name" class="label_field"><b>FATHER'S NAME :</b><span class="span_space">{{
+                  spouseInfo?.gurd_name }}</span></label>
+            </th>
+          </tr>
+          <tr>
+            <th>
+              <label for="depen_dob" class="label_field"><b>DATE OF BIRTH :</b><span class="span_space">{{
+                  spouseInfo?.spou_dob }}</span></label>
+            </th>
+            <th>
+              <label for="depen_mob" class="label_field"><b>MOBILE NO :</b><span class="span_space">{{
+                  spouseInfo?.spou_phone
+                  }}</span></label>
+            </th>
+          </tr>
+          <tr></tr>
+          <tr>
+            <th colspan="3">
+              <label for="depen" class="label_field"><b>NAME OF DEPENDENT :</b><span class="span_space">{{
+                  dependInfo?.dependent_name
+                  }}</span></label>
+            </th>
+          </tr>
+          <tr>
+            <th colspan="3">
+              <label for="member_type" class="label_field"><b>ADDRESS :</b><span class="span_space">{{
+                  spouseInfo?.spou_memb_address
+                  }}</span></label>
+            </th>
+          </tr>
+          <tr>
+            <th>
+              <label for="member_type" class="label_field"><b>P.S. </b><span class="span_space">{{ spouseInfo?.spou_ps
+                  }}</span></label>
+            </th>
+            <th colspan="2">
+              <label for="member_type" class="label_field"><b>PHONE NO. </b><span class="span_space">{{
+                  spouseInfo?.spou_phone }}</span></label>
+            </th>
+          </tr>
+          <tr>
+            <th colspan="3">
+              <label for="member_type" class="label_field"><b>SIGNATURE OF SELF :</b><span
+                  class="span_space"></span></label>
+            </th>
+          </tr>
+          <tr>
+            <th colspan="3">
+              <label for="member_type" class="label_field"><b>SIGNATURE OF SPOUSE :</b><span
+                  class="span_space"></span></label>
+            </th>
+          </tr>
+        </table>
+
+        <div class="row mt-3">
+          <div class="col-12">
+            <h4 class="letter color">FOR OFFICE USE ONLY</h4>
+            <br />
+            <h4 class="letter" style="color: black; float: left">
+              Membership Accepted / Rejected vide Resolution No.
+              <span class="span_space">{{ membInfo?.resolution_no }}</span>
+            </h4>
+            <br />
+            <h4 class="letter space">Dated :</h4>
+            <br />
+            <h4 class="letter" style="color: black">
+              Type of Membership :
+              <span class="span_space">{{
+                membInfo?.mem_type == "G"
+                ? "General Membership"
+                : membInfo?.mem_type == "L"
+                ? "Life Membership"
+                : "Associate
+                Membership"
+                }}</span>
+            </h4>
+            <h4 class="letter" style="color: black">
+              Amount to be deposited
+              <span class="span_space">{{ membInfo?.subscription_2 }}(Yearly) And
+                {{membInfo?.subscription_1}}(Monthly)</span>
+            </h4>
+            <h4 class="letter" style="color: black">
+              1) Admission Fee : <span class="span_space">{{ membInfo?.adm_fee }}</span>
+            </h4>
+            <h4 class="letter" style="color: black">
+              2) Donation/ subscription :
+              <span class="span_space">{{ membInfo?.donation }}</span>
+            </h4>
+            <h4 class="letter" style="color: black; margin-left: 60vw">
+              Secretary / President
+            </h4>
+            <p-button label="PRINT" styleClass="p-button-rounded print_btn" (click)="printDiv()"></p-button>
+          </div>
+        </div>
+      </div>
+    </p-card>
+  </div>
+</div>

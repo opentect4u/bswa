@@ -1,0 +1,48 @@
+<h3 class="text-center"><b>Fee Details</b></h3>
+<p-divider type="dashed"></p-divider>
+
+<form [formGroup]="form">
+  <div class="formgrid grid mt-1">
+    <!-- <div class="field col-12 md:col-4">
+          <label for="effect_dt"
+            ><b>Effective Date</b></label
+          >
+          <input
+            id="effect_dt"
+            type="date"
+            formControlName="effect_dt"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          />
+        </div> -->
+    <!-- <div class="field col-12 md:col-3">
+          <label for="admissionFee" class="size"
+            ><b>Admission Fee</b></label
+          >
+          <input
+            id="admissionFee"
+            formControlName="admissionFee"
+            placeholder="Enter admission fee...."
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"readonly
+          />
+        </div> -->
+    <div class="field col-12 md:col-4">
+      <label for="admissionFee" class="size">
+        <b>Admission Fee</b> : {{ form.get('admissionFee')?.value }}/-
+      </label>
+    </div>
+
+    <div class="field col-12 md:col-4">
+      <label for="donationFee" class="size"><b>Donation Fee</b> : {{ form.get('donationFee')?.value }}/-
+      </label>
+    </div>
+    <div class="field col-12 md:col-4">
+      <label for="subscriptionFee" class="size"><b>Subscription Fee</b> : {{ form.get('subscriptionFee')?.value }}/-
+        ({{ form.get('subscriptionType')?.value}})
+      </label>
+    </div>
+    <!-- <div class="field col-12 md:col-6">
+      <label for="subscriptionType" class="size"><b>Subscription Type</b> : {{ form.get('subscriptionType')?.value }}
+      </label>
+    </div> -->
+  </div>
+</form>

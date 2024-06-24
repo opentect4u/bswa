@@ -1,0 +1,68 @@
+#tab_style{
+    /* border: solid #dee2e6; */
+    /* border-width: 0 0 2px 0; */
+    /* border-color: transparent transparent #dee2e6 transparent; */
+    /* background: #ffffff; */
+    color: #6c757d;
+    padding: 1.25rem;
+    font-weight: 700;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+    transition: box-shadow 0.2s;
+    margin: 0 0 -2px 0;
+    width: 25vw;
+  }
+  
+  .custom-dropdown .p-dropdown-label {
+    font-size: 16px; /* Increase this value as needed */
+  }
+  
+  .custom-dropdown .p-dropdown-item {
+    font-size: 16px; /* Increase this value as needed */
+  }
+  
+  .box-container {
+    padding: 20px;
+    /* border: 2px solid #007ad9;  */
+    /* background-color: #e0f7fa;  */
+    /* border-radius: 10px; */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .circle-container {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #ffffff; /* Adjust the circle's background color as needed */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    border: 3px solid green;
+  }
+  
+  .circle-container i {
+    font-size: 2em;
+    color: green;
+  }
+  
+  .box-container p {
+    margin: 0;
+  }
+
+  .sub_btn {
+    margin-top: 27px;
+  }
+
+  .final{
+    margin-left: 35vw;
+  }
+
+  .form-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }

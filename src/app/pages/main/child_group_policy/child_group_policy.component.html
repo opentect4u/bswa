@@ -1,0 +1,182 @@
+<p-card>
+  <ng-container>
+    <h3 class="text-center"><b>Member Information For Children Group Policy</b></h3>
+    <p-divider type="dashed"></p-divider>
+
+    <form [formGroup]="form">
+      <div class="flex flex-row">
+        <div class="field col-12 md:col-6">
+          <label for="member_id" class="label_field"><b>Member ID:</b></label>&nbsp;
+          <input id="member_id" type="text" formControlName="member_id" placeholder="Enter Member ID"
+            class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+        </div>
+        <div class="field col-12 md:col-6 sub_btn">
+          <p-button label="Submit" (click)="submit()"></p-button>
+        </div>
+      </div>
+
+      <div class="flex flex-row">
+        <div class="field col-12 md:col-4">
+          <label for="member_type" class="label_field"><b>Member Type:</b></label>&nbsp;
+          <input id="member_type" type="text" formControlName="member_type" placeholder="Enter Member Type"
+            class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            readonly />
+        </div>
+        <div class="field col-12 md:col-4">
+          <label for="member" class="label_field"><b>Member Name:</b></label>&nbsp;
+          <input id="member" type="text" formControlName="member" placeholder="Enter Member name"
+            class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            readonly />
+        </div>
+        <div class="field col-12 md:col-4">
+          <label for="gurdian" class="label_field"><b>Father's / Husband Name:</b></label>&nbsp;
+          <input id="gurdian" type="text" formControlName="gurdian" placeholder="Enter Father / Husband name"
+            class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            readonly />
+        </div>
+      </div>
+
+      <div class="flex flex-row">
+        <div class="field col-12 md:col-4">
+          <label for="gen" class="label_field"><b>Gender:</b></label>&nbsp;
+          <input id="gen" type="text" formControlName="gen" placeholder="Enter Gender"
+            class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            readonly />
+        </div>
+        <div class="field col-12 md:col-4">
+          <label for="marital_status" class="label_field"><b>Marital Status:</b></label>&nbsp;
+          <input id="marital_status" type="text" formControlName="marital_status" placeholder="Enter Marital Status"
+            class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            readonly />
+        </div>
+        <div class="field col-12 md:col-4">
+          <label for="gen_dob" class="label_field"><b>DOB:</b></label>&nbsp;
+          <input id="gen_dob" type="date" formControlName="gen_dob" placeholder="dd/MM/yyyy"
+            class="box_input text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+        </div>
+      </div>
+
+      <div class="flex flex-row">
+        <div class="field col-12 md:col-4">
+          <label for="type_diseases" class="label_field"><b>Suffering from any diseases:</b></label>&nbsp;
+          <select id="type_diseases" formControlName="type_diseases"
+            class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+            style="appearance: auto; height: 3vw; border-radius: 7px">
+            <option value="" selected>Select</option>
+            <option value="Y">Yes</option>
+            <option value="N">No</option>
+          </select>
+        </div>
+
+        <div class="field col-12 md:col-8">
+          <label for="name_diseases" class="label_field"><b>Type of Diseases:</b></label>&nbsp;
+          <input id="name_diseases" type="text" formControlName="name_diseases" placeholder="Enter Diseases name"
+            class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+        </div>
+      </div>
+
+      <p-divider type="dashed"></p-divider>
+      <h3 class="text-center"><b>Dependents Information</b></h3>
+
+      <div formArrayName="depenFields_1">
+
+        <ng-container *ngFor="let group of depenFields_1.controls; let i = index" [formGroupName]="i">
+          <div class="flex flex-row mt-5">
+            <div class="field col-12 md:col-3">
+              <label for="sl_no" class="size"><b>Sl No:</b></label>
+              <input id="sl_no" type="text" formControlName="sl_no" placeholder="Enter Sl No"
+                class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            </div>
+            <div class="field col-12 md:col-3">
+              <label for="dependent_name" class="size"><b>Dependent Name:</b></label>
+              <input id="dependent_name" type="text" formControlName="dependent_name" placeholder="Enter Dependent name"
+                class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            </div>
+            <div class="field col-12 md:col-3">
+              <label for="relation" class="size"><b>Relationship:</b></label>
+              <input id="relation" type="text" formControlName="relation" placeholder="Enter Dependent name"
+                class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            </div>
+            <div class="field col-12 md:col-3">
+              <label for="dob" class="size"><b>DOB(DD/MM/YYYY):</b></label>&nbsp;
+              <input id="dob" type="date" formControlName="dob" placeholder="Enter DOB"
+                class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            </div>
+          </div>
+          <div class="flex flex-row mt-3">
+            <div class="field col-12 md:col-3">
+              <label for="type_diseases" class="label_field"><b>Suffering from any diseases:</b></label>&nbsp;
+              <select id="type_diseases" formControlName="type_diseases"
+                class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                style="appearance: auto; height: 3vw; border-radius: 7px">
+                <option value="" selected>Select</option>
+                <option value="Y">Yes</option>
+                <option value="N">No</option>
+              </select>
+            </div>
+
+            <div class="field col-12 md:col-3">
+              <label for="name_diseases" class="label_field"><b>Type of Diseases:</b></label>&nbsp;
+              <input id="name_diseases" type="text" formControlName="name_diseases" placeholder="Enter Diseases name"
+                class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            </div>
+          </div>
+        </ng-container>
+
+      </div>
+
+
+
+
+      <!-- <div class="card mt-5">
+      <p-table [value]="userData"
+        #dt2
+        dataKey="id"
+        [rows]="10"
+        [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10, 25, 50]"
+        [paginator]="false"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [globalFilterFields]="['memb_type']"
+        [tableStyle]="{
+          'min-width': '55rem',
+          'box-shadow': '0 10px 28px rgba(1.5, 1.5, 1.5, 1.5)',
+        }"
+      >
+        <ng-template pTemplate="caption">
+          <div class="flex">
+          </div>
+        </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 1px" id="table_color">Sl No</th>
+              <th style="width: 1px" id="table_color">Name of the Dependents</th>
+              <th style="width: 1px" id="table_color">Relationship</th>
+              <th style="width: 1px" id="table_color">DOB(DD/MM/YYYY)</th>
+              <th style="width: 1px" id="table_color">Edit</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-customer>
+            <tr>
+            <td class="text-center"><b>{{ customer.sl_no }}</b></td>
+            <td class="text-center"><b>{{ customer.dependent_name}}</b></td>
+            <td class="text-center"><b>{{ customer.relation_name}}</b></td>
+            <td class="text-center"><b>{{ customer.dob | date: 'dd/MM/yyyy'}}</b></td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="5" class="text-center text-red-900">No data available</td>
+            </tr>
+        </ng-template>
+      </p-table>
+    </div> -->
+
+
+    </form>
+
+    <button pButton pRipple type="button" label="Submit" class="p-button-raised final"
+      (click)="final_submit()"></button>
+
+  </ng-container>
+</p-card>

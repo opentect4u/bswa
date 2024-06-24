@@ -1,0 +1,50 @@
+<div class="header header-custom flex">
+  <div class="flex align-items-center">
+    <p-button
+      icon="pi pi-bars"
+      styleClass="p-button-rounded p-button-text"
+      (click)="onMenuToggle()"
+    ></p-button>
+    <!-- <button
+      id="header_icon"
+      pButton
+      pRipple
+      (click)="onMenuToggle()"
+      type="button"
+      icon="pi pi-bars"
+      class="p-button-rounded p-button-text p-button-plain"
+    ></button
+    >&nbsp;&nbsp; -->
+    <!-- <img src="assets/imgs/logo.jpg" /> -->
+    <span class="title-text"
+      ><b style="color: #6c757d"
+        >BOKARO STEEL PEOPLE WELFARE ASSOCIATION</b
+      ></span
+    >
+  </div>
+
+  <div class="flex-grow-1"></div>
+
+  <div class="flex">
+    <span class="user"
+      ><b style="color: #6c757d">{{ user }}</b></span
+    >&nbsp;
+    <!-- <button id="header_icon"
+      pButton
+      pRipple
+      (click)="headermenu.toggle($event)"
+      type="button"
+      class="p-button-rounded p-button-text p-button-plain header_icon"
+    > -->
+    <p-avatar
+      [label]="label"
+      styleClass="mr-2"
+      size="large"
+      [style]="{ 'background-color': '#50b0dd', color: '#ffffff' }"
+      (click)="headermenu.toggle($event)"
+      shape="circle"
+    ></p-avatar>
+    <!-- </button> -->
+    <p-menu #headermenu [popup]="true" [model]="headerMenuItem"></p-menu>
+  </div>
+</div>

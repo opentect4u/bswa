@@ -1,0 +1,70 @@
+.table_space {
+    margin-left: 14px;
+}
+
+.letter{
+    margin-left: 19px;
+    margin: 6PX;
+    padding: 0;
+}
+
+.letter_style{
+    margin-left: 22px;
+    margin: 17PX;
+    padding: 0;
+}
+
+p-button.p-element, .print_btn {
+    /* align-items: center;     */
+    /* position: fixed; */
+    /* right: 30px; */
+    bottom: 15px;
+    /* margin-left: 30vw; */
+  }
+
+  .size{
+    margin-left: 67px;
+    /* margin: 6px; */
+    /* padding: 0; */
+}
+
+
+    .card {
+        position: relative;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        /* background-color: #fff; */
+        background-clip: border-box;
+        border: 1px solid rgba(0, 0, 0, .125);
+        border-radius: .25rem;
+        padding: 2vw;
+        width: 27vw;
+        background: #cbe3fb;
+        border-radius: 4px;
+        position: relative;
+        margin-left: 22vw;
+}
+
+.dwn_btn{
+    color: #fff;
+    font-size: 14px;
+    width: 123px;
+    height: 44px;
+    line-height: 40px;
+    border: 2px solid #e60707;
+    text-align: center;
+    /* font-weight: 700; */
+    border-radius: 4px;
+    text-decoration: none;
+    text-transform: uppercase;
+    background: #e60707;
+    display: block;
+    /* position: absolute; */
+    bottom: 40px;
+    left: 35px;
+    transition: 0.3s;
+}

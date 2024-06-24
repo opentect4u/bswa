@@ -1,0 +1,50 @@
+.add_btn {
+    display: flex;
+    flex-direction: row-reverse;
+    float: right;
+    margin-top: -55px;
+    box-shadow: 0 3px 5px -1px rgba(255, 255, 255, 0.2),
+     0 6px 10px 0 rgba(255, 255, 255, 0.14),
+      0 1px 18px 0 rgba(255, 255, 255, 0.12);
+      color: #50b0dd;
+    
+  }
+
+  .heading{
+    color: #3285b7;
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  .head_active{
+    color: #6c757d;
+    font-weight: 600;
+
+  }
+
+  .custom-tooltip {
+    font-size: 12px !important;
+    padding: 6px 20px !important;
+    /* color: #6c757d; */
+  }
+
+  .editLink{
+    color: #052336;
+    font-size: larger;
+    cursor: pointer;
+  }
+
+  .delLink{
+    color: rgb(65, 4, 4);
+    font-size: larger;
+  }
+
+  .sub_btn{
+    color: #ffffff;
+    background: #50b0dd;
+    border: 2px solid #50b0dd;
+  }
+
+  /* .search{
+    padding-left: 51rem;
+  } */

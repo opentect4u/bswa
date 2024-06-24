@@ -1,0 +1,44 @@
+<h3 class="text-center"><b>Fee Details</b></h3>
+<p-divider type="dashed"></p-divider>
+
+<form [formGroup]="form">
+  <div class="formgrid grid mt-1">
+    <!-- <div class="field col-12 md:col-3">
+        <label for="adm_fee" class="size"
+          ><b>Admission Fee</b></label
+        >
+        <input
+          id="adm_fee"
+          type="number"
+          formControlName="adm_fee"
+          placeholder="Enter admission fee...."
+          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"readonly
+        />
+      </div> -->
+    <!-- <div class="field col-12 md:col-3">
+        <label for="one_subs" class="size"
+          ><b>Onetime Subscription Fee</b></label
+        >
+        <input
+          id="one_subs"
+          type="number"
+          formControlName="one_subs"
+          placeholder="Enter subscription fee...."
+          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" readonly
+        />
+      </div> -->
+
+    <div class="field col-12 md:col-6">
+      <label for="adm_fee" class="size">
+        <b>Admission Fee</b> : {{ form.get('adm_fee')?.value }}
+      </label>
+    </div>
+
+    <div class="field col-12 md:col-6">
+      <label for="one_subs" class="size">
+        <b>Onetime Subscription Fee</b> : {{ form.get('one_subs')?.value }}
+      </label>
+    </div>
+
+  </div>
+</form>

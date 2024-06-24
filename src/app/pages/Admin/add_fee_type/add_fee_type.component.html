@@ -1,0 +1,230 @@
+<p-card>
+  <div class="row">
+    <!-- <p-button icon="pi pi-arrow-left" styleClass="p-button-rounded" (click)="goback()"></p-button> -->
+    <h3 class="head_active">
+      <a class="heading" (click)="back()">Fees Type</a> / Add Fees Type
+    </h3>
+    <!-- <p-button label="Add Fee Type" badge="" styleClass="mr-2"><i class="pi pi-wallet"></i>&nbsp;&nbsp;</p-button> -->
+  </div>
+
+  <div class="formgrid grid mt-5">
+    <div class="field col-12 md:col-6">
+      <label for="member" style="color: black"><b>Member Type</b></label>
+      <select
+        id="member"
+        class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+        style="appearance: auto"
+        [(ngModel)]="selectedValue"
+        (change)="onDropdownChange($event)"
+        [disabled]="disable"
+      >
+        <!-- <option>Select Membership</option> -->
+
+        <option value="">Select Membership</option>
+        <option value="G"><b>General Membership</b></option>
+        <option value="L"><b>Life Membership</b></option>
+        <option value="AI"><b>Associate Membership</b></option>
+      </select>
+    </div>
+  </div>
+
+  <form [formGroup]="genForm">
+    <div *ngIf="selectedValue === 'G'">
+      <div class="formgrid grid mt-1">
+        <div class="field col-12 md:col-4">
+          <label for="effect_dt" style="color: black"
+            ><b>Effective Date</b></label
+          >
+          <input
+            id="effect_dt"
+            type="date"
+            formControlName="effect_dt"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          />
+        </div>
+        <div class="field col-12 md:col-4">
+          <label for="admissionFee" style="color: black"
+            ><b>Admission Fee</b></label
+          >
+          <input
+            id="admissionFee"
+            type="number"
+            formControlName="admissionFee"
+            placeholder="Enter admission fee...."
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          />
+        </div>
+        <div class="field col-12 md:col-4">
+          <label for="donationFee" style="color: black"
+            ><b>Donation Fee</b></label
+          >
+          <input
+            id="donationFee"
+            type="number"
+            formControlName="donationFee"
+            placeholder="Enter donation fee...."
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          />
+        </div>
+        <div class="field col-12 md:col-4">
+          <label for="subscriptionFee" style="color: black"
+            ><b>Subscription Fee</b></label
+          >
+          <input
+            id="subscriptionFee"
+            type="number"
+            formControlName="subscriptionFee"
+            placeholder="Enter subscription fee...."
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          />
+        </div>
+        <div class="field col-12 md:col-4">
+          <label for="subscriptionType" style="color: black"
+            ><b>Subscription Type</b></label
+          >
+          <select
+            id="subscriptionType"
+            formControlName="subscriptionType"
+            class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+            style="appearance: auto"
+          >
+            <option value="">Select Subscription</option>
+            <option value="M">Monthly</option>
+            <option value="Y">Yearly</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="field col-12 md:col-6">
+          <button
+            pButton
+            pRipple
+            label="Submit"
+            class="p-button sub_btn"
+            (click)="add_gen()"
+          ></button>
+          <!-- <p-button label="Submit" styleClass="p-button-raised sub_btn" (click)="add_gen()"></p-button> -->
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <form [formGroup]="lifeForm">
+    <div *ngIf="selectedValue === 'L'">
+      <div class="formgrid grid mt-1">
+        <div class="field col-12 md:col-4">
+          <label for="effect_date" style="color: black"><b>Effective Date</b></label>
+          <input
+            id="effect_date"
+            type="date"
+            formControlName="effect_date"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          />
+        </div>
+        <div class="field col-12 md:col-4">
+          <label for="sub_fee_2" style="color: black"><b>Onetime Subscription</b></label>
+          <input
+            id="sub_fee_2"
+            type="number"
+            formControlName="sub_fee_2"
+            placeholder="Enter subscription fee...."
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          />
+        </div>
+        <div class="field col-12 md:col-4">
+          <label for="sub_fee" style="color: black"><b>Yearly Subscription Fee</b></label>
+          <input
+            id="sub_fee"
+            type="number"
+            formControlName="sub_fee"
+            placeholder="Enter subscription fee...."
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          />
+        </div>
+        <!-- <div class="field col-12 md:col-3">
+          <label for="subs_type" style="color: black"
+            ><b>Subscription Type</b></label
+          >
+          <select
+            id="subs_type"
+            formControlName="subs_type" style="color: black"
+            class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+            style="appearance: auto"
+          >
+            <option value="">Select Subscription</option>
+            <option value="O">Onetime</option>
+          </select>
+        </div>       -->
+      </div>
+ 
+      <div class="col-12">
+        <div class="field col-12 md:col-6">
+          <button
+            pButton
+            pRipple
+            type="submit"
+            label="Submit"
+            class="p-button sub_btn"
+            (click)="add_life()"
+          ></button>
+        </div>
+      </div>
+    </div>
+  </form>
+ 
+
+  <form [formGroup]="assoForm">
+    <div *ngIf="selectedValue === 'AI'">
+      <div class="formgrid grid mt-1">
+        <div class="field col-12 md:col-4">
+          <label for="eff_dt" style="color: black"><b>Effective Date</b></label>
+          <input
+            id="eff_dt" formControlName="eff_dt"
+            type="date"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          />
+        </div>
+        <div class="field col-12 md:col-4">
+          <label for="subs_fee_2" style="color: black"><b>Onetime Subscription Fee</b></label>
+          <input
+            id="subs_fee_2" formControlName="subs_fee_2"
+            type="number"
+            placeholder="Enter Subscription fee...."
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          />
+        </div>
+        <div class="field col-12 md:col-4">
+          <label for="ad_fee" style="color: black"><b>Admission Fee</b></label>
+          <input
+            id="ad_fee" formControlName="ad_fee"
+            type="number"
+            placeholder="Enter admission fee...."
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          />
+        </div>
+        <!-- <div class="field col-12 md:col-3">
+          <label for="subs_ty" style="color: black"><b>Subscription Type</b></label>
+          <select
+            id="subs_ty" formControlName="subs_ty"
+            class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+            style="appearance: auto"
+          >
+          <option value="">Select Subscription</option>
+            <option value="O">Onetime</option>
+          </select>
+        </div> -->
+      </div>
+      <div class="col-12">
+        <div class="field col-12 md:col-6">
+          <button
+            pButton
+            pRipple
+            label="Submit"
+            class="p-button sub_btn"
+            (click)="add_asso()"
+          ></button>
+        </div>
+      </div>
+    </div>
+  </form>
+</p-card>

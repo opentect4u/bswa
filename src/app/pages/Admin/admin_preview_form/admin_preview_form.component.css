@@ -1,0 +1,11 @@
+.heading{
+    color: #3285b7;
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  .head_active{
+    color: #6c757d;
+    font-weight: 600;
+
+  }

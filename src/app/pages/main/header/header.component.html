@@ -1,0 +1,29 @@
+<div class="header header-custom flex">
+  <div class="flex align-items-center">
+    <button id="header_icon"
+      pButton
+      pRipple
+      (click)="onMenuToggle()"
+      type="button"
+      icon="pi pi-bars"
+      class="p-button-rounded p-button-text p-button-plain"
+    ></button>&nbsp;&nbsp;
+    <!-- <img src="assets/imgs/logo.jpg" /> -->
+    <span class="title-text"><b style="color: black;">BOKARO STEEL PEOPLE WELFARE ASSOCIATION</b></span>
+  </div>
+
+  <div class="flex-grow-1"></div>
+
+  <div class="flex">
+    <span class="user"><b style="color: black;">{{ user }}</b></span>&nbsp;
+    <button id="header_icon"
+      pButton
+      pRipple
+      (click)="headermenu.toggle($event)"
+      type="button"
+      icon="pi pi-user"
+      class="p-button-rounded p-button-text p-button-plain header_icon"
+    ></button>
+    <p-menu #headermenu [popup]="true" [model]="headerMenuItem"></p-menu>
+  </div>
+</div>

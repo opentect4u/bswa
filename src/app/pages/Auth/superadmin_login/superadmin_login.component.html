@@ -1,0 +1,43 @@
+<div class="container">
+  <!-- <div class="super_sec"> -->
+  <img src="/assets/imgs/logo.jpg" alt="Avatar" style="width: 58%;">
+  <!-- </div> -->
+
+  <div class="login">
+    <img class="logo_img" src="assets/imgs/background.png" />
+    <h4 class="text-center">SUPERADMIN LOGIN</h4>
+
+    <form [formGroup]="loginForm" (ngSubmit)="logSubmit()">
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+        <input class="p-inputgroup-addon" type="text" formControlName="uname" pInputText placeholder="Username">
+        <!-- <div *ngIf="f.uname.errors?.required  && (f.uname.dirty || f.uname.touched)" class="text-danger">
+        <small [hidden]="!f.uname.errors?.required">
+        <i>Username is required </i>  
+        </small>
+      </div> -->
+      </div>
+
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon"><i class="pi pi-lock"></i></span>
+        <input #passwordInput class="p-inputtext p-inputgroup-addon" type="password" formControlName="password"
+          placeholder="Password" />
+        <!-- <small *ngIf="f.pass.errors?.required && (f.pass.touched || f.pass.dirty)" class="text-danger">
+        <i>
+          Password is required
+        </i>  
+        </small> -->
+        <button class="p-button-icon p-button-outlined p-inputgroup-addon"
+          (click)="togglePasswordVisibility(passwordInput)">
+          <i class="pi"
+            [ngClass]="{'pi-eye': passwordInput.type === 'password', 'pi-eye-slash': passwordInput.type !== 'password'}"></i>
+        </button>
+      </div>
+
+      <p-button label="" styleClass="p-button-raised p-button-info login-btn" type="submit"
+        [disabled]="loginForm.invalid">
+        <i class="pi pi-sign-in" style="color: rgb(255, 255, 255)"></i>&nbsp;&nbsp;<b>Login</b>
+      </p-button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+
+.editLink{
+    color: #052336;
+    font-size: larger;
+    cursor: pointer;
+  }
+
+  .delLink{
+    color: rgb(65, 4, 4);
+    font-size: larger;
+  }

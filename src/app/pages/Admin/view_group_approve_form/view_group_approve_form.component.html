@@ -1,0 +1,95 @@
+<p-card>
+  <h3 class="text-center"><b>Transaction Details</b></h3>
+
+  <form [formGroup]="form">
+    <div class="flex flex-row">
+      <div class="field col-12 md:col-4">
+        <label for="form_no" class="label_field"><b>Form No:</b></label>&nbsp;
+        <input id="form_no" type="text" formControlName="form_no"
+          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          readonly />
+      </div>
+      <div class="field col-12 md:col-4">
+        <label for="trn_dt" class="label_field"><b>Transaction Date:</b></label>&nbsp;
+        <input id="trn_dt" type="date" formControlName="trn_dt"
+          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          readonly />
+      </div>
+      <div class="field col-12 md:col-4">
+        <label for="trn_id" class="label_field"><b>Transaction ID:</b></label>&nbsp;
+        <input id="trn_id" type="text" formControlName="trn_id"
+          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          readonly />
+      </div>
+    </div>
+
+    <div class="flex flex-row">
+      <div class="field col-12 md:col-4">
+        <label for="ins_period" class="label_field"><b>Insurance Period:</b></label>&nbsp;
+        <input id="ins_period" type="text" formControlName="ins_period"
+          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          readonly />
+      </div>
+      <div class="field col-12 md:col-4">
+        <label for="pre_dt" class="label_field"><b>Premium Date:</b></label>&nbsp;
+        <input id="pre_dt" type="text" formControlName="pre_dt"
+          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          readonly />
+      </div>
+    </div>
+
+    <div class="flex flex-row">
+      <div class="field col-12 md:col-4">
+        <label for="pre_amt" class="label_field"><b>Premium Amount:</b></label>&nbsp;
+        <input id="pre_amt" type="text" formControlName="pre_amt"
+          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          readonly />
+      </div>
+      <div class="field col-12 md:col-4">
+        <label for="tot_amt" class="label_field"><b>Total Amount:</b></label>&nbsp;
+        <input id="tot_amt" type="text" formControlName="tot_amt"
+          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          readonly />
+      </div>
+      <div class="field col-12 md:col-4">
+        <label for="pay_mode" class="label_field"><b>Pay Mode:</b></label>&nbsp;
+        <select id="pay_mode" formControlName="pay_mode"
+          class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+          style="appearance: auto; height: 3vw; border-radius: 7px">
+          <option value="N" select>Select Payment Mode</option>
+          <option value="C">Cash</option>
+          <option value="Q">Cheque</option>
+          <option value="O">Online Transaction</option>
+        </select>
+      </div>
+    </div>
+
+
+    <div class="flex flex-row">
+      <div class="field col-12 md:col-4">
+        <label for="chq_no" class="label_field"><b>Cheque NO:</b></label>&nbsp;
+        <input id="chq_no" type="text" formControlName="chq_no" placeholder="Enter Cheque NO"
+          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          readonly />
+      </div>
+      <div class="field col-12 md:col-4">
+        <label for="chq_dt" class="label_field"><b>Cheque Date:</b></label>&nbsp;
+        <input id="chq_dt" type="date" formControlName="chq_dt" placeholder="Enter Cheque Date"
+          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          readonly />
+      </div>
+      <div class="field col-12 md:col-4">
+        <label for="bank_nm" class="label_field"><b>Bank Name:</b></label>&nbsp;
+        <input id="bank_nm" type="text" formControlName="bank_nm" placeholder="Enter Bank Name"
+          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          readonly />
+      </div>
+    </div>
+
+
+    <div class="flex flex-row btn_space">
+      <button pButton pRipple type="button" label="APPROVE" class="p-button-success" (click)="approve()"></button>
+    </div>
+  </form>
+
+</p-card>

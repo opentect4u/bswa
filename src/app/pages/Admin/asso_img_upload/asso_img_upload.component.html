@@ -1,0 +1,20 @@
+<h3 class="text-center"><b>Image Upload</b></h3>
+<p-divider type="dashed"></p-divider>
+
+<div class="flex flex-row">
+  <div class="field col-12 md:col-6">
+    <label for="own_img" class="size"><b>Member Photograph:<span
+          class="text-red-700">(.JPG,.JPEG,.PNG)</span></b></label>&nbsp;
+    <div class="card flex justify-content-left">
+      <p-toast></p-toast>
+      <p-fileUpload name="own_file" (onSelect)="onUpload($event, 'O')" (onRemove)="onRemove($event, 'O')"
+        [customUpload]="true" [multiple]="false" accept="image/*">
+        <ng-template pTemplate="content">
+          <ul *ngIf="uploadedFiles.length">
+            <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+          </ul>
+        </ng-template>
+      </p-fileUpload>
+    </div>
+  </div>
+</div>

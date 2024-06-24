@@ -1,0 +1,10 @@
+<!-- <div class=""> -->
+<app-header (event)="listneHeader($event)"></app-header>
+<!-- </div> -->
+<div class="sidemenu" [ngClass]="classSidemenu">
+  <app-sidebar></app-sidebar>
+</div>
+<div class="content" [ngClass]="classContent">
+  <p-progressBar *ngIf="loader.isLoading | async" mode="indeterminate" [style]="{ height: '4px' }"></p-progressBar>
+  <router-outlet></router-outlet>
+</div>
