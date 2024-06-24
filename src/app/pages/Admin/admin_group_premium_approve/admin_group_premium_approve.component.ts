@@ -47,11 +47,11 @@ export class Admin_group_premium_approveComponent implements OnInit {
     })
   }
 
-  preview(formNo:any, memb_id: any) { //route to the particular restaurant on clicking on the edit option
+  preview(formNo:any, memb_id: any, pay_mode:any) { //route to the particular restaurant on clicking on the edit option
     // alert(v);
     console.log(memb_id);
     
-    this.router.navigate(['/admin/group_policy_view_form',encodeURIComponent(btoa(formNo)),encodeURIComponent(btoa(memb_id))])
+    this.router.navigate(['/admin/group_policy_view_form',encodeURIComponent(btoa(formNo)),encodeURIComponent(btoa(memb_id)),pay_mode])
   }
 
   img(formNo: any, gender: any, member: any) {

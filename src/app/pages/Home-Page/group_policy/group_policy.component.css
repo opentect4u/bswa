@@ -66,3 +66,7 @@
     display: flex;
     justify-content: center;
   }
+
+  p-card.p-element{
+    width: 85%;
+  }

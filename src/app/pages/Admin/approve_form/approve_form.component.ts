@@ -18,6 +18,7 @@ export class Approve_formComponent implements OnInit {
   trndata: any;
   userData: any;
   mem_type: any;
+  pay_mode: any;
 
   constructor(private router: Router, private fb: FormBuilder,
     private dataServe: DataService,
@@ -29,6 +30,7 @@ private messageService: MessageService) { }
     const encodedFormNo = this.route.snapshot.params['form_no'];
     // this.formNo = atob(decodeURIComponent(encodedFormNo));
     this.mem_type = this.route.snapshot.params['mem_type'];
+    this.pay_mode = this.route.snapshot.params['pay_mode'];
     this.getData();
   }
 
@@ -47,8 +49,8 @@ back(){
   this.router.navigate(['/admin/dashboard']);
 }
 
-view(form_no:any, mem_type:any){
-  this.router.navigate(['/admin/view_approve_form',encodeURIComponent(btoa(form_no)),mem_type])
+view(form_no:any, mem_type:any, pay_mode:any){
+  this.router.navigate(['/admin/view_approve_form',encodeURIComponent(btoa(form_no)),mem_type,pay_mode])
 }
 
 }

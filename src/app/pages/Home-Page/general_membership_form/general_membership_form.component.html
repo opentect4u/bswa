@@ -1,14 +1,14 @@
-<div class="banner_sec">
+<div class="background">
   <div class="form-container">
     <p-card>
       <!-- <p-steps [model]="items" [readonly]="false"></p-steps> -->
       <p-steps [model]="items" [(activeIndex)]="activeIndex"></p-steps>
       <p-divider type="dashed"></p-divider>
-  
+
       <ng-container *ngIf="activeIndex === 0">
         <h3 class="text-center"><b>Personal Information</b></h3>
         <p-divider type="dashed"></p-divider>
-  
+
         <form [formGroup]="form">
           <div class="flex flex-row">
             <div class="field col-12 md:col-4">
@@ -31,7 +31,8 @@
               </div>
             </div>
             <div class="field col-12 md:col-4">
-              <label for="unit_nm" class="label_field"><b>Unit Name:<span class="text-red-700">*</span></b></label>&nbsp;
+              <label for="unit_nm" class="label_field"><b>Unit Name:<span
+                    class="text-red-700">*</span></b></label>&nbsp;
               <select id="unit_nm" formControlName="unit_nm"
                 class="w-full text-base text-color surface-overlay p-2 border-2 border-solid surface-border border-round outline-none focus:border-primary"
                 style="appearance: auto; height: 3vw; border-radius: 7px">
@@ -53,10 +54,11 @@
               </div>
             </div>
           </div>
-  
+
           <div class="flex flex-row">
             <div class="field col-12 md:col-4">
-              <label for="member" class="label_field"><b>Member Name:<span class="text-red-700">*</span></b></label>&nbsp;
+              <label for="member" class="label_field"><b>Member Name:<span
+                    class="text-red-700">*</span></b></label>&nbsp;
               <input id="member" type="text" formControlName="member" placeholder="Enter Member name"
                 class="box_input text-base text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
               <div *ngIf="f['member']?.touched || f['member']?.dirty">
@@ -86,7 +88,7 @@
               </div>
             </div>
           </div>
-  
+
           <div class="flex flex-row">
             <div class="field col-12 md:col-4">
               <label for="marital_status" class="label_field"><b>Marital Status:</b></label>&nbsp;
@@ -118,7 +120,7 @@
               </div>
             </div>
           </div>
-  
+
           <div class="flex flex-row">
             <div class="field col-12 md:col-4">
               <label for="email_id" class="label_field"><b>Email ID:</b></label>&nbsp;
@@ -126,7 +128,8 @@
                 class="box_input text-base text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
             </div>
             <div class="field col-12 md:col-4">
-              <label for="blood" class="label_field"><b>Blood Group:<span class="text-red-700">*</span></b></label>&nbsp;
+              <label for="blood" class="label_field"><b>Blood Group:<span
+                    class="text-red-700">*</span></b></label>&nbsp;
               <select id="blood" formControlName="blood"
                 class="w-full text-base text-color surface-overlay p-2 border-2 border-solid surface-border border-round outline-none focus:border-primary"
                 style="appearance: auto; height: 3vw; border-radius: 7px">
@@ -157,7 +160,7 @@
               </select>
             </div>
           </div>
-  
+
           <div class="flex flex-row">
             <div class="field col-12 md:col-4">
               <label for="staff" class="label_field"><b>Staff No:<span class="text-red-700">*</span></b></label>&nbsp;
@@ -182,14 +185,15 @@
                 class="box_input text-base text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
             </div>
           </div>
-  
+
           <p-divider type="dashed"></p-divider>
           <h3 class="text-center"><b>Resedential Information</b></h3>
           <p-divider type="dashed"></p-divider>
-  
+
           <div class="flex flex-row">
             <div class="field col-12">
-              <label for="mem" class="label_field"><b>Member Address:<span class="text-red-700">*</span></b></label>&nbsp;
+              <label for="mem" class="label_field"><b>Member Address:<span
+                    class="text-red-700">*</span></b></label>&nbsp;
               <textarea id="mem" formControlName="mem" type="text" rows="4"
                 class="text-base text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
               <div *ngIf="f['mem']?.touched || f['mem']?.dirty">
@@ -197,7 +201,7 @@
               </div>
             </div>
           </div>
-  
+
           <div class="flex flex-row">
             <div class="field col-12 md:col-4">
               <label for="city" class="label_field"><b>City / Town / District:</b></label>&nbsp;
@@ -219,12 +223,12 @@
             </div>
           </div>
         </form>
-  
+
         <button pButton pRipple type="button" label="Next" class="p-button-raised sub_btn" (click)="next()"
           [disabled]="!form.valid"></button>
-  
+
       </ng-container>
-  
+
       <ng-container *ngIf="activeIndex === 1">
         <app-spouse_info [form]="form_1"></app-spouse_info>
         <div class="field col-12 md:col-6">
@@ -234,7 +238,7 @@
             [disabled]="!form_1.valid"></button>
         </div>
       </ng-container>
-  
+
       <ng-container *ngIf="activeIndex === 2">
         <app-gen_dep_form [form]="form_2"></app-gen_dep_form>
         <div class="field col-12 md:col-6">
@@ -242,10 +246,10 @@
             (click)="previous()"></button>&nbsp;
           <button pButton pRipple type="button" label="Next" class="p-button-raised sub_btn" (click)="next()"
             [disabled]="!form_2.valid"></button>
-  
+
         </div>
       </ng-container>
-  
+
       <ng-container *ngIf="activeIndex === 3">
         <app-gen_img_upload (fileSelected)="onFileSelected($event)"></app-gen_img_upload>
         <div class="field col-12 md:col-6">
@@ -254,7 +258,7 @@
           <button pButton pRipple type="button" label="Next" class="p-button-raised sub_btn" (click)="next()"></button>
         </div>
       </ng-container>
-  
+
       <ng-container *ngIf="activeIndex === 4">
         <app-gen_fee_form [form]="form_4"></app-gen_fee_form>
         <div class="field col-12 md:col-6">
@@ -264,7 +268,7 @@
             (click)="successNotification()"></button>
         </div>
       </ng-container>
-  
+
     </p-card>
   </div>
 </div>

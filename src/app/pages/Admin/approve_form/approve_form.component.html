@@ -20,18 +20,20 @@
       <ng-template pTemplate="header">
         <tr>
           <th style="width: 1px" id="table_color">Form No</th>
-          <th style="width: 1px" id="table_color">Transaction Date</th>
-          <th style="width: 1px" id="table_color">Transaction ID</th>
+          <th style="width: 1px" id="table_color">Member Name</th>
+          <!-- <th style="width: 1px" id="table_color">Transaction ID</th> -->
           <th style="width: 1px" id="table_color">View</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-customer>
         <tr>
           <td class="text-center"><b>{{ customer.form_no }}</b></td>
-          <td class="text-center"><b>{{ customer.trn_dt | date: 'dd/MM/yyyy' }}</b></td>
-          <td class="text-center"><b>{{ customer.trn_id }}</b></td>
+          <!-- <td class="text-center"><b>{{ customer.trn_dt | date: 'dd/MM/yyyy' }}</b></td>
+          <td class="text-center"><b>{{ customer.trn_id }}</b></td> -->
+          <td class="text-center"><b>{{ customer.memb_name }}</b></td>
           <td class="text-center"><b><a pTooltip="View" tooltipPosition="bottom"
-                (click)="view(customer.form_no,customer.mem_type)"><i class="pi pi-eye editLink"></i></a></b>
+                (click)="view(customer.form_no,customer.mem_type,customer.pay_mode)"><i
+                  class="pi pi-eye editLink"></i></a></b>
           </td>
         </tr>
       </ng-template>

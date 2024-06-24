@@ -18,6 +18,7 @@ export class View_group_approve_formComponent implements OnInit {
   encodedFormNo: any;
   mem_type: any;
   selectedValue: string = 'P';
+  pay_mode: any;
   
   constructor(private router: Router,
     private fb: FormBuilder, private route: ActivatedRoute,
@@ -34,6 +35,10 @@ export class View_group_approve_formComponent implements OnInit {
         bank_nm: [''],
         ins_period: [''],
         pre_dt: [''],
+        memb_name: [''],
+        unit_name: [''],
+        resolution_dt: [''],
+        resolution_no: ['']
       });
      }
 
@@ -42,6 +47,7 @@ export class View_group_approve_formComponent implements OnInit {
     this.encodedFormNo = this.route.snapshot.params['form_no'];
     // this.flag=  this.route.snapshot.params['flag'];
     this.mem_type = this.route.snapshot.params['mem_type'];
+    this.pay_mode = this.route.snapshot.params['pay_mode'];
   }
 
   getData () {
@@ -55,14 +61,18 @@ export class View_group_approve_formComponent implements OnInit {
         form_no: this.userData[0]?.form_no,
         trn_dt: this.datePipe.transform(this.userData[0].trn_dt, 'yyyy-MM-dd'),
         trn_id: this.userData[0].trn_id,
+        memb_name: this.userData[0].memb_name,
+        unit_name: this.userData[0].unit_name,
         pre_amt: this.userData[0].premium_amt,
         tot_amt: this.userData[0].premium_amt,
-        pay_mode: this.userData[0].pay_mode,
+        pay_mode: this.userData[0].pay_mode=='C' ? 'Cash' : this.userData[0].pay_mode=='Q' ? 'Cheque' : 'Online Transaction',
         chq_no: this.userData[0].chq_no,
         chq_dt: this.datePipe.transform(this.userData[0].chq_dt, 'yyyy-MM-dd'),
         bank_nm: this.userData[0].chq_bank,
         ins_period: this.userData[0].ins_period=='Q' ? 'Quaterly' : this.userData[0].ins_period=='H' ? 'Half- Yearly' : 'Yearly',
         pre_dt: this.datePipe.transform(this.userData[0].premium_dt, 'yyyy-MM-dd'),
+        resolution_dt: this.datePipe.transform(this.userData[0].resolution_dt, 'yyyy-MM-dd'),
+        resolution_no: this.userData[0].resolution_no,
       })
   })
 }

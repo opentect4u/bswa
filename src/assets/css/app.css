@@ -114,15 +114,19 @@ header_top_right ul.nav_sec li a{background: #a258d9; color: #fff; font-size: 15
 .header_top_right ul.nav_sec li:last-child a{background: #4687db; color: #fff; font-size: 15px; border-radius: 25px; padding: 8px 15px;} */
 
 
-.header_top_right ul.nav_sec li a{background: #58d98d; color: #fff; font-size: 15px; border-radius: 25px; padding: 8px 15px;}
+.header_top_right ul.nav_sec li a{background: #58d98d; color: #fff; font-size: 15px; border-radius: 25px; padding: 8px 15px;box-shadow: 0px 4px 4px 0px #646464;}
 
 .header_top_right ul.nav_sec li:first a{background: #a258d9; color: #fff; font-size: 15px; border-radius: 25px; padding: 8px 15px;}
 
-.header_top_right ul.nav_sec li:first-child a{background: #e63030; color: #fff; font-size: 15px; border-radius: 25px; padding: 8px 15px;}
+.header_top_right ul.nav_sec li:first-child a{background: #e63030; color: #fff; font-size: 15px; border-radius: 25px; padding: 8px 15px;box-shadow: 0px 4px 4px 0px #646464;}
 
-.header_top_right ul.nav_sec li:last-child a{background: #4687db; color: #fff; font-size: 15px; border-radius: 25px; padding: 8px 15px;}
+.header_top_right ul.nav_sec li:last-child a{background: #4687db; color: #fff; font-size: 15px; border-radius: 25px; padding: 8px 15px;box-shadow: 0px 4px 4px 0px #646464;}
 
+.background_sec{background-color:#f1f5fa; background-size: cover; min-height: 550px; padding: 15px;
+	display: flex; align-items: center;}
 
+.background{background-color:#fff; background-size: cover; min-height: 550px; padding: 15px;
+    display: flex; align-items: center;}
 
 .banner_sec{background: url("../images/banner.jpg") no-repeat center center; background-size: cover; min-height: 550px; padding: 15px;
 	display: flex; align-items: center;}

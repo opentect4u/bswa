@@ -163,7 +163,7 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'view_approve_form/:form_no/:mem_type',
+        path: 'view_approve_form/:form_no/:mem_type/:pay_mode',
         loadChildren: () =>
           import('../Admin/view_approve_form/view_approve_form.module').then(
             (m) => m.View_approve_formModule
@@ -226,7 +226,7 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'group_policy_view_form/:form_no/:member_id',
+        path: 'group_policy_view_form/:form_no/:member_id/:pay_mode',
         loadChildren: () =>
           import('../Admin/group_policy_view_form/group_policy_view_form.module').then(
             (m) => m.Group_policy_view_formModule

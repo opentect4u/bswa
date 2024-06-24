@@ -46,7 +46,8 @@
           <!-- <td class="text-center"><b>{{ customer.memb_name }}</b></td> -->
           <td class="text-center"><b>{{ customer.memb_name }}</b></td>
           <td class="text-center"><b><a pTooltip="View" tooltipPosition="bottom"
-                (click)="preview(customer.form_no, customer.member_id)"><i class="pi pi-eye editLink"></i></a></b>
+                (click)="preview(customer.form_no, customer.member_id,customer.pay_mode)"><i
+                  class="pi pi-eye editLink"></i></a></b>
           </td>
         </tr>
       </ng-template>
