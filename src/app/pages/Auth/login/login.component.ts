@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
           'user_id',
           this.getLoginData.msg.userdata[0].user_id
         );
-        this.router.navigate(['admin/dashboard']).catch((data) => {
+        this.router.navigate(['admin/admin_approve']).catch((data) => {
           this.messageService.add({
             severity: 'success',
             summary: 'Success',

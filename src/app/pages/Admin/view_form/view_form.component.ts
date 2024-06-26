@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { DataService } from 'src/app/service/data.service';
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { environment } from 'src/environments/environment';
+// import { multipleOfTwentyValidator } from '../../Admin/view_form/view_form.module'
+// import { multipleOfTwentyValidator } from './view_form.module';
 
 // import { allowedValuesValidator } from './validators/allowed-values.validator';
 
@@ -71,7 +73,12 @@ export class View_formComponent implements OnInit {
   membInfo: any;
   spouseInfo: any;
   dependInfo: any;
-
+  subs_type: any;
+  tot_amt: any;
+  receipt_no: any;
+  memb_status: any;
+  remarks: any;
+  responsedata_subs: any;
   // dept_dt: any;
 
   constructor(private router: Router,
@@ -85,7 +92,8 @@ export class View_formComponent implements OnInit {
         payment: [''],
         admissionFee: [''],
         donationFee: [''],
-        subscriptionFee: [''],
+        // subscriptionFee: [''],
+        subscriptionFee: ['', [Validators.required]],
         subscriptionType: [''],
         cheque_no: ['',Validators.required],
         bank_name: ['',Validators.required],
@@ -98,11 +106,66 @@ export class View_formComponent implements OnInit {
         donationFee_associate: [''],
         subscriptionFee_associate_one: [''],
         subscriptionFee_associate: [''],
+        totalAmount: [{ value: 0, disabled: true }],
+        tot_amt: [''],
+        receipt_no: [''],
+        totalAmount_life: [{ value: 0, disabled: true }],
+        totalAmount_associate: [{ value: 0, disabled: true }],
       });
+
+      this.calculateTotal();
+      this.form.valueChanges.subscribe(() => this.calculateTotal());
+
+      this.calculateTotal_life();
+      this.form.valueChanges.subscribe(() => this.calculateTotal_life());
+
+      this.calculateTotal_associate();
+      this.form.valueChanges.subscribe(() => this.calculateTotal_associate());
+
+    }
+
+   
+
+    calculateTotal(): void {
+      const admissionFee = +this.form.get('admissionFee')?.value || 0;
+      const donationFee = +this.form.get('donationFee')?.value || 0;
+      const subscriptionFee = +this.form.get('subscriptionFee')?.value || 0;
+  
+      const total = admissionFee + donationFee + subscriptionFee;
+      this.form.get('totalAmount')?.setValue(total, { emitEvent: false });
+    }
+
+    calculateTotal_life(): void {
+      const admissionFee_life = +this.form.get('admissionFee_life')?.value || 0;
+      const donationFee_life = +this.form.get('donationFee_life')?.value || 0;
+      const subscriptionFee_1 = +this.form.get('subscriptionFee_1')?.value || 0;
+      const subscriptionFee_2 = +this.form.get('subscriptionFee_2')?.value || 0;
+  
+      const total = admissionFee_life + donationFee_life + subscriptionFee_1+subscriptionFee_2;
+      this.form.get('totalAmount_life')?.setValue(total, { emitEvent: false });
+    }
+
+    calculateTotal_associate(): void {
+      const admissionFee_associate = +this.form.get('admissionFee_associate')?.value || 0;
+      const donationFee_associate = +this.form.get('donationFee_associate')?.value || 0;
+      const subscriptionFee_associate_one = +this.form.get('subscriptionFee_associate_one')?.value || 0;
+      const subscriptionFee_associate = +this.form.get('subscriptionFee_associate')?.value || 0;
+  
+      const total = admissionFee_associate + donationFee_associate + subscriptionFee_associate_one+subscriptionFee_associate;
+      this.form.get('totalAmount_associate')?.setValue(total, { emitEvent: false });
     }
 
     get f() {
       return this.form.controls;
+    }
+
+    number_validation(event: Event): void {
+      const input = event.target as HTMLInputElement;
+      if (!/^\d+$/.test(input.value)) {
+        input.setCustomValidity('Please enter a valid number');
+      } else {
+        input.setCustomValidity('');
+      }
     }
 
     ngOnInit() {
@@ -133,13 +196,18 @@ export class View_formComponent implements OnInit {
               this.email_id = this.responsedata[0].email_id;
               this.min_no = this.responsedata[0].min_no;
               this.resolution_no = this.responsedata[0].resolution_no;
+              this.resolution_dt = this.responsedata[0].resolution_dt;
               this.subscription_1 = this.responsedata[0].subscription_1;
               this.subscription_2 = this.responsedata[0].subscription_2;
               this.adm_fee = this.responsedata[0].adm_fee;
               this.donation = this.responsedata[0].donation;
               this.memb_pic = this.responsedata[0].memb_pic;
+              this.subs_type = this.responsedata[0].subs_type;
+              this.memb_status = this.responsedata[0].memb_status;
+              this.remarks = this.responsedata[0].remarks;
 
               this.fee_data_get(this.responsedata[0].mem_type)
+              this.subscription_fee()
           });
   
       this.dataServe.global_service(0, '/get_dependent_dtls',`form_no=${this.form_no}` )
@@ -151,6 +219,15 @@ export class View_formComponent implements OnInit {
               this.spou_min = this.resdata.spouse_dt;
               this.dep_dt = this.resdata.dep_dt;
           });  
+
+          this.dataServe.global_service(0, '/get_total_amount',`form_no=${this.form_no}` )
+          .subscribe((total_dt: any) => {
+            this.resdata = total_dt;
+            console.log(this.resdata, '777');
+            this.resdata =
+            this.resdata.suc > 0 ? this.resdata.msg : [];
+              this.tot_amt = this.resdata[0].tot_amt;
+          }); 
   
       // this.dataServe.global_service(0, '/get_dependent_dtls',`form_no=${this.form_no}` )
       //     .subscribe((dep_dt: any) => {
@@ -245,6 +322,8 @@ export class View_formComponent implements OnInit {
         donationFee: this.f['donationFee'] ? this.f['donationFee'].value : null,
         subscriptionFee:  this.f['subscriptionFee'] ? this.f['subscriptionFee'].value : null,
         subscriptionType: this.f['subscriptionType'] ? this.f['subscriptionType'].value : null,
+        totalAmount: this.f['totalAmount'] ? this.f['totalAmount'].value : null,
+        receipt_no: this.f['receipt_no'] ? this.f['receipt_no'].value : null,
         // admissionFee_life:  this.f['admissionFee_life'] ? this.f['admissionFee_life'].value : null,
         // donationFee_life:  this.f['donationFee_life'] ? this.f['donationFee_life'].value : null,
         // subscriptionFee_2:  this.f['subscriptionFee_2'] ? this.f['subscriptionFee_2'].value : null,
@@ -273,7 +352,8 @@ export class View_formComponent implements OnInit {
         donationFee_life:  this.f['donationFee_life'] ? this.f['donationFee_life'].value : null,
         subscriptionFee_2:  this.f['subscriptionFee_2'] ? this.f['subscriptionFee_2'].value : null,
         subscriptionFee_1:  this.f['subscriptionFee_1'] ? this.f['subscriptionFee_1'].value : null,
-
+        totalAmount_life: this.f['totalAmount_life'] ? this.f['totalAmount_life'].value : null,
+        receipt_no: this.f['receipt_no'] ? this.f['receipt_no'].value : null,
       }
 
       this.dataServe.global_service(1, '/payment_accept_life',dt ).subscribe((data: any) => {
@@ -297,7 +377,8 @@ export class View_formComponent implements OnInit {
         donationFee_associate:  this.f['donationFee_associate'] ? this.f['donationFee_associate'].value : null,
         subscriptionFee_associate_one:  this.f['subscriptionFee_associate_one'] ? this.f['subscriptionFee_associate_one'].value : null,
         subscriptionFee_associate:  this.f['subscriptionFee_associate'] ? this.f['subscriptionFee_associate'].value : null,
-
+        totalAmount_associate: this.f['totalAmount_associate'] ? this.f['totalAmount_associate'].value : null,
+        receipt_no: this.f['receipt_no'] ? this.f['receipt_no'].value : null,
       }
 
       this.dataServe.global_service(1, '/payment_accept_associate',dt ).subscribe((data: any) => {
@@ -324,6 +405,7 @@ export class View_formComponent implements OnInit {
         cheque_dt: this.f['cheque_dt'] ? this.f['cheque_dt'].value : null,
         cheque_no: this.f['cheque_no'] ? this.f['cheque_no'].value : null,
         bank_name: this.f['bank_name'] ? this.f['bank_name'].value : null,
+        totalAmount: this.f['totalAmount'] ? this.f['totalAmount'].value : null,
       }
 
       this.dataServe.global_service(1, '/payment_accept_cheque',dt ).subscribe((data: any) => {
@@ -350,6 +432,7 @@ export class View_formComponent implements OnInit {
         cheque_dt: this.f['cheque_dt'] ? this.f['cheque_dt'].value : null,
         cheque_no: this.f['cheque_no'] ? this.f['cheque_no'].value : null,
         bank_name: this.f['bank_name'] ? this.f['bank_name'].value : null,
+        totalAmount_life: this.f['totalAmount_life'] ? this.f['totalAmount_life'].value : null,
       }
 
       this.dataServe.global_service(1, '/payment_accept_cheque_life',dt ).subscribe((data: any) => {
@@ -376,6 +459,7 @@ export class View_formComponent implements OnInit {
         cheque_dt: this.f['cheque_dt'] ? this.f['cheque_dt'].value : null,
         cheque_no: this.f['cheque_no'] ? this.f['cheque_no'].value : null,
         bank_name: this.f['bank_name'] ? this.f['bank_name'].value : null,
+        totalAmount_associate: this.f['totalAmount_associate'] ? this.f['totalAmount_associate'].value : null,
       }
 
       this.dataServe.global_service(1, '/payment_accept_cheque_associate',dt ).subscribe((data: any) => {
@@ -387,12 +471,12 @@ export class View_formComponent implements OnInit {
       });   
     }
 
-    number_validation(subscriptionFee:any) {
-      console.log(subscriptionFee);
+    // number_validation(subscriptionFee:any) {
+    //   console.log(subscriptionFee);
       
-      return subscriptionFee.target.value % 20 == 0 ? true : false
+    //   return subscriptionFee.target.value % 20 == 0 ? true : false
       
-    }
+    // }
 
     showLifeFee(): boolean{
       return this.form.controls['status'].value === 'T' && this.mem_type === 'L';
@@ -420,7 +504,7 @@ export class View_formComponent implements OnInit {
               this.form.patchValue({
                 admissionFee: this.resdata2[0].adm_fee,
                 donationFee: this.resdata2[0].donation,
-                subscriptionFee: this.resdata2[0].subscription_1,
+                // subscriptionFee: this.resdata2[0].subscription_1,
                 subscriptionType: this.resdata2[0].subs_type,
                 admissionFee_life: this.resdata2[0].adm_fee,
                 donationFee_life: this.resdata2[0].donation,
@@ -433,6 +517,42 @@ export class View_formComponent implements OnInit {
               })
           });    
     }
+
+
+
+    subscription_fee(){
+      this.dataServe.global_service(0, '/master/subscription_fee_dynamic', `memb_type=G`).subscribe((data:any) => {
+        this.responsedata_subs = data
+        console.log(this.responsedata_subs,'ooo');
+        this.responsedata_subs = this.responsedata_subs.suc > 0 ? this.responsedata_subs.msg : []
+        this.form.patchValue({
+          subscriptionFee: this.responsedata_subs[0].subscription_1
+        })
+        this.form.get('subscriptionFee')?.setValidators([Validators.required, this.calculateSubsFee()])
+        this.form.get('subscriptionFee')?.updateValueAndValidity();
+        console.log(this.responsedata_subs[0].subscription_1, 'qwqwqw')
+        })
+    }
+
+    calculateSubsFee() : ValidatorFn{
+      return (control: AbstractControl) : ValidationErrors | null => {
+        const value = control.value
+        console.log(value, 'lalalala');
+        
+        let sub_fee = this.responsedata_subs[0].subscription_1
+        if(value % sub_fee !== 0){
+          return {notDivisibleByTwo: {value: value}}
+        }
+        return null
+      }
+    }
+
+    // export function multipleOfTwentyValidator(): ValidatorFn {
+//   return (control: AbstractControl): { [key: string]: any } | null => {
+//     const isValid = control.value % 20 === 0;
+//     return isValid ? null : { notMultipleOfTwenty: { value: control.value } };
+//   };
+// }
 }
 
 

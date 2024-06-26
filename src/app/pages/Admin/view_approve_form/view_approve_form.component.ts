@@ -20,6 +20,7 @@ export class View_approve_formComponent implements OnInit {
   mem_type: any;
   trn_id: any = 0;
   pay_mode: any;
+  fromNo: any
 
   constructor(private router: Router,
     private fb: FormBuilder, private route: ActivatedRoute,
@@ -50,16 +51,19 @@ export class View_approve_formComponent implements OnInit {
      }
 
   ngOnInit() {
-    this.getData();
-    this.encodedFormNo = this.route.snapshot.params['form_no'];
+    const encodedFormNo = this.route.snapshot.params['form_no'];
+    this.fromNo = atob(decodeURIComponent(encodedFormNo));
+    console.log(this.fromNo,'form');
+    
     // this.flag=  this.route.snapshot.params['flag'];
     this.mem_type = this.route.snapshot.params['mem_type'];
     this.pay_mode = this.route.snapshot.params['pay_mode'];
+    this.getData();
   }
  
 
   getData () {
-    this.dataServe.global_service(0,'/transaction_dt',null).subscribe(data => {
+    this.dataServe.global_service(0,'/transaction_dt',`form_no=${this.fromNo}`).subscribe(data => {
       console.log(data)
       this.userData = data;
       this.userData =
@@ -98,7 +102,7 @@ get f() {
 approve (){
   var dt = {
     flag: this.mem_type,
-    formNo: atob(decodeURIComponent(this.encodedFormNo)),
+    formNo: this.fromNo,
     trn_dt:  this.f['trn_dt'] ? this.f['trn_dt'].value : null,
     trn_id: this.f['trn_id'] ? this.f['trn_id'].value : null,
     sub_amt:  this.f['sub_amt'] ? this.f['sub_amt'].value : null,

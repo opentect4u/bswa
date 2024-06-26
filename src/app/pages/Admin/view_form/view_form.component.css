@@ -50,3 +50,20 @@ p-button.p-element, .print_btn {
     color: rgb(150, 134, 134);
 }
 
+/* .custom-badge {
+    position: relative;
+    display: inline-block;
+  } */
+  
+  .custom-badge .p-badge {
+    position: absolute;
+    top: -10px; /* Adjust these values to position the badge */
+    right: -10px;
+    background-color: rgb(144, 177, 214); /* Customize badge color */
+    color: white; /* Customize badge text color */
+    border-radius: 50%;
+    padding: 5px;
+    font-size: 12px;
+  }
+  
+

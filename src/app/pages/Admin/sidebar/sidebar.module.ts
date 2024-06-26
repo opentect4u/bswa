@@ -15,7 +15,7 @@ import { DividerModule } from 'primeng/divider';
     PanelMenuModule,
     SideModule,
     ScrollerModule,
-    DividerModule
+    DividerModule,
   ],
   declarations: [SidebarComponent]
 })

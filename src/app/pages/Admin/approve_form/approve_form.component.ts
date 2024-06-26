@@ -50,6 +50,8 @@ back(){
 }
 
 view(form_no:any, mem_type:any, pay_mode:any){
+  console.log(form_no,'no');
+  
   this.router.navigate(['/admin/view_approve_form',encodeURIComponent(btoa(form_no)),mem_type,pay_mode])
 }
 

@@ -35,6 +35,10 @@
 </style>
 
 <p-card id="divToPrint">
+  <!-- <span class="custom-badge" pTooltip="Back" tooltipPosition="top">
+    <i class="pi pi-arrow-left" aria-hidden="true" style="cursor: pointer;"></i>
+  </span> -->
+
   <div *ngIf="mem_type === 'G'">
     <div class="row">
       <div class="col-md-6">
@@ -597,19 +601,36 @@
       <div class="row mt-3">
         <div class="col-12">
           <h4 class="letter color">FOR OFFICE USE ONLY</h4><br>
-          <h4 class="letter" style="color: black;float: left;">Membership Accepted / Rejected vide Resolution No. <span
-              class="span_space">{{resolution_no}}</span></h4>
-          <br>
-          <h4 class="letter space">Dated :</h4><br>
-          <h4 class="letter" style="color: black;">Type of Membership : <span class="span_space">{{mem_type=='G' ?
-              'General Membership' : mem_type=='L' ? 'Life Membership' :
-              'Associate
-              Membership'}}</span></h4>
-          <h4 class="letter" style="color: black;">Amount to be deposited <span
-              class="span_space">{{subscription_1}}</span></h4>
-          <h4 class="letter" style="color: black;">1) Admission Fee : <span class="span_space">{{adm_fee}}</span></h4>
-          <h4 class="letter" style="color: black;">2) Donation/ subscription : <span
-              class="span_space">{{donation}}</span></h4>
+          <div class="col-6">
+            <h4 class="letter" style="color: black;float: left;">Membership {{memb_status== 'R' ? 'Rejected' :
+              ''}} vide Resolution No. <span class="span_space">{{resolution_no}}</span></h4>
+            <br>
+          </div>
+          <div class="col-6">
+            <h4 class="letter" style="color: black;">Dated : <span class="span_space">{{resolution_dt
+                | date:
+                'yyyy-MM-dd'}}</span>
+            </h4><br>
+          </div>
+
+          <div *ngIf="memb_status=='T'">
+            <h4 class="letter" style="color: black;">Type of Membership : <span class="span_space">{{mem_type=='G' ?
+                'General Membership' : mem_type=='L' ? 'Life Membership' :
+                'Associate
+                Membership'}}</span></h4>
+            <h4 class="letter" style="color: black;">Mebership Subscription Fee <span
+                class="span_space">{{subscription_1}}/- ({{subs_type== 'M' ? 'Monthly' : 'Yearly'}})</span></h4>
+            <h4 class="letter" style="color: black;">1) Admission Fee : <span class="span_space">{{adm_fee}}</span></h4>
+            <h4 class="letter" style="color: black;">2) Donation/ subscription : <span
+                class="span_space">{{donation}}</span></h4>
+            <h4 class="letter" style="color: black;">3) Total Amount to be deposited : <span
+                class="span_space">{{tot_amt}}</span>
+            </h4>
+          </div>
+          <div *ngIf="memb_status=='R'">
+            <h4 class="letter" style="color: black;">Reason : <span class="span_space">{{remarks}}</span>
+            </h4>
+          </div>
           <h4 class="letter" style="color: black;margin-left: 60vw;">Secretary / President</h4>
         </div>
       </div>
@@ -619,20 +640,41 @@
       <div class="row mt-3">
         <div class="col-12">
           <h4 class="letter color">FOR OFFICE USE ONLY</h4><br>
-          <h4 class="letter" style="color: black;float: left;">Membership Accepted / Rejected vide Resolution No. <span
-              class="span_space">{{resolution_no}}</span></h4>
-          <br>
-          <h4 class="letter space">Dated :</h4><br>
-          <h4 class="letter" style="color: black;">Type of Membership : <span class="span_space">{{mem_type=='G' ?
-              'General Membership' : mem_type=='L' ? 'Life Membership' :
-              'Associate
-              Membership'}}</span></h4>
-          <h4 class="letter" style="color: black;">Amount to be deposited <span
+          <div class="col-6">
+            <h4 class="letter" style="color: black;float: left;">Membership {{memb_status== 'R' ? 'Rejected' :
+              ''}} vide Resolution No. <span class="span_space">{{resolution_no}}</span></h4>
+            <br>
+          </div>
+          <div class="col-6">
+            <h4 class="letter" style="color: black">Dated : <span class="span_space">{{resolution_dt
+                |
+                date:
+                'yyyy-MM-dd'}}</span>
+            </h4><br>
+          </div>
+
+          <div *ngIf="memb_status=='T'">
+            <h4 class="letter" style="color: black;">Type of Membership : <span class="span_space">{{mem_type=='G' ?
+                'General Membership' : mem_type=='L' ? 'Life Membership' :
+                'Associate
+                Membership'}}</span></h4>
+            <!-- <h4 class="letter" style="color: black;">Amount to be deposited <span
               class="span_space">{{subscription_2}}(Yearly) And
-              {{subscription_1}}(Monthly)</span></h4>
-          <h4 class="letter" style="color: black;">1) Admission Fee : <span class="span_space">{{adm_fee}}</span></h4>
-          <h4 class="letter" style="color: black;">2) Donation/ subscription : <span
-              class="span_space">{{donation}}</span></h4>
+              {{subscription_1}}(Monthly)</span></h4> -->
+            <h4 class="letter" style="color: black;">Mebership Subscription Fee <span
+                class="span_space">{{subscription_2}}(Yearly) And
+                {{subscription_1}}(Monthly)</span></h4>
+            <h4 class="letter" style="color: black;">1) Admission Fee : <span class="span_space">{{adm_fee}}</span></h4>
+            <h4 class="letter" style="color: black;">2) Donation/ subscription : <span
+                class="span_space">{{donation}}</span></h4>
+            <h4 class="letter" style="color: black;">3) Total Amount to be deposited : <span
+                class="span_space">{{tot_amt}}</span>
+            </h4>
+          </div>
+          <div *ngIf="memb_status=='R'">
+            <h4 class="letter" style="color: black;">Reason : <span class="span_space">{{remarks}}</span>
+            </h4>
+          </div>
           <h4 class="letter" style="color: black;margin-left: 60vw;">Secretary / President</h4>
         </div>
       </div>
@@ -642,10 +684,28 @@
       <div class="row mt-3">
         <div class="col-12">
           <h4 class="letter color">FOR OFFICE USE ONLY</h4><br>
-          <h4 class="letter" style="color: black;float: left;">Associate Membership Accepted / Rejected vide Resolution
-            No. <span class="span_space">{{resolution_no}}</span></h4>
+          <div class="col-6">
+            <h4 class="letter" style="color: black;float: left;">Associate Membership {{memb_status== 'R' ? 'Rejected' :
+              ''}} vide Resolution
+              No. <span class="span_space">{{resolution_no}}</span></h4>
+          </div>
           <br>
-          <h4 class="letter space">Dated :</h4><br>
+          <div class="col-6">
+            <h4 class="letter" style="color: black;">Dated : <span class="span_space"> {{resolution_dt
+                |
+                date:
+                'yyyy-MM-dd'}}</span>
+            </h4><br>
+          </div>
+          <div *ngIf="memb_status=='T'">
+            <h4 class="letter" style="color: black;">Total Amount to be deposited : <span
+                class="span_space">{{tot_amt}}</span>
+            </h4>
+          </div>
+          <div *ngIf="memb_status=='R'">
+            <h4 class="letter" style="color: black;">Reason : <span class="span_space">{{remarks}}</span>
+            </h4>
+          </div>
           <h4 class="letter" style="color: black;margin-left: 60vw;">Secretary / President</h4>
         </div>
       </div>
@@ -695,25 +755,46 @@
     <div *ngIf="showGenFee()">
       <h4 class="text-center" style="color: black;">Fee Details</h4>
       <div class="formgrid grid mt-1">
-        <div class="field col-12 md:col-3">
+        <div class="field col-12 md:col-4">
           <label for="admissionFee" style="color: black"><b>Admission Fee</b></label>
           <input id="admissionFee" type="number" formControlName="admissionFee" placeholder="Enter admission fee...."
             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
             readonly />
         </div>
-        <div class="field col-12 md:col-3">
+        <div class="field col-12 md:col-4">
           <label for="donationFee" style="color: black"><b>Donation Fee</b></label>
           <input id="donationFee" type="number" formControlName="donationFee" placeholder="Enter donation fee...."
             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
             readonly />
         </div>
-        <div class="field col-12 md:col-3">
+        <!-- <div class="field col-12 md:col-4">
           <label for="subscriptionFee" style="color: black"><b>Subscription Fee</b></label>
           <input id="subscriptionFee" type="text" formControlName="subscriptionFee" (change)="number_validation($event)"
             placeholder="Enter subscription fee...."
             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+        </div> -->
+
+        <div class="field col-12 md:col-4">
+          <label for="subscriptionFee" style="color: black"><b>Subscription Fee</b></label>
+          <input id="subscriptionFee" type="text" formControlName="subscriptionFee"
+            placeholder="Enter subscription fee...."
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+          <div
+            *ngIf="f['subscriptionFee']?.dirty || f['subscriptionFee']?.touched || f['subscriptionFee']?.hasError('notDivisibleByTwo')"
+            class="error-message">
+            <small class="text-red-700" *ngIf="f['subscriptionFee']?.errors">
+              Please enter a valid Subscription fee it is required.
+            </small>
+            <!-- <div *ngIf="f['subscriptionFee']?.hasError('notDivisibleByTwo')">
+              Subscription fee is required.
+            </div> -->
+          </div>
         </div>
-        <div class="field col-12 md:col-3">
+
+      </div>
+
+      <div class="formgrid grid">
+        <div class="field col-12 md:col-6">
           <label for="subscriptionType" style="color: black"><b>Subscription Type</b></label>
           <select id="subscriptionType" formControlName="subscriptionType"
             class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
@@ -722,6 +803,11 @@
             <option value="M">Monthly</option>
             <option value="Y">Yearly</option>
           </select>
+        </div>
+        <div class="field col-12 md:col-6">
+          <label for="totalAmount" style="color: black"><b>Total Amount</b></label>
+          <input id="totalAmount" type="number" formControlName="totalAmount" readonly
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
         </div>
       </div>
 
@@ -739,6 +825,17 @@
             <option value="Q">Cheque</option>
             <option value="O">Online Transaction</option>
           </select>
+        </div>
+      </div>
+
+      <div class="flex flex-row" *ngIf="form.controls['payment'].value != 'Q'">
+        <div class="field col-12 md:col-12">
+          <label for="receipt_no" style="color: black"><b>Receipt No<span class="text-red-700">*</span></b></label>
+          <input id="receipt_no" type="text" formControlName="receipt_no" placeholder="Enter Receipt No...."
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+          <div *ngIf="f['receipt_no']?.touched || f['receipt_no']?.dirty">
+            <small class="text-red-900" *ngIf="f['receipt_no']?.errors">Receipt No is required.</small>
+          </div>
         </div>
       </div>
       <div *ngIf="form.controls['payment'].value!= 'Q'">
@@ -802,12 +899,22 @@
           <label for="subscriptionFee_2" style="color: black"><b>Onetime Subscription Fee</b></label>
           <input id="subscriptionFee_2" type="text" formControlName="subscriptionFee_2"
             placeholder="Enter subscription fee...."
-            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            readonly />
         </div>
         <div class="field col-12 md:col-3">
           <label for="subscriptionFee_1" style="color: black"><b>Yearly Subscription Fee</b></label>
           <input id="subscriptionFee_1" type="text" formControlName="subscriptionFee_1"
             (change)="number_validation($event)" placeholder="Enter subscription fee...."
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            readonly />
+        </div>
+      </div>
+
+      <div class="formgrid grid">
+        <div class="field col-12 md:col-8">
+          <label for="totalAmount_life" style="color: black"><b>Total Amount</b></label>
+          <input id="totalAmount_life" type="number" formControlName="totalAmount_life" readonly
             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
         </div>
       </div>
@@ -828,6 +935,18 @@
           </select>
         </div>
       </div>
+
+      <div class="flex flex-row" *ngIf="form.controls['payment'].value != 'Q'">
+        <div class="field col-12 md:col-12">
+          <label for="receipt_no" style="color: black"><b>Receipt No<span class="text-red-700">*</span></b></label>
+          <input id="receipt_no" type="text" formControlName="receipt_no" placeholder="Enter Receipt No...."
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+          <div *ngIf="f['receipt_no']?.touched || f['receipt_no']?.dirty">
+            <small class="text-red-900" *ngIf="f['receipt_no']?.errors">Receipt No is required.</small>
+          </div>
+        </div>
+      </div>
+
       <div *ngIf="form.controls['payment'].value!= 'Q'">
         <div class="flex flex-row">
           <button pButton pRipple type="button" label="DONE" class="p-button-raised"
@@ -890,12 +1009,22 @@
           <label for="subscriptionFee_associate_one" style="color: black"><b>Onetime Subscription Fee</b></label>
           <input id="subscriptionFee_associate_one" type="text" formControlName="subscriptionFee_associate_one"
             placeholder="Enter subscription fee...."
-            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            readonly />
         </div>
         <div class="field col-12 md:col-3">
           <label for="subscriptionFee_associate" style="color: black"><b>Yearly Subscription Fee</b></label>
           <input id="subscriptionFee_associate" type="text" formControlName="subscriptionFee_associate"
             (change)="number_validation($event)" placeholder="Enter subscription fee...."
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            readonly />
+        </div>
+      </div>
+
+      <div class="formgrid grid">
+        <div class="field col-12 md:col-6">
+          <label for="totalAmount_associate" style="color: black"><b>Total Amount</b></label>
+          <input id="totalAmount_associate" type="number" formControlName="totalAmount_associate" readonly
             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
         </div>
       </div>
@@ -916,6 +1045,18 @@
           </select>
         </div>
       </div>
+
+      <div class="flex flex-row" *ngIf="form.controls['payment'].value != 'Q'">
+        <div class="field col-12 md:col-12">
+          <label for="receipt_no" style="color: black"><b>Receipt No<span class="text-red-700">*</span></b></label>
+          <input id="receipt_no" type="text" formControlName="receipt_no" placeholder="Enter Receipt No...."
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+          <div *ngIf="f['receipt_no']?.touched || f['receipt_no']?.dirty">
+            <small class="text-red-900" *ngIf="f['receipt_no']?.errors">Receipt No is required.</small>
+          </div>
+        </div>
+      </div>
+
       <div *ngIf="form.controls['payment'].value!= 'Q'">
         <div class="flex flex-row">
           <button pButton pRipple type="button" label="DONE" class="p-button-raised"

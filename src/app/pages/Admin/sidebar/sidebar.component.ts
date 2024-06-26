@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MenuItem } from 'primeng/api';
+
 
 @Component({
   selector: 'app-sidebar',
@@ -9,11 +11,64 @@ import { Router } from '@angular/router';
 export class SidebarComponent implements OnInit {
   public sideMenuItem: any = [];
 
+  items!: MenuItem[]
+
   constructor(private router: Router) {
   }
 
   ngOnInit() {
-  }
+    this.items = [
+      {
+          label: 'Membership Forms',
+          icon: 'pi pi-user',
+          items: [
+              {
+                  label: 'Accept / Reject Membership Forms',
+                  icon: 'pi pi-hourglass',
+                  routerLink: ['admin_approve']
+              },
+            
+              {
+                  label: 'Approve Membership Forms',
+                  icon: 'pi pi-check-square',
+                  routerLink: ['approve_form']
+              }
+          ]
+      },
+      {
+          label: 'Super Topup Policy',
+          icon: 'pi pi-fw pi-bookmark',
+          items: [
+              {
+                  label: 'Accept / Reject Super Topup Policy Forms',
+                  icon: 'pi pi-search',
+                  routerLink: ['admin_premium_approve']
+              },
+              {
+                  label: 'Approve Super Topup Policy Form',
+                  icon: 'pi pi-check-circle',
+                  routerLink: ['super_policy_approve']
+              },
+          ]
+      },
+      {
+        label: 'Existing Group Policy',
+        icon: 'pi pi-fw pi-users',
+        items: [
+            {
+                label: 'Accept / Reject Group Policy Form',
+                icon: 'pi pi-check',
+                routerLink: ['admin_group_premium_approve']
+            },
+            {
+                label: 'Approve Group Policy Form',
+                icon: 'pi pi-verified',
+                routerLink: ['group_policy_approve_form']
+            },
+        ]
+    },
+  ];
+}
 
   onClick(id: any) {
     let element = document.getElementById(id);

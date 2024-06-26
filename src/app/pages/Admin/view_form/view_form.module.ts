@@ -20,6 +20,9 @@ import { FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { CheckboxModule } from 'primeng/checkbox';
 import { TooltipModule } from 'primeng/tooltip';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+
+
 
 const routes:Routes=[
   {path:'',component:View_formComponent}

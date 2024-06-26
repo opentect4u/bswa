@@ -16,7 +16,7 @@
       <div class="field col-12 md:col-6">
         <p-button class="add_btn" label="Submit" styleClass="p-button-rounded p-button-text p-button-raised"
           [style]="{'background-color': 'rgb(140 202 231)', 'border-color': '#50b0dd', 'color': '#ffff'}"
-          (click)="submit()"></p-button>
+          (click)="submit_search()"></p-button>
       </div>
     </div>
   </form>
@@ -35,6 +35,7 @@
           <th id="table_color">Form No</th>
           <th id="table_color">Form Date</th>
           <th id="table_color">Member Name</th>
+          <th id="table_color">Status</th>
           <th id="table_color">View</th>
         </tr>
       </ng-template>
@@ -43,6 +44,17 @@
           <td class="text-center"><b>{{ customer.form_no }}</b></td>
           <td class="text-center"><b>{{ customer.form_dt | date: 'dd/MM/yyyy' }}</b></td>
           <td class="text-center"><b>{{ customer.memb_name }}</b></td>
+          <!-- <td class="text-center"><b>{{ customer.memb_status=='P' ? 'Pending' : customer.memb_status=='R' ? 'Reject' :
+              'Payment done waiting for bank settlement' }}</b></td> -->
+          <td class="text-center">
+            <b>
+              <span
+                class="badge {{ customer.memb_status=='P' ? 'badge-pending' : customer.memb_status=='R' ? 'badge-reject' : 'badge-settlement' }}">
+                {{ customer.memb_status=='P' ? 'Pending' : customer.memb_status=='R' ? 'Reject' : 'Waiting
+                for bank settlement' }}
+              </span>
+            </b>
+          </td>
           <td class="text-center"><b><a pTooltip="View" tooltipPosition="bottom"
                 (click)="preview(customer.form_no,customer.mem_type)"><i class="pi pi-eye editLink"></i></a></b>
           </td>
