@@ -173,6 +173,7 @@ export class View_formComponent implements OnInit {
       this.form_no = atob(decodeURIComponent(encodedFormNo));
       this.mem_type = this.route.snapshot.params['mem_type'];
       // console.log(encodedFormNo,'jjj')
+
       
       this.dataServe.global_service(0, '/get_member_dtls',`form_no=${this.form_no}` )
           .subscribe((data: any) => {
@@ -207,6 +208,7 @@ export class View_formComponent implements OnInit {
               this.remarks = this.responsedata[0].remarks;
 
               this.fee_data_get(this.responsedata[0].mem_type)
+
               this.subscription_fee()
           });
   

@@ -57,11 +57,11 @@ export class Life_membership_formComponent implements OnInit {
   constructor(private router: Router, private fb: FormBuilder,private route: ActivatedRoute, private dataServe: DataService,private validatorsService: ValidatorsService) { }
 
   ngOnInit() {
-    Swal.fire(
-      'Success! Your form is submitted successfully.',
-      `We have been informed! <br> Generated Form No is 1234`,
-      'success'
-    )
+    // Swal.fire(
+    //   'Success! Your form is submitted successfully.',
+    //   `We have been informed! <br> Generated Form No is 1234`,
+    //   'success'
+    // )
     this.unit();
 
     this.mem_type = this.route.snapshot.params['mem_type'];
