@@ -183,30 +183,4 @@ export class SubsDepoEntryComponent implements OnInit {
     })
   }
 
-  cash_accept_associate(){
-    // var dt = {
-    //   formNo: atob(decodeURIComponent(this.encodedFormNo)),
-    //   resolution_no: this.f['resolution_no'] ? this.f['resolution_no'].value : null,
-    //   resolution_dt: this.f['resolution_dt'] ? this.f['resolution_dt'].value : null,
-    //   status: this.f['status'] ? this.f['status'].value : null,
-    //   user: localStorage.getItem('user_name'),
-    //   payment: this.f['payment'] ? this.f['payment'].value : null,
-    //   admissionFee_associate:  this.f['admissionFee_associate'] ? this.f['admissionFee_associate'].value : null,
-    //   donationFee_associate:  this.f['donationFee_associate'] ? this.f['donationFee_associate'].value : null,
-    //   subscriptionFee_associate_one:  this.f['subscriptionFee_associate_one'] ? this.f['subscriptionFee_associate_one'].value : null,
-    //   subscriptionFee_associate:  this.f['subscriptionFee_associate'] ? this.f['subscriptionFee_associate'].value : null,
-    //   totalAmount_associate: this.f['totalAmount_associate'] ? this.f['totalAmount_associate'].value : null,
-    //   receipt_no: this.f['receipt_no'] ? this.f['receipt_no'].value : null,
-    // }
-
-    // this.dataServe.global_service(1, '/payment_accept_associate',dt ).subscribe((data: any) => {
-    //   this.cash_data_life = data;
-    //   console.log(this.cash_data_life, '100');
-    //   if(this.cash_data_life.suc > 0) {
-    //     this.router.navigate(['/admin/approve_form'])
-    //   }
-    // });  
-  }
-  cheque_accept_life(){}
-
 }

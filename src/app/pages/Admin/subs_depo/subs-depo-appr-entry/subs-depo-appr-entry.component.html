@@ -1,4 +1,90 @@
-<p>
-  {{trn_id}}
-  {{frm_no}}
-</p>
+<p-card>
+  <div class="row align-items-center">
+    <h3 class="flex align-items-center">
+      <i class="pi pi-hourglass menu-icon"></i>&nbsp;
+      <b>Subscription Deposit Entry</b>
+    </h3>
+  </div>
+
+  <!-- <form [formGroup]='entryForm'> -->
+    <p-divider type="dashed"></p-divider>
+
+    <h4 class="text-center" style="color: black;">User Details</h4>
+    <div class="formgrid grid mt-1">
+      <div class="field col-6 md:col-4">
+        <p>
+          <label style="color: black">Member Name: </label>
+          <label>{{trnsData!.mem_dt!['memb_name']}}</label>
+        </p>
+      </div>
+      <div class="field col-6 md:col-4">
+        <p>
+          <label style="color: black">Member ID: </label>
+          <label>{{trnsData!.mem_dt!['member_id']}}</label>
+        </p>
+      </div>
+      <div class="field col-6 md:col-4">
+        <p>
+          <label style="color: black">Member Type: </label>
+          <label>{{trnsData!.mem_dt!['mem_type']}}</label>
+        </p>
+      </div>
+      <div class="field col-6 md:col-4">
+        <p>
+          <label style="color: black">Subscription Paid Upto: </label>
+          <label>{{trnsData!.mem_dt!['subscription_upto'] | date: 'MM-yyyy'}}</label>
+        </p>
+      </div>
+    </div>
+    <p-divider type="dashed"></p-divider>
+
+    <h4 class="text-center" style="color: black;">Subscription Details</h4>
+    <div class="formgrid grid mt-1">
+      <div class="field col-6 md:col-4">
+        <p>
+          <label for="subs_amt" style="color: black"><b>Subscription Fee: </b></label>
+          <span>{{trnsData!['sub_amt']}}</span>
+        </p>
+      </div>
+      <div class="field col-6 md:col-4">
+        <p>
+          <label for="subs_amt" style="color: black"><b>Payment Mode: </b></label>
+          <span>{{trnsData!['pay_mode']}}</span>
+        </p>
+      </div>
+    </div>
+    <p-divider type="dashed"></p-divider>
+
+    <h4 class="text-center" style="color: black;">Payment Details</h4>
+
+    <div class="flex flex-row" *ngIf="trnsData!['pay_mode'] != 'Q'">
+      <div class="field col-12 md:col-12">
+        <p>
+          <label for="receipt_no" style="color: black"><b>Receipt No: </b></label>
+          <label>{{trnsData!['receipt_no']}}</label>
+        </p>
+      </div>
+    </div>
+
+    <div *ngIf="trnsData!['pay_mode'] == 'Q'">
+      <div class="formgrid grid mt-3">
+        <div class="field col-12 md:col-4">
+          <label for="cheque_dt" style="color: black"><b>Cheque Date: </b></label>
+          <label>{{trnsData!['chq_no']}}</label>
+        </div>
+        <div class="field col-12 md:col-4">
+          <label for="cheque_no" style="color: black"><b>Cheque No: </b></label>
+          <label>{{trnsData!['chq_dt'] | date: 'dd/MM/yyyy'}}</label>
+        </div>
+        <div class="field col-12 md:col-4">
+          <label for="bank_name" style="color: black"><b>Bank Name: </b></label>
+          <label>{{trnsData!['chq_bank']}}</label>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-row">
+      <button pButton pRipple type="button" label="Save" class="p-button-raised sub_btn"
+        (click)="save()"></button>
+    </div>
+  <!-- </form> -->
+</p-card>

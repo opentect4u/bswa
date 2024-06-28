@@ -2,16 +2,3 @@
     right: -40% !important;
     top: 10px !important;
 }
-
-::ng-deep a.p-menuitem-link {
-    font-size: 15px;
-}
-
-::ng-deep span.p-steps-number {
-    margin-top: 10px;
-}
-
-::ng-deep input,
-input::placeholder {
-    font: 1.25rem/3 sans-serif;
-}
