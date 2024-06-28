@@ -1,0 +1,102 @@
+<p-card>
+  <div class="wrapper">
+    <div class="col-lg-12 container contant-wraper">
+
+      <div id="divToPrint">
+
+        <div style="text-align:center;">
+          <h2>BOKARO STEEL PEOPLE WELFARE ASSOCIATION</h2>
+          <h4>13, Camac Street, Kolkata 700017</h4>
+          <h4>Member Transaction Report On <b>{{from_dt | date: 'dd/MM/yyyy'}}</b> to <b>{{to_dt | date:
+              'dd/MM/yyyy'}}</b></h4>
+        </div>
+        <br>
+
+
+        <!-- <div class="" style="margin: 10px;">
+          <h4>Member Type: {{member_type=='G' ? 'General Member' : member_type=='L' ? 'Life Member' : 'Associate
+            Member'}}</h4>
+        </div> -->
+
+
+        <div class="card mt-4" style="margin: 10px">
+          <p-table [value]="userData" #dt2 dataKey="id" [rows]="10" [showCurrentPageReport]="true"
+            [rowsPerPageOptions]="[10, 25, 50]" [paginator]="false"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [globalFilterFields]="['memb_type']" [tableStyle]="{
+              'min-width': '95rem',
+              'box-shadow': '0 10px 28px rgba(1.5, 1.5, 1.5, 1.5)',
+            }">
+            <ng-template pTemplate="header">
+              <tr>
+                <th id="table_color">SL No</th>
+                <!-- <th id="table_color">Transaction ID</th> -->
+                <!-- <th id="table_color">Transaction Date</th> -->
+                <th id="table_color">Member ID</th>
+                <th id="table_color">Member Name</th>
+                <th id="table_color">Admission Fee</th>
+                <th id="table_color">Donation Fee</th>
+                <th id="table_color">Subscription Amount</th>
+                <th id="table_color">Onetime Amount</th>
+                <th id="table_color">Total Amount</th>
+                <th id="table_color">Pay Mode</th>
+                <th id="table_color">Receipt No</th>
+                <th id="table_color">Cheque No</th>
+                <th id="table_color">Cheque Date</th>
+                <th id="table_color">Mode</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-customer let-i="rowIndex">
+              <tr>
+                <td class="text-center">{{i+1}}</td>
+                <!-- <td class="text-center"><b>{{customer.trn_id}}</b></td> -->
+                <!-- <td class="text-center"><b>{{customer.trn_dt ? (customer.trn_dt | date: 'dd/MM/yyyy') :
+                    '0000/00/00'}}</b></td> -->
+                <td class="text-center">{{customer.member_id}}</td>
+                <td class="text-center">{{customer.memb_name}}</td>
+                <td class="text-center">{{customer.adm_fee}}</td>
+                <td class="text-center">{{customer.donation}}</td>
+                <td class="text-center">{{customer.sub_amt}}</td>
+                <td class="text-center">{{customer.onetime_amt}}</td>
+                <td class="text-center">{{calculateTotalAmount(customer)}}</td>
+                <td class="text-center">{{customer.pay_mode=='C' ? 'Cash' : customer.pay_mode=='Q' ? 'Cheque' :
+                  'Online Transaction'}}</td>
+                <td class="text-center">{{customer.receipt_no}}</td>
+                <td class="text-center">{{customer.chq_no}}</td>
+                <td class="text-center">
+
+                  {{ customer.chq_dt ? (customer.chq_dt | date: 'dd/MM/yyyy') : '0000/00/00' }}
+
+                </td>
+
+                <td class="text-center">{{customer.trans_mode=='O' ? 'New Member' : 'Renewal'}}</td>
+              </tr>
+            </ng-template>
+
+            <ng-template pTemplate="footer">
+              <tr>
+                <td colspan="3" class="text-center">Total</td>
+                <td class="text-center">{{ totalAdmissionFee }}</td>
+                <td class="text-center">{{totalDonationnFee}}</td>
+                <td class="text-center">{{totalSumamount}}</td>
+                <td class="text-center">{{totalOnetimeamount}}</td>
+                <td class="text-center">{{totalCalAmount}}</td>
+                <td colspan="5"></td>
+              </tr>
+            </ng-template>
+
+            <ng-template pTemplate="emptymessage">
+              <tr>
+                <td colspan="13" class="text-center text-red-900">No data available</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+
+      </div>
+      <p-button label="PRINT" styleClass="p-button-rounded print_btn" (click)="printDiv()"
+        style="margin-left: 33vw;"></p-button>
+    </div>
+  </div>
+
+</p-card>

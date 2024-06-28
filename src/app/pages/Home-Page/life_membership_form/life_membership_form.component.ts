@@ -116,9 +116,9 @@ export class Life_membership_formComponent implements OnInit {
         // spou_phone: [''],
         spou_mobile_no: [''],
         spou_min_no: [''],
-        spou_mem_addr: [''],
-        spou_police_st: [''],
-        spou_city: [''],
+        spou_mem_addr: this.form.get('mem'),
+        spou_police_st:this.form.get('police_st'), 
+        spou_city: this.form.get('city'),
       },
       {
         validators: this.validatorsService.conditionalRequiredValidator(

@@ -65,7 +65,7 @@ export class Gen_dep_formComponent implements OnInit, AfterViewInit {
       {
         validators: this.validatorsService.conditionalRequiredValidator(
           'dependent_name',
-          ['phone_no', 'relation']
+          ['relation']
         ),
       }
     );

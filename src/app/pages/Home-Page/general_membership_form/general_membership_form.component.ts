@@ -116,9 +116,10 @@ export class General_membership_formComponent implements OnInit {
         // spou_phone: [''],
         spou_mobile_no: [''],
         spou_min_no: [''],
-        spou_mem_addr: [''],
-        spou_police_st: [''],
-        spou_city: [''],
+        // spou_mem_addr: [this.form.get('mem').value],
+        spou_mem_addr: this.form.get('mem'),
+        spou_police_st: this.form.get('police_st'),
+        spou_city: this.form.get('city'),
       },
       {
         validators: this.validatorsService.conditionalRequiredValidator(
@@ -128,7 +129,7 @@ export class General_membership_formComponent implements OnInit {
             'spou_dob',
             'spou_mobile_no',
             'spou_min_no',
-            'spou_mem_addr',
+            // 'spou_mem_addr',
           ]
         ),
       }
@@ -234,6 +235,7 @@ export class General_membership_formComponent implements OnInit {
           memb_address: this.sf['spou_mem_addr']
             ? this.sf['spou_mem_addr'].value
             : null,
+          // memb_address: this.f['mem'] ? this.f['mem'].value : null,
           ps: this.sf['spou_police_st']
             ? this.sf['spou_police_st'].value
             : null,

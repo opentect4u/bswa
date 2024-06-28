@@ -83,7 +83,28 @@ export class SidebarComponent implements OnInit {
             },
         ]
       },
-  ];
+      {
+        label: 'Reports',
+        icon: 'pi pi-id-card',
+        items: [
+            {
+                label: 'Member Registered Report',
+                icon: 'pi pi-users',
+                routerLink: ['member_list_report']
+            },
+            {
+              label: 'Member Transaction Report',
+              icon: 'pi pi-money-bill',
+              routerLink: ['member_trans_report']
+          },
+          {
+            label: 'Subscription Cleared Upto',
+            icon: 'pi pi-undo',
+            routerLink: ['subscription_cleared_upto']
+        },
+        ]
+      },
+    ];
 }
 
   onClick(id: any) {

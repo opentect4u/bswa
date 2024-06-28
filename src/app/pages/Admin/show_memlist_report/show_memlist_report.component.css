@@ -1,0 +1,12 @@
+.wraper {
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+}
+
+.contant-wraper {
+    border-top: 2px solid #32678d;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    margin-bottom: 100px;
+    overflow: auto;
+}

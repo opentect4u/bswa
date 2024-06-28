@@ -14,13 +14,13 @@
             <div class="field col-12 md:col-4">
               <label for="member_type" class="label_field"><b>Member Type:</b></label>&nbsp;
               <input id="member_type" type="text" formControlName="member_type" placeholder="Enter Blood Group"
-                class="box_input text-base text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                class="box_input text-2xl text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
             </div>
             <div class="field col-12 md:col-4">
               <label for="member_opt" class="label_field"><b>Member Operation:<span
                     class="text-red-700">*</span></b></label>&nbsp;
               <select id="member_opt" formControlName="member_opt"
-                class="w-full text-base text-color surface-overlay p-2 border-2 border-solid surface-border border-round outline-none focus:border-primary"
+                class="w-full text-2xl text-color surface-overlay p-2 border-2 border-solid surface-border border-round outline-none focus:border-primary"
                 style="appearance: auto; height: 3vw; border-radius: 7px">
                 <option value="">Select Operation</option>
                 <option value="S">Self</option>
@@ -34,7 +34,7 @@
               <label for="unit_nm" class="label_field"><b>Unit Name:<span
                     class="text-red-700">*</span></b></label>&nbsp;
               <select id="unit_nm" formControlName="unit_nm"
-                class="w-full text-base text-color surface-overlay p-2 border-2 border-solid surface-border border-round outline-none focus:border-primary"
+                class="w-full text-2xl text-color surface-overlay p-2 border-2 border-solid surface-border border-round outline-none focus:border-primary"
                 style="appearance: auto; height: 3vw; border-radius: 7px">
                 <option value="">Select Unit Name</option>
                 <option *ngFor="let option of responsedata" [value]="option.unit_id">{{ option.unit_name }}</option>
@@ -60,7 +60,7 @@
               <label for="member" class="label_field"><b>Member Name:<span
                     class="text-red-700">*</span></b></label>&nbsp;
               <input id="member" type="text" formControlName="member" placeholder="Enter Member name"
-                class="box_input text-base text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                class="box_input text-2xl text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
               <div *ngIf="f['member']?.touched || f['member']?.dirty">
                 <small class="text-red-900" *ngIf="f['member']?.errors">Member Name is required.</small>
               </div>
@@ -69,7 +69,7 @@
               <label for="gurdian" class="label_field"><b>Father's / Husband Name:<span
                     class="text-red-700">*</span></b></label>&nbsp;
               <input id="gurdian" type="text" formControlName="gurdian" placeholder="Enter Father / Husband name"
-                class="box_input text-base text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                class="box_input text-2xl text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
               <div *ngIf="f['gurdian']?.touched || f['gurdian']?.dirty">
                 <small class="text-red-900" *ngIf="f['gurdian']?.errors">Gurdian Name is required.</small>
               </div>
@@ -77,7 +77,7 @@
             <div class="field col-12 md:col-4">
               <label for="gen" class="label_field"><b>Gender:<span class="text-red-700">*</span></b></label>&nbsp;
               <select id="gen" formControlName="gen"
-                class="w-full text-base text-color surface-overlay p-2 border-2 border-solid surface-border border-round outline-none focus:border-primary"
+                class="w-full text-2xl text-color surface-overlay p-2 border-2 border-solid surface-border border-round outline-none focus:border-primary"
                 style="appearance: auto; height: 3vw; border-radius: 7px">
                 <option value="">Select Gender</option>
                 <option value="M">Male</option>
@@ -93,7 +93,7 @@
             <div class="field col-12 md:col-4">
               <label for="marital_status" class="label_field"><b>Marital Status:</b></label>&nbsp;
               <select id="marital_status" formControlName="marital_status"
-                class="w-full text-base text-color surface-overlay p-2 border-2 border-solid surface-border border-round outline-none focus:border-primary"
+                class="w-full text-2xl text-color surface-overlay p-2 border-2 border-solid surface-border border-round outline-none focus:border-primary"
                 style="appearance: auto; height: 3vw; border-radius: 7px">
                 <option value="">Select Marital Status</option>
                 <option value="M">Married</option>
@@ -114,7 +114,7 @@
               <label for="phone" class="label_field"><b>Whatsapp Phone No:<span
                     class="text-red-700">*</span></b></label>&nbsp;
               <input id="phone" type="text" formControlName="phone" maxlength="10" placeholder="Enter Phone No"
-                class="box_input text-base text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                class="box_input text-2xl text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
               <div *ngIf="f['phone']?.touched || f['phone']?.dirty">
                 <small class="text-red-900" *ngIf="f['phone']?.errors">Phone No is required.</small>
               </div>
@@ -125,13 +125,13 @@
             <div class="field col-12 md:col-4">
               <label for="email_id" class="label_field"><b>Email ID:</b></label>&nbsp;
               <input id="email_id" type="text" formControlName="email_id" placeholder="Enter Email ID"
-                class="box_input text-base text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                class="box_input text-2xl text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
             </div>
             <div class="field col-12 md:col-4">
               <label for="blood" class="label_field"><b>Blood Group:<span
                     class="text-red-700">*</span></b></label>&nbsp;
               <select id="blood" formControlName="blood"
-                class="w-full text-base text-color surface-overlay p-2 border-2 border-solid surface-border border-round outline-none focus:border-primary"
+                class="w-full text-2xl text-color surface-overlay p-2 border-2 border-solid surface-border border-round outline-none focus:border-primary"
                 style="appearance: auto; height: 3vw; border-radius: 7px">
                 <option value="">Select Blood Group</option>
                 <option value="A+">A+</option>
@@ -150,7 +150,7 @@
             <div class="field col-12 md:col-4">
               <label for="caste" class="label_field"><b>Caste:</b></label>&nbsp;
               <select id="caste" formControlName="caste"
-                class="w-full text-base text-color surface-overlay p-2 border-2 border-solid surface-border border-round outline-none focus:border-primary"
+                class="w-full text-2xl text-color surface-overlay p-2 border-2 border-solid surface-border border-round outline-none focus:border-primary"
                 style="appearance: auto; height: 3vw; border-radius: 7px">
                 <option value="">Select Caste</option>
                 <option value="G">General</option>
@@ -165,7 +165,7 @@
             <div class="field col-12 md:col-4">
               <label for="staff" class="label_field"><b>Staff No:<span class="text-red-700">*</span></b></label>&nbsp;
               <input id="staff" type="text" formControlName="staff" placeholder="Enter Staff No"
-                class="box_input text-base text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                class="box_input text-2xl text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
               <div *ngIf="f['staff']?.touched || f['staff']?.dirty">
                 <small class="text-red-900" *ngIf="f['staff']?.errors">Staff No is required.</small>
               </div>
@@ -174,7 +174,7 @@
               <label for="personal" class="label_field"><b>Personal No:<span
                     class="text-red-700">*</span></b></label>&nbsp;
               <input id="personal" type="text" formControlName="personal" placeholder="Enter Personal No"
-                class="box_input text-base text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                class="box_input text-2xl text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
               <div *ngIf="f['personal']?.touched || f['personal']?.dirty">
                 <small class="text-red-900" *ngIf="f['personal']?.errors">Personal No is required.</small>
               </div>
@@ -182,20 +182,20 @@
             <div class="field col-12 md:col-4">
               <label for="min" class="label_field"><b>MIN No:</b></label>&nbsp;
               <input id="min" type="text" formControlName="min" placeholder="Enter MIN No"
-                class="box_input text-base text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                class="box_input text-2xl text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
             </div>
           </div>
 
           <p-divider type="dashed"></p-divider>
-          <h3 class="text-center"><b>Resedential Information</b></h3>
+          <h3 class="text-center"><b>Residential Information</b></h3>
           <p-divider type="dashed"></p-divider>
 
           <div class="flex flex-row">
             <div class="field col-12">
               <label for="mem" class="label_field"><b>Member Address:<span
                     class="text-red-700">*</span></b></label>&nbsp;
-              <textarea id="mem" formControlName="mem" type="text" rows="4"
-                class="text-base text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
+              <textarea id="mem" formControlName="mem" type="text" rows="3"
+                class="text-2xl text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
               <div *ngIf="f['mem']?.touched || f['mem']?.dirty">
                 <small class="text-red-900" *ngIf="f['mem']?.errors">Member Adress is required.</small>
               </div>
@@ -206,12 +206,12 @@
             <div class="field col-12 md:col-4">
               <label for="city" class="label_field"><b>City / Town / District:</b></label>&nbsp;
               <input id="city" type="text" formControlName="city" placeholder="Enter City/Town/District"
-                class="box_input text-base text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                class="box_input text-2xl text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
             </div>
             <div class="field col-12 md:col-4">
               <label for="pin" class="label_field"><b>PIN No:<span class="text-red-700">*</span></b></label>&nbsp;
               <input id="pin" type="number" formControlName="pin" placeholder="Enter PIN No"
-                class="box_input text-base text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                class="box_input text-2xl text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
               <div *ngIf="f['pin']?.touched || f['pin']?.dirty">
                 <small class="text-red-900" *ngIf="f['pin']?.errors">PIN No is required.</small>
               </div>
@@ -219,7 +219,7 @@
             <div class="field col-12 md:col-4">
               <label for="police_st" class="label_field"><b>Police Station:</b></label>&nbsp;
               <input id="police_st" type="text" formControlName="police_st" placeholder="Enter Police Station"
-                class="box_input text-base text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                class="box_input text-2xl text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
             </div>
           </div>
         </form>
