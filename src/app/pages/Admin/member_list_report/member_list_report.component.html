@@ -1,0 +1,39 @@
+<p-card>
+  <div class="row align-items-center">
+    <h3 class="flex align-items-center">
+      <i class="pi pi-users menu-icon"></i>&nbsp;
+      <b>Member Registered Report</b>
+    </h3>
+  </div>
+
+
+  <form [formGroup]="form">
+    <div class="formgrid grid mt-4">
+      <div class="field col-12 md:col-6">
+        <label for="period" class="label_field"><b>Period:</b></label>&nbsp;
+        <input id="period" type="date" formControlName="period" placeholder="dd/MM/yyyy"
+          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="member_type" class="label_field"><b>Member Type:</b></label>&nbsp;
+        <select id="member_type" formControlName="member_type" [(ngModel)]="selectedValue"
+          class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+          style="appearance: auto; height: 3vw; border-radius: 7px">
+          <option value="N">Select Member Type</option>
+          <option value="G">General Membership</option>
+          <option value="L">Life Membership</option>
+          <option value="AI">Associate Membership</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="formgrid grid mt-4">
+      <div class="field col-12 md:col-6">
+        <p-button class="add_btn" label="Submit" styleClass="p-button-rounded p-button-text p-button-raised"
+          [style]="{'background-color': 'rgb(140 202 231)', 'border-color': '#50b0dd', 'color': '#ffff', 'margin-left': '32vw'}"
+          (click)="submit_btn()"></p-button>
+      </div>
+    </div>
+  </form>
+
+</p-card>

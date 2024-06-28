@@ -1,0 +1,33 @@
+<p-card>
+  <div class="row align-items-center">
+    <h3 class="flex align-items-center">
+      <i class="pi pi-money-bill menu-icon"></i>&nbsp;
+      <b>Member Transaction Report</b>
+    </h3>
+  </div>
+
+
+  <form [formGroup]="form">
+    <div class="formgrid grid mt-4">
+      <div class="field col-12 md:col-6">
+        <label for="from_dt" class="label_field"><b>From Date:</b></label>&nbsp;
+        <input id="from_dt" type="date" formControlName="from_dt" placeholder="dd/MM/yyyy"
+          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="to_dt" class="label_field"><b>To Date:</b></label>&nbsp;
+        <input id="to_dt" type="date" formControlName="to_dt" placeholder="dd/MM/yyyy"
+          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+      </div>
+    </div>
+
+    <div class="formgrid grid mt-4">
+      <div class="field col-12 md:col-6">
+        <p-button class="add_btn" label="Submit" styleClass="p-button-rounded p-button-text p-button-raised"
+          [style]="{'background-color': 'rgb(140 202 231)', 'border-color': '#50b0dd', 'color': '#ffff', 'margin-left': '32vw'}"
+          (click)="submit_btn_trans()"></p-button>
+      </div>
+    </div>
+  </form>
+
+</p-card>

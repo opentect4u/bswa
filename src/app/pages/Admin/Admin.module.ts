@@ -246,6 +246,48 @@ const routes: Routes = [
             (m) => m.View_group_approve_formModule
           ),
       },
+      {
+        path: 'member_list_report',
+        loadChildren: () =>
+          import('../Admin/member_list_report/member_list_report.module').then(
+            (m) => m.Member_list_reportModule
+          ),
+      },
+      {
+        path: 'show_memlist_report/:period/:member_type',
+        loadChildren: () =>
+          import('../Admin/show_memlist_report/show_memlist_report.module').then(
+            (m) => m.Show_memlist_reportModule
+          ),
+      },
+      {
+        path: 'member_trans_report',
+        loadChildren: () =>
+          import('../Admin/member_trans_report/member_trans_report.module').then(
+            (m) => m.Member_trans_reportModule
+          ),
+      },
+      {
+        path: 'show_transaction_report/:from_dt/:to_dt',
+        loadChildren: () =>
+          import('../Admin/show_transaction_report/show_transaction_report.module').then(
+            (m) => m.Show_transaction_reportModule
+          ),
+      },
+      {
+        path: 'subscription_cleared_upto',
+        loadChildren: () =>
+          import('../Admin/subscription_cleared_upto/subscription_cleared_upto.module').then(
+            (m) => m.Subscription_cleared_uptoModule
+          ),
+      },
+      {
+        path: 'show_clear_report/:period/:member_type',
+        loadChildren: () =>
+          import('../Admin/show_clear_report/show_clear_report.module').then(
+            (m) => m.Show_clear_reportModule
+          ),
+      },
     ],
   },
 ];
