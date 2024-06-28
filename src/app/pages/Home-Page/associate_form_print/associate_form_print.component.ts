@@ -157,9 +157,30 @@ export class Associate_form_printComponent implements OnInit {
       '<html><head><title></title><style type="text/css">'
     );
 
-    this.WindowObject.document.writeln(
-      '@media print { .margin{ margin-left: 65vw; } .letter{ margin-left: 19px; margin: 6PX; padding: 0; } .table_space { margin-left: 14px; } .size{ margin-left: 67px; /* margin: 6px; */ /* padding: 0; */ } .spacing { margin: 10px 0; } .checkbox-spacing { margin-right: 10px; } .space { color: black; float: right; margin-top: -1vw; margin-right: 10vw; } p-button.p-element, .print_btn { float: right; position: fixed; right: 30px; bottom: 15px; } table, tr, td, th{text-align: start;width: 90%;} th { border: 1px solid #b1b1b1;} .color{ color: black; display: flex; justify-content: space-evenly; } .span_space{margin-left: 19px;} </style>'
-    );
+    // this.WindowObject.document.writeln(
+    //   '@media print { .margin{ margin-left: 65vw; } .letter{ margin-left: 19px; margin: 6PX; padding: 0; } .table_space { margin-left: 14px; } .size{ margin-left: 67px; /* margin: 6px; */ /* padding: 0; */ } .spacing { margin: 10px 0; } .checkbox-spacing { margin-right: 10px; } .space { color: black; float: right; margin-top: -1vw; margin-right: 10vw; } p-button.p-element, .print_btn { float: right; position: fixed; right: 30px; bottom: 15px; } table, tr, td, th{text-align: start;width: 90%;} th { border: 1px solid #b1b1b1;} .color{ color: black; display: flex; justify-content: space-evenly; } .span_space{margin-left: 19px;} </style>'
+    // );
+
+    
+    this.WindowObject.document.writeln('@media print { .center { text-align: center;}' +
+      'body{font-family:Arial, Tahoma, Verdana;font-size: 14px;color: #6f7479;}' +
+      '.wrapper{box-shadow: none !important; max-width: 1100px; width: 100%; margin: 0 auto; font-family:Arial, Tahoma, Verdana;}' +
+      '.contant-wraper{box-shadow: none !important;}'+
+      // '.table_print_outer {border:red solid 2px;}' +
+      // '.table_print_outer table thead tr th{background:#000 !important; color:#fff; margin: 0 !important; padding:7px 3px; border: none;}' +
+      // '.table_print_outer table thead{text-align: left; background:#000 !important;}' +
+      '.table_print_outer table tbody tr{margin: 0 !important;}'+
+      '.table_print_outer table tbody tr th{text-align: left; text-wrap: wrap; color:#333; padding:7px 3px; word-break: break-word; border: #ccc solid 1px; margin: 0 !important;}' +
+      '.table_print_outer table tbody tr{border-bottom:#333 solid 1px;}' +
+      
+      
+      '.print_top_head h3{margin: 0; padding: 0; font-size:20px; color:#000;}' +
+      '.print_top_head h4{margin: 0; padding: 0; font-size:16px; color:#000;}' +
+      '.print_top_Title h4{margin: 0; padding: 0; font-size:16px; color:#000;}' +
+      '.msg_adress{width:120px;}'+
+      '.table_head_cus tr td{background: #D9D9D9;}' +
+              '} </style>');
+
     this.WindowObject.document.writeln(
       '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">'
     );
