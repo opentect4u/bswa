@@ -17,6 +17,9 @@ import { ProgressBarModule } from 'primeng/progressbar';
 
 import { AvatarModule } from 'primeng/avatar';
 
+import { LoaderComponent } from '../Common/loader/loader.component';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+
 const routes: Routes = [
   {
     path: '',
@@ -247,6 +250,27 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'subs_depo_entry',
+        loadChildren: () =>
+          import('../Admin/subs_depo/subs-depo-entry/subs-depo-entry.module').then(
+            (m) => m.SubsDepoEntryModule
+          ),
+      },
+      {
+        path: 'subs_depo_approve',
+        loadChildren: () =>
+          import('../Admin/subs_depo/subs-depo-approve/subs-depo-approve.module').then(
+            (m) => m.SubsDepoApproveModule
+          ),
+      },
+      {
+        path: 'subs_depo_appr_entry/:trn_no/:frm_no',
+        loadChildren: () =>
+          import('../Admin/subs_depo/subs-depo-appr-entry/subs-depo-appr-entry.module').then(
+            (m) => m.SubsDepoApprEntryModule
+          ),
+      },
+      {
         path: 'member_list_report',
         loadChildren: () =>
           import('../Admin/member_list_report/member_list_report.module').then(
@@ -306,8 +330,9 @@ const routes: Routes = [
     CardModule,
     AvatarModule,
     ProgressBarModule,
+    ProgressSpinnerModule,
     RouterModule.forChild(routes),
   ],
-  declarations: [AdminComponent, SidebarComponent, HeaderComponent],
+  declarations: [AdminComponent, SidebarComponent, HeaderComponent, LoaderComponent],
 })
 export class AdminModule {}

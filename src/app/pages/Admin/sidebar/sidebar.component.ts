@@ -66,29 +66,45 @@ export class SidebarComponent implements OnInit {
                 routerLink: ['group_policy_approve_form']
             },
         ]
-    },
-    {
-      label: 'Reports',
-      icon: 'pi pi-id-card',
-      items: [
-          {
-              label: 'Member Registered Report',
-              icon: 'pi pi-users',
-              routerLink: ['member_list_report']
+      },
+      {
+        label: 'Subscription Deposit',
+        icon: 'pi pi-fw pi-users',
+        items: [
+            {
+                label: 'Entry Deposit',
+                icon: 'pi pi-check',
+                routerLink: ['subs_depo_entry']
+            },
+            {
+                label: 'Approve Deposit',
+                icon: 'pi pi-verified',
+                routerLink: ['subs_depo_approve']
+            },
+        ]
+      },
+      {
+        label: 'Reports',
+        icon: 'pi pi-id-card',
+        items: [
+            {
+                label: 'Member Registered Report',
+                icon: 'pi pi-users',
+                routerLink: ['member_list_report']
+            },
+            {
+              label: 'Member Transaction Report',
+              icon: 'pi pi-money-bill',
+              routerLink: ['member_trans_report']
           },
           {
-            label: 'Member Transaction Report',
-            icon: 'pi pi-money-bill',
-            routerLink: ['member_trans_report']
+            label: 'Subscription Cleared Upto',
+            icon: 'pi pi-undo',
+            routerLink: ['subscription_cleared_upto']
         },
-        {
-          label: 'Subscription Cleared Upto',
-          icon: 'pi pi-undo',
-          routerLink: ['subscription_cleared_upto']
+        ]
       },
-      ]
-  },
-  ];
+    ];
 }
 
   onClick(id: any) {

@@ -4,6 +4,7 @@
 <div class="sidemenu" [ngClass]="classSidemenu">
   <app-sidebar></app-sidebar>
 </div>
+<app-loader *ngIf="loader.isLoading | async"></app-loader>
 <div class="content" [ngClass]="classContent">
   <p-progressBar *ngIf = "loader.isLoading | async"
     mode="indeterminate"
