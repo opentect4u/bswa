@@ -32,6 +32,7 @@ export class View_approve_formComponent implements OnInit {
         memb_name: [''],
         unit_name: [''],
         sub_amt: [''],
+        onetime_amt: [''],
         adm_fee: [''],
         donation_fee: [''],
         pre_amt: [''],
@@ -76,6 +77,7 @@ export class View_approve_formComponent implements OnInit {
         memb_name: this.userData[0].memb_name,
         unit_name:  this.userData[0].unit_name,
         sub_amt: this.userData[0].sub_amt,
+        onetime_amt: this.userData[0].onetime_amt,
         phone_no: this.userData[0].phone_no,
         email_id: this.userData[0].email_id,
         staff_no: this.userData[0].staff_nos,
@@ -106,10 +108,12 @@ approve (){
     trn_dt:  this.f['trn_dt'] ? this.f['trn_dt'].value : null,
     trn_id: this.f['trn_id'] ? this.f['trn_id'].value : null,
     sub_amt:  this.f['sub_amt'] ? this.f['sub_amt'].value : null,
-    user: localStorage.getItem('user_name')
+    onetime_amt:  this.f['onetime_amt'] ? this.f['onetime_amt'].value : null,
+    user: localStorage.getItem('user_name'),
+    tot_amt: this.f['sub_amt'].value + this.f['onetime_amt'].value
   }
 
-  this.dataServe.global_service(1,'/approve',dt).subscribe(data => {
+  this.dataServe.global_service(1,this.mem_type != 'L' ? '/approve' : '/approve_life',dt).subscribe(data => {
     console.log(data)
     this.userData = data;
     if(this.userData.suc > 0){
