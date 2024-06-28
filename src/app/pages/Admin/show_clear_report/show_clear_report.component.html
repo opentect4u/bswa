@@ -4,7 +4,7 @@
 
       <div id="divToPrint">
 
-        <div style="text-align:center;">
+        <div style="text-align:center;" class="print_top_head">
           <h2>BOKARO STEEL PEOPLE WELFARE ASSOCIATION</h2>
           <h4>13, Camac Street, Kolkata 700017</h4>
           <h4>Subscription Cleared Upto Report On <b>{{period | date: 'dd/MM/yyyy'}}</b></h4>
@@ -12,12 +12,12 @@
         <br>
 
 
-        <div class="" style="margin: 10px;">
+        <div class="" style="margin: 10px;" class="print_top_Title">
           <h4>Member Type: {{member_type=='G' ? 'General Member' : 'Life Member'}}</h4>
         </div>
 
 
-        <div class="card mt-4" style="margin: 10px">
+        <div class="card mt-4" style="margin: 10px" class="table_print_outer">
           <p-table [value]="userData" #dt2 dataKey="id" [rows]="10" [showCurrentPageReport]="true"
             [rowsPerPageOptions]="[10, 25, 50]" [paginator]="false"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
