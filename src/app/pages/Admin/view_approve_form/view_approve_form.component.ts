@@ -110,10 +110,12 @@ approve (){
     sub_amt:  this.f['sub_amt'] ? this.f['sub_amt'].value : null,
     onetime_amt:  this.f['onetime_amt'] ? this.f['onetime_amt'].value : null,
     user: localStorage.getItem('user_name'),
-    tot_amt: this.f['sub_amt'].value + this.f['onetime_amt'].value
+    tot_amt: this.f['sub_amt'].value + this.f['onetime_amt'].value,
+    adm_fee: this.f['adm_fee'].value + this.f['adm_fee'].value,
+    tot_asso_amt: this.f['sub_amt'].value + this.f['adm_fee'].value,
   }
 
-  this.dataServe.global_service(1,this.mem_type != 'L' ? '/approve' : '/approve_life',dt).subscribe(data => {
+  this.dataServe.global_service(1,this.mem_type == 'G' ? '/approve' : this.mem_type == 'L ' ? '/approve_life' : '/approve_associate',dt).subscribe(data => {
     console.log(data)
     this.userData = data;
     if(this.userData.suc > 0){

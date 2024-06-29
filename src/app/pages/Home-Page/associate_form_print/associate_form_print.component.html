@@ -1,6 +1,7 @@
 <style>
   table {
-    width: 96%;
+    font-size: 15px;
+    width: 100%;
     border-collapse: collapse;
   }
 
@@ -32,6 +33,11 @@
     background-color: #ffffff;
     color: rgb(0, 0, 0);
   }
+
+  .margin {
+    float: right;
+    margin-left: 0px;
+  }
 </style>
 
 <div class="background">
@@ -39,15 +45,13 @@
     <p-card id="divToPrint">
       <div class="row">
         <div class="col-md-6">
-          <h4 class="margin" style="color: black">
-            <b><u>ANNEXURE IV</u></b>
-          </h4>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
           <h4 class="color">
             <b><u>ASSOCIATE MEMBERSHIP FORM</u></b>
+          </h4>
+        </div>
+        <div class="col-md-6">
+          <h4 class="margin" style="color: black">
+            <b><u>ANNEXURE IV</u></b>
           </h4>
         </div>
       </div>
@@ -58,7 +62,7 @@
           <h3 class="letter" style="color: black">
             BOKARO STEEL PEOPLE WELFARE ASSOCIATION
           </h3>
-          <h4 class="letter" style="color: black">Kolkata <br> Dear Sir, <br><br> 
+          <h4 class="letter" style="color: black">Kolkata <br> Dear Sir, <br><br>
             I am desirous to take the associate membership of the Association, Details in
             regard to me and my dependents are given below <br><br>
           </h4>
@@ -76,7 +80,7 @@
             <th colspan="3">
               <label for="form_no" class="label_field"><b>Form No : </b><span class="span_space">{{ form_no
                   }}</span></label>
-            <th class="text-center" rowspan="4" style="width: 20%;">
+            <th class="text-center" rowspan="5" style="width: 20%;">
               <img src="{{membInfo?.memb_pic ? api_base_url + '/' + membInfo?.memb_pic : ''}}" height="100%"
                 width="100%" alt="" />
             </th>
@@ -95,12 +99,14 @@
           </tr>
           <tr>
             <th>
-              <label for="marital_st" class="label_field" style="width: 74vw;"><b>MARITAL STATUS </b><span
-                  class="span_space">{{ membInfo?.ps
+              <label for="marital_st" class="label_field"><b>MARITAL STATUS </b><span class="span_space">{{
+                  membInfo?.marital_status=='M' ? 'Married' : membInfo?.marital_status=='U' ?
+                  'Unmarried' : membInfo?.marital_status=='D' ? 'Divorced' : 'Widow'
                   }}</span></label>
             </th>
             <th colspan="2">
-              <label for="gender" class="label_field"><b>GENDER </b><span class="span_space">{{ membInfo?.phone_no
+              <label for="gender" class="label_field"><b>GENDER </b><span class="span_space">{{ membInfo?.gender=='M' ?
+                  'Male' : 'Female'
                   }}</span></label>
             </th>
           </tr>
@@ -120,7 +126,7 @@
           <tr>
             <th colspan="2">
               <label for="email_id" class="label_field"><b>EMAIL ID :</b><span class="span_space">{{
-                  membInfo?.memb_address
+                  membInfo?.email_id
                   }}</span></label>
             </th>
             <th colspan="2">
@@ -133,8 +139,9 @@
               <label for="ps" class="label_field"><b>P.S. </b><span class="span_space">{{ membInfo?.ps }}</span></label>
             </th>
             <th colspan="2">
-              <label for="cast" class="label_field"><b>CASTE </b><span class="span_space">{{ membInfo?.phone_no
-                  }}</span></label>
+              <label for="cast" class="label_field"><b>CASTE </b><span class="span_space">{{ membInfo?.caste=='G' ?
+                  'General' : membInfo?.caste=='S' ? 'SC' : membInfo?.caste=='T' ? 'ST'
+                  : 'Others'}}</span></label>
             </th>
           </tr>
           <tr>

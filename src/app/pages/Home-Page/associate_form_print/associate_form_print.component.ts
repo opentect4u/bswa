@@ -19,7 +19,11 @@ interface MembershipInfo {
   subscription_1: string,
   adm_fee: string,
   donation: string,
+  caste: string,
+  gender: string,
+  marital_status: string,
   memb_pic: string,
+  // memb_pic: string,
 }
 
 interface SpouseDepenInfo {

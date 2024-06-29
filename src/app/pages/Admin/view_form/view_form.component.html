@@ -435,11 +435,13 @@
         <tr>
           <th>
             <label for="marital_st" class="label_field" style="width: 74vw;"><b>MARITAL STATUS </b><span
-                class="span_space">{{ membInfo?.marital_status
+                class="span_space">{{ membInfo?.marital_status=='M' ? 'Married' : membInfo?.marital_status=='U' ?
+                'Unmarried' : membInfo?.marital_status=='D' ? 'Divorced' : 'Widow'
                 }}</span></label>
           </th>
           <th colspan="2">
-            <label for="gender" class="label_field"><b>GENDER </b><span class="span_space">{{ membInfo?.gender
+            <label for="gender" class="label_field"><b>GENDER </b><span class="span_space">{{ membInfo?.gender=='M' ?
+                'Male' : 'Female'
                 }}</span></label>
           </th>
         </tr>
@@ -471,7 +473,8 @@
             <label for="ps" class="label_field"><b>P.S. </b><span class="span_space">{{membInfo?.ps }}</span></label>
           </th>
           <th colspan="2">
-            <label for="cast" class="label_field"><b>CASTE </b><span class="span_space">{{ membInfo?.caste
+            <label for="cast" class="label_field"><b>CASTE </b><span class="span_space">{{ membInfo?.caste=='G' ?
+                'General' : membInfo?.caste=='S' ? 'SC' : membInfo?.caste=='T' ? 'ST' : 'Others'
                 }}</span></label>
           </th>
         </tr>
