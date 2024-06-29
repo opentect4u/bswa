@@ -1,9 +1,14 @@
+import {
+  APP_INITIALIZER
+} from '@angular/core';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { HomePageComponent } from './Home-Page.component';
 import { header_HomeModule } from './header_Home/header_Home.module';
 import { FooterModule } from './footer/footer.module';
+import { initializeApp } from 'src/app/service/app-initializer';
+import { ScriptLoaderService } from 'src/app/service/Script-Loader.service';
 
 const routes: Routes = [
   {
@@ -96,6 +101,12 @@ const routes: Routes = [
     header_HomeModule,
     FooterModule,
   ],
+  providers: [{
+    provide: APP_INITIALIZER,
+    useFactory: initializeApp,
+    deps: [ScriptLoaderService],
+    multi: true
+  }],
   declarations: [HomePageComponent],
 })
 export class HomePageModule {}

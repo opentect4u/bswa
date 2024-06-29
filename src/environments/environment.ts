@@ -7,7 +7,7 @@ export const environment = {
   // api_url : "https://customapi.shoplocal-lagunabeach.com",
   // Redirect_url:'http://localhost:4200/user/user_menu/',
   // api_url:'https://values.bokarosteeltrust.in',
-  api_url:'http://192.168.1.234:3000',
+  api_url:'http://localhost:3000',
   // api_url: 'https://admin.bspwa.in'
 };
 
