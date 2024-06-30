@@ -182,16 +182,16 @@ const routes: Routes = [
       {
         path: 'print_associate_form/:form_no',
         loadChildren: () =>
-          import('../Admin/print_associate_form/print_associate_form.module').then(
-            (m) => m.Print_associate_formModule
-          ),
+          import(
+            '../Admin/print_associate_form/print_associate_form.module'
+          ).then((m) => m.Print_associate_formModule),
       },
       {
         path: 'admin_premium_approve',
         loadChildren: () =>
-          import('../Admin/admin_premium_approve/admin_premium_approve.module').then(
-            (m) => m.Admin_premium_approveModule
-          ),
+          import(
+            '../Admin/admin_premium_approve/admin_premium_approve.module'
+          ).then((m) => m.Admin_premium_approveModule),
       },
       {
         path: 'policy_view_form/:form_no/:member_id',
@@ -203,9 +203,9 @@ const routes: Routes = [
       {
         path: 'super_policy_approve',
         loadChildren: () =>
-          import('../Admin/super_policy_approve/super_policy_approve.module').then(
-            (m) => m.Super_policy_approveModule
-          ),
+          import(
+            '../Admin/super_policy_approve/super_policy_approve.module'
+          ).then((m) => m.Super_policy_approveModule),
       },
       // {
       //   path: 'super_premium_form',
@@ -217,58 +217,58 @@ const routes: Routes = [
       {
         path: 'view_super_approve_form/:form_no/:member_id',
         loadChildren: () =>
-          import('../Admin/view_supper_approve_form/view_supper_approve_form.module').then(
-            (m) => m.View_supper_approve_formModule
-          ),
+          import(
+            '../Admin/view_supper_approve_form/view_supper_approve_form.module'
+          ).then((m) => m.View_supper_approve_formModule),
       },
       {
         path: 'admin_group_premium_approve',
         loadChildren: () =>
-          import('../Admin/admin_group_premium_approve/admin_group_premium_approve.module').then(
-            (m) => m.Admin_group_premium_approveModule
-          ),
+          import(
+            '../Admin/admin_group_premium_approve/admin_group_premium_approve.module'
+          ).then((m) => m.Admin_group_premium_approveModule),
       },
       {
         path: 'group_policy_view_form/:form_no/:member_id/:pay_mode',
         loadChildren: () =>
-          import('../Admin/group_policy_view_form/group_policy_view_form.module').then(
-            (m) => m.Group_policy_view_formModule
-          ),
+          import(
+            '../Admin/group_policy_view_form/group_policy_view_form.module'
+          ).then((m) => m.Group_policy_view_formModule),
       },
       {
         path: 'group_policy_approve_form',
         loadChildren: () =>
-          import('../Admin/group_policy_approve_form/group_policy_approve_form.module').then(
-            (m) => m.Group_policy_approve_formModule
-          ),
+          import(
+            '../Admin/group_policy_approve_form/group_policy_approve_form.module'
+          ).then((m) => m.Group_policy_approve_formModule),
       },
       {
         path: 'view_group_approve_form/:form_no',
         loadChildren: () =>
-          import('../Admin/view_group_approve_form/view_group_approve_form.module').then(
-            (m) => m.View_group_approve_formModule
-          ),
+          import(
+            '../Admin/view_group_approve_form/view_group_approve_form.module'
+          ).then((m) => m.View_group_approve_formModule),
       },
       {
         path: 'subs_depo_entry',
         loadChildren: () =>
-          import('../Admin/subs_depo/subs-depo-entry/subs-depo-entry.module').then(
-            (m) => m.SubsDepoEntryModule
-          ),
+          import(
+            '../Admin/subs_depo/subs-depo-entry/subs-depo-entry.module'
+          ).then((m) => m.SubsDepoEntryModule),
       },
       {
         path: 'subs_depo_approve',
         loadChildren: () =>
-          import('../Admin/subs_depo/subs-depo-approve/subs-depo-approve.module').then(
-            (m) => m.SubsDepoApproveModule
-          ),
+          import(
+            '../Admin/subs_depo/subs-depo-approve/subs-depo-approve.module'
+          ).then((m) => m.SubsDepoApproveModule),
       },
       {
         path: 'subs_depo_appr_entry/:trn_no/:frm_no',
         loadChildren: () =>
-          import('../Admin/subs_depo/subs-depo-appr-entry/subs-depo-appr-entry.module').then(
-            (m) => m.SubsDepoApprEntryModule
-          ),
+          import(
+            '../Admin/subs_depo/subs-depo-appr-entry/subs-depo-appr-entry.module'
+          ).then((m) => m.SubsDepoApprEntryModule),
       },
       {
         path: 'member_list_report',
@@ -280,36 +280,50 @@ const routes: Routes = [
       {
         path: 'show_memlist_report/:period/:member_type',
         loadChildren: () =>
-          import('../Admin/show_memlist_report/show_memlist_report.module').then(
-            (m) => m.Show_memlist_reportModule
-          ),
+          import(
+            '../Admin/show_memlist_report/show_memlist_report.module'
+          ).then((m) => m.Show_memlist_reportModule),
       },
       {
         path: 'member_trans_report',
         loadChildren: () =>
-          import('../Admin/member_trans_report/member_trans_report.module').then(
-            (m) => m.Member_trans_reportModule
-          ),
+          import(
+            '../Admin/member_trans_report/member_trans_report.module'
+          ).then((m) => m.Member_trans_reportModule),
       },
       {
         path: 'show_transaction_report/:from_dt/:to_dt',
         loadChildren: () =>
-          import('../Admin/show_transaction_report/show_transaction_report.module').then(
-            (m) => m.Show_transaction_reportModule
-          ),
+          import(
+            '../Admin/show_transaction_report/show_transaction_report.module'
+          ).then((m) => m.Show_transaction_reportModule),
       },
       {
         path: 'subscription_cleared_upto',
         loadChildren: () =>
-          import('../Admin/subscription_cleared_upto/subscription_cleared_upto.module').then(
-            (m) => m.Subscription_cleared_uptoModule
-          ),
+          import(
+            '../Admin/subscription_cleared_upto/subscription_cleared_upto.module'
+          ).then((m) => m.Subscription_cleared_uptoModule),
       },
       {
         path: 'show_clear_report/:period/:member_type',
         loadChildren: () =>
           import('../Admin/show_clear_report/show_clear_report.module').then(
             (m) => m.Show_clear_reportModule
+          ),
+      },
+      {
+        path: 'memb_list',
+        loadChildren: () =>
+          import('../Admin/member_details/member-list/member-list.module').then(
+            (m) => m.MemberListModule
+          ),
+      },
+      {
+        path: 'mem_edit/:form_no',
+        loadChildren: () =>
+          import('../Admin/member_details/member-edit/member-edit.module').then(
+            (m) => m.MemberEditModule
           ),
       },
     ],
