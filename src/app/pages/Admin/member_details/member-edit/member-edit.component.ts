@@ -311,7 +311,7 @@ export class MemberEditComponent implements OnInit {
             'success'
           ).then((result) => {
             if (result.isConfirmed) {
-              this.router.navigate(['/admin/print_form']);
+              this.router.navigate(['/admin/memb_list']);
             }
           });
         } else {
