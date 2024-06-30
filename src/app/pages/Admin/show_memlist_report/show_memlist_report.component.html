@@ -7,7 +7,7 @@
         <div style="text-align:center;" class="print_top_head">
           <h2>BOKARO STEEL PEOPLE WELFARE ASSOCIATION</h2>
           <h4>13, Camac Street, Kolkata 700017</h4>
-          <h4>Member Registered Report On <b>{{period | date: 'dd/MM/yyyy'}}</b></h4>
+          <h4>Member Register Report As On <b>{{period | date: 'dd/MM/yyyy'}}</b></h4>
         </div>
         <br>
 
@@ -35,8 +35,8 @@
                 <th id="table_color" class="msg_adress">Member Address</th>
                 <th id="table_color">Phone No</th>
                 <th id="table_color">Email ID</th>
-                <th id="table_color">Resolution No</th>
-                <th id="table_color">Resolution Date</th>
+                <!-- <th id="table_color">Resolution No</th>
+                <th id="table_color">Resolution Date</th> -->
               </tr>
             </ng-template>
             <ng-template pTemplate="body" let-customer let-i="rowIndex">
@@ -55,8 +55,8 @@
                 </td>
                 <td class="text-center">{{customer.phone_no}}</td>
                 <td class="text-center">{{customer.email_id}}</td>
-                <td class="text-center">{{customer.resolution_no}}</td>
-                <td class="text-center">{{customer.resolution_dt | date: 'dd/MM/yyyy'}}</td>
+                <!-- <td class="text-center">{{customer.resolution_no}}</td>
+                <td class="text-center">{{customer.resolution_dt | date: 'dd/MM/yyyy'}}</td> -->
               </tr>
             </ng-template>
             <ng-template pTemplate="emptymessage">
