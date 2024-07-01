@@ -105,6 +105,8 @@ approve (){
   var dt = {
     flag: this.mem_type,
     formNo: this.fromNo,
+    member: this.f['memb_name'] ? this.f['memb_name'].value : null,
+    phone_no: this.f['phone_no'] ? this.f['phone_no'].value : null,
     trn_dt:  this.f['trn_dt'] ? this.f['trn_dt'].value : null,
     trn_id: this.f['trn_id'] ? this.f['trn_id'].value : null,
     sub_amt:  this.f['sub_amt'] ? this.f['sub_amt'].value : null,
@@ -136,7 +138,7 @@ approve (){
         'error'
       );
     }
-})
+  })
 }
 
 

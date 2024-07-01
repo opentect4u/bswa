@@ -295,7 +295,8 @@ export class View_formComponent implements OnInit {
     reject_submit(){
       var dt = {
         formNo: atob(decodeURIComponent(this.encodedFormNo)),
-        member: this.route.snapshot.params['memb_name'],
+        member: this.memb_name,
+        phone_no: this.phone_no,
         resolution_no: this.f['resolution_no'] ? this.f['resolution_no'].value : null,
         resolution_dt: this.f['resolution_dt'] ? this.f['resolution_dt'].value : null,
         status: this.f['status'] ? this.f['status'].value : null,
@@ -315,6 +316,8 @@ export class View_formComponent implements OnInit {
     cash_accept(){
       var dt = {
         formNo: atob(decodeURIComponent(this.encodedFormNo)),
+        member: this.memb_name,
+        phone_no: this.phone_no,
         resolution_no: this.f['resolution_no'] ? this.f['resolution_no'].value : null,
         resolution_dt: this.f['resolution_dt'] ? this.f['resolution_dt'].value : null,
         status: this.f['status'] ? this.f['status'].value : null,
@@ -345,6 +348,8 @@ export class View_formComponent implements OnInit {
     cash_accept_life(){
       var dt = {
         formNo: atob(decodeURIComponent(this.encodedFormNo)),
+        member: this.memb_name,
+        phone_no: this.phone_no,
         resolution_no: this.f['resolution_no'] ? this.f['resolution_no'].value : null,
         resolution_dt: this.f['resolution_dt'] ? this.f['resolution_dt'].value : null,
         status: this.f['status'] ? this.f['status'].value : null,
@@ -370,6 +375,8 @@ export class View_formComponent implements OnInit {
     cash_accept_associate(){
       var dt = {
         formNo: atob(decodeURIComponent(this.encodedFormNo)),
+        member: this.memb_name,
+        phone_no: this.phone_no,
         resolution_no: this.f['resolution_no'] ? this.f['resolution_no'].value : null,
         resolution_dt: this.f['resolution_dt'] ? this.f['resolution_dt'].value : null,
         status: this.f['status'] ? this.f['status'].value : null,
@@ -395,6 +402,8 @@ export class View_formComponent implements OnInit {
     cheque_accept(){
       var dt = {
         formNo: atob(decodeURIComponent(this.encodedFormNo)),
+        member: this.memb_name,
+        phone_no: this.phone_no,
         resolution_no: this.f['resolution_no'] ? this.f['resolution_no'].value : null,
         resolution_dt: this.f['resolution_dt'] ? this.f['resolution_dt'].value : null,
         status: this.f['status'] ? this.f['status'].value : null,
@@ -422,6 +431,8 @@ export class View_formComponent implements OnInit {
     cheque_accept_life(){
       var dt = {
         formNo: atob(decodeURIComponent(this.encodedFormNo)),
+        member: this.memb_name,
+        phone_no: this.phone_no,
         resolution_no: this.f['resolution_no'] ? this.f['resolution_no'].value : null,
         resolution_dt: this.f['resolution_dt'] ? this.f['resolution_dt'].value : null,
         status: this.f['status'] ? this.f['status'].value : null,
@@ -449,6 +460,8 @@ export class View_formComponent implements OnInit {
     cheque_accept_associate(){
       var dt = {
         formNo: atob(decodeURIComponent(this.encodedFormNo)),
+        member: this.memb_name,
+        phone_no: this.phone_no,
         resolution_no: this.f['resolution_no'] ? this.f['resolution_no'].value : null,
         resolution_dt: this.f['resolution_dt'] ? this.f['resolution_dt'].value : null,
         status: this.f['status'] ? this.f['status'].value : null,
