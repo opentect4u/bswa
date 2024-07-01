@@ -44,7 +44,7 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'add_admin',
+        path: 'add_admin/:user_id',
         loadChildren: () =>
           import('../Superadmin/add_admin/add_admin.module').then(
             (m) => m.Add_adminModule

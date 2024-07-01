@@ -21,10 +21,23 @@ export class Show_admin_dataComponent implements OnInit {
   constructor(private router: Router, private dataServe: DataService, private formBuilder: FormBuilder, private messageService: MessageService, private route: ActivatedRoute,private datePipe: DatePipe) { }
 
   ngOnInit() {
+    this.fetchdata_admin();
   }
 
-  onadd(){
-    this.router.navigate(['/superadmin/add_admin']);
+  onadd(user_id:any){
+    this.router.navigate(['/superadmin/add_admin',user_id]);
+  }
+
+
+  fetchdata_admin() { 
+    this.dataServe.global_service(0,'/get_add_admin_data',null).subscribe(data => {
+      console.log(data)
+      this.userData = data;
+      this.userData = this.userData.msg;
+    },error => {
+      console.error(error);
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'An error occurred while saving data' });
+    })
   }
 
 }
