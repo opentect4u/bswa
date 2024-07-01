@@ -326,6 +326,13 @@ const routes: Routes = [
             (m) => m.MemberEditModule
           ),
       },
+      {
+        path: 'change_password',
+        loadChildren: () =>
+          import('../Admin/change_password/change_password.module').then(
+            (m) => m.Change_passwordModule
+          ),
+      },
     ],
   },
 ];

@@ -6,4 +6,16 @@
       <span class="menu-text-inner flex-grow-1"><b>Fees Type</b></span>
     </a>
   </div>
+  <p-divider></p-divider>
+
+  <div class="menu-item">
+    <a routerLink="show_admin_data" class="menu-text flex" [ngClass]="getRoute() == '/menu' ? 'active-menu' : ''">
+      <i class="pi pi-plus menu-icon flex"></i>
+      <span class="menu-text-inner flex-grow-1"><b>Add Admin</b></span>
+    </a>
+  </div>
+
+  <p-divider></p-divider>
+
+
 </div>

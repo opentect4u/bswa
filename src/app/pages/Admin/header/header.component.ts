@@ -27,13 +27,16 @@ export class HeaderComponent implements OnInit {
     }
 
     this.headerMenuItem = [
+      // {
+      //   label: 'Profile',
+      //   icon: 'pi pi-fw pi-user',
+      // },
       {
-        label: 'Profile',
-        icon: 'pi pi-fw pi-user',
-      },
-      {
-        label: 'Setting',
+        label: 'Change Password',
         icon: 'pi pi-fw pi-cog',
+        command: () => {
+          this.password_change();
+        }
       },
       {
         label: 'Logout',
@@ -85,4 +88,9 @@ export class HeaderComponent implements OnInit {
     localStorage.clear();
     this.router.navigate(['/auth/login']);
   }
+
+  password_change(){
+    this.router.navigate(['/admin/change_password']);
+  }
+
 }
