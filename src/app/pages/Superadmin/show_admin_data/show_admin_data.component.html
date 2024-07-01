@@ -1,15 +1,11 @@
 <p-card>
-  <!-- <p-button class="add_btn" label="Add" styleClass="p-button-raised p-button-info" (click)="onadd()">
-      <i class="pi pi-plus-circle" style="color: rgb(255, 255, 255)"></i>  
-      </p-button> -->
   <div class="row">
     <h2 class="float-start head_active">
-      <b><i class="pi pi-wallet menu-icon flex">&nbsp; Fees Type</i></b>
+      <b><i class="pi pi-plus menu-icon flex">&nbsp; Admin Details</i></b>
     </h2>
-    <p-button class="add_btn custom-tooltip" pTooltip="Add Fee type" tooltipPosition="bottom" icon="pi pi-plus"
-      styleClass="p-button-rounded p-button-text p-button-raised" (click)="onadd('')"
+    <p-button class="add_btn custom-tooltip" pTooltip="Add Admin" tooltipPosition="bottom" icon="pi pi-plus"
+      styleClass="p-button-rounded p-button-text p-button-raised" (click)="onadd()"
       [style]="{'background-color': 'rgb(140 202 231)', 'border-color': '#50b0dd', 'color': '#ffff'}"></p-button>
-    <!-- <p-button label="Fees Type" badge="" styleClass="mr-2"><i class="pi pi-wallet"></i>  </p-button> -->
   </div>
   <div class="card mt-5">
     <p-table [value]="userData" #dt2 dataKey="id" [rows]="10" [showCurrentPageReport]="true"
@@ -21,15 +17,6 @@
       }">
       <ng-template pTemplate="caption">
         <div class="flex">
-          <!-- <span class="p-input-icon-left">
-            <i class="pi pi-search"></i>
-            <input
-              pInputText
-              type="text"
-              placeholder="Search member fee type"
-              (input)="dt2.filter($event.target, 'memb_type', 'contains')"
-            />
-          </span> -->
         </div>
       </ng-template>
       <ng-template pTemplate="header">
@@ -40,14 +27,14 @@
       </ng-template>
       <ng-template pTemplate="body" let-customer>
         <tr>
-          <td class="text-center">
+          <!-- <td class="text-center">
             <b> {{customer.memb_type == 'G' ? 'General Membership' : customer.memb_type == 'L' ? 'Life Membership' :
               'Associate Membership'}}</b>
           </td>
           <td class="text-center">
             <a pTooltip="Edit/View" tooltipPosition="bottom" (click)="onadd(customer.memb_type)"><i
                 class="pi pi-file-edit editLink"></i></a>
-          </td>
+          </td> -->
         </tr>
       </ng-template>
       <ng-template pTemplate="emptymessage">

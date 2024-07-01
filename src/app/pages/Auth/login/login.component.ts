@@ -53,6 +53,10 @@ export class LoginComponent implements OnInit {
           'user_id',
           this.getLoginData.msg.userdata[0].user_id
         );
+        localStorage.setItem(
+          'user_email',
+          this.getLoginData.msg.userdata[0].user_email
+        );
         this.router.navigate(['admin/admin_approve']).catch((data) => {
           this.messageService.add({
             severity: 'success',

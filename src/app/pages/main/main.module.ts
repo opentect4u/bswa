@@ -61,6 +61,13 @@ const routes: Routes = [
             (m) => m.Print_group_policy_formModule
           ),
       },
+      {
+        path: 'change_password_member',
+        loadChildren: () =>
+          import('../main/change_password_member/change_password_member.module').then(
+            (m) => m.Change_password_memberModule
+          ),
+      },
      
       // {
       //   path: 'general_form',

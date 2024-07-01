@@ -36,6 +36,27 @@ const routes: Routes = [
             (m) => m.Add_fee_typeModule
           ),
       },
+      {
+        path: 'change_password_superadmin',
+        loadChildren: () =>
+          import('../Superadmin/change_password_superadmin/change_password_superadmin.module').then(
+            (m) => m.Change_password_superadminModule
+          ),
+      },
+      {
+        path: 'add_admin',
+        loadChildren: () =>
+          import('../Superadmin/add_admin/add_admin.module').then(
+            (m) => m.Add_adminModule
+          ),
+      },
+      {
+        path: 'show_admin_data',
+        loadChildren: () =>
+          import('../Superadmin/show_admin_data/show_admin_data.module').then(
+            (m) => m.Show_admin_dataModule
+          ),
+      },
     ],
   },
 ];

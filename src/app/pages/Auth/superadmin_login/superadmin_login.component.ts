@@ -50,6 +50,10 @@ export class Superadmin_loginComponent implements OnInit {
           'user_type',
           this.getLoginData.msg.userdata[0].user_type
         );
+        localStorage.setItem(
+          'user_id',
+          this.getLoginData.msg.userdata[0].user_id
+        );
         this.router.navigate(['superadmin/fee_type']).catch((data) => {
           this.messageService.add({
             severity: 'success',
