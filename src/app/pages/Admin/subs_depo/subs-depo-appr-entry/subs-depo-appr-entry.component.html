@@ -14,25 +14,31 @@
       <div class="field col-6 md:col-4">
         <p>
           <label style="color: black">Member Name: </label>
-          <label>{{trnsData!.mem_dt!['memb_name']}}</label>
+          <label>{{trnsData?.mem_dt?.memb_name}}</label>
         </p>
       </div>
       <div class="field col-6 md:col-4">
         <p>
           <label style="color: black">Member ID: </label>
-          <label>{{trnsData!.mem_dt!['member_id']}}</label>
+          <label>{{trnsData?.mem_dt?.member_id}}</label>
         </p>
       </div>
       <div class="field col-6 md:col-4">
         <p>
           <label style="color: black">Member Type: </label>
-          <label>{{trnsData!.mem_dt!['mem_type']}}</label>
+          <label>{{trnsData?.mem_dt?.mem_type}}</label>
         </p>
       </div>
       <div class="field col-6 md:col-4">
         <p>
           <label style="color: black">Subscription Paid Upto: </label>
-          <label>{{trnsData!.mem_dt!['subscription_upto'] | date: 'MM-yyyy'}}</label>
+          <label>{{trnsData?.mem_dt?.subscription_upto | date: 'MM-yyyy'}}</label>
+        </p>
+      </div>
+      <div class="field col-6 md:col-4">
+        <p>
+          <label style="color: black">Opening: </label>
+          <label>{{trnsData?.mem_dt?.calc_amt}}</label>
         </p>
       </div>
     </div>

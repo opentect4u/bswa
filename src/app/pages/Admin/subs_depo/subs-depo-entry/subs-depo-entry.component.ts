@@ -14,6 +14,8 @@ interface UserInfo {
   phone_no: string;
   email_id: string;
   subscription_upto: string;
+  calc_amt: string;
+  calc_upto: string;
 }
 
 @Component({
@@ -121,10 +123,14 @@ export class SubsDepoEntryComponent implements OnInit {
   subscription_fee(memb_type: any){
     this.dataServe.global_service(0, '/master/subscription_fee_dynamic', `memb_type=${memb_type}`).subscribe((data:any) => {
       this.responsedata_subs = data
-      console.log(this.responsedata_subs,'ooo');
+      // console.log(this.responsedata_subs,'ooo');
       this.responsedata_subs = this.responsedata_subs.suc > 0 ? this.responsedata_subs.msg : []
+      var nowDate = new Date()
+      var cal_upto = new Date(this.userData!.calc_upto)
+      var cal_month = nowDate.getMonth() - cal_upto.getMonth()
+      
       this.entryForm.patchValue({
-        subs_amt: this.responsedata_subs[0].subscription_1
+        subs_amt: cal_month * this.responsedata_subs[0].subscription_1 + parseInt(this.userData!.calc_amt)
       })
       this.entryForm.get('subs_amt')?.setValidators([Validators.required, this.calculateSubsFee()])
       this.entryForm.get('subs_amt')?.updateValueAndValidity();
@@ -147,7 +153,9 @@ export class SubsDepoEntryComponent implements OnInit {
       memb_name: this.f['mem_name'].value,
       memb_type: this.f['mem_type'].value,
       form_no: this.f['form_no'].value,
-      approval_status: 'U'
+      approval_status: 'U',
+      cal_upto: this.userData?.calc_upto,
+      cal_amt: this.userData?.calc_amt
     }
     this.dataServe.global_service(1,'/mem_sub_tnx_save',dt).subscribe(data => {
       // console.log(data,'kiki')

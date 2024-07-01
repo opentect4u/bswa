@@ -23,6 +23,8 @@ interface MembDtls{
   phone_no: string;
   email_id: string;
   subscription_upto: string;
+  calc_amt: string;
+  calc_upto: string;
 }
 
 interface TrnDtls{
@@ -101,7 +103,10 @@ export class SubsDepoApprEntryComponent implements OnInit {
       form_no: this.trnsData?.form_no,
       approval_status: 'A',
       trn_id: this.trn_id,
-      sub_type: this.trnsData?.fee_dt.subs_type
+      sub_type: this.trnsData?.fee_dt.subs_type,
+      calc_amt: this.trnsData?.mem_dt.calc_amt,
+      calc_upto: this.trnsData?.mem_dt.calc_upto,
+      paid_month_amt: (parseInt(this.trnsData!.sub_amt) - parseInt(this.trnsData!.mem_dt.calc_amt))
     }
     this.dataServe.global_service(1,'/mem_subs_dtls_save',dt).subscribe(data => {
       // console.log(data,'kiki')
