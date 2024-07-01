@@ -100,7 +100,8 @@ export class SubsDepoApprEntryComponent implements OnInit {
       last_subs: this.trnsData?.mem_dt.subscription_upto,
       form_no: this.trnsData?.form_no,
       approval_status: 'A',
-      trn_id: this.trn_id
+      trn_id: this.trn_id,
+      sub_type: this.trnsData?.fee_dt.subs_type
     }
     this.dataServe.global_service(1,'/mem_subs_dtls_save',dt).subscribe(data => {
       // console.log(data,'kiki')
