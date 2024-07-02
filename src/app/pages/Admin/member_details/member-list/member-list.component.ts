@@ -4,6 +4,13 @@ import { Router } from '@angular/router';
 import { DataService } from 'src/app/service/data.service';
 import Swal from 'sweetalert2';
 
+interface TableData{
+  form_no: string
+  member_id: string
+  memb_name:string
+  mem_type:string
+}
+
 @Component({
   selector: 'app-member-list',
   templateUrl: './member-list.component.html',
@@ -11,6 +18,7 @@ import Swal from 'sweetalert2';
 })
 export class MemberListComponent implements OnInit {
   userData:any
+  tableData: [TableData] | any
 
   constructor(private router: Router, private dataServe: DataService, private formBuilder: FormBuilder) { }
 
@@ -24,6 +32,7 @@ export class MemberListComponent implements OnInit {
         console.log(data, 'kiki');
         this.userData = data;
         this.userData = this.userData.msg;
+        this.tableData = this.userData
         console.log(this.userData, 'lili');
       },
       (error) => {
@@ -40,6 +49,19 @@ export class MemberListComponent implements OnInit {
 
   preview(form_no: any,member_id: any){
     this.router.navigate(['/admin/mem_edit',encodeURIComponent(btoa(form_no))])
+  }
+
+  filerRes(event:any){
+    var inputText = event.target.value
+
+    const memberType:any = {
+      'G': 'general',
+      'AI': 'associate',
+      'L': 'life'
+    }
+    
+    this.tableData = this.userData.filter((dt: any) => dt.form_no.toString().toLowerCase().includes(inputText.toLowerCase()) || dt.memb_name.toString().toLowerCase().includes(inputText.toLowerCase()) || memberType[dt.mem_type].includes(inputText.toLowerCase()))
+    
   }
 
 }
