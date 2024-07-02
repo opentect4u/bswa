@@ -12,16 +12,19 @@ import { ButtonModule } from 'primeng/button';
 
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import {AppInterceptorInterceptor} from './Interceptor/app-interceptor.interceptor'
+import { LoaderComponent } from './pages/Common/loader/loader.component';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 // import { ProgressBarModule } from 'primeng/progressbar';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, LoaderComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     ButtonModule,
     AppRoutingModule,
     HttpClientModule,
+    ProgressSpinnerModule
     // ProgressBarModule,
   ],
 

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from 'src/app/service/data.service';
 import { MessageService } from 'primeng/api';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -65,11 +66,11 @@ export class LoginComponent implements OnInit {
           });
         });
       } else {
-        this.messageService.add({
-          severity: 'danger',
-          summary: 'Error',
-          detail: 'Message Content',
-        });
+        Swal.fire(
+          'Error',
+          this.getLoginData.msg,
+          'error'
+        );
       }
     });
   }

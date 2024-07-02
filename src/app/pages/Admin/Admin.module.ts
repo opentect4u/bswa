@@ -17,7 +17,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
 
 import { AvatarModule } from 'primeng/avatar';
 
-import { LoaderComponent } from '../Common/loader/loader.component';
+// import { LoaderComponent } from '../Common/loader/loader.component';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 const routes: Routes = [
@@ -354,6 +354,6 @@ const routes: Routes = [
     ProgressSpinnerModule,
     RouterModule.forChild(routes),
   ],
-  declarations: [AdminComponent, SidebarComponent, HeaderComponent, LoaderComponent],
+  declarations: [AdminComponent, SidebarComponent, HeaderComponent],
 })
 export class AdminModule {}

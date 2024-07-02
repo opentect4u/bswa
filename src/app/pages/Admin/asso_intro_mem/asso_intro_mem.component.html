@@ -4,19 +4,19 @@
 <form [formGroup]="form">
   <div class="flex flex-row">
     <div class="field col-12 md:col-4">
+      <label for="mem_no" class="size"><b>Member ID No:<span class="text-red-700">*</span></b></label>&nbsp;
+      <input id="mem_no" type="text" formControlName="mem_no" placeholder="Enter Member ID No"
+        class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" (change) = 'getMemberDtls()'/>
+      <div *ngIf="mem_no?.touched || mem_no?.dirty">
+        <small class="text-red-900" *ngIf="mem_no?.errors">Member ID No is required.</small>
+      </div>
+    </div>
+    <div class="field col-12 md:col-4">
       <label for="intro_name" class="size"><b>Introducer Name:<span class="text-red-700">*</span></b></label>&nbsp;
       <input id="intro_name" type="text" formControlName="intro_name" placeholder="Enter Introducer name"
         class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
       <div *ngIf="intro_name?.touched || intro_name?.dirty">
         <small class="text-red-900" *ngIf="intro_name?.errors">Introducer Name is required.</small>
-      </div>
-    </div>
-    <div class="field col-12 md:col-4">
-      <label for="mem_no" class="size"><b>Member ID No:<span class="text-red-700">*</span></b></label>&nbsp;
-      <input id="mem_no" type="text" formControlName="mem_no" placeholder="Enter Member ID No"
-        class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
-      <div *ngIf="mem_no?.touched || mem_no?.dirty">
-        <small class="text-red-900" *ngIf="mem_no?.errors">Member ID No is required.</small>
       </div>
     </div>
     <div class="field col-12 md:col-3">

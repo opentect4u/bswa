@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoaderService } from 'src/app/service/loader.service';
+// import { LoaderService } from 'src/app/service/loader.service';
 // import { ProgressBar } from 'primeng/progressbar';
 
 @Component({
@@ -17,7 +17,7 @@ export class AdminComponent implements OnInit {
     this.classContent = $event.classContent;
   }
   // constructor(private spinner: ProgressBar) {
-  constructor( public loader: LoaderService) {
+  constructor() {
     console.log(window.innerWidth);
     if (window.innerWidth <= 480) {
       this.sidemenuOpen = false;
