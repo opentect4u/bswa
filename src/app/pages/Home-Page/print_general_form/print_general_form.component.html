@@ -200,7 +200,7 @@
           <tr>
             <th>
               <label for="depen_dob" class="label_field"><b>DATE OF BIRTH :</b><span class="span_space">{{
-                  spouseInfo?.spou_dob }}</span></label>
+                  spouseInfo?.spou_dob | date: 'dd/MM/yyyy' }}</span></label>
             </th>
             <th>
               <label for="depen_mob" class="label_field"><b>MOBILE NO :</b><span class="span_space">{{
@@ -247,7 +247,7 @@
           </tr>
         </table>
 
-        <!-- <div class="row mt-3">
+        <div class="row mt-3">
       <div class="col-12">
         <h4 class="letter color">FOR OFFICE USE ONLY</h4>
         <br />
@@ -271,13 +271,17 @@
         </h4>
         <h4 class="letter" style="color: black">
           Amount to be deposited
+          <span class="span_space">{{ membInfo!.subscription_1 + membInfo!.adm_fee + membInfo!.donation }}</span>
+        </h4>
+        <h4 class="letter" style="color: black">
+          1) Subscription Fee : 
           <span class="span_space">{{ membInfo?.subscription_1 }}</span>
         </h4>
         <h4 class="letter" style="color: black">
-          1) Admission Fee : <span class="span_space">{{ membInfo?.adm_fee }}</span>
+          2) Admission Fee : <span class="span_space">{{ membInfo?.adm_fee }}</span>
         </h4>
         <h4 class="letter" style="color: black">
-          2) Donation/ subscription :
+          3) Donation/ subscription :
           <span class="span_space">{{ membInfo?.donation }}</span>
         </h4>
         <h4 class="letter" style="color: black; margin-left: 60vw">
@@ -285,13 +289,14 @@
         </h4>
         <p-button
           label="PRINT"
+          id="brintBtn"
           styleClass="p-button-rounded print_btn"
           (click)="printDiv()"
         ></p-button>
       </div>
-    </div> -->
+    </div>
 
-        <div class="row mt-3">
+        <!-- <div class="row mt-3">
           <div class="col-12">
             <h4 class="letter color">FOR OFFICE USE ONLY</h4>
             <br />
@@ -303,7 +308,7 @@
             <h4 class="letter space">Dated :</h4>
             <br />
             <h4 class="letter" style="color: black">
-              Type of Membership :
+              Type of Membership : General
             </h4>
             <h4 class="letter" style="color: black">
               Amount to be deposited
@@ -321,7 +326,7 @@
             </h4>
             <p-button label="PRINT" styleClass="p-button-rounded print_btn" (click)="printDiv()"></p-button>
           </div>
-        </div>
+        </div> -->
       </div>
     </p-card>
   </div>

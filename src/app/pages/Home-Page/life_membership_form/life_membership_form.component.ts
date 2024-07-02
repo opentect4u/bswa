@@ -346,7 +346,7 @@ export class Life_membership_formComponent implements OnInit {
           }
           Swal.fire(
             'Success! Your form is submitted successfully.',
-            `We have been informed! <br> Generated Form No is ${this.formNo}`,
+            `Generated Form No is ${this.formNo}`,
             'success'
           ).then((result) => {
             if (result.isConfirmed) {

@@ -12,6 +12,7 @@ export class Asso_intro_memComponent implements OnInit {
   @Input() form!: FormGroup
   items!: any[];
   responsedata_rel: any;
+  memberData: any;
 
 
   constructor(private router: Router, private fb: FormBuilder, private dataServe: DataService) { }
@@ -52,6 +53,16 @@ export class Asso_intro_memComponent implements OnInit {
   }
   get relation() {
     return this.form.get('relation');
+  }
+
+  getMemberDtls(){
+    this.dataServe.global_service(1, '/member_dtls', {mem_id: this.mem_no?.value}).subscribe((data:any) => {
+      this.memberData = data
+      if(this.memberData.suc > 0){
+        this.intro_name?.patchValue(this.memberData.msg[0].memb_name)
+        this.intro_name?.disable({ onlySelf: true })
+      }
+      })
   }
 
 }

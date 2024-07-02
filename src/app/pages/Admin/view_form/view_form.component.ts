@@ -5,6 +5,7 @@ import { DataService } from 'src/app/service/data.service';
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { environment } from 'src/environments/environment';
+import { ValidatorsService } from 'src/app/service/validators.service';
 // import { multipleOfTwentyValidator } from '../../Admin/view_form/view_form.module'
 // import { multipleOfTwentyValidator } from './view_form.module';
 
@@ -83,7 +84,7 @@ export class View_formComponent implements OnInit {
 
   constructor(private router: Router,
     private fb: FormBuilder, private route: ActivatedRoute,
-    private dataServe: DataService, private datePipe: DatePipe) { 
+    private dataServe: DataService, private datePipe: DatePipe, private validatorsService: ValidatorsService,) { 
       this.form = this.fb.group({
         resolution_no: ['',Validators.required],
         resolution_dt: ['',Validators.required],
@@ -93,11 +94,11 @@ export class View_formComponent implements OnInit {
         admissionFee: [''],
         donationFee: [''],
         // subscriptionFee: [''],
-        subscriptionFee: ['', [Validators.required]],
-        subscriptionType: [''],
-        cheque_no: ['',Validators.required],
-        bank_name: ['',Validators.required],
-        cheque_dt: ['',Validators.required],
+        subscriptionFee: ['', Validators.required],
+        subscriptionType: [{value: 0, disabled: true}],
+        cheque_no: [''],
+        bank_name: [''],
+        cheque_dt: [''],
         admissionFee_life: [''],
         donationFee_life: [''],
         subscriptionFee_2: [''],

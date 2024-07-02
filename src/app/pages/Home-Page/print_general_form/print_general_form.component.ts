@@ -187,6 +187,7 @@ export class Print_general_formComponent implements OnInit {
       'body{font-family:Arial, Tahoma, Verdana;font-size: 14px;color: #6f7479;}' +
       '.wrapper{box-shadow: none !important; max-width: 1100px; width: 100%; margin: 0 auto; font-family:Arial, Tahoma, Verdana;}' +
       '.contant-wraper{box-shadow: none !important;}'+
+      'button{display: none;}'+
       // '.table_print_outer {border:red solid 2px;}' +
       // '.table_print_outer table thead tr th{background:#000 !important; color:#fff; margin: 0 !important; padding:7px 3px; border: none;}' +
       // '.table_print_outer table thead{text-align: left; background:#000 !important;}' +
