@@ -696,11 +696,13 @@
           <h4 class="letter color">FOR OFFICE USE ONLY</h4><br>
           <!-- <h4 class="letter" style="color: black;">Mebership Subscription Fee <span
               class="span_space">{{subscription_1}}/- ({{subs_type== 'M' ? 'Monthly' : 'Yearly'}})</span></h4> -->
-          <h4 class="letter" style="color: black;">1) Admission Fee : <span class="span_space">{{this.form.get('admissionFee_associate')?.value}} /-</span></h4>
+          <h4 class="letter" style="color: black;">1) Admission Fee : <span
+              class="span_space">{{this.form.get('admissionFee_associate')?.value}} /-</span></h4>
           <h4 class="letter" style="color: black;">2) Onetime : <span
               class="span_space">{{this.form.get('subscriptionFee_associate_one')?.value}} /-</span></h4>
           <h4 class="letter" style="color: black;">3) Total Amount to be deposited : <span
-              class="span_space">{{this.form.get('admissionFee_associate')?.value + this.form.get('subscriptionFee_associate_one')?.value}} /-  (Onetime)</span>
+              class="span_space">{{this.form.get('admissionFee_associate')?.value +
+              this.form.get('subscriptionFee_associate_one')?.value}} /- (Onetime)</span>
           </h4>
           <div class="col-6">
             <h4 class="letter" style="color: black;float: left;">Associate Membership {{memb_status== 'R' ? 'Rejected' :
@@ -858,7 +860,8 @@
       </div>
       <div *ngIf="form.controls['payment'].value!= 'Q'">
         <div class="flex flex-row">
-          <button pButton pRipple type="button" label="DONE" class="p-button-raised" (click)="cash_accept()" [disabled]="f['subscriptionFee']?.hasError('notDivisibleByTwo') || f['subscriptionFee'].value == ''"></button>
+          <button pButton pRipple type="button" label="DONE" class="p-button-raised" (click)="cash_accept()"
+            [disabled]="f['subscriptionFee']?.hasError('notDivisibleByTwo') || f['subscriptionFee'].value == ''"></button>
         </div>
       </div>
 
@@ -890,8 +893,8 @@
           </div>
         </div>
         <div class="flex flex-row">
-          <button pButton pRipple type="button" label="DONE" class="p-button-raised sub_btn"
-            (click)="cheque_accept()"></button>
+          <button pButton pRipple type="button" label="DONE" class="p-button-raised sub_btn" (click)="cheque_accept()"
+            [disabled]="f['subscriptionFee']?.hasError('notDivisibleByTwo') || f['subscriptionFee'].value == ''"></button>
         </div>
       </div>
     </div>
@@ -924,8 +927,17 @@
           <label for="subscriptionFee_1" style="color: black"><b>Yearly Subscription Fee</b></label>
           <input id="subscriptionFee_1" type="text" formControlName="subscriptionFee_1"
             (change)="number_validation($event)" placeholder="Enter subscription fee...."
-            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-            readonly />
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+          <div
+            *ngIf="f['subscriptionFee_1']?.dirty || f['subscriptionFee_1']?.touched || f['subscriptionFee_1']?.hasError('notDivisibleByTwo')"
+            class="error-message">
+            <small class="text-red-700" *ngIf="f['subscriptionFee_1']?.errors">
+              Please enter a valid Subscription fee it is required.
+            </small>
+            <!-- <div *ngIf="f['subscriptionFee']?.hasError('notDivisibleByTwo')">
+               Subscription fee is required.
+             </div> -->
+          </div>
         </div>
       </div>
 
@@ -967,8 +979,8 @@
 
       <div *ngIf="form.controls['payment'].value!= 'Q'">
         <div class="flex flex-row">
-          <button pButton pRipple type="button" label="DONE" class="p-button-raised"
-            (click)="cash_accept_life()"></button>
+          <button pButton pRipple type="button" label="DONE" class="p-button-raised" (click)="cash_accept_life()"
+            [disabled]="f['subscriptionFee_1']?.hasError('notDivisibleByTwo') || f['subscriptionFee_1'].value == ''"></button>
         </div>
       </div>
 
@@ -1001,7 +1013,8 @@
         </div>
         <div class="flex flex-row">
           <button pButton pRipple type="button" label="DONE" class="p-button-raised sub_btn"
-            (click)="cheque_accept_life()"></button>
+            (click)="cheque_accept_life()"
+            [disabled]="f['subscriptionFee_1']?.hasError('notDivisibleByTwo') || f['subscriptionFee_1'].value == ''"></button>
         </div>
       </div>
     </div>
@@ -1111,7 +1124,7 @@
         </div>
         <div class="flex flex-row">
           <button pButton pRipple type="button" label="DONE" class="p-button-raised sub_btn"
-            (click)="cheque_accept_life()"></button>
+            (click)="cheque_accept_associate()"></button>
         </div>
       </div>
     </div>

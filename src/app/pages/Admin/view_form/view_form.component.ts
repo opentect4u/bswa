@@ -211,6 +211,7 @@ export class View_formComponent implements OnInit {
               this.fee_data_get(this.responsedata[0].mem_type)
 
               this.subscription_fee()
+              this.subscription_fee_life()
           });
   
       this.dataServe.global_service(0, '/get_dependent_dtls',`form_no=${this.form_no}` )
@@ -557,6 +558,34 @@ export class View_formComponent implements OnInit {
         
         let sub_fee = this.responsedata_subs[0].subscription_1
         if(value % sub_fee !== 0){
+          return {notDivisibleByTwo: {value: value}}
+        }
+        return null
+      }
+    }
+
+    subscription_fee_life(){
+      this.dataServe.global_service(0, '/master/subscription_fee_dynamic_life', `memb_type=L`).subscribe((data:any) => {
+        this.responsedata_subs = data
+        console.log(this.responsedata_subs,'ooo');
+        this.responsedata_subs = this.responsedata_subs.suc > 0 ? this.responsedata_subs.msg : []
+        this.form.patchValue({
+          subscriptionFee_1: this.responsedata_subs[0].subscription_1
+        })
+        this.form.get('subscriptionFee_1')?.setValidators([Validators.required, this.calculateLifeSubsFee()])
+        this.form.get('subscriptionFee_1')?.updateValueAndValidity();
+        console.log(this.responsedata_subs[0].subscription_1, 'qwqwqw')
+        })
+    }
+
+
+    calculateLifeSubsFee() : ValidatorFn{
+      return (control: AbstractControl) : ValidationErrors | null => {
+        const value = control.value
+        console.log(value, 'lalalala');
+        
+        let sub_fee_life = this.responsedata_subs[0].subscription_1
+        if(value % sub_fee_life !== 0){
           return {notDivisibleByTwo: {value: value}}
         }
         return null
