@@ -7,17 +7,17 @@
       <div class="field col-12 md:col-3">
         <label for="dependent_name" class="size"><b>Dependent Name:</b></label>
         <input id="dependent_name" type="text" formControlName="dependent_name" placeholder="Enter Dependent name"
-          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+          class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
       </div>
       <div class="field col-12 md:col-3">
         <label for="phone_no" class="size"><b>Phone No:</b></label>&nbsp;
         <input id="phone_no" type="text" formControlName="phone_no" maxlength="10" placeholder="Enter Phone No"
-          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+          class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
       </div>
       <div class="field col-12 md:col-3">
         <label for="relation" class="size"><b>Relationship:</b></label>
         <select id="relation" formControlName="relation"
-          class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+          class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
           style="appearance: auto; height: 3vw; border-radius: 7px">
           <option value="null">Select Relationship</option>
           <option *ngFor="let option of responsedata_rel" [value]="option.id">
