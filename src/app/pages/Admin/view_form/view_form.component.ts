@@ -80,6 +80,7 @@ export class View_formComponent implements OnInit {
   memb_status: any;
   remarks: any;
   responsedata_subs: any;
+  tnxData: any;
   // dept_dt: any;
 
   constructor(private router: Router,
@@ -179,9 +180,9 @@ export class View_formComponent implements OnInit {
       this.dataServe.global_service(0, '/get_member_dtls',`form_no=${this.form_no}` )
           .subscribe((data: any) => {
             this.responsedata = data;
-            console.log(this.responsedata,'pppp');
+            // console.log(this.responsedata,'pppp');
             
-            console.log(this.responsedata, '666');
+            // console.log(this.responsedata, '666');
             this.responsedata =
               this.responsedata.suc > 0 ? this.responsedata.msg : [];
               this.memb_name = this.responsedata[0].memb_name;
@@ -245,6 +246,16 @@ export class View_formComponent implements OnInit {
       this.getMemberInfo();
       this.getSpouseInfo();
       this.getDependentInfo();
+    }
+
+    getTnxDetails(){
+      this.dataServe
+        .global_service(0, '/get_total_amount', `form_no=${this.form_no}`)
+        .subscribe((data: any) => {
+          this.tnxData = data;
+          console.log(this.tnxData, '777');
+          this.tnxData = this.tnxData.suc > 0 ? this.tnxData.msg : [];
+        }); 
     }
 
     getMemberInfo() {

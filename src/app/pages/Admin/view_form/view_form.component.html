@@ -534,42 +534,6 @@
           <th><span class="span_space">{{dt.relation_name}}</span></th>
           <th><span class="span_space">{{dt.dob | date: 'dd/MM/yyyy'}}</span></th>
         </tr>
-        <!-- <tr>
-          <th>1</th>
-          <th style="width: 38vw;"></th>
-          <th></th>
-          <th></th>
-        </tr>
-        <tr>
-          <th>2</th>
-          <th style="width: 38vw;"></th>
-          <th></th>
-          <th></th>
-        </tr>
-        <tr>
-          <th>3</th>
-          <th style="width: 38vw;"></th>
-          <th></th>
-          <th></th>
-        </tr>
-        <tr>
-          <th>4</th>
-          <th style="width: 38vw;"></th>
-          <th></th>
-          <th></th>
-        </tr>
-        <tr>
-          <th>5</th>
-          <th style="width: 38vw;"></th>
-          <th></th>
-          <th></th>
-        </tr>
-        <tr>
-          <th>6</th>
-          <th style="width: 38vw;"></th>
-          <th></th>
-          <th></th>
-        </tr> -->
         <tr>
           <th colspan="4">
             I hereby declare that above information is true & agree to abide by all the rules and regulation adopted by
@@ -861,7 +825,7 @@
       <div *ngIf="form.controls['payment'].value!= 'Q'">
         <div class="flex flex-row">
           <button pButton pRipple type="button" label="DONE" class="p-button-raised" (click)="cash_accept()"
-            [disabled]="f['subscriptionFee']?.hasError('notDivisibleByTwo') || f['subscriptionFee'].value == ''"></button>
+            [disabled]="f['subscriptionFee'].hasError('notDivisibleByTwo') || f['subscriptionFee'].value == ''"></button>
         </div>
       </div>
 
@@ -894,7 +858,7 @@
         </div>
         <div class="flex flex-row">
           <button pButton pRipple type="button" label="DONE" class="p-button-raised sub_btn" (click)="cheque_accept()"
-            [disabled]="f['subscriptionFee']?.hasError('notDivisibleByTwo') || f['subscriptionFee'].value == ''"></button>
+            [disabled]="f['subscriptionFee'].hasError('notDivisibleByTwo') || f['subscriptionFee'].value == ''"></button>
         </div>
       </div>
     </div>
@@ -980,7 +944,7 @@
       <div *ngIf="form.controls['payment'].value!= 'Q'">
         <div class="flex flex-row">
           <button pButton pRipple type="button" label="DONE" class="p-button-raised" (click)="cash_accept_life()"
-            [disabled]="f['subscriptionFee_1']?.hasError('notDivisibleByTwo') || f['subscriptionFee_1'].value == ''"></button>
+            [disabled]="f['subscriptionFee_1'].hasError('notDivisibleByTwo') || f['subscriptionFee_1'].value == ''"></button>
         </div>
       </div>
 
@@ -1014,7 +978,7 @@
         <div class="flex flex-row">
           <button pButton pRipple type="button" label="DONE" class="p-button-raised sub_btn"
             (click)="cheque_accept_life()"
-            [disabled]="f['subscriptionFee_1']?.hasError('notDivisibleByTwo') || f['subscriptionFee_1'].value == ''"></button>
+            [disabled]="f['subscriptionFee_1'].hasError('notDivisibleByTwo') || f['subscriptionFee_1'].value == ''"></button>
         </div>
       </div>
     </div>
