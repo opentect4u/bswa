@@ -67,6 +67,11 @@ interface DepInfo {
   grp_no: string;
   stp_status: string;
   stp_no: string;
+  relation_intro: string;
+  intro_name: string;
+  dependent_name_dep: string;
+  dob_dep: string;
+  relation_dep: string;
 }
 
 @Component({
@@ -82,7 +87,7 @@ export class MemberEditComponent implements OnInit {
   responsedata: any;
   userData: any;
 
-  memberData: UserInfo | undefined;
+  memberData: UserInfo | any;
   responsedata_rel: any;
   uploadedFiles: any[] = [];
   spouseFile: any = null
@@ -91,6 +96,10 @@ export class MemberEditComponent implements OnInit {
   api_url = environment.api_url
   spouseFileName: any = null;
   memFileName: any = null;
+
+
+  mem_type: any;
+  memberData_intro: any;
 
   constructor(
     private router: Router,
@@ -141,8 +150,15 @@ export class MemberEditComponent implements OnInit {
         sl_no: [0],
       }),
       depenFields: this.fb.array([]),
+      mem_id: [''],
+      // depenFields_intro: this.fb.array([]),
       user: [localStorage.getItem('user_name')],
       mem_type: [''],
+      intro_fr: this.fb.group({
+        intro_member_id: [''],
+        intro_name: [''],
+        relation_intro: [''],
+      }),
     });
 
     this.unit();
@@ -158,6 +174,11 @@ export class MemberEditComponent implements OnInit {
     // console.log((<FormArray>this.form.get('depenFields')).controls, 'GET');
     return this.form.get('depenFields') as FormArray;
   }
+
+  // get depenFields_intro(): FormArray {
+  //   // console.log((<FormArray>this.form.get('depenFields')).controls, 'GET');
+  //   return this.form.get('depenFields_intro') as FormArray;
+  // }
 
   unit() {
     this.dataServe
@@ -218,13 +239,14 @@ export class MemberEditComponent implements OnInit {
               mem: this.memberData?.memb_address,
               city: this.memberData?.city_town_dist,
               pin: this.memberData?.pin_no,
-              // police_st: this.memberData,
+              police_st: this.memberData?.ps,
+              mem_id: this.memberData?.member_id,
               spouse_fr: {
-                sl_no: this.memberData?.spou_dt.sl_no,
+                sl_no: this.memberData?.spou_dt.sl_no > 0 ? this.memberData?.spou_dt.sl_no : 0,
                 spou_name: this.memberData?.spou_dt.dependent_name,
                 spou_gurd_name: this.memberData?.spou_dt.gurdian_name,
                 spou_blood_grp: this.memberData?.spou_dt.blood_grp,
-                spou_dob: this.memberData?.spou_dt.dob
+                spou_dob: this.memberData?.spou_dt.dob > 0
                   ? this.datePipe.transform(
                       this.memberData?.spou_dt.dob,
                       'yyyy-MM-dd'
@@ -237,18 +259,47 @@ export class MemberEditComponent implements OnInit {
                 spou_police_st: this.memberData?.spou_dt.ps,
                 spou_city: this.memberData?.spou_dt.city_town_dist,
               },
+              intro_fr: {
+                intro_member_id: this.memberData?.spou_dt?.intro_member_id,
+                intro_name: this.memberData?.spou_dt?.dependent_name,
+                relation_intro: this.memberData?.spou_dt?.relation,
+              },
             });
+
 
             for (let dt of this.memberData!.dep_dt) {
               this.depenFields.push(
                 this.fb.group({
-                  sl_no: [dt.sl_no],
+                  sl_no: [dt.sl_no > 0 ? dt.sl_no : 0],
                   dependent_name: [dt.dependent_name],
                   phone_no: [dt.phone_no],
                   relation: [dt.relation],
+                  dob_dep: dt.dob
+                        ? this.datePipe.transform(
+                            dt.dob,
+                            'yyyy-MM-dd'
+                          )
+                        : '',
                 })
               );
             }
+
+            // for (let dt_1 of this.memberData!.dep_dt) {
+            //   this.depenFields_intro.push(
+            //     this.fb.group({
+            //       sl_no: [dt_1.sl_no],
+            //       dependent_name_dep: [dt_1.dependent_name],
+            //       // dob_dep: this.datePipe.transform(dt_1?.dob, 'dd-MM-yyyy'),
+            //       dob_dep: dt_1.dob
+            //       ? this.datePipe.transform(
+            //           dt_1.dob,
+            //           'yyyy-MM-dd'
+            //         )
+            //       : '',
+            //       relation_dep: [dt_1.relation],
+            //     })
+            //   );
+            // }
 
             this.spouseFileName = this.memberData?.spou_dt.memb_pic ? `${this.api_url}/${this.memberData?.spou_dt.memb_pic}` : null
             this.memFileName = this.memberData?.memb_pic ? `${this.api_url}/${this.memberData?.memb_pic}` : null
@@ -265,6 +316,57 @@ export class MemberEditComponent implements OnInit {
           // this.messageService.add({ severity: 'error', summary: 'Error', detail: 'An error occurred while saving data' });
         }
       );
+  }
+
+
+  // getMemberDtls(){
+  //   this.dataServe.global_service(1, '/member_dtls', {mem_id: this.mem_no?.value}).subscribe((data:any) => {
+  //     this.memberData_intro = data
+  //     if(this.memberData_intro.suc > 0){
+  //       this.intro_name?.patchValue(this.memberData_intro.msg[0].memb_name)
+  //       this.intro_name?.disable({ onlySelf: true })
+  //     }
+  //     })
+  // }
+
+  onadd() {
+    // this.phoneNumbers.push('');
+    const fieldGroup = this.fb.group(
+      {
+        dependent_name: [null],
+        dob_dep: [null],
+        relation: [null],
+      },
+      {
+        validators: this.validatorsService.conditionalRequiredValidator(
+          'dependent_name',
+          ['dob_dep', 'relation']
+        ),
+      }
+    );
+    this.depenFields.insert(0, fieldGroup);
+    // console.log(this.depenFields.controls, 'ADD');
+  }
+
+  onminus(index: number) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.depenFields.removeAt(index);
+        Swal.fire({
+          title: 'Deleted!',
+          text: 'Row has been deleted.',
+          icon: 'success',
+        });
+      }
+    });
   }
 
   onUpload(event: any, flag: any) {
@@ -286,6 +388,10 @@ export class MemberEditComponent implements OnInit {
     //   detail: '',
     // });
   }
+
+  // showAssociate(): boolean{
+  //   return this.mem_type === 'AI';
+  // }
 
   onRemove(event: any, flag: any) {
     if (flag == 'O') this.memFile = null;
