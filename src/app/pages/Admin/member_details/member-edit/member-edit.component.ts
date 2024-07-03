@@ -274,7 +274,7 @@ export class MemberEditComponent implements OnInit {
                   dependent_name: [dt.dependent_name],
                   phone_no: [dt.phone_no],
                   relation: [dt.relation],
-                  dob_dep: dt.dob
+                  dob_dep: dt.dob > 0
                         ? this.datePipe.transform(
                             dt.dob,
                             'yyyy-MM-dd'
@@ -331,20 +331,37 @@ export class MemberEditComponent implements OnInit {
 
   onadd() {
     // this.phoneNumbers.push('');
-    const fieldGroup = this.fb.group(
-      {
-        dependent_name: [null],
-        dob_dep: [null],
-        relation: [null],
-      },
-      {
-        validators: this.validatorsService.conditionalRequiredValidator(
-          'dependent_name',
-          ['dob_dep', 'relation']
-        ),
-      }
-    );
-    this.depenFields.insert(0, fieldGroup);
+    if (this.memberData?.mem_type == 'AI') {
+      const fieldGroup = this.fb.group(
+        {
+          dependent_name: [null],
+          dob_dep: [null],
+          relation: [null],
+        },
+        {
+          validators: this.validatorsService.conditionalRequiredValidator(
+            'dependent_name',
+            ['dob_dep', 'relation']
+          ),
+        }
+      );
+      this.depenFields.insert(0, fieldGroup);
+    }else{
+      const fieldGroup = this.fb.group(
+        {
+          dependent_name: [null],
+          phone_no: [null],
+          relation: [null],
+        },
+        {
+          validators: this.validatorsService.conditionalRequiredValidator(
+            'dependent_name',
+            ['phone_no', 'relation']
+          ),
+        }
+      );
+      this.depenFields.insert(0, fieldGroup);
+    }
     // console.log(this.depenFields.controls, 'ADD');
   }
 

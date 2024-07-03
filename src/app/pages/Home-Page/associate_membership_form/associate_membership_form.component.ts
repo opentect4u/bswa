@@ -59,7 +59,7 @@ export class Associate_membership_formComponent implements OnInit {
           label: 'Member Information'
       },
       {
-          label: 'Spouse Information'
+          label: 'Introducer Information'
       },
       {
           label: 'Dependent Information'

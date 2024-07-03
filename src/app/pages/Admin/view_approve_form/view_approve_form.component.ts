@@ -123,14 +123,14 @@ approve (){
     if(this.userData.suc > 0){
       this.trn_id = this.userData.trn_id;
       Swal.fire(
-        'Success! Your form is submitted successfully.',
-        `We have been informed! <br> Generated Transaction ID is ${this.trn_id}`,
+        'Success! Your form is approved successfully.',
+        `Member ID is ${this.userData.mem_id} <br> Transaction ID is ${this.trn_id}`,
         'success'
       ).then((result) => {
         if (result.isConfirmed) {
-                this.router.navigate(['/admin/approve_form'])
-              }
-            });
+          this.router.navigate(['/admin/approve_form']);
+        }
+      });
     }else {
       Swal.fire(
         'Error',
