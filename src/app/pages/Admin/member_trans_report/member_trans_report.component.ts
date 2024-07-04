@@ -20,6 +20,7 @@ export class Member_trans_reportComponent implements OnInit {
   date!: Date;
   from_dt: any;
   to_dt: any;
+  payMode = [{id: 'C', value: 'Cash'},{id: 'Q', value: 'Cheque'},{id: 'O', value: 'Online'}]
 
   constructor(
     private router: Router,
@@ -37,7 +38,8 @@ export class Member_trans_reportComponent implements OnInit {
     // this.user = localStorage.setItem
     this.form = this.fb.group({
       from_dt: [''],
-      to_dt: ['']
+      to_dt: [''],
+      pay_mode: ['']
     });
   }
   get m() {
@@ -47,9 +49,10 @@ export class Member_trans_reportComponent implements OnInit {
   submit_btn_trans(){
     var dt = {
       from_dt: this.m['from_dt'].value,
-      to_dt: this.m['to_dt'].value,      
-        }
-    this.router.navigate(['/admin/show_transaction_report',dt.from_dt,dt.to_dt]);    
+      to_dt: this.m['to_dt'].value,
+      pay_mode: this.m['pay_mode'].value
+    }
+    this.router.navigate(['/admin/show_transaction_report',dt.from_dt,dt.to_dt,dt.pay_mode]);    
   }
 
   }

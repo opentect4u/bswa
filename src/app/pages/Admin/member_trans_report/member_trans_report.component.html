@@ -9,15 +9,25 @@
 
   <form [formGroup]="form">
     <div class="formgrid grid mt-4">
-      <div class="field col-12 md:col-6">
+      <div class="field col-12 md:col-4">
         <label for="from_dt" class="label_field"><b>From Date:</b></label>&nbsp;
         <input id="from_dt" type="date" formControlName="from_dt" placeholder="dd/MM/yyyy"
           class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
       </div>
-      <div class="field col-12 md:col-6">
+      <div class="field col-12 md:col-4">
         <label for="to_dt" class="label_field"><b>To Date:</b></label>&nbsp;
         <input id="to_dt" type="date" formControlName="to_dt" placeholder="dd/MM/yyyy"
           class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+      </div>
+      <div class="field col-12 md:col-4">
+        <label for="pay_mode" class="label_field"><b>Pay Mode:<span class="text-red-700">*</span></b></label>&nbsp;
+        <select id="pay_mode" formControlName="pay_mode"
+          class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+          style="appearance: auto; height: 3vw; border-radius: 7px">
+          <option value="">Select Pay Mode</option>
+          <option value="A">Select All</option>
+          <option *ngFor="let option of payMode" [value]="option.id">{{ option.value }}</option>
+        </select>
       </div>
     </div>
 

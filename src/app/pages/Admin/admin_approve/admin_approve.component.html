@@ -23,13 +23,26 @@
 
 
   <div class="card mt-4">
-    <p-table [value]="userData" #dt2 dataKey="id" [rows]="10" [showCurrentPageReport]="true"
+    <p-table [value]="tbFilterData" #dt2 dataKey="id" [rows]="10" [showCurrentPageReport]="true"
       [rowsPerPageOptions]="[10, 25, 50]" [paginator]="false"
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
       [globalFilterFields]="['memb_type']" [tableStyle]="{
         'min-width': '55rem',
         'box-shadow': '0 10px 28px rgba(1.5, 1.5, 1.5, 1.5)',
       }">
+      <ng-template pTemplate="caption">
+        <div class="flex flex-wrap gap-3">
+          <div class="flex align-items-center">
+            <input type="radio" name="tb_filter" [(ngModel)]="tr_status" (click)="filterTableData('Y')" id="tb_pen" value="Y">
+            <label for="tb_pen" class="ml-2"><b>Accept / Payment Done</b></label>
+          </div>
+          
+          <div class="flex align-items-center">
+            <input type="radio" name="tb_filter" [(ngModel)]="tr_status" (click)="filterTableData('R')" id="tb_rej" value="R">
+          <label for="tb_rej" class="ml-2"><b>Rejected</b></label>
+          </div>
+        </div>
+      </ng-template>
       <ng-template pTemplate="header">
         <tr>
           <th id="table_color">Form No</th>
@@ -50,8 +63,7 @@
             <b>
               <span
                 class="badge {{ customer.memb_status=='P' ? 'badge-pending' : customer.memb_status=='R' ? 'badge-reject' : 'badge-settlement' }}">
-                {{ customer.memb_status=='P' ? 'Pending' : customer.memb_status=='R' ? 'Reject' : 'Waiting
-                for bank settlement' }}
+                {{ customer.memb_status=='P' ? 'Pending' : customer.memb_status=='R' ? 'Reject' : 'Payment Done' }}
               </span>
             </b>
           </td>

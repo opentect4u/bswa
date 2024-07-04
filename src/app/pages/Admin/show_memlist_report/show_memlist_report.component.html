@@ -29,6 +29,7 @@
             <ng-template pTemplate="header">
               <tr>
                 <th id="table_color">SL No</th>
+                <th id="table_color">Unit</th>
                 <th id="table_color">Member ID</th>
                 <th id="table_color">Member Name</th>
                 <th id="table_color">MIN No</th>
@@ -42,6 +43,7 @@
             <ng-template pTemplate="body" let-customer let-i="rowIndex">
               <tr>
                 <td class="text-center">{{i+1}}</td>
+                <td class="text-center">{{customer.unit_name}}</td>
                 <td class="text-center">{{ customer.member_id}}</td>
                 <td class="text-center">{{customer.memb_name}}</td>
                 <td class="text-center">{{customer.min_no}}</td>

@@ -236,17 +236,27 @@ export class View_formComponent implements OnInit {
               this.getTnxDetails();
           });
   
-      this.dataServe.global_service(0, '/get_dependent_dtls',`form_no=${this.form_no}` )
-          .subscribe((spouse_dt: any) => {
-            this.resdata = spouse_dt;
-            console.log(this.resdata, '777');
-            this.resdata =
-              this.resdata.suc > 0 ? this.resdata.msg : {};
-              this.spou_min = this.resdata.spouse_dt;
-              this.dep_dt = this.resdata.dep_dt;
-          });  
+          if(this.mem_type != 'AI'){
+            this.dataServe.global_service(0, '/get_dependent_dtls',`form_no=${this.form_no}` )
+            .subscribe((spouse_dt: any) => {
+              this.resdata = spouse_dt;
+              console.log(this.resdata, '777');
+              this.resdata =
+                this.resdata.suc > 0 ? this.resdata.msg : {};
+                this.spou_min = this.resdata.spouse_dt;
+                this.dep_dt = this.resdata.dep_dt;
+                var dep_list = this.dep_dt.length > 0 ? this.dep_dt.map((dt: any) => {
+                  var newArr = `${dt.dependent_name} (${dt.relation_name}${dt.spou_phone > 0 ? `, ${dt.spou_phone}` : ''})`
+                  return newArr;                  
+                }) : [];
+                this.dep_dt = dep_list.join(', ')
 
-          this.dataServe.global_service(0, '/get_total_amount',`form_no=${this.form_no}` )
+                // console.log(this.dep_dt, dep_list, 'I am here');
+                
+            });  
+          }
+
+        this.dataServe.global_service(0, '/get_total_amount',`form_no=${this.form_no}` )
           .subscribe((total_dt: any) => {
             this.resdata = total_dt;
             console.log(this.resdata, '777');
@@ -254,19 +264,13 @@ export class View_formComponent implements OnInit {
             this.resdata.suc > 0 ? this.resdata.msg : [];
               this.tot_amt = this.resdata.length > 0 ? this.resdata[0].tot_amt : 0;
           }); 
-  
-      // this.dataServe.global_service(0, '/get_dependent_dtls',`form_no=${this.form_no}` )
-      //     .subscribe((dep_dt: any) => {
-      //       this.resdata1 = dep_dt;
-      //       console.log(this.resdata1, '777');
-      //       this.resdata1 =
-      //         this.resdata1.suc > 0 ? this.resdata1.msg : {};
-      //     }); 
 
       // this.fee_data_get();
-      this.getMemberInfo();
-      this.getSpouseInfo();
-      this.getDependentInfo();
+      if(this.mem_type == 'AI'){
+        this.getMemberInfo();
+        this.getSpouseInfo();
+        this.getDependentInfo();
+      }
     }
 
     getTnxDetails(){
