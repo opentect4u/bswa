@@ -171,7 +171,7 @@ export class Print_stp_formComponent implements OnInit {
     );
 
     this.WindowObject.document.writeln(
-      '@media print { .table_space { margin-left: 14px; } .letter{ margin-left: 19px; margin: 6PX; padding: 0; } .letter_style{ margin-left: 22px; margin: 17PX; padding: 0; } p-button.p-element, .print_btn { /* align-items: center;     */ /* position: fixed; */ /* right: 30px; */ bottom: 15px; /* margin-left: 30vw; */ } </style>'
+      '@media print { .table_space { margin-left: 14px; } .letter{ margin-left: 19px; margin: 6PX; padding: 0; } .letter_style{ margin-left: 22px; margin: 17PX; padding: 0; } p-button.p-element, .print_btn { /* align-items: center;  */ /* position: fixed; */ /* right: 30px; */ bottom: 15px; /* margin-left: 30vw; */ } </style>'
     );
     this.WindowObject.document.writeln(
       '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">'

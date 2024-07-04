@@ -46,6 +46,7 @@ export class Group_policyComponent implements OnInit {
   isMember: boolean = true;
   responsedata_unit: any;
 
+
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -60,23 +61,24 @@ export class Group_policyComponent implements OnInit {
     this.mem_type = this.route.snapshot.params['mem_type'];
     this.user = localStorage.setItem
     this.form = this.fb.group({
-      member_id: [''],
-      member_type: [''],
-      member: [''],
-      gurdian: [''],
-      gen: [''],
-      marital_status: [''],
-      gen_dob: [''],
-      type_diseases: [''],
-      name_diseases: [''],
-      memb_oprn: [''],
+      member_id: ['', Validators.required],
+      member_type: ['', Validators.required],
+      member: ['', Validators.required],
+      gurdian: ['', Validators.required],
+      gen: ['', Validators.required],
+      marital_status: ['', Validators.required],
+      gen_dob: ['', Validators.required],
+      type_diseases: ['', Validators.required],
+      name_diseases: ['', Validators.required],
+      memb_oprn: ['', Validators.required],
       grp_name: [''],
       pre_amont: [''],
       sup_top_up: [''],
       sup_pre_amont: [''],
       sup_tot_amont: [''],
       policy_holder_type: [''],
-      unit: [''],
+      unit: ['', Validators.required],
+      // unit_name: ['', Validators.required],
       // sl_no: [''],
       // dependent_name: [''],
       // relation: [''],
@@ -120,6 +122,8 @@ export class Group_policyComponent implements OnInit {
     this.depenFields_1.clear()
     if(isMember === 'M'){
       this.checkedmember = true;
+      this.unit()
+      this.relationship()
     }else{
 
       this.checkedmember = false;
@@ -183,7 +187,7 @@ export class Group_policyComponent implements OnInit {
       console.log(this.responsedata);
       this.responsedata = this.responsedata.suc > 0 ? this.responsedata.msg : []
       this.formNo = this.responsedata[0].form_no
-      console.log(this.responsedata[0].subscription_1)
+      console.log(this.responsedata[0].unit_name)
       this.form.patchValue({
         policy_holder_type: this.responsedata[0].policy_holder_type,
         unit: this.responsedata[0].unit_name,
@@ -254,7 +258,7 @@ onadd(sl_no:any = '',dependent_name:any = '',relation:any = '',dob:any = '',type
     {
       validators: this.validatorsService.conditionalRequiredValidator(
         'dependent_name', 
-        ['dob', 'relation']
+        ['dob', 'relation_name','type_diseases','name_diseases']
       ),
     }
   );

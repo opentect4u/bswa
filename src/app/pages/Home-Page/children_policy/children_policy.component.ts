@@ -33,6 +33,7 @@ export class Children_policyComponent implements OnInit {
   groupSaveData: any;
   user: any;
   formNo: any = 0;
+  showDiseaseInput =  false;
 
   constructor(
     private router: Router,
@@ -63,6 +64,10 @@ export class Children_policyComponent implements OnInit {
       // dob: [''],
       depenFields_1: this.fb.array([])
     });
+
+    // this.form.get('type_diseases')?.valueChanges.subscribe(value => {
+    //   this.onDiseaseChange(value);
+    // });
   }
 
 
@@ -73,6 +78,13 @@ get depenFields_1(): FormArray {
   get o() {
     return this.form.controls;
   }
+
+  // onDiseaseChange(value: string) {
+  //   this.showDiseaseInput = value === 'Y';
+  //   if (!this.showDiseaseInput) {
+  //     this.form.get('name_diseases')?.reset();
+  //   }
+  // }
 
   submit(){
     var dt = {

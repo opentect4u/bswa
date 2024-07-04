@@ -41,6 +41,12 @@ export class Super_top_up_policy_registerComponent implements OnInit {
   responsedata_unit: any;
   responsedata_rel: any;
 
+  // member_type='N'
+
+  selectedValue: string = '';
+  selectedValue2: string = '';
+  selectedValue3: string = 'N';
+
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -55,16 +61,16 @@ export class Super_top_up_policy_registerComponent implements OnInit {
     this.member_id = this.route.snapshot.params['member_id'];
     this.form = this.fb.group({
       member_id: ['', Validators.required],
-      member_type: [''],
-      unit_name: [''],
-      personal_no: [''],
-      memb_opr: [''],
-      member: [''],
-      min_no: [''],
-      gen_dob: [''],
-      mobile: [''],
-      fin_yr: [''],
-      mem: [''],
+      member_type: ['', Validators.required],
+      unit_name: ['', Validators.required],
+      personal_no: ['', Validators.required],
+      memb_opr: ['', Validators.required],
+      member: ['', Validators.required],
+      min_no: ['', Validators.required],
+      gen_dob: ['', Validators.required],
+      mobile: ['', Validators.required],
+      fin_yr: ['', Validators.required],
+      mem: ['', Validators.required],
       spouse: [''],
       spouse_min_no: [''],
       spou_dob: [''],
@@ -77,6 +83,12 @@ export class Super_top_up_policy_registerComponent implements OnInit {
     if(this.depenFields_2.controls.length == 0)
       this.onadd();
       // this.changedate();
+  }
+  ngAfterViewInit(): void {
+    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    //Add 'implements AfterViewInit' to the class.
+    this.selectedValue3='N'
+    
   }
 
   get depenFields_2(): FormArray {
@@ -194,6 +206,12 @@ export class Super_top_up_policy_registerComponent implements OnInit {
         amount: [null],
         treatment_dtls: [null],
       },
+      {
+        validators: this.validatorsService.conditionalRequiredValidator(
+          'ind_type',
+          ['fin_year','particulars','amount','treatment_dtls']
+        ),
+      }
     );
     this.depenFields_2.insert(0, fieldGroup);
   }

@@ -12,14 +12,14 @@
           <div class="field col-12 md:col-4">
             <div class="flex align-items-center">
               <input type="radio" name="policyHolderType" id="member" value="M" (click)="onPolicyHolderTypeChange('M')">
-              <label for="member" class="ml-2"><b>BSPWA Member</b></label>
+              <label for="member" class="label_field ml-2"><b>BSPWA Member</b></label>
             </div>
           </div>
           <div class="field col-12 md:col-4">
             <div class="flex align-items-center">
               <input type="radio" name="policyHolderType" id="non_member" value="N"
                 (click)="onPolicyHolderTypeChange('N')">
-              <label for="non_member" class="ml-2"><b>Member of Other SAIL Association</b></label>
+              <label for="non_member" class="label_field ml-2"><b>Member of Other SAIL Association</b></label>
             </div>
           </div>
         </div>
@@ -27,9 +27,13 @@
         <form [formGroup]="form">
           <div class="flex flex-row">
             <div class="field col-12 md:col-8">
-              <label for="member_id" class="label_field"><b>Member ID:</b></label>&nbsp;
+              <label for="member_id" class="label_field"><b>Member ID:<span
+                    class="text-red-700">*</span></b></label>&nbsp;
               <input id="member_id" type="text" formControlName="member_id" placeholder="Enter Member ID"
-                class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+              <div *ngIf="o['member_id']?.touched || o['member_id']?.dirty">
+                <small class="text-red-900" *ngIf="o['member_id']?.errors">Member ID is required.</small>
+              </div>
             </div>
             <div class="field col-12 md:col-4 sub_btn" *ngIf="checkedmember">
               <p-button label="Submit" (click)="submit()"></p-button>
@@ -59,143 +63,205 @@
 
           <div class="flex flex-row">
             <div class="field col-12 md:col-4">
-              <label for="member_type" class="label_field"><b>Member Type:</b></label>&nbsp;
+              <label for="member_type" class="label_field"><b>Member Type:<span
+                    class="text-red-700">*</span></b></label>&nbsp;
               <ng-container *ngIf="checkedmember">
                 <input id="member_type" type="text" formControlName="member_type" placeholder="Enter Member Type"
-                  class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                  class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                   readonly />
+                <div *ngIf="o['member_type']?.touched || o['member_type']?.dirty">
+                  <small class="text-red-900" *ngIf="o['member_type']?.errors">Member Type is required.</small>
+                </div>
               </ng-container>
               <ng-container *ngIf="!checkedmember">
-                <select id="member_type" formControlName="member_type"
-                  class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                <select id="member_type" formControlName="member_type" [(ngModel)]="selectedValue"
+                  class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                   style="appearance: auto; height: 3vw; border-radius: 7px">
-                  <option value="">Select Member Type</option>
+                  <option value="N" select>Select Member Type</option>
                   <option value="G">General Membership</option>
                   <option value="L">Life Membership</option>
                 </select>
+                <div *ngIf="o['member_type']?.touched || o['member_type']?.dirty">
+                  <small class="text-red-900" *ngIf="o['member_type']?.errors">Member Type is required.</small>
+                </div>
               </ng-container>
 
             </div>
             <div class="field col-12 md:col-4">
-              <label for="unit_name" class="label_field"><b>Unit Name:</b></label>&nbsp;
+              <label for="unit_name" class="label_field"><b>Unit Name:<span
+                    class="text-red-700">*</span></b></label>&nbsp;
               <ng-container *ngIf="checkedmember">
                 <input id="unit_name" type="text" formControlName="unit_name" placeholder="Enter Unit Name"
-                  class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                  class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                   readonly />
+                <div *ngIf="o['unit_name']?.touched || o['unit_name']?.dirty">
+                  <small class="text-red-900" *ngIf="o['unit_name']?.errors">Unit Name is required.</small>
+                </div>
               </ng-container>
               <ng-container *ngIf="!checkedmember">
-                <select id="unit_name" formControlName="unit_name"
-                  class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                <select id="unit_name" formControlName="unit_name" [(ngModel)]="selectedValue2"
+                  class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                   style="appearance: auto; height: 3vw; border-radius: 7px">
-                  <option value="">Select Unit Name</option>
+                  <option value="N" select>Select Unit Name</option>
                   <option *ngFor="let option of responsedata_unit" [value]="option.unit_id">{{ option.unit_name }}
                   </option>
                 </select>
+                <div *ngIf="o['unit_name']?.touched || o['unit_name']?.dirty">
+                  <small class="text-red-900" *ngIf="o['unit_name']?.errors">Unit Name is required.</small>
+                </div>
               </ng-container>
             </div>
             <div class="field col-12 md:col-4">
-              <label for="personal_no" class="label_field"><b>Personnel No:</b></label>&nbsp;
+              <label for="personal_no" class="label_field"><b>Personnel No:<span
+                    class="text-red-700">*</span></b></label>&nbsp;
               <ng-container *ngIf="checkedmember">
-                <input id="personal_no" type="text" formControlName="personal_no"
-                  placeholder="Enter Father / Husband name"
-                  class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                <input id="personal_no" type="text" formControlName="personal_no" placeholder="Enter Personal No"
+                  class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                   readonly />
+                <div *ngIf="o['personal_no']?.touched || o['personal_no']?.dirty">
+                  <small class="text-red-900" *ngIf="o['personal_no']?.errors">Personal No is required.</small>
+                </div>
               </ng-container>
               <ng-container *ngIf="!checkedmember">
-                <input id="personal_no" type="text" formControlName="personal_no"
-                  placeholder="Enter Father / Husband name"
-                  class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                <input id="personal_no" type="text" formControlName="personal_no" placeholder="Enter Personal No"
+                  class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                <div *ngIf="o['personal_no']?.touched || o['personal_no']?.dirty">
+                  <small class="text-red-900" *ngIf="o['personal_no']?.errors">Personal No is required.</small>
+                </div>
               </ng-container>
             </div>
           </div>
 
           <div class="flex flex-row">
             <div class="field col-12 md:col-4">
-              <label for="memb_opr" class="label_field"><b>Member Operation:</b></label>&nbsp;
+              <label for="memb_opr" class="label_field"><b>Member Operation:<span
+                    class="text-red-700">*</span></b></label>&nbsp;
               <ng-container *ngIf="checkedmember">
                 <input id="memb_opr" type="text" formControlName="memb_opr" placeholder="Enter Member Operation"
-                  class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                  class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                   readonly />
+                <div *ngIf="o['memb_opr']?.touched || o['memb_opr']?.dirty">
+                  <small class="text-red-900" *ngIf="o['memb_opr']?.errors">Operation is required.</small>
+                </div>
               </ng-container>
               <ng-container *ngIf="!checkedmember">
-                <select id="memb_opr" formControlName="memb_opr"
-                  class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                <select id="memb_opr" formControlName="memb_opr" [(ngModel)]="selectedValue3"
+                  class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                   style="appearance: auto; height: 3vw; border-radius: 7px">
-                  <option value="">Select Operation</option>
+                  <option value="N" selected>Select Operation</option>
                   <option value="S">Self</option>
                   <option value="J">Spouse</option>
                 </select>
+                <div *ngIf="o['memb_opr']?.touched || o['memb_opr']?.dirty">
+                  <small class="text-red-900" *ngIf="o['memb_opr']?.errors">Operation is required.</small>
+                </div>
               </ng-container>
             </div>
             <div class="field col-12 md:col-4">
-              <label for="member" class="label_field"><b>Member Name:</b></label>&nbsp;
+              <label for="member" class="label_field"><b>Member Name:<span
+                    class="text-red-700">*</span></b></label>&nbsp;
               <ng-container *ngIf="checkedmember">
                 <input id="member" type="text" formControlName="member" placeholder="Enter Member name"
-                  class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                  class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                   readonly />
+                <div *ngIf="o['member']?.touched || o['member']?.dirty">
+                  <small class="text-red-900" *ngIf="o['member']?.errors">Member Name is required.</small>
+                </div>
               </ng-container>
               <ng-container *ngIf="!checkedmember">
                 <input id="member" type="text" formControlName="member" placeholder="Enter Member name"
-                  class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                  class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                <div *ngIf="o['member']?.touched || o['member']?.dirty">
+                  <small class="text-red-900" *ngIf="o['member']?.errors">Member Name is required.</small>
+                </div>
               </ng-container>
             </div>
             <div class="field col-12 md:col-4">
-              <label for="min_no" class="label_field"><b>MIN No:</b></label>&nbsp;
+              <label for="min_no" class="label_field"><b>MIN No:<span class="text-red-700">*</span></b></label>&nbsp;
               <ng-container *ngIf="checkedmember">
-                <input id="min_no" type="text" formControlName="min_no" placeholder="Enter Father / Husband name"
-                  class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                <input id="min_no" type="text" formControlName="min_no" placeholder="Enter MIN No"
+                  class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                   readonly />
+                <div *ngIf="o['min_no']?.touched || o['min_no']?.dirty">
+                  <small class="text-red-900" *ngIf="o['min_no']?.errors">MIN NO is required.</small>
+                </div>
               </ng-container>
               <ng-container *ngIf="!checkedmember">
                 <input id="min_no" type="text" formControlName="min_no" placeholder="Enter Father / Husband name"
-                  class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                  class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                <div *ngIf="o['min_no']?.touched || o['min_no']?.dirty">
+                  <small class="text-red-900" *ngIf="o['min_no']?.errors">MIN NO is required.</small>
+                </div>
               </ng-container>
             </div>
           </div>
 
           <div class="flex flex-row">
             <div class="field col-12 md:col-4">
-              <label for="gen_dob" class="label_field"><b>DOB:</b></label>&nbsp;
+              <label for="gen_dob" class="label_field"><b>DOB:<span class="text-red-700">*</span></b></label>&nbsp;
               <ng-container *ngIf="checkedmember">
                 <input id="gen_dob" type="date" formControlName="gen_dob" placeholder="dd/MM/yyyy"
-                  class="box_input text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                  class="box_input text-2xl text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                   readonly />
+                <div *ngIf="o['gen_dob']?.touched || o['gen_dob']?.dirty">
+                  <small class="text-red-900" *ngIf="o['gen_dob']?.errors">DOB is required.</small>
+                </div>
               </ng-container>
               <ng-container *ngIf="!checkedmember">
                 <input id="gen_dob" type="date" formControlName="gen_dob" placeholder="dd/MM/yyyy"
-                  class="box_input text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                  class="box_input text-2xl text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                <div *ngIf="o['gen_dob']?.touched || o['gen_dob']?.dirty">
+                  <small class="text-red-900" *ngIf="o['gen_dob']?.errors">DOB is required.</small>
+                </div>
               </ng-container>
             </div>
             <div class="field col-12 md:col-4">
-              <label for="mobile" class="label_field"><b>Mobile No:</b></label>&nbsp;
+              <label for="mobile" class="label_field"><b>Mobile No:<span class="text-red-700">*</span></b></label>&nbsp;
               <ng-container *ngIf="checkedmember">
                 <input id="mobile" type="text" formControlName="mobile" placeholder="Enter Mobile No"
-                  class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                  class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                   readonly />
+                <div *ngIf="o['mobile']?.touched || o['mobile']?.dirty">
+                  <small class="text-red-900" *ngIf="o['mobile']?.errors">Mobile No is required.</small>
+                </div>
               </ng-container>
               <ng-container *ngIf="!checkedmember">
                 <input id="mobile" type="text" formControlName="mobile" maxlength="10" placeholder="Enter Mobile No"
-                  class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                  class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                <div *ngIf="o['mobile']?.touched || o['mobile']?.dirty">
+                  <small class="text-red-900" *ngIf="o['mobile']?.errors">Mobile No is required.</small>
+                </div>
               </ng-container>
             </div>
             <div class="field col-12 md:col-4">
-              <label for="fin_yr" class="label_field"><b>Joining Year:</b></label>&nbsp;
+              <label for="fin_yr" class="label_field"><b>Joining Year:<span
+                    class="text-red-700">*</span></b></label>&nbsp;
               <input id="fin_yr" type="date" formControlName="fin_yr" placeholder="Enter Joining Year"
-                class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+              <div *ngIf="o['fin_yr']?.touched || o['fin_yr']?.dirty">
+                <small class="text-red-900" *ngIf="o['fin_yr']?.errors">Joining Year is required.</small>
+              </div>
             </div>
           </div>
 
           <div class="flex flex-row">
             <div class="field col-12">
-              <label for="mem" class="label_field"><b>Member Address:</b></label>&nbsp;
+              <label for="mem" class="label_field"><b>Member Address:<span
+                    class="text-red-700">*</span></b></label>&nbsp;
               <ng-container *ngIf="checkedmember">
                 <textarea id="mem" formControlName="mem" type="text" rows="4" placeholder="Enter Member address..."
-                  class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                  class="text-base text-2xl text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                   readonly></textarea>
+                <div *ngIf="o['mem']?.touched || o['mem']?.dirty">
+                  <small class="text-red-900" *ngIf="o['mem']?.errors">Member Address is required.</small>
+                </div>
               </ng-container>
               <ng-container *ngIf="!checkedmember">
                 <textarea id="mem" formControlName="mem" type="text" rows="4" placeholder="Enter Member address..."
-                  class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
+                  class="text-base text-2xl text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
+                <div *ngIf="o['mem']?.touched || o['mem']?.dirty">
+                  <small class="text-red-900" *ngIf="o['mem']?.errors">Member Address is required.</small>
+                </div>
               </ng-container>
             </div>
           </div>
@@ -209,36 +275,36 @@
                 <label for="spouse" class="label_field"><b>Spouse Name:</b></label>&nbsp;
                 <ng-container *ngIf="checkedmember">
                   <input id="spouse" type="text" formControlName="spouse" placeholder="Enter Spouse name"
-                    class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                    class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                     readonly />
                 </ng-container>
                 <ng-container *ngIf="!checkedmember">
                   <input id="spouse" type="text" formControlName="spouse" placeholder="Enter Spouse name"
-                    class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                    class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                 </ng-container>
               </div>
               <div class="field col-12 md:col-3">
                 <label for="spouse_min_no" class="label_field"><b>MIN No:</b></label>&nbsp;
                 <ng-container *ngIf="checkedmember">
                   <input id="spouse_min_no" type="text" formControlName="spouse_min_no" placeholder="Enter MIN No"
-                    class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                    class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                     readonly />
                 </ng-container>
                 <ng-container *ngIf="!checkedmember">
                   <input id="spouse_min_no" type="text" formControlName="spouse_min_no" placeholder="Enter MIN No"
-                    class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                    class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                 </ng-container>
               </div>
               <div class="field col-12 md:col-3">
                 <label for="spou_dob" class="label_field"><b>DOB:</b></label>&nbsp;
                 <ng-container *ngIf="checkedmember">
                   <input id="spou_dob" type="date" formControlName="spou_dob" placeholder="dd/MM/yyyy"
-                    class="box_input text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                    class="box_input text-2xl text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                     readonly />
                 </ng-container>
                 <ng-container *ngIf="!checkedmember">
                   <input id="spou_dob" type="date" formControlName="spou_dob" placeholder="dd/MM/yyyy"
-                    class="box_input text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                    class="box_input text-2xl text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                 </ng-container>
               </div>
               <div class="field col-12 md:col-3">
@@ -246,12 +312,12 @@
                 <ng-container *ngIf="checkedmember">
                   <input id="spou_mobile" type="text" formControlName="spou_mobile" maxlength="10"
                     placeholder="Enter Mobile No"
-                    class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                    class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                     readonly />
                 </ng-container>
                 <ng-container *ngIf="!checkedmember">
                   <input id="spou_mobile" type="text" formControlName="spou_mobile" placeholder="Enter Mobile No"
-                    class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                    class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                 </ng-container>
               </div>
             </div>
@@ -262,13 +328,13 @@
                 <ng-container *ngIf="checkedmember">
                   <textarea id="spou_mem" formControlName="spou_mem" type="text" rows="4"
                     placeholder="Enter Member address..."
-                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                    class="text-base text-2xl text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                     readonly></textarea>
                 </ng-container>
                 <ng-container *ngIf="!checkedmember">
                   <textarea id="spou_mem" formControlName="spou_mem" type="text" rows="4"
                     placeholder="Enter Member address..."
-                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
+                    class="text-base text-2xl text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
                 </ng-container>
 
               </div>
@@ -283,9 +349,9 @@
             <ng-container *ngFor="let group of depenFields_2.controls; let i = index" [formGroupName]="i">
               <div class="flex flex-row mt-5">
                 <div class="field col-12 md:col-4">
-                  <label for="ind_type" class="size"><b>Status:</b></label>
+                  <label for="ind_type" class="label_field"><b>Status:</b></label>
                   <select id="ind_type" formControlName="ind_type"
-                    class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                    class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                     style="appearance: auto; height: 3vw; border-radius: 7px" (change)="changedate($event,i)">
                     <option value="null">Select Status</option>
                     <option value="S">SELF</option>
@@ -293,33 +359,34 @@
                   </select>
                 </div>
                 <div class="field col-12 md:col-4">
-                  <label for="fin_year" class="size"><b>Year:</b></label>&nbsp;
+                  <label for="fin_year" class="label_field"><b>Year:</b></label>&nbsp;
                   <input id="fin_year" type="text" formControlName="fin_year" placeholder="Enter Year"
-                    class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                    class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                     readonly />
                 </div>
                 <div class="field col-12 md:col-4">
-                  <label for="amount" class="size"><b>Amount Utilised:</b></label>
+                  <label for="amount" class="label_field"><b>Amount Utilised:</b></label>
                   <input id="amount" type="text" formControlName="amount" placeholder="Enter Amount"
-                    class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                    class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                 </div>
               </div>
 
               <div class="flex flex-row mt-2">
                 <div class="field col-12">
-                  <label for="particulars" class="size"><b>Particular of Diseases:</b></label>
+                  <label for="particulars" class="label_field"><b>Particular of Diseases:</b></label>
                   <textarea id="particulars" formControlName="particulars" type="text" rows="4"
                     placeholder="Enter Diseases name..."
-                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
+                    class="text-base text-2xl text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
                 </div>
               </div>
 
               <div class="flex flex-row mt-2">
                 <div class="field col-12 md:col-6">
-                  <label for="treatment_dtls" class="size"><b>Medical treatment taken At(Hospital Name):</b></label>
+                  <label for="treatment_dtls" class="label_field"><b>Medical treatment taken At(Hospital
+                      Name):</b></label>
                   <input id="treatment_dtls" type="text" formControlName="treatment_dtls"
                     placeholder="Enter Hospital Name"
-                    class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                    class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                 </div>
                 <div *ngIf="i === 0" class="field col-12 md:col-3">
                   <p-button class="custom-tooltip" pTooltip="Add Dependent" tooltipPosition="bottom" icon="pi pi-plus"
@@ -339,8 +406,8 @@
 
         </form>
 
-        <button pButton pRipple type="button" label="Submit" class="p-button-raised final"
-          (click)="final_submit()"></button>
+        <button pButton pRipple type="button" label="Submit" class="p-button-raised final" (click)="final_submit()"
+          [disabled]="!form.valid"></button>
       </ng-container>
     </p-card>
   </div>

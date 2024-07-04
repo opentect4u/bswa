@@ -8,9 +8,13 @@
         <form [formGroup]="form">
           <div class="flex flex-row">
             <div class="field col-12 md:col-6">
-              <label for="member_id" class="label_field"><b>Member ID:</b></label>&nbsp;
+              <label for="member_id" class="label_field"><b>Member ID:<span
+                    class="text-red-700">*</span></b></label>&nbsp;
               <input id="member_id" type="text" formControlName="member_id" placeholder="Enter Member ID"
-                class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+              <div *ngIf="o['member_id']?.touched || o['member_id']?.dirty">
+                <small class="text-red-900" *ngIf="o['member_id']?.errors">Member ID is required.</small>
+              </div>
             </div>
             <div class="field col-12 md:col-6 sub_btn">
               <p-button label="Submit" (click)="submit()"></p-button>
@@ -19,42 +23,64 @@
 
           <div class="flex flex-row">
             <div class="field col-12 md:col-4">
-              <label for="member_type" class="label_field"><b>Member Type:</b></label>&nbsp;
+              <label for="member_type" class="label_field"><b>Member Type:<span
+                    class="text-red-700">*</span></b></label>&nbsp;
               <input id="member_type" type="text" formControlName="member_type" placeholder="Enter Member Type"
-                class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                 readonly />
+              <div *ngIf="o['member_type']?.touched || o['member_type']?.dirty">
+                <small class="text-red-900" *ngIf="o['member_type']?.errors">Member Type is required.</small>
+              </div>
             </div>
             <div class="field col-12 md:col-4">
-              <label for="member" class="label_field"><b>Member Name:</b></label>&nbsp;
+              <label for="member" class="label_field"><b>Member Name:<span
+                    class="text-red-700">*</span></b></label>&nbsp;
               <input id="member" type="text" formControlName="member" placeholder="Enter Member name"
-                class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                 readonly />
+              <div *ngIf="o['member']?.touched || o['member']?.dirty">
+                <small class="text-red-900" *ngIf="o['member']?.errors">Member Name is required.</small>
+              </div>
             </div>
             <div class="field col-12 md:col-4">
-              <label for="gurdian" class="label_field"><b>Father's / Husband Name:</b></label>&nbsp;
+              <label for="gurdian" class="label_field"><b>Father's / Husband Name:<span
+                    class="text-red-700">*</span></b></label>&nbsp;
               <input id="gurdian" type="text" formControlName="gurdian" placeholder="Enter Father / Husband name"
-                class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                 readonly />
+              <div *ngIf="o['gurdian']?.touched || o['gurdian']?.dirty">
+                <small class="text-red-900" *ngIf="o['gurdian']?.errors">Gurdian Name is required.</small>
+              </div>
             </div>
           </div>
 
           <div class="flex flex-row">
             <div class="field col-12 md:col-4">
-              <label for="gen" class="label_field"><b>Gender:</b></label>&nbsp;
+              <label for="gen" class="label_field"><b>Gender:<span class="text-red-700">*</span></b></label>&nbsp;
               <input id="gen" type="text" formControlName="gen" placeholder="Enter Gender"
-                class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                 readonly />
+              <div *ngIf="o['gen']?.touched || o['gen']?.dirty">
+                <small class="text-red-900" *ngIf="o['gen']?.errors">Gender is required.</small>
+              </div>
             </div>
             <div class="field col-12 md:col-4">
-              <label for="marital_status" class="label_field"><b>Marital Status:</b></label>&nbsp;
+              <label for="marital_status" class="label_field"><b>Marital Status:<span
+                    class="text-red-700">*</span></b></label>&nbsp;
               <input id="marital_status" type="text" formControlName="marital_status" placeholder="Enter Marital Status"
-                class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                 readonly />
+              <div *ngIf="o['marital_status']?.touched || o['marital_status']?.dirty">
+                <small class="text-red-900" *ngIf="o['marital_status']?.errors">Marital Status is required.</small>
+              </div>
             </div>
             <div class="field col-12 md:col-4">
-              <label for="gen_dob" class="label_field"><b>DOB:</b></label>&nbsp;
+              <label for="gen_dob" class="label_field"><b>DOB:<span class="text-red-700">*</span></b></label>&nbsp;
               <input id="gen_dob" type="date" formControlName="gen_dob" placeholder="dd/MM/yyyy"
-                class="box_input text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                class="box_input text-2xl text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+              <div *ngIf="o['gen_dob']?.touched || o['gen_dob']?.dirty">
+                <small class="text-red-900" *ngIf="o['gen_dob']?.errors">DOB is required.</small>
+              </div>
             </div>
           </div>
 
@@ -62,18 +88,25 @@
             <div class="field col-12 md:col-4">
               <label for="type_diseases" class="label_field"><b>Suffering from any diseases:</b></label>&nbsp;
               <select id="type_diseases" formControlName="type_diseases"
-                class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                 style="appearance: auto; height: 3vw; border-radius: 7px">
                 <option value="" selected>Select</option>
                 <option value="Y">Yes</option>
                 <option value="N">No</option>
               </select>
+              <div *ngIf="o['type_diseases']?.touched || o['type_diseases']?.dirty">
+                <small class="text-red-900" *ngIf="o['type_diseases']?.errors">Suffering From Diseases is
+                  required.</small>
+              </div>
             </div>
 
             <div class="field col-12 md:col-8">
               <label for="name_diseases" class="label_field"><b>Type of Diseases:</b></label>&nbsp;
               <input id="name_diseases" type="text" formControlName="name_diseases" placeholder="Enter Diseases name"
-                class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+              <div *ngIf="o['name_diseases']?.touched || o['name_diseases']?.dirty">
+                <small class="text-red-900" *ngIf="o['name_diseases']?.errors">Type of Diseases is required.</small>
+              </div>
             </div>
           </div>
 
@@ -85,32 +118,32 @@
             <ng-container *ngFor="let group of depenFields_1.controls; let i = index" [formGroupName]="i">
               <div class="flex flex-row mt-5">
                 <div class="field col-12 md:col-3">
-                  <label for="sl_no" class="size"><b>Sl No:</b></label>
+                  <label for="sl_no" class="label_field"><b>Sl No:</b></label>
                   <input id="sl_no" type="text" formControlName="sl_no" placeholder="Enter Sl No"
-                    class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                    class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                 </div>
                 <div class="field col-12 md:col-3">
-                  <label for="dependent_name" class="size"><b>Dependent Name:</b></label>
+                  <label for="dependent_name" class="label_field"><b>Dependent Name:</b></label>
                   <input id="dependent_name" type="text" formControlName="dependent_name"
                     placeholder="Enter Dependent name"
-                    class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                    class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                 </div>
                 <div class="field col-12 md:col-3">
-                  <label for="relation" class="size"><b>Relationship:</b></label>
+                  <label for="relation" class="label_field"><b>Relationship:</b></label>
                   <input id="relation" type="text" formControlName="relation" placeholder="Enter Dependent name"
-                    class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                    class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                 </div>
                 <div class="field col-12 md:col-3">
-                  <label for="dob" class="size"><b>DOB(DD/MM/YYYY):</b></label>&nbsp;
+                  <label for="dob" class="label_field"><b>DOB(DD/MM/YYYY):</b></label>&nbsp;
                   <input id="dob" type="date" formControlName="dob" placeholder="Enter DOB"
-                    class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                    class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                 </div>
               </div>
               <div class="flex flex-row mt-3">
                 <div class="field col-12 md:col-3">
                   <label for="type_diseases" class="label_field"><b>Suffering from any diseases:</b></label>&nbsp;
                   <select id="type_diseases" formControlName="type_diseases"
-                    class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                    class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                     style="appearance: auto; height: 3vw; border-radius: 7px">
                     <option value="" selected>Select</option>
                     <option value="Y">Yes</option>
@@ -122,7 +155,7 @@
                   <label for="name_diseases" class="label_field"><b>Type of Diseases:</b></label>&nbsp;
                   <input id="name_diseases" type="text" formControlName="name_diseases"
                     placeholder="Enter Diseases name"
-                    class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                    class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                 </div>
               </div>
             </ng-container>
