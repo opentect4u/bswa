@@ -54,7 +54,8 @@
           <h4 class="letter" style="color: black">(Through: <span
               style="color: rgb(55, 55, 230);"><u>{{stpinfo?.mem_type ==
                 'G' ? 'General
-                Membership' : 'Life membership'}}</u></span>)</h4><br>
+                Membership' : stpinfo?.mem_type == 'L' ? 'Life membership' : stpinfo?.mem_type == 'AI' ? 'Associate
+                Membership' : ''}}</u></span>)</h4><br>
           <h4 class="letter" style="color: black">BOKARO STEEL PEOPLE WELFARE ASSOCIATION</h4>
           <h4 class="letter" style="color: black">Durgapur / Banpur</h4>
           <h4 class="letter" style="color: black">Dear Sir,</h4>
@@ -89,7 +90,8 @@
               <label for="" class="label_field"><b>MARITAL STATUS : </b>
                 <span style="color: rgb(55, 55, 230);"> {{stpinfo?.marital_status == 'M' ? 'Married' :
                   stpinfo?.marital_status =='U' ? 'Unmarried' :
-                  stpinfo?.marital_status == 'D' ? 'Divorced' : 'Widow'}}</span></label>
+                  stpinfo?.marital_status == 'D' ? 'Divorced' : stpinfo?.marital_status == 'W' ?'Widow' :
+                  ''}}</span></label>
             </th>
             <th colspan="2">
               <label for="" class="label_field"><b>GENDER : </b>

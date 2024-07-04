@@ -16,7 +16,7 @@ interface MemberStatus {
   selector: 'app-super_top_up_policy_register',
   templateUrl: './super_top_up_policy_register.component.html',
   styleUrls: ['./super_top_up_policy_register.component.css'],
-  providers: [DatePipe],
+  providers: [DatePipe,MessageService],
 })
 export class Super_top_up_policy_registerComponent implements OnInit {
   memb_opr: string = 'J';
@@ -46,6 +46,9 @@ export class Super_top_up_policy_registerComponent implements OnInit {
   selectedValue: string = '';
   selectedValue2: string = '';
   selectedValue3: string = 'N';
+  userData: any;
+
+  // UserData: any;
 
   constructor(
     private router: Router,
@@ -53,7 +56,8 @@ export class Super_top_up_policy_registerComponent implements OnInit {
     private dataServe: DataService,
     private validatorsService: ValidatorsService,
     private route: ActivatedRoute,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private messageService: MessageService
   ) { }
 
   ngOnInit() {
@@ -101,40 +105,42 @@ export class Super_top_up_policy_registerComponent implements OnInit {
 
 
   submit(){
-    var dt = {
-      member_id: this.o['member_id'] ? this.o['member_id'].value : null,
-    }
-    // this.dataServe.global_service(0, '/check_member_id', `member_id=${dt.member_id}`).subscribe((data:any) =>{
-    //   this.member_dt = data
-    //   if (this.member_dt.suc > 0){
-    //     this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Member ID already exists' });
-    //   } else {
-        
-    //   }
-    // })
-    this.dataServe.global_service(0, '/get_member_policy_super', `member_id=${dt.member_id}`).subscribe((data:any) => {
-      this.responsedata = data
-      console.log(this.responsedata);
-      this.responsedata = this.responsedata.suc > 0 ? this.responsedata.msg : []
-      this.formNo = this.responsedata[0].form_no
-      console.log(this.responsedata[0].subscription_1)
-      this.form.patchValue({
-        member_type: this.responsedata[0].mem_type == 'G' ? 'General Membership' : 'Life Membership',
-        unit_name: this.responsedata[0].unit_name,
-        personal_no: this.responsedata[0].pers_no,
-        memb_opr: this.responsedata[0].memb_oprn == 'J' ? 'Joint' : 'Self',
-        member: this.responsedata[0].memb_name,
-        min_no: this.responsedata[0].min_no,
-        gen_dob: this.datePipe.transform(this.responsedata[0].dob, 'yyyy-MM-dd'),
-        mobile: this.responsedata[0].phone_no,
-        // topup_year: this.responsedata[0].gurdian_name,
-        mem: this.responsedata[0].memb_address,
-        spouse: this.responsedata[0].dependent_name,
-        spouse_min_no: this.responsedata[0].spou_min,
-        spou_dob: this.datePipe.transform(this.responsedata[0].spou_db, 'yyyy-MM-dd'),
-        spou_mobile: this.responsedata[0].spou_phone,
-        spou_mem: this.responsedata[0].spou_address,   })
-      })
+      var dt = {
+        member_id: this.o['member_id'] ? this.o['member_id'].value : null,
+      }
+      // this.dataServe.global_service(0, '/check_member_id', `member_id=${dt.member_id}`).subscribe((data:any) =>{
+      //   this.member_dt = data
+      //   if (this.member_dt.suc > 0){
+      //     this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Member ID already exists' });
+      //   } else {
+          
+      //   }
+      // })
+  
+      this.dataServe.global_service(0, '/get_member_policy_super', `member_id=${dt.member_id}`).subscribe((data:any) => {
+        this.responsedata = data
+        console.log(this.responsedata);
+        this.responsedata = this.responsedata.suc > 0 ? this.responsedata.msg : []
+        this.formNo = this.responsedata[0].form_no
+        console.log(this.responsedata[0].subscription_1)
+        this.form.patchValue({
+          member_type: this.responsedata[0].mem_type,
+          unit_name: this.responsedata[0].unit_id,
+          personal_no: this.responsedata[0].pers_no,
+          memb_opr: this.responsedata[0].memb_oprn,
+          member: this.responsedata[0].memb_name,
+          min_no: this.responsedata[0].min_no,
+          gen_dob: this.datePipe.transform(this.responsedata[0].dob, 'yyyy-MM-dd'),
+          mobile: this.responsedata[0].phone_no,
+          // topup_year: this.responsedata[0].gurdian_name,
+          mem: this.responsedata[0].memb_address,
+          spouse: this.responsedata[0].dependent_name,
+          spouse_min_no: this.responsedata[0].spou_min,
+          spou_dob: this.datePipe.transform(this.responsedata[0].spou_db, 'yyyy-MM-dd'),
+          spou_mobile: this.responsedata[0].spou_phone,
+          spou_mem: this.responsedata[0].spou_address,   })
+        })
+  
 
   }
 
@@ -185,6 +191,8 @@ export class Super_top_up_policy_registerComponent implements OnInit {
     // this.depenFields_2.clear()
     if(isMember === 'M'){
       this.checkedmember = true;
+      this.unit()
+      this.relationship()
     }else{
 
       this.checkedmember = false;
@@ -196,15 +204,15 @@ export class Super_top_up_policy_registerComponent implements OnInit {
   }
 
 
-  onadd() {
+  onadd(ind_type:any = '',fin_year:any = '',particulars:any = '',amount:any = '',treatment_dtls:any = '') {
     // this.phoneNumbers.push('');
     const fieldGroup = this.fb.group(
       {
-        ind_type: [null],
-        fin_year: [null],
-        particulars: [null],
-        amount: [null],
-        treatment_dtls: [null],
+        ind_type: [ind_type],
+        fin_year: [fin_year],
+        particulars: [particulars],
+        amount: [amount],
+        treatment_dtls: [treatment_dtls],
       },
       {
         validators: this.validatorsService.conditionalRequiredValidator(
@@ -213,7 +221,7 @@ export class Super_top_up_policy_registerComponent implements OnInit {
         ),
       }
     );
-    this.depenFields_2.insert(0, fieldGroup);
+    this.depenFields_2.push(fieldGroup);
   }
 
   onminus(index: number) {

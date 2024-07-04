@@ -187,16 +187,16 @@ export class Group_policyComponent implements OnInit {
       console.log(this.responsedata);
       this.responsedata = this.responsedata.suc > 0 ? this.responsedata.msg : []
       this.formNo = this.responsedata[0].form_no
-      console.log(this.responsedata[0].unit_name)
+      console.log(this.responsedata[0].unit_id)
       this.form.patchValue({
         policy_holder_type: this.responsedata[0].policy_holder_type,
-        unit: this.responsedata[0].unit_name,
-        member_type: this.responsedata[0].mem_type == 'G' ? 'General Membership' : this.responsedata[0].mem_type == 'L' ? 'Life Membership' : 'Associate Membership',
+        unit: this.responsedata[0].unit_id,
+        member_type: this.responsedata[0].mem_type,
         member: this.responsedata[0].memb_name,
-        memb_oprn: this.responsedata[0].memb_oprn == 'J' ? 'Joint' : this.responsedata[0].memb_oprn == 'S' ? 'Self' : '',
+        memb_oprn: this.responsedata[0].memb_oprn,
         gurdian: this.responsedata[0].gurdian_name,
-        gen: this.responsedata[0].gender == 'M' ? 'Male' : 'Female',
-        marital_status: this.responsedata[0].marital_status == 'M' ? 'Married' : this.responsedata[0].marital_status == 'U' ? 'Unmarried' : this.responsedata[0].marital_status == 'W' ? 'Widow' : 'Divorced',
+        gen: this.responsedata[0].gender,
+        marital_status: this.responsedata[0].marital_status,
         gen_dob: this.datePipe.transform(this.responsedata[0].dob, 'yyyy-MM-dd'),
       })
       })
@@ -292,6 +292,7 @@ final_submit(){
   var dt = {
       flag: 'GP',
       checkedmember: this.checkedmember,
+      policy_holder_type: this.o['policy_holder_type']? this.o['policy_holder_type'].value : null,
       unit: this.o['unit']? this.o['unit'].value : null,
       member_id: this.o['member_id'] ? this.o['member_id'].value : null,
       type_diseases: this.o['type_diseases'] ? this.o['type_diseases'].value : null,

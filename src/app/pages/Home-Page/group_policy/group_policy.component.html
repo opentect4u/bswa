@@ -44,7 +44,7 @@
             </div>
 
             <div class="flex flex-row">
-              <div class="field col-12 md:col-12">
+              <div class="field col-12 md:col-12" *ngIf="this.responsedata[0]?.mem_type !='AI'">
                 <label for="unit" class="label_field"><b>Unit Name:<span class="text-red-700">*</span></b></label>&nbsp;
                 <ng-container *ngIf="checkedmember">
                   <!-- <input id="unit" type="text" formControlName="unit" placeholder="Enter Unit Name"
@@ -53,6 +53,7 @@
                   <select id="unit" formControlName="unit"
                     class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                     style="appearance: auto; height: 3vw; border-radius: 7px">
+                    <option value="">Select Unit Name</option>
                     <option *ngFor="let option of responsedata_unit" [value]="option.unit_id">{{ option.unit_name }}
                     </option>
                   </select>
@@ -123,8 +124,7 @@
                 <label for="gurdian" class="label_field"><b>Father's / Husband Name:<span
                       class="text-red-700">*</span></b></label>&nbsp;
                 <input id="gurdian" type="text" formControlName="gurdian" placeholder="Enter Father / Husband name"
-                  class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-                  [readonly]="checkedmember" />
+                  class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                 <!-- [readonly]="checkedmember" /> -->
                 <div *ngIf="o['gurdian']?.touched || o['gurdian']?.dirty">
                   <small class="text-red-900" *ngIf="o['gurdian']?.errors">Gurdian Name is required.</small>
@@ -211,7 +211,7 @@
             </div>
 
             <div class="flex flex-row">
-              <div class="field col-12 md:col-4">
+              <div class="field col-12 md:col-4" *ngIf="this.responsedata[0]?.mem_type !='AI'">
                 <label for="memb_oprn" class="label_field"><b>Member Operation:<span
                       class="text-red-700">*</span></b></label>&nbsp;
                 <ng-container *ngIf="checkedmember">
@@ -244,8 +244,7 @@
 
               </div>
               <div class="field col-12 md:col-4">
-                <label for="type_diseases" class="label_field"><b>Suffering from any diseases:<span
-                      class="text-red-700">*</span></b></label>&nbsp;
+                <label for="type_diseases" class="label_field"><b>Suffering from any diseases:</b></label>&nbsp;
                 <select id="type_diseases" formControlName="type_diseases"
                   class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                   style="appearance: auto; height: 3vw; border-radius: 7px">
@@ -253,20 +252,19 @@
                   <option value="Y">Yes</option>
                   <option value="N">No</option>
                 </select>
-                <div *ngIf="o['type_diseases']?.touched || o['type_diseases']?.dirty">
+                <!-- <div *ngIf="o['type_diseases']?.touched || o['type_diseases']?.dirty">
                   <small class="text-red-900" *ngIf="o['type_diseases']?.errors">Suffering from any diseases is
                     required.</small>
-                </div>
+                </div> -->
               </div>
 
               <div class="field col-12 md:col-4">
-                <label for="name_diseases" class="label_field"><b>Type of Diseases:<span
-                      class="text-red-700">*</span></b></label>&nbsp;
+                <label for="name_diseases" class="label_field"><b>Type of Diseases:</b></label>&nbsp;
                 <input id="name_diseases" type="text" formControlName="name_diseases" placeholder="Enter Diseases name"
                   class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
-                <div *ngIf="o['name_diseases']?.touched || o['name_diseases']?.dirty">
+                <!-- <div *ngIf="o['name_diseases']?.touched || o['name_diseases']?.dirty">
                   <small class="text-red-900" *ngIf="o['name_diseases']?.errors">Type of Diseases is required.</small>
-                </div>
+                </div> -->
               </div>
             </div>
 
@@ -369,7 +367,7 @@
                 <select id="grp_name" formControlName="grp_name"
                   class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                   style="appearance: auto; height: 3vw; border-radius: 7px" (change)="getPremiumAmt($event)">
-                  <option value="" selected>Select Group Name</option>
+                  <option value="">Select Group Name</option>
                   <ng-container *ngIf="responsedata.length > 0">
                     <option *ngFor="let option of responsedata[0].pre_dt" [value]="option.family_type_id">{{
                       option.family_type

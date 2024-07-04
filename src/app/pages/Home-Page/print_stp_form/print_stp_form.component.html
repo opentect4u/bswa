@@ -46,14 +46,19 @@
           </h3>
           <h4 class="letter" style="color: black">13 CAMAC STREET,</h4>
           <h4 class="letter" style="color: black">KOLKATA 700017</h4>
-          <h4 class="letter" style="color: black">(through: <u>{{stpinfo?.mem_type == 'G' ? 'General Membership' : 'Life
-              membership'}} Association</u>)</h4>
+          <h4 class="letter" style="color: black">(Through: <span
+              style="color: rgb(55, 55, 230);"><u>{{stpinfo?.mem_type == 'G' ? 'General Membership' :
+                stpinfo?.mem_type == 'L' ? 'Life
+                membership' : ''}}</u></span>)</h4>
           <h4 class="letter" style="color: black">Dear Sir,</h4>
           <h4 class="size" style="color: black">
-            This is to inform you that the under signed is the member of <span><u>{{stpinfo?.mem_type == 'G' ? 'General
-                Membership' : 'Life membership'}} Association</u></span> having membership no.
-            <span><u>{{stpinfo?.member_id}}</u></span> and
-            Superannuated from <u>{{stpinfo?.unit_name}}</u>. My SAIL PERSONNEL NO. is <u>{{stpinfo?.personel_no}}</u>.
+            This is to inform you that the under signed is the member of <span
+              style="color: rgb(55, 55, 230);"><u>{{stpinfo?.mem_type == 'G' ? 'General
+                Membership' : stpinfo?.mem_type == 'L' ? 'Life
+                membership' : ''}}</u></span> having membership no.
+            <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.member_id}}</u></span> and
+            Superannuated from <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.unit_name}}</u></span>. My SAIL
+            PERSONNEL NO. is <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.personel_no}}</u></span>.
             I am interested to join in the scheme of super top up policy with the UNITED INDIA INSURANCE CO LTD for the
             year
             subject to premium and other term. The details of the undersigned are as under:
@@ -85,20 +90,40 @@
           </tr>
 
           <tr>
-            <th class="text-center"><span class="label_field">SELF</span></th>
-            <th class="text-center"><span class="label_field">{{stpinfo?.memb_name}}</span></th>
-            <th class="text-center"><span class="label_field">{{stpinfo?.min_no}}</span></th>
-            <th class="text-center"><span class="label_field">{{stpinfo?.dob | date: 'MM/dd/yyyy'}}</span></th>
-            <th class="text-center"><span class="label_field">{{stpinfo?.phone_no}}</span></th>
-            <th class="text-center"><span class="label_field">{{stpinfo?.mem_address}}</span></th>
+            <th class="text-center"><span class="label_field" style="color: rgb(55, 55, 230);">SELF</span></th>
+            <th class="text-center"><span class="label_field"
+                style="color: rgb(55, 55, 230);">{{stpinfo?.memb_name!='null' ? stpinfo?.memb_name : 'N/A'}}</span></th>
+            <th class="text-center"><span class="label_field" style="color: rgb(55, 55, 230);">{{stpinfo?.min_no!='null'
+                ? stpinfo?.min_no : 'N/A'}}</span></th>
+            <th class="text-center"><span class="label_field" style="color: rgb(55, 55, 230);"> {{stpinfo?.dob &&
+                stpinfo?.dob !== '0000-00-00' ? (stpinfo?.dob | date: 'MM/dd/yyyy') :
+                'N/A'}}</span></th>
+            <th class="text-center"><span class="label_field" style="color: rgb(55, 55, 230);">{{
+                stpinfo?.phone_no}}</span></th>
+            <th class="text-center"><span class="label_field"
+                style="color: rgb(55, 55, 230);">{{stpinfo?.mem_address!='null' ? stpinfo?.mem_address : 'N/A'}}</span>
+            </th>
           </tr>
           <tr>
-            <th class="text-center"><span class="label_field">SPOUSE</span></th>
-            <th class="text-center"><span class="label_field">{{stpinfo?.dependent_name}}</span></th>
-            <th class="text-center"><span class="label_field">{{stpinfo?.spou_min_no}}</span></th>
-            <th class="text-center"><span class="label_field">{{stpinfo?.spou_dob | date: 'MM/dd/yyyy'}}</span></th>
-            <th class="text-center"><span class="label_field">{{stpinfo?.spou_phone}}</span></th>
-            <th class="text-center"><span class="label_field">{{stpinfo?.spou_address}}</span></th>
+            <th class="text-center"><span class="label_field" style="color: rgb(55, 55, 230);">SPOUSE</span></th>
+            <th class="text-center"><span class="label_field" style="color: rgb(55, 55, 230);">{{
+                stpinfo?.dependent_name!= 'null' ? stpinfo?.dependent_name : 'N/A'}}</span></th>
+            <th class="text-center"><span class="label_field"
+                style="color: rgb(55, 55, 230);">{{stpinfo?.spou_min_no!='null' ? stpinfo?.spou_min_no : 'N/A'}}</span>
+            </th>
+            <th class="text-center">
+              <span class="label_field" style="color: rgb(55, 55, 230);">
+                {{stpinfo?.spou_dob && stpinfo?.spou_dob !== '0000-00-00' ? (stpinfo?.spou_dob | date: 'MM/dd/yyyy') :
+                'N/A'}}
+              </span>
+            </th>
+
+            <th class="text-center"><span class="label_field"
+                style="color: rgb(55, 55, 230);">{{stpinfo?.spou_phone}}</span>
+            </th>
+            <th class="text-center"><span class="label_field"
+                style="color: rgb(55, 55, 230);">{{stpinfo?.spou_address!='null' ? stpinfo?.spou_address :
+                'N/A'}}</span></th>
           </tr>
         </table>
       </div>
@@ -133,11 +158,14 @@
             </th>
           </tr>
           <tr *ngFor="let dt of spouseInfo; let i = index">
-            <th class="text-center"><span class="label_field">{{dt.ind_type == 'S' ? 'SELF' : 'SPOUSE'}}</span></th>
-            <th class="text-center" style="width: 8vw;"><span class="label_field">{{dt.fin_year}}</span></th>
-            <th style="width: 38vw;"><span class="label_field">{{dt.particulars}}</span></th>
-            <th><span class="label_field">{{dt.amount}}</span></th>
-            <th><span class="label_field">{{dt.treatment_dtls}}</span></th>
+            <th class="text-center"><span class="label_field" style="color: rgb(55, 55, 230);">{{dt.ind_type == 'S' ?
+                'SELF' : 'SPOUSE'}}</span></th>
+            <th class="text-center" style="width: 8vw;"><span class="label_field"
+                style="color: rgb(55, 55, 230);">{{dt.fin_year}}</span></th>
+            <th style="width: 38vw;"><span class="label_field"
+                style="color: rgb(55, 55, 230);">{{dt.particulars}}</span></th>
+            <th><span class="label_field" style="color: rgb(55, 55, 230);">{{dt.amount}}</span></th>
+            <th><span class="label_field" style="color: rgb(55, 55, 230);">{{dt.treatment_dtls}}</span></th>
           </tr>
         </table>
       </div>

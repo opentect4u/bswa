@@ -1,13 +1,36 @@
 
 .editLink{
-    color: #052336;
-    font-size: larger;
-    cursor: pointer;
-  }
+  color: #052336;
+  font-size: larger;
+  cursor: pointer;
+}
 
-  .delLink{
-    color: rgb(65, 4, 4);
-    font-size: larger;
-  }
+.delLink{
+  color: rgb(65, 4, 4);
+  font-size: larger;
+}
 
-  
+.badge {
+  display: inline-block;
+  padding: 0.5em 1em;
+  font-size: 0.95em;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.375em;
+}
+.badge-pending {
+  color: #fff;
+  background-color: #ffc107;
+}
+.badge-reject {
+  color: #fff;
+  background-color: #dc3545;
+}
+.badge-Accept {
+  color: #fff;
+  background-color: #4e6ed8;
+}
+

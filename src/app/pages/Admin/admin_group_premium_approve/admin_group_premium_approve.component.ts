@@ -22,6 +22,7 @@ export class Admin_group_premium_approveComponent implements OnInit {
       form_no: ['',  Validators.required],
       memb_name: ['']
     })
+    this.submit()
   }
 
   get m() {
@@ -29,12 +30,31 @@ export class Admin_group_premium_approveComponent implements OnInit {
   }
 
   submit(){
+    // var dt = {
+    //   form_no: this.m['form_no'].value,
+    //   memb_name: this.m['memb_name'].value,
+    // };
+
+    this.dataServe.global_service(0,'/frm_list_policy_group',`form_no=${this.m['form_no'].value}`).subscribe(data => {
+      console.log(data,'kiki')
+      this.userData = data;
+      this.userData = this.userData.msg;
+      console.log(this.userData,'lili');
+      
+      // this.show_spinner=true;
+    },error => {
+      console.error(error);
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'An error occurred while saving data' });
+    })
+  }
+
+  submit_search_gmp(){
     var dt = {
       form_no: this.m['form_no'].value,
       memb_name: this.m['memb_name'].value,
     };
 
-    this.dataServe.global_service(0,'/frm_list_policy_group',`form_no=${this.m['form_no'].value}`).subscribe(data => {
+    this.dataServe.global_service(0,'/frm_list_policy_group_2',`form_no=${this.m['form_no'].value}`).subscribe(data => {
       console.log(data,'kiki')
       this.userData = data;
       this.userData = this.userData.msg;
