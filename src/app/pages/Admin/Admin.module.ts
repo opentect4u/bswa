@@ -292,7 +292,7 @@ const routes: Routes = [
           ).then((m) => m.Member_trans_reportModule),
       },
       {
-        path: 'show_transaction_report/:from_dt/:to_dt',
+        path: 'show_transaction_report/:from_dt/:to_dt/:pay_mode',
         loadChildren: () =>
           import(
             '../Admin/show_transaction_report/show_transaction_report.module'

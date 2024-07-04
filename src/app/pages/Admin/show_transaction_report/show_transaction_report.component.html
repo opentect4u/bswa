@@ -38,12 +38,13 @@
                 <th id="table_color">Donation Fee</th>
                 <th id="table_color">Subscription Amount</th>
                 <th id="table_color">Onetime Amount</th>
+                <th id="table_color">Premium Amount</th>
                 <th id="table_color">Total Amount</th>
                 <th id="table_color">Pay Mode</th>
                 <th id="table_color">Receipt No</th>
                 <th id="table_color">Cheque No</th>
                 <th id="table_color">Cheque Date</th>
-                <th id="table_color">Mode</th>
+                <!-- <th id="table_color">Mode</th> -->
               </tr>
             </ng-template>
             <ng-template pTemplate="body" let-customer let-i="rowIndex">
@@ -58,28 +59,28 @@
                 <td class="text-center">{{customer.donation}}</td>
                 <td class="text-center">{{customer.sub_amt}}</td>
                 <td class="text-center">{{customer.onetime_amt}}</td>
+                <td class="text-center">{{customer.premium_amt}}</td>
                 <td class="text-center">{{calculateTotalAmount(customer)}}</td>
                 <td class="text-center">{{customer.pay_mode=='C' ? 'Cash' : customer.pay_mode=='Q' ? 'Cheque' :
                   'Online Transaction'}}</td>
                 <td class="text-center">{{customer.receipt_no}}</td>
                 <td class="text-center">{{customer.chq_no}}</td>
                 <td class="text-center">
-
                   {{ customer.chq_dt ? (customer.chq_dt | date: 'dd/MM/yyyy') : '0000/00/00' }}
-
                 </td>
 
-                <td class="text-center">{{customer.trans_mode=='O' ? 'New Member' : 'Renewal'}}</td>
+                <!-- <td class="text-center">{{customer.trans_mode=='O' ? 'New Member' : 'Renewal'}}</td> -->
               </tr>
             </ng-template>
 
             <ng-template pTemplate="footer">
               <tr>
                 <td colspan="3" class="text-center">Total</td>
-                <td class="text-center">{{ totalAdmissionFee }}</td>
+                <td class="text-center">{{totalAdmissionFee }}</td>
                 <td class="text-center">{{totalDonationnFee}}</td>
                 <td class="text-center">{{totalSumamount}}</td>
                 <td class="text-center">{{totalOnetimeamount}}</td>
+                <td class="text-center">{{totalPremAmount}}</td>
                 <td class="text-center">{{totalCalAmount}}</td>
                 <td colspan="5"></td>
               </tr>

@@ -24,7 +24,9 @@ export class Show_transaction_reportComponent implements OnInit {
   totalSumamount = 0;
   totalOnetimeamount = 0;
   totalCalAmount = 0;
+  totalPremAmount = 0;
   total: number = 0;
+  pay_mode: any;
 
   constructor(
     private router: Router,
@@ -40,6 +42,7 @@ export class Show_transaction_reportComponent implements OnInit {
     this.member_type = this.route.snapshot.params['member_type'];
     this.from_dt = this.route.snapshot.params['from_dt'];
     this.to_dt = this.route.snapshot.params['to_dt'];
+    this.pay_mode = this.route.snapshot.params['pay_mode'];
     this.show_data();
     // this.calculateTotalAdmissionFee();
   }
@@ -56,23 +59,16 @@ export class Show_transaction_reportComponent implements OnInit {
   // }
 
   show_data(){
-    this.dataServe.global_service(0,'/member_trans_report',`from_dt=${this.from_dt}&to_dt=${this.to_dt}`).subscribe(data => {
+    this.dataServe.global_service(0,'/member_trans_report',`from_dt=${this.from_dt}&to_dt=${this.to_dt}&pay_mode=${this.pay_mode}`).subscribe(data => {
       console.log(data,'kiki')
       this.userData = data;
       this.userData = this.userData.msg;
       for (let customer of this.userData) {
       this.totalAdmissionFee += (+customer.adm_fee);
-      }
-      for (let customer of this.userData) {
       this.totalDonationnFee += (+customer.donation);
-      }
-      for (let customer of this.userData) {
       this.totalSumamount += (+customer.sub_amt);
-      }
-      for (let customer of this.userData) {
       this.totalOnetimeamount += (+customer.onetime_amt);
-      }
-      for (let customer of this.userData) {
+      this.totalPremAmount += (+customer.premium_amt);
       this.totalCalAmount += parseInt(customer.adm_fee+customer.donation+customer.sub_amt+customer.onetime_amt);
       }
       console.log(this.userData,'lili');
