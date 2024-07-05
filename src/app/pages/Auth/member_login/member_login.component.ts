@@ -42,7 +42,7 @@ export class Member_loginComponent implements OnInit {
         localStorage.setItem('token', this.getLoginData.token);
         localStorage.setItem(
           'user_name',
-          this.getLoginData.msg.userdata[0].user_id
+          this.getLoginData.msg.userdata[0].memb_name
         );
         localStorage.setItem(
           'user_type',
@@ -51,6 +51,14 @@ export class Member_loginComponent implements OnInit {
         localStorage.setItem(
           'mem_type',
           this.getLoginData.msg.userdata[0].mem_type
+        );
+        localStorage.setItem(
+          'form_no',
+          this.getLoginData.msg.userdata[0].form_no
+        );
+        localStorage.setItem(
+          'member_id',
+          this.getLoginData.msg.userdata[0].member_id
         );
         this.router.navigate(['main/dashboard']).catch((data) => {
           this.messageService.add({

@@ -1,0 +1,67 @@
+.margin{
+    margin-left: 65vw;
+}
+
+.letter{
+    margin-left: 19px;
+    margin: 6PX;
+    padding: 0;
+}
+
+.table_space {
+    margin-left: 14px;
+}
+
+.size{
+    margin-left: 67px;
+    /* margin: 6px; */
+    /* padding: 0; */
+}
+
+.spacing {
+    margin: 10px 0;
+}
+.checkbox-spacing {
+    margin-right: 10px;
+}
+.space {
+    color: black;
+    float: right;
+    margin-top: -1vw;
+    margin-right: 10vw;
+}
+
+p-button.p-element, .print_btn {
+    /* align-items: center;     */
+    /* position: fixed; */
+    /* right: 30px; */
+    bottom: 15px;
+    margin-left: 30vw;
+  }
+
+.color{
+    color: black;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.span_space{
+    margin-left: 19px;
+    color: rgb(150, 134, 134);
+}
+
+/* .custom-badge {
+    position: relative;
+    display: inline-block;
+  } */
+  
+  .custom-badge .p-badge {
+    position: absolute;
+    top: -10px; /* Adjust these values to position the badge */
+    right: -10px;
+    background-color: rgb(144, 177, 214); /* Customize badge color */
+    color: white; /* Customize badge text color */
+    border-radius: 50%;
+    padding: 5px;
+    font-size: 12px;
+  }

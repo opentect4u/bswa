@@ -78,7 +78,7 @@
 
   <div class="menu">
 
-    <div class="menu-item">
+    <!-- <div class="menu-item">
       <a routerLink="dashboard" class="menu-text flex" [ngClass]="getRoute() == '/menu' ? 'active-menu' : ''">
         <i class="pi pi-microsoft menu-icon flex"></i>
         <span class="menu-text-inner flex-grow-1"><b>Dashboard</b></span>
@@ -92,7 +92,8 @@
         <i class="pi pi-indian-rupee menu-icon flex"></i>
         <span class="menu-text-inner flex-grow-1"><b>Transaction History</b></span>
       </a>
-    </div>
+    </div> -->
+    <p-panelMenu [model]="items" [style]="{'width':'300px'}"></p-panelMenu>
     <!-- <p-divider></p-divider> -->
 
     <!-- 
@@ -151,7 +152,7 @@
     </a>
   </div> -->
 
-    <p-divider></p-divider>
+    <!-- <p-divider></p-divider> -->
 
     <!-- <div class="menu-item">
     <a
