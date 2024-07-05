@@ -37,6 +37,24 @@ interface SpouseDepenInfo {
   treatment_dtls: string,
 }
 
+interface trnData {
+  form_no: string;
+  trn_dt: string;
+  trn_id: string;
+  sub_amt: string;
+  onetime_amt: string;
+  adm_fee: string;
+  donation: string;
+  premium_amt: string;
+  tot_amt: string;
+  pay_mode: string;
+  receipt_no: string;
+  chq_no: string;
+  chq_dt: string;
+  chq_bank: string;
+  approval_status: string;
+}
+
 @Component({
   selector: 'app-policy_view_form',
   templateUrl: './policy_view_form.component.html',
@@ -92,6 +110,11 @@ export class Policy_view_formComponent implements OnInit {
   fin_year:any;
   form: FormGroup;
   genInsData: any;
+  memb_status: any;
+  resolution_dt: any;
+
+  tnxData: trnData | any;
+  tnxResData: any;
 
   constructor(
     private router: Router,
@@ -107,6 +130,8 @@ export class Policy_view_formComponent implements OnInit {
       reject: ['',Validators.required],
       payment: [''],
       pre_amt: [''],
+      trn_id: [''],
+
       // frm_no: ['']
     });
   }
@@ -126,6 +151,43 @@ export class Policy_view_formComponent implements OnInit {
     // this.getMemberInfo(this.member_id);
     this.getGenInsInfo();
     this.getSpouseInfo();
+    this.getTnxDetails();
+
+  }
+
+  getTnxDetails(){
+    this.dataServe
+      .global_service(0, '/master/get_tnx_info', `form_no=${this.form_no}`)
+      .subscribe((data: any) => {
+        this.tnxResData = data;
+        // console.log(this.tnxResData, this.resolution_dt > 0, '999');
+        if (this.tnxResData.suc > 0 && this.tnxResData.msg.length > 0) {
+          this.tnxData =
+            this.tnxResData.suc > 0 ? this.tnxResData.msg[0] : {};
+          this.form.patchValue({
+            resolution_no: this.resolution_no,
+            resolution_dt:
+              this.resolution_dt
+                ? this.datePipe.transform(this.resolution_dt, 'yyyy-MM-dd')
+                : '',
+            status: this.memb_status,
+            payment: this.tnxData?.pay_mode,
+            // cheque_no: this.tnxData?.chq_no,
+            // bank_name: this.tnxData?.chq_bank,
+            // cheque_dt:
+            //   this.tnxData?.chq_dt
+            //     ? this.datePipe.transform(this.tnxData?.chq_dt, 'yyyy-MM-dd')
+            //     : '',
+            // subscriptionFee_2: this.tnxData?.premium_amt,
+            // subscriptionFee_1: this.tnxData?.sub_amt,
+            // admissionFee_life: this.tnxData?.adm_fee,
+            // tot_amt: this.tnxData?.tot_amt,
+            // receipt_no: this.tnxData?.receipt_no,
+            trn_id: this.tnxData?.trn_id,
+          });
+          this.selectedValue2 = this.tnxData?.pay_mode;
+        }
+      }); 
   }
 
   getMemberInfo(memb_id:any) {
@@ -206,8 +268,9 @@ export class Policy_view_formComponent implements OnInit {
       resolution_no: this.f['resolution_no'] ? this.f['resolution_no'].value : null,
       resolution_dt: this.f['resolution_dt'] ? this.f['resolution_dt'].value : null,
       status: this.f['status'] ? this.f['status'].value : null,
-      pre_amt: this.f['pre_amt'] ? this.f['pre_amt'].value : null,
-      payment: this.f['payment'] ? this.f['payment'].value : null,
+      // pre_amt: this.f['pre_amt'] ? this.f['pre_amt'].value : null,
+      // payment: this.f['payment'] ? this.f['payment'].value : null,
+      trn_id: this.f['trn_id'].value > 0 ? this.f['trn_id'].value : 0,
       user: localStorage.getItem('user_name')
     }
 

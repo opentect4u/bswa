@@ -17,17 +17,19 @@ interface MembershipInfo {
   dob: string,
   pers_no: string,
   min_no: string,
-  memb_address: string,
+  mem_address: string,
   phone_no: Date,
   dependent_name: string,
   spou_guard: string,
   relation: string,
-  spou_min: string,
+  spou_min_no: string,
   spou_db: string,
   spou_phone: string,
   spou_address: string,
   unit_name: string,
   spou_dob: any
+  personel_no: string,
+
 }
 
 interface SpouseDepenInfo {
@@ -90,7 +92,7 @@ export class View_supper_approve_formComponent implements OnInit {
   memb_pic: any;
   member_id: any;
   responsedata_1: any;
-  selectedValue: string = 'P';
+  // selectedValue: string = 'A';
   selectedValue2: string = 'O';
   frm_no:any;
   spouseInfo: [SpouseDepenInfo] | undefined;
@@ -140,7 +142,7 @@ get f() {
 
   getMemberInfo(memb_id:any) {
     this.dataServe
-      .global_service(0, '/get_member_policy_super', `member_id=${memb_id}`)
+      .global_service(0, '/get_member_policy_print_super', `member_id=${memb_id}`)
       .subscribe((data: any) => {
         this.responsedata = data;
         console.log(this.responsedata, '666');
@@ -201,10 +203,29 @@ get f() {
         this.form.patchValue({
           resolution_no: this.resdata[0].resolution_no,
           resolution_dt: this.datePipe.transform(this.resdata[0].resolution_dt, 'yyyy-MM-dd'),
-          status:this.resdata[0].form_status == 'A' ? 'Approved' : 'Reject',
+          status:this.resdata[0].form_status=='T' ? 'Approve' : '',
           pre_amt: this.resdata[0].premium_amt,
         })
       })
+  }
+
+  approve_stp(){
+    var dt = {
+      formNo: this.form_no,
+      member: this.route.snapshot.params['memb_name'],
+      resolution_no: this.f['resolution_no'] ? this.f['resolution_no'].value : null,
+      resolution_dt: this.f['resolution_dt'] ? this.f['resolution_dt'].value : null,
+      status: this.f['status'] ? this.f['status'].value : null,
+      user: localStorage.getItem('user_name')
+    }
+
+    this.dataServe.global_service(1, '/approve_stp_data',dt ).subscribe((data: any) => {
+      this.resdata = data;
+      console.log(this.resdata, '99');
+      if(this.resdata.suc > 0) {
+        this.router.navigate(['/admin/super_policy_approve'])
+      }
+    });  
   }
 
   printDiv() {

@@ -333,6 +333,34 @@ const routes: Routes = [
             (m) => m.Change_passwordModule
           ),
       },
+      {
+        path: 'stp_ins_report',
+        loadChildren: () =>
+          import(
+            '../Admin/stp_ins_report/stp_ins_report.module'
+          ).then((m) => m.Stp_ins_reportModule),
+      },
+      {
+        path: 'show_stp_ins_report/:from_dt/:to_dt/:status',
+        loadChildren: () =>
+          import(
+            '../Admin/show_stp_ins_report/show_stp_ins_report.module'
+          ).then((m) => m.Show_stp_ins_reportModule),
+      },
+      {
+        path: 'member_policy_list',
+        loadChildren: () =>
+          import('../Admin/member_policy_details/member_policy_list/member_policy_list.module').then(
+            (m) => m.Member_policy_listModule
+          ),
+      },
+      {
+        path: 'member_policy_edit/:form_no/:member_id',
+        loadChildren: () =>
+          import('../Admin/member_policy_details/member_policy_edit/member_policy_edit.module').then(
+            (m) => m.Member_policy_editModule
+          ),
+      },
     ],
   },
 ];
