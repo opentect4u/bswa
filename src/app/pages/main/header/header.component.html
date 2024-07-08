@@ -9,21 +9,23 @@
       class="p-button-rounded p-button-text p-button-plain"
     ></button>&nbsp;&nbsp;
     <!-- <img src="assets/imgs/logo.jpg" /> -->
-    <span class="title-text"><b style="color: black;">BOKARO STEEL PEOPLE WELFARE ASSOCIATION</b></span>
+    <span class="title-text"><b style="color: black;">Welcome, {{memberName}}</b></span>
   </div>
 
   <div class="flex-grow-1"></div>
 
   <div class="flex">
-    <span class="user"><b style="color: black;">{{ user }}</b></span>&nbsp;
-    <button id="header_icon"
+    <!-- <button id="header_icon"
       pButton
       pRipple
       (click)="headermenu.toggle($event)"
       type="button"
       icon="pi pi-user"
       class="p-button-rounded p-button-text p-button-plain header_icon"
-    ></button>
+    ></button> -->
+    <p-avatar [label]="labelAdmin" styleClass="mr-2" size="large"
+      [style]="{ 'background-color': '#50b0dd', color: '#ffffff' }" (click)="headermenu.toggle($event)"
+      shape="circle"></p-avatar>
     <p-menu #headermenu [popup]="true" [model]="headerMenuItem"></p-menu>
   </div>
 </div>

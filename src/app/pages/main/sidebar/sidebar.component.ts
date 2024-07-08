@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,11 +10,44 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class SidebarComponent implements OnInit {
   public sideMenuItem: any = [];
   mem_type: any;
+  items!: MenuItem[]
   constructor(private router: Router,private route: ActivatedRoute) {}
 
   ngOnInit() {
     // this.mem_type = this.route.snapshot.params['mem_type'];
    this.mem_type = localStorage.getItem('mem_type')
+   this.items = [
+    {
+      label: 'Dashboard',
+      icon: 'pi pi-microsoft',
+      routerLink: ['dashboard'],
+    },
+    {
+      label: 'Member Details',
+      icon: 'pi pi-user',
+      routerLink: ['memb_dtls'],
+    },
+    {
+      label: 'Insurance Form',
+      icon: 'pi pi-list',
+      routerLink: ['ins_form'],
+    },
+    {
+      label: 'Transaction History',
+      icon: 'pi pi-indian-rupee',
+      routerLink: ['trn_history'],
+    },
+    {
+      label: 'Deposit Subscription',
+      icon: 'pi pi-calendar',
+      routerLink: ['depo_subs'],
+    },
+    {
+      label: 'Notification',
+      icon: 'pi pi-bell',
+      routerLink: ['memb_noti'],
+    },
+  ];
   }
 
   onClick(id: any) {

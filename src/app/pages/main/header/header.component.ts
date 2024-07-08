@@ -13,6 +13,8 @@ export class HeaderComponent implements OnInit {
   public classContent: any;
   public headerMenuItem!: MenuItem[];
   public user = 'Hi, Member';
+  memberName: any
+  labelAdmin: any = 'A';
   @Output() event = new EventEmitter();
   constructor(private router: Router) {
     console.log(window.innerWidth);
@@ -47,7 +49,12 @@ export class HeaderComponent implements OnInit {
     ];
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.memberName = localStorage.getItem('user_name')
+    if (this.memberName != '') {
+      this.labelAdmin = this.memberName[0];
+    }
+  }
 
   onMenuToggle() {
     this.sidemenuOpen = !this.sidemenuOpen;

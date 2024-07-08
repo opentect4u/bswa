@@ -9,6 +9,7 @@ import { RippleModule } from 'primeng/ripple';
 import { MenuModule } from 'primeng/menu';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { ScrollerModule } from 'primeng/scroller';
+import { AvatarModule } from 'primeng/avatar';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { ScrollerModule } from 'primeng/scroller';
     MenuModule,
     PanelMenuModule,
     ScrollerModule,
+    AvatarModule,
   ],
   // exports: [HeaderComponent],
   declarations: [HeaderComponent],

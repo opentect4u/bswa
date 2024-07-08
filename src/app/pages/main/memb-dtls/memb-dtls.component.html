@@ -1,0 +1,180 @@
+<style>
+    table {
+      width: 96%;
+      border-collapse: collapse;
+    }
+  
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+  
+    th {
+      background-color: #f2f2f2;
+      text-align: left;
+    }
+  
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+  
+    /* tr:hover {
+        background-color: #ddd;
+    } */
+    th,
+    td {
+      padding: 15px;
+      text-align: left;
+    }
+  
+    th {
+      background-color: #ffffff;
+      color: rgb(0, 0, 0);
+    }
+  </style>
+<p-card id="divToPrint">
+    <table class="table_space">
+        <tr>
+          <th colspan="4" class="text-center" style="background-color: aliceblue;"><label for="member_type"
+              class="label_field color"><b>DETAILS OF THE MEMBER</b></label></th>
+        </tr>
+        <tr>
+            <th colspan="3"><label for="mem_name" class="label_field"><b>NAME :</b><span
+                  class="span_space">{{userData?.memb_name}}</span></label>
+            </th>
+          <th class="text-center" rowspan="6" style="width: 20%;">
+            <img src="{{ userData?.memb_pic ? (api_base_url + '/' + userData?.memb_pic) : '' }}" height="100%" width="100%" alt="" />
+          </th>
+    
+        </tr>
+        <tr>
+          <th colspan="3"><label for="member_type" class="label_field"><b>TYPE OF
+                MEMBERSHIP
+                :</b><span class="span_space">{{userData?.mem_type=='G' ? 'General Membership' : userData?.mem_type=='L' ? 'Life Membership'
+                :
+                'Associate
+                Membership'}}</span></label></th>
+        </tr>
+        <tr>
+          <th colspan="3"><label for="unit" class="label_field"><b>NAME OF THE UNIT
+                FROM
+                WHERE SUPERANNUATED
+                :</b><span class="span_space">{{userData?.unit_name}}</span></label></th>
+        </tr>
+        <tr>
+          <th colspan="3"><label for="staff_no" class="label_field"><b>STAFF NO
+                :</b><span class="span_space">{{userData?.staff_nos}}</span></label>
+          </th>
+        </tr>
+        <tr>
+          <th colspan="3"><label for="pers_no" class="label_field"><b>PERS NO
+                :</b><span class="span_space">{{userData?.pers_no}}</span></label>
+          </th>
+        </tr>
+        <tr>
+          <th colspan="3"><label for="gurd_name" class="label_field"><b>FATHER'S Name
+                :</b><span class="span_space">{{userData?.gurdian_name}}</span></label></th>
+        </tr>
+        <tr>
+          <th colspan="4"><label for="addr" class="label_field"><b>ADDRESS
+                :</b><span class="span_space">{{userData?.memb_address}}</span></label>
+          </th>
+        </tr>
+        <tr>
+          <th colspan="2"><label for="ps" class="label_field"><b>P.S. </b><span class="span_space">{{userData?.ps}}</span></label></th>
+          <th><label for="phone" class="label_field"><b>PHONE NO. </b><span
+                class="span_space">{{userData?.phone_no}}</span></label>
+          </th>
+          <th><label for="blood_grp" class="label_field"><b>BLOOD GROUP :</b><span
+                class="span_space">{{userData?.blood_grp}}</span></label></th>
+        </tr>
+        <tr>
+          <th><label for="dob" class="label_field"><b>DATE OF BIRTH :</b><span class="span_space">{{userData?.dob | date: 'dd/MM/yyyy'}}</span></label>
+          </th>
+          <th colspan="3"><label for="email_id" class="label_field"><b>EMAIL NO. </b><span
+                class="span_space">{{userData?.email_id}}</span></label>
+          </th>
+        </tr>
+        <tr>
+          <th><label for="min_no" class="label_field"><b>MIN NO. (SELF) :</b><span
+                class="span_space">{{userData?.min_no}}</span></label></th>
+          <th colspan="3"><label for="min_no_spou" class="label_field"><b>MIN NO. (SPOUSE)
+                :</b></label><span class="span_space">{{userData?.spou_dt
+              && userData?.spou_dt.length > 0 ? userData?.spou_dt[0]?.spou_min : 'N/A'}}</span></th>
+        </tr>
+        <tr>
+          <th colspan="4" class="text-center" style="background-color: aliceblue;"><label for="member_type"
+              class="label_field color"><b>DETAILS OF THE SPOUSE</b></label></th>
+        </tr>
+        <tr>
+          <th colspan="3"><label for="spou_name" class="label_field"><b>NAME :</b><span class="span_space">{{userData?.spou_dt
+                && userData?.spou_dt.length > 0 ? userData?.spou_dt[0]?.dependent_name : 'N/A'}}</span></label>
+          </th>
+          <th class="text-center" rowspan="4" style="width: 20%;">
+            <img src="{{userData?.spou_dt
+                && userData?.spou_dt.length > 0 ? (userData?.spou_dt[0]?.spou_pic ? api_base_url + '/' + userData?.spou_dt[0]?.spou_pic : '') : ''}}" height="100%"
+              width="100%" src="" alt="Photograph" />
+          </th>
+        </tr>
+        <tr>
+          <th colspan="3"><label for="spou_blood" class="label_field"><b>BLOOD GROUP
+                :</b><span class="span_space">{{userData?.spou_dt
+                && userData?.spou_dt.length > 0 ? userData?.spou_dt[0]?.spou_blood_grp : 'N/A'}}</span></label></th>
+        </tr>
+        <tr>
+          <th colspan="3"><label for="father_name" class="label_field"><b>FATHER'S NAME
+                :</b><span class="span_space">{{userData?.spou_dt
+                && userData?.spou_dt.length > 0 ? userData?.spou_dt[0]?.gurd_name : 'N/A'}}</span></label></th>
+        </tr>
+        <tr>
+          <th colspan="2"><label for="depen_dob" class="label_field"><b>DATE OF BIRTH :</b><span class="span_space">{{userData?.spou_dt
+                && userData?.spou_dt.length > 0 ? userData?.spou_dt[0]?.spou_dob : 'N/A'}}</span></label>
+          </th>
+          <th><label for="depen_mob" class="label_field"><b>MOBILE NO :</b><span class="span_space">{{userData?.spou_dt
+                && userData?.spou_dt.length > 0 ? userData?.spou_dt[0]?.spou_phone : 'N/A'}}</span></label></th>
+        </tr>
+        <tr>
+        </tr>
+        <tr>
+          <th colspan="4"><label for="member_type" class="label_field"><b>ADDRESS :</b><span
+                class="span_space">{{userData?.spou_dt
+                && userData?.spou_dt.length > 0 ? userData?.spou_dt[0]?.spou_memb_address : ''}}</span></label>
+          </th>
+        </tr>
+        <tr>
+          <th colspan="2"><label for="member_type" class="label_field"><b>P.S. </b><span class="span_space">{{userData?.spou_dt
+                && userData?.spou_dt.length > 0 ? userData?.spou_dt[0].spou_ps : 'N/A'}}</span></label></th>
+          <th colspan="2"><label for="member_type" class="label_field"><b>PHONE NO. </b><span
+                class="span_space">{{userData?.spou_dt
+                && userData?.spou_dt.length > 0 ? userData?.spou_dt[0].spou_phone : 'N/A'}}</span></label>
+          </th>
+        </tr>
+        <!-- <tr>
+          <th colspan="3"><label for="depen" class="label_field"><b>NAME OF
+                DEPENDENT :</b><span class="span_space">{{userData?.dep_dt ? userData?.dep_dt :
+                'N/A'}}</span></label></th>
+        </tr> -->
+        <tr>
+            <th>
+              <label for="sl_no" class="label_field"><b>SL NO</b><span class="span_space"></span></label>
+            </th>
+            <th>
+              <label for="dependent_name" class="label_field"><b>NAME OF THE DEPENDENTS</b><span
+                  class="span_space"></span></label>
+            </th>
+            <th>
+              <label for="relationship" class="label_field"><b>RELATIONSHIP</b><span class="span_space"></span></label>
+            </th>
+            <th>
+              <label for="dob" class="label_field"><b>DOB(DD/MM/YYYY)</b><span class="span_space"></span></label>
+            </th>
+        </tr>
+        <tr *ngFor="let dt of userData?.dep_dt; let i = index">
+          <th><span class="span_space">{{i+1}}</span></th>
+          <th style="width: 38vw;"><span class="span_space">{{dt.dependent_name}}</span></th>
+          <th><span class="span_space">{{dt.relation_name}}</span></th>
+          <th><span class="span_space">{{dt.dob | date: 'dd/MM/yyyy'}}</span></th>
+        </tr>
+    </table>
+</p-card>
