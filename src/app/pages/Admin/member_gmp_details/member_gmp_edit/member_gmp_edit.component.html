@@ -34,7 +34,7 @@
             class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
             style="appearance: auto; height: 3vw; border-radius: 7px">
             <option value="">Select Unit Name</option>
-            <option *ngFor="let option of responsedata" [value]="option.unit_id">{{ option.unit_name }}</option>
+            <option *ngFor="let option of responsedata_unit" [value]="option.unit_id">{{ option.unit_name }}</option>
           </select>
         </ng-container>
       </div>
@@ -49,8 +49,7 @@
         <label for="gurdian" class="label_field"><b>Father / Husband Name:</b></label>&nbsp;
         <ng-container>
           <input id="gurdian" type="text" formControlName="gurdian" placeholder="Enter Gurdian Name"
-            class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-            readonly />
+            class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
         </ng-container>
       </div>
     </div>
@@ -129,21 +128,21 @@
 
       <ng-container *ngFor="let group of depenFields_1.controls; let i = index" [formGroupName]="i">
         <div class="flex flex-row mt-5">
-          <div class="field col-12 md:col-3">
+          <!-- <div class="field col-12 md:col-3">
             <label for="sl_no" class="label_field"><b>Sl No:</b></label>
             <input id="sl_no" type="text" formControlName="sl_no" placeholder="Enter Sl No"
-              class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
-          </div>
+              class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+          </div> -->
           <div class="field col-12 md:col-3">
             <label for="dependent_name" class="label_field"><b>Dependent Name:</b></label>
             <input id="dependent_name" type="text" formControlName="dependent_name" placeholder="Enter Dependent name"
-              class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+              class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
           </div>
           <div class="field col-12 md:col-3">
             <label for="relation" class="label_field"><b>Relationship:</b></label>
             <ng-container>
               <select id="relation" formControlName="relation"
-                class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                class="w-full text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                 style="appearance: auto; height: 3vw; border-radius: 7px">
                 <option value="null">Select Relationship</option>
                 <option *ngFor="let option of responsedata_rel" [value]="option.id">
@@ -152,29 +151,18 @@
               </select>
               <input type="hidden" formControlName="relation" />
             </ng-container>
-            <ng-container>
-              <select id="relation" formControlName="relation"
-                class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
-                style="appearance: auto; height: 3vw; border-radius: 7px">
-                <option value="null">Select Relationship</option>
-                <option *ngFor="let option of responsedata_rel" [value]="option.id">
-                  {{ option.relation_name }}
-                </option>
-              </select>
-            </ng-container>
-
           </div>
           <div class="field col-12 md:col-3">
             <label for="dob" class="label_field"><b>DOB(DD/MM/YYYY):</b></label>&nbsp;
             <input id="dob" type="date" formControlName="dob" placeholder="Enter DOB"
-              class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+              class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
           </div>
         </div>
         <div class="flex flex-row mt-3">
           <div class="field col-12 md:col-3">
             <label for="type_diseases" class="label_field"><b>Suffering from any diseases:</b></label>&nbsp;
             <select id="type_diseases" formControlName="type_diseases"
-              class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+              class="w-full text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
               style="appearance: auto; height: 3vw; border-radius: 7px">
               <option value="" selected>Select</option>
               <option value="Y">Yes</option>
@@ -185,7 +173,7 @@
           <div class="field col-12 md:col-8">
             <label for="name_diseases" class="label_field"><b>Type of Diseases:</b></label>&nbsp;
             <input id="name_diseases" type="text" formControlName="name_diseases" placeholder="Enter Diseases name"
-              class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+              class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
           </div>
 
           <div *ngIf="i === 0" class="field col-12 md:col-3">
@@ -229,8 +217,7 @@
       <div class="field col-12 md:col-12">
         <label for="pre_amont" class="label_field"><b>Premium Amount:</b></label>&nbsp;
         <input id="pre_amont" type="text" formControlName="pre_amont" placeholder="Enter Premium Amount"
-          class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-          readonly />
+          class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
       </div>
     </div>
 
@@ -241,19 +228,21 @@
       </div>
       <div class="field col-12 md:col-3">
         <div class="flex align-items-center">
-          <input type="radio" name="super_top_up" id="super_top_up_yes" value="Y">
+          <input type="radio" name="super_top_up" id="super_top_up_yes" [(ngModel)]='addOpt' value="Y"
+            (click)="toggleAdditionalOptions('Y')" [ngModelOptions]="{standalone: true}">
           <label for="super_top_up_yes" class="label_field ml-2">Yes</label>
         </div>
       </div>
       <div class="field col-12 md:col-3">
         <div class="flex align-items-center">
-          <input type="radio" name="super_top_up" id="super_top_up_no" value="N" checked>
+          <input type="radio" name="super_top_up" id="super_top_up_no" [(ngModel)]='addOpt' value="N"
+            (click)="toggleAdditionalOptions('N')" [ngModelOptions]="{standalone: true}">
           <label for="super_top_up_no" class="label_field ml-2">No</label>
         </div>
       </div>
     </div>
 
-    <ng-container>
+    <ng-container *ngIf="addOpt != 'N'">
       <div class="flex flex-row">
 
         <div class="field col-12 md:col-3" *ngFor="let option of sup_top_list; let i = index">
@@ -285,5 +274,11 @@
 
 
     </ng-container>
+
+    <div class="field col-12 md:col-6">
+      <button pButton pRipple type="button" label="Submit" class="p-button-raised sub_btn"
+        (click)="save_gmp()"></button>
+    </div>
+
   </form>
 </p-card>
