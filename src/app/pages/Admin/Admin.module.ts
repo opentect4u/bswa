@@ -229,7 +229,7 @@ const routes: Routes = [
           ).then((m) => m.Admin_group_premium_approveModule),
       },
       {
-        path: 'group_policy_view_form/:form_no/:member_id/:pay_mode',
+        path: 'group_policy_view_form/:form_no/:member_id',
         loadChildren: () =>
           import(
             '../Admin/group_policy_view_form/group_policy_view_form.module'
@@ -331,6 +331,48 @@ const routes: Routes = [
         loadChildren: () =>
           import('../Admin/change_password/change_password.module').then(
             (m) => m.Change_passwordModule
+          ),
+      },
+      {
+        path: 'stp_ins_report',
+        loadChildren: () =>
+          import(
+            '../Admin/stp_ins_report/stp_ins_report.module'
+          ).then((m) => m.Stp_ins_reportModule),
+      },
+      {
+        path: 'show_stp_ins_report/:from_dt/:to_dt/:status',
+        loadChildren: () =>
+          import(
+            '../Admin/show_stp_ins_report/show_stp_ins_report.module'
+          ).then((m) => m.Show_stp_ins_reportModule),
+      },
+      {
+        path: 'member_policy_list',
+        loadChildren: () =>
+          import('../Admin/member_policy_details/member_policy_list/member_policy_list.module').then(
+            (m) => m.Member_policy_listModule
+          ),
+      },
+      {
+        path: 'member_policy_edit/:form_no/:member_id/:policy_type',
+        loadChildren: () =>
+          import('../Admin/member_policy_details/member_policy_edit/member_policy_edit.module').then(
+            (m) => m.Member_policy_editModule
+          ),
+      },
+      {
+        path: 'member_gmp_list',
+        loadChildren: () =>
+          import('../Admin/member_gmp_details/member_gmp_list/member_gmp_list.module').then(
+            (m) => m.Member_gmp_listModule
+          ),
+      },
+      {
+        path: 'member_gmp_edit/:form_no/:member_id/:policy_type',
+        loadChildren: () =>
+          import('../Admin/member_gmp_details/member_gmp_edit/member_gmp_edit.module').then(
+            (m) => m.Member_gmp_editModule
           ),
       },
     ],

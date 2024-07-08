@@ -29,7 +29,15 @@
         <tr>
           <td class="text-center"><b>{{ customer.form_no }}</b></td>
           <td class="text-center"><b>{{ customer.memb_name }}</b></td>
-          <td class="text-center"><b>{{ customer.form_status=='A' ? 'Approved' : 'Rejected' }}</b></td>
+          <td class="text-center">
+            <b>
+              <span
+                class="badge {{ customer.form_status=='T' ? 'badge-Accept' : customer.form_status=='R' ? 'badge-reject' : '' }}">
+                {{ customer.form_status=='T' ? 'Accept' : customer.form_status=='R' ? 'Rejected' :
+                '' }}
+              </span>
+            </b>
+          </td>
           <td class="text-center"><b><a pTooltip="View" tooltipPosition="bottom"
                 (click)="view(customer.form_no,customer.member_id)"><i class="pi pi-eye editLink"></i></a></b>
           </td>

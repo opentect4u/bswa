@@ -14,6 +14,8 @@ import { DatePipe } from '@angular/common';
 export class Admin_premium_approveComponent implements OnInit {
   userData: any = [];
   form!: FormGroup;
+  tr_status:any = 'Y'
+  tbFilterData: any = []
 
   constructor(private router: Router, private dataServe: DataService, private formBuilder: FormBuilder, private messageService: MessageService, private route: ActivatedRoute,private datePipe: DatePipe) { }
 
@@ -36,9 +38,12 @@ export class Admin_premium_approveComponent implements OnInit {
     // };
 
     this.dataServe.global_service(0,'/frm_list_policy',`form_no=${this.m['form_no'].value}`).subscribe(data => {
-      console.log(data,'kiki')
+      console.log(data,'lolo')
       this.userData = data;
+      if(this.userData.suc > 0){
       this.userData = this.userData.msg;
+      this.tbFilterData = this.userData.filter((dt:any) => dt.form_status != 'R')
+      }
       console.log(this.userData,'lili');
       
       // this.show_spinner=true;
@@ -58,7 +63,10 @@ export class Admin_premium_approveComponent implements OnInit {
     this.dataServe.global_service(0,'/frm_list_policy_2',`form_no=${this.m['form_no'].value}`).subscribe(data => {
       console.log(data,'kiki')
       this.userData = data;
+      if(this.userData.suc > 0){
       this.userData = this.userData.msg;
+      this.tbFilterData = this.userData.filter((dt:any) => dt.form_status != 'R')
+      }
       console.log(this.userData,'lili');
       
       // this.show_spinner=true;
@@ -77,6 +85,10 @@ export class Admin_premium_approveComponent implements OnInit {
 
   img(formNo: any, gender: any, member: any) {
     this.router.navigate(['/admin/admin_preview_form', encodeURIComponent(btoa(formNo)), gender, member]);
+  }
+
+  filterTableData(flag:any){
+    this.tbFilterData = this.userData.length > 0 ? this.userData.filter((dt:any) => flag != 'R' ? dt.form_status != 'R' : dt.form_status == flag) : []
   }
 
 

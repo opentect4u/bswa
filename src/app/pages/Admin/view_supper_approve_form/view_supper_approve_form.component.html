@@ -45,14 +45,19 @@
       </h3>
       <h4 class="letter" style="color: black">13 CAMAC STREET,</h4>
       <h4 class="letter" style="color: black">KOLKATA 700017</h4>
-      <h4 class="letter" style="color: black">(through: <u>{{stpinfo?.mem_type == 'G' ? 'General Membership' : 'Life
-          membership'}} Association</u>)</h4>
+      <h4 class="letter" style="color: black">(Through: <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.mem_type ==
+            'G' ? 'General Membership' :
+            stpinfo?.mem_type == 'L' ? 'Life
+            membership' : ''}}</u></span>)</h4>
       <h4 class="letter" style="color: black">Dear Sir,</h4>
       <h4 class="size" style="color: black">
-        This is to inform you that the under signed is the member of <span><u>{{stpinfo?.mem_type == 'G' ? 'General
-            Membership' : 'Life membership'}} Association</u></span> having membership no.
-        <span><u>{{stpinfo?.member_id}}</u></span> and
-        Superannuated from <u>{{stpinfo?.unit_name}}</u>. My SAIL PERSONNEL NO. is <u>{{stpinfo?.pers_no}}</u>.
+        This is to inform you that the under signed is the member of <span
+          style="color: rgb(55, 55, 230);"><u>{{stpinfo?.mem_type == 'G' ? 'General
+            Membership' : stpinfo?.mem_type == 'L' ? 'Life
+            membership' : ''}}</u></span> having membership no.
+        <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.member_id}}</u></span> and
+        Superannuated from <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.unit_name}}</u></span>. My SAIL
+        PERSONNEL NO. is <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.personel_no}}</u></span>.
         I am interested to join in the scheme of super top up policy with the UNITED INDIA INSURANCE CO LTD for the year
         subject to premium and other term. The details of the undersigned are as under:
       </h4>
@@ -83,20 +88,40 @@
       </tr>
 
       <tr>
-        <th class="text-center"><span class="span_space">SELF</span></th>
-        <th class="text-center"><span class="span_space">{{stpinfo?.memb_name}}</span></th>
-        <th class="text-center"><span class="span_space">{{stpinfo?.min_no}}</span></th>
-        <th class="text-center"><span class="span_space">{{stpinfo?.dob | date: 'MM/dd/yyyy'}}</span></th>
-        <th class="text-center"><span class="span_space">{{stpinfo?.phone_no}}</span></th>
-        <th class="text-center"><span class="span_space">{{stpinfo?.memb_address}}</span></th>
+        <th class="text-center"><span class="label_field" style="color: rgb(55, 55, 230);">SELF</span></th>
+        <th class="text-center"><span class="label_field" style="color: rgb(55, 55, 230);">{{stpinfo?.memb_name!='null'
+            ? stpinfo?.memb_name : 'N/A'}}</span></th>
+        <th class="text-center"><span class="label_field" style="color: rgb(55, 55, 230);">{{stpinfo?.min_no!='null'
+            ? stpinfo?.min_no : 'N/A'}}</span></th>
+        <th class="text-center"><span class="label_field" style="color: rgb(55, 55, 230);"> {{stpinfo?.dob &&
+            stpinfo?.dob !== '0000-00-00' ? (stpinfo?.dob | date: 'MM/dd/yyyy') :
+            'N/A'}}</span></th>
+        <th class="text-center"><span class="label_field" style="color: rgb(55, 55, 230);">{{
+            stpinfo?.phone_no}}</span></th>
+        <th class="text-center"><span class="label_field"
+            style="color: rgb(55, 55, 230);">{{stpinfo?.mem_address!='null' ? stpinfo?.mem_address : 'N/A'}}</span>
+        </th>
       </tr>
       <tr>
-        <th class="text-center"><span class="span_space">SPOUSE</span></th>
-        <th class="text-center"><span class="span_space">{{stpinfo?.dependent_name}}</span></th>
-        <th class="text-center"><span class="span_space">{{stpinfo?.spou_min}}</span></th>
-        <th class="text-center"><span class="span_space">{{stpinfo?.spou_db | date: 'MM/dd/yyyy'}}</span></th>
-        <th class="text-center"><span class="span_space">{{stpinfo?.spou_phone}}</span></th>
-        <th class="text-center"><span class="span_space">{{stpinfo?.spou_address}}</span></th>
+        <th class="text-center"><span class="label_field" style="color: rgb(55, 55, 230);">SPOUSE</span></th>
+        <th class="text-center"><span class="label_field" style="color: rgb(55, 55, 230);">{{
+            stpinfo?.dependent_name!= 'null' ? stpinfo?.dependent_name : 'N/A'}}</span></th>
+        <th class="text-center"><span class="label_field"
+            style="color: rgb(55, 55, 230);">{{stpinfo?.spou_min_no!='null' ? stpinfo?.spou_min_no : 'N/A'}}</span>
+        </th>
+        <th class="text-center">
+          <span class="label_field" style="color: rgb(55, 55, 230);">
+            {{stpinfo?.spou_dob && stpinfo?.spou_dob !== '0000-00-00' ? (stpinfo?.spou_dob | date: 'MM/dd/yyyy') :
+            'N/A'}}
+          </span>
+        </th>
+
+        <th class="text-center"><span class="label_field"
+            style="color: rgb(55, 55, 230);">{{stpinfo?.spou_phone}}</span>
+        </th>
+        <th class="text-center"><span class="label_field"
+            style="color: rgb(55, 55, 230);">{{stpinfo?.spou_address!='null' ? stpinfo?.spou_address :
+            'N/A'}}</span></th>
       </tr>
     </table>
   </div>
@@ -111,6 +136,9 @@
   <div class="row">
     <table class="table_space">
       <tr>
+        <th class="text-center" style="background-color: aliceblue">
+          <label for="status" class="label_field"><b>Sl No</b></label>
+        </th>
         <th class="text-center" style="background-color: aliceblue">
           <label for="status" class="label_field"><b><u>STATUS</u></b><span class="span_space"></span></label>
         </th>
@@ -130,11 +158,14 @@
         </th>
       </tr>
       <tr *ngFor="let dt of spouseInfo; let i = index">
-        <th><span class="span_space">{{dt.ind_type == 'S' ? 'SELF' : 'SPOUSE'}}</span></th>
-        <th style="width: 38vw;"><span class="span_space">{{dt.fin_year}}</span></th>
-        <th><span class="span_space">{{dt.particulars}}</span></th>
-        <th><span class="span_space">{{dt.amount}}</span></th>
-        <th><span class="span_space">{{dt.treatment_dtls}}</span></th>
+        <th class="text-center" style="color: rgb(55, 55, 230);"><span class="label_field">{{dt.sl_no}}</span>
+        </th>
+        <th><span class="label_field" style="color: rgb(55, 55, 230);">{{dt.ind_type == 'S' ? 'SELF' : 'SPOUSE'}}</span>
+        </th>
+        <th style="width: 38vw;"><span class="label_field" style="color: rgb(55, 55, 230);">{{dt.fin_year}}</span></th>
+        <th><span class="label_field" style="color: rgb(55, 55, 230);">{{dt.particulars}}</span></th>
+        <th><span class="label_field" style="color: rgb(55, 55, 230);">{{dt.amount}}</span></th>
+        <th><span class="label_field" style="color: rgb(55, 55, 230);">{{dt.treatment_dtls}}</span></th>
       </tr>
     </table>
   </div>
@@ -146,14 +177,14 @@
       suffered by you and will be liable to pay including penalty if any. As and when premium is declared we will
       deposit the same as per the procedure. I have read out the terms and agreed.
     </h4>
-    <h4 class="letter_style" style="color: black;margin-left: 67vw;">
+    <h4 class="letter_style" style="color: black;margin-left: 62vw;">
       Thanking You,
     </h4>
-    <h4 class="letter_style" style="color: black;margin-left: 67vw;">
+    <h4 class="letter_style" style="color: black;margin-left: 62vw;">
       Yours faithfully,
     </h4><br>
-    <span class="span_space" style="color: rgb(9, 42, 233);margin-left: 65vw;"><b>{{stpinfo?.memb_name}}</b></span>
-    <h4 class="letter_style" style="color: black;margin-left: 65vw;">
+    <span class="span_space" style="color: rgb(9, 42, 233);margin-left: 62vw;"><b></b></span>
+    <h4 class="letter_style" style="color: black;margin-left: 60vw;">
       Signature with date
     </h4>
   </div>
@@ -210,7 +241,7 @@
   </div>
 
   <div class="row mt-5 text-center">
-    <span class="letter_style" style="color: rgb(9, 42, 233)"><b>{{stpinfo?.memb_name}}</b></span>
+    <span class="letter_style" style="color: rgb(9, 42, 233)"><b></b></span>
     <p class="letter_style" style="color: black"><b>Signature with date</b></p>
   </div>
 
@@ -231,27 +262,33 @@
         <label for="resolution_dt" class="label_field" style="color: black;"><b>Resolution Date:<span
               class="text-red-700">*</span></b></label>&nbsp;
         <input id="resolution_dt" type="date" formControlName="resolution_dt" placeholder="dd/mm/yyyy"
-          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          readonly />
       </div>
 
       <div class="field col-12 md:col-4">
         <label for="status" class="label_field" style="color: black;"><b>Status:</b></label>&nbsp;
-        <!-- <select id="status" formControlName="status" [(ngModel)]="selectedValue"
+        <!-- <select id="status" formControlName="status"
           class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
-          style="appearance: auto; height: 3vw; border-radius: 7px">
-          <option value="P" select>Pending</option>
-          <option value="T">Accept</option>
-          <option value="R">Reject</option>
-        </select> -->
+          style="appearance: auto; height: 3vw; border-radius: 7px"> -->
+        <!-- <option value="P" select>Pending</option> -->
+        <!-- <option value="T" select>Approve</option>
+          <option value="R">Reject</option> -->
+        <!-- </select> -->
         <input id="status" type="text" formControlName="status"
           class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
           readonly />
       </div>
     </div>
 
-    <p-divider type="dashed"></p-divider>
+    <div class="flex flex-row mt-3 text-center">
+      <button pButton pRipple type="button" label="Approve" class="p-button-raised sub_btn"
+        (click)="approve_stp()"></button>
+    </div>
 
-    <!-- <div *ngIf="form.controls['status'].value === 'T'"> -->
+    <!-- <p-divider type="dashed"></p-divider>
+
+    <div *ngIf="form.controls['status'].value === 'T'">
     <div class="formgrid grid mt-3">
       <div class="field col-12 md:col-4">
         <label for="frm_no" style="color: black"><b>Form No</b></label>
@@ -274,7 +311,9 @@
         </select>
       </div>
     </div>
-    <p-button label="PRINT" styleClass="p-button-rounded print_btn" (click)="printDiv()"></p-button>
-    <!-- </div> -->
+    </div> -->
+
+    <!-- <p-button label="PRINT" styleClass="p-button-rounded print_btn" (click)="printDiv()"></p-button> -->
+
   </form>
 </p-card>

@@ -51,7 +51,9 @@
       <h4 class="letter" style="color: black">KOLKATA 700017</h4><br>
       <h4 class="letter" style="color: black">(Through: <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.mem_type ==
             'G' ? 'General
-            Membership' : 'Life membership'}}</u></span>)</h4><br>
+            Membership' : stpinfo?.mem_type ==
+            'L' ? 'Life membership' : stpinfo?.mem_type ==
+            'AI' ? 'Associate Membership' : ''}}</u></span>)</h4><br>
       <h4 class="letter" style="color: black">BOKARO STEEL PEOPLE WELFARE ASSOCIATION</h4>
       <h4 class="letter" style="color: black">Durgapur / Banpur</h4>
       <h4 class="letter" style="color: black">Dear Sir,</h4>
@@ -86,11 +88,13 @@
           <label for="" class="label_field"><b>MARITAL STATUS : </b>
             <span style="color: rgb(55, 55, 230);"> {{stpinfo?.marital_status == 'M' ? 'Married' :
               stpinfo?.marital_status =='U' ? 'Unmarried' :
-              stpinfo?.marital_status == 'D' ? 'Divorced' : 'Widow'}}</span></label>
+              stpinfo?.marital_status == 'D' ? 'Divorced' : stpinfo?.marital_status == 'W' ?'Widow' :
+              ''}}</span></label>
         </th>
         <th colspan="2">
           <label for="" class="label_field"><b>GENDER : </b>
-            <span style="color: rgb(55, 55, 230);"> {{stpinfo?.gender == 'F' ? 'Female' : 'Male'}}</span></label>
+            <span style="color: rgb(55, 55, 230);"> {{stpinfo?.gender == 'F' ? 'Female' : stpinfo?.gender == 'M' ?
+              'Male' : ''}}</span></label>
         </th>
       </tr>
       <tr>
@@ -118,7 +122,8 @@
         <th class="text-center" style="color: rgb(55, 55, 230);"><span class="span_space">{{dt.sl_no}}</span></th>
         <th style="width: 89vw;color: rgb(55, 55, 230);"><span class="span_space">{{dt.dependent_name}}</span></th>
         <th style="color: rgb(55, 55, 230);"><span class="span_space">{{dt.relation_name}}</span></th>
-        <th style="color: rgb(55, 55, 230);"><span class="span_space">{{dt.dob | date: 'dd/MM/yyyy'}}</span></th>
+        <th style="color: rgb(55, 55, 230);"><span class="span_space">{{dt?.dob && dt?.dob !== '0000-00-00' ?
+            (dt.dob | date: 'dd/MM/yyyy') : 'N/A'}}</span></th>
       </tr>
       <tr>
         <th colspan="4">

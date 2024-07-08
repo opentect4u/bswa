@@ -84,6 +84,21 @@ export class SidebarComponent implements OnInit {
         ],
       },
       {
+        label: 'Member Details',
+        icon: 'pi pi-users',
+        routerLink: ['memb_list'],
+      },
+      {
+        label: 'Member STP Policy Details',
+        icon: 'pi pi-list',
+        routerLink: ['member_policy_list'],
+      },
+      {
+        label: 'Member Group Policy Details',
+        icon: 'fa fa-list-alt',
+        routerLink: ['member_gmp_list'],
+      },
+      {
         label: 'Reports',
         icon: 'pi pi-id-card',
         items: [
@@ -102,12 +117,12 @@ export class SidebarComponent implements OnInit {
             icon: 'pi pi-undo',
             routerLink: ['subscription_cleared_upto'],
           },
+          {
+            label: 'STP Insurance',
+            icon: 'pi pi-shield',
+            routerLink: ['stp_ins_report'],
+          },
         ],
-      },
-      {
-        label: 'Member Details',
-        icon: 'pi pi-users',
-        routerLink: ['memb_list'],
       },
     ];
 }

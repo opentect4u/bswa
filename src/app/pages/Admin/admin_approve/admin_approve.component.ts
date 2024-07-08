@@ -63,7 +63,10 @@ export class Admin_approveComponent implements OnInit {
     this.dataServe.global_service(0,'/frm_list_2',`form_no=${this.m['form_no'].value}`).subscribe(data => {
       console.log(data,'kiki')
       this.userData = data;
+      if(this.userData.suc > 0){
       this.userData = this.userData.msg;
+      this.tbFilterData = this.userData.filter((dt:any) => dt.memb_status != 'R')
+      }
       console.log(this.userData,'lili');
       
       // this.show_spinner=true;
@@ -83,7 +86,7 @@ export class Admin_approveComponent implements OnInit {
   }
 
   filterTableData(flag:any){
-    this.tbFilterData = this.userData.length > 0 ? this.userData.filter((dt:any) => flag != 'R' ? dt.memb_status != flag : dt.memb_status == flag) : []
+    this.tbFilterData = this.userData.length > 0 ? this.userData.filter((dt:any) => flag != 'R' ? dt.memb_status != 'R' : dt.memb_status == flag) : []
   }
   
 

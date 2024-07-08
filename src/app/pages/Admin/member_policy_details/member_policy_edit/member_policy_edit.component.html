@@ -1,0 +1,233 @@
+<p-card>
+  <h3 class="text-center"><b>Member Information For Super Topup Policy</b></h3>
+  <p-divider type="dashed"></p-divider>
+
+  <form [formGroup]="form">
+    <div class="flex flex-row">
+      <div class="field col-12 md:col-6">
+        <label for="policy_holder" class="label_field"><b>Policy Holder Type: </b></label>&nbsp;
+        <input id="policy_holder" type="text" formControlName="policy_holder" placeholder="Enter Member ID"
+          class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          readonly />
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="member_id" class="label_field"><b>Member ID:</b></label>&nbsp;
+        <input id="member_id" type="text" formControlName="member_id" placeholder="Enter Member ID"
+          class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          readonly />
+      </div>
+    </div>
+
+    <div class="flex flex-row">
+      <div class="field col-12 md:col-4">
+        <label for="member_type" class="label_field"><b>Member Type:</b></label>&nbsp;
+        <ng-container>
+          <input id="member_type" type="text" formControlName="member_type" placeholder="Enter Personal No"
+            class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            readonly />
+        </ng-container>
+      </div>
+      <div class="field col-12 md:col-4">
+        <label for="unit_name" class="label_field"><b>Unit Name:</b></label>&nbsp;
+        <ng-container>
+          <select id="unit_nm" formControlName="unit_nm"
+            class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+            style="appearance: auto; height: 3vw; border-radius: 7px">
+            <option value="">Select Unit Name</option>
+            <option *ngFor="let option of responsedata" [value]="option.unit_id">{{ option.unit_name }}</option>
+          </select>
+        </ng-container>
+      </div>
+      <div class="field col-12 md:col-4">
+        <label for="personal_no" class="label_field"><b>Personnel No:</b></label>&nbsp;
+        <ng-container>
+          <input id="personal_no" type="text" formControlName="personal_no" placeholder="Enter Personal No"
+            class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="flex flex-row">
+      <div class="field col-12 md:col-4">
+        <label for="memb_opr" class="label_field"><b>Member Operation:</b></label>&nbsp;
+        <ng-container>
+          <select id="memb_opr" formControlName="memb_opr"
+            class="w-full text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+            style="appearance: auto; height: 3vw; border-radius: 7px">
+            <option value="N" selected>Select Operation</option>
+            <option value="S">Self</option>
+            <option value="J">Spouse</option>
+          </select>
+        </ng-container>
+      </div>
+      <div class="field col-12 md:col-4">
+        <label for="member" class="label_field"><b>Member Name:</b></label>&nbsp;
+        <ng-container>
+          <input id="member" type="text" formControlName="member" placeholder="Enter Member name"
+            class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+        </ng-container>
+      </div>
+      <div class="field col-12 md:col-4">
+        <label for="min_no" class="label_field"><b>MIN No:</b></label>&nbsp;
+        <ng-container>
+          <input id="min_no" type="text" formControlName="min_no" placeholder="Enter MIN No"
+            class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="flex flex-row">
+      <div class="field col-12 md:col-4">
+        <label for="gen_dob" class="label_field"><b>DOB:</b></label>&nbsp;
+        <ng-container>
+          <input id="gen_dob" type="date" formControlName="gen_dob" placeholder="dd/MM/yyyy"
+            class="box_input text-l text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+        </ng-container>
+      </div>
+      <div class="field col-12 md:col-4">
+        <label for="mobile" class="label_field"><b>Mobile No:</b></label>&nbsp;
+        <ng-container>
+          <input id="mobile" type="text" formControlName="mobile" placeholder="Enter Mobile No"
+            class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+        </ng-container>
+      </div>
+      <div class="field col-12 md:col-4">
+        <label for="fin_yr" class="label_field"><b>Joining Year:</b></label>&nbsp;
+        <input id="fin_yr" type="date" formControlName="fin_yr" placeholder="Enter Joining Year"
+          class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+      </div>
+    </div>
+
+    <div class="flex flex-row">
+      <div class="field col-12">
+        <label for="mem" class="label_field"><b>Member Address:</b></label>&nbsp;
+        <ng-container>
+          <textarea id="mem" formControlName="mem" type="text" rows="4" placeholder="Enter Member address..."
+            class="text-base text-l text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
+        </ng-container>
+      </div>
+    </div>
+
+    <p-divider type="dashed"></p-divider>
+    <h3 class="text-center"><b>Spouse Information</b></h3>
+
+    <ng-container>
+      <div class="flex flex-row">
+        <div class="field col-12 md:col-3">
+          <label for="spouse" class="label_field"><b>Spouse Name:</b></label>&nbsp;
+          <ng-container>
+            <input id="spouse" type="text" formControlName="spouse" placeholder="Enter Spouse name"
+              class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+          </ng-container>
+        </div>
+        <div class="field col-12 md:col-3">
+          <label for="spouse_min_no" class="label_field"><b>MIN No:</b></label>&nbsp;
+          <ng-container>
+            <input id="spouse_min_no" type="text" formControlName="spouse_min_no" placeholder="Enter MIN No"
+              class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+          </ng-container>
+        </div>
+        <div class="field col-12 md:col-3">
+          <label for="spou_dob" class="label_field"><b>DOB:</b></label>&nbsp;
+          <ng-container>
+            <input id="spou_dob" type="date" formControlName="spou_dob" placeholder="dd/MM/yyyy"
+              class="box_input text-l text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+          </ng-container>
+        </div>
+        <div class="field col-12 md:col-3">
+          <label for="spou_mobile" class="label_field"><b>Mobile No:</b></label>&nbsp;
+          <ng-container>
+            <input id="spou_mobile" type="text" formControlName="spou_mobile" maxlength="10"
+              placeholder="Enter Mobile No"
+              class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="flex flex-row">
+        <div class="field col-12">
+          <label for="spou_mem" class="label_field"><b>Member Address:</b></label>&nbsp;
+          <ng-container>
+            <textarea id="spou_mem" formControlName="spou_mem" type="text" rows="4"
+              placeholder="Enter Member address..."
+              class="text-base text-l text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
+          </ng-container>
+
+        </div>
+      </div>
+    </ng-container>
+
+    <h3 class="text-center"><b>Medical details</b></h3>
+    <p-divider type="dashed"></p-divider>
+
+    <div formArrayName="depenFields_2">
+
+      <ng-container *ngFor="let group of depenFields_2.controls; let i = index" [formGroupName]="i">
+        <div class="flex flex-row mt-5">
+          <!-- <div class="field col-12 md:col-3">
+            <label for="sl_no" class="label_field"><b>Sl No:</b></label>
+            <input id="sl_no" type="text" formControlName="sl_no" placeholder="Enter Sl No"
+              class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+          </div> -->
+          <div class="field col-12 md:col-4">
+            <label for="ind_type" class="label_field"><b>Status:</b></label>
+            <select id="ind_type" formControlName="ind_type"
+              class="w-full text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+              style="appearance: auto; height: 3vw; border-radius: 7px" (change)="changedate($event,i)">
+              <option value="null">Select Status</option>
+              <option value="S">SELF</option>
+              <option value="P">SPOUSE</option>
+            </select>
+          </div>
+          <div class="field col-12 md:col-4">
+            <label for="fin_year" class="label_field"><b>Year:</b></label>&nbsp;
+            <input id="fin_year" type="text" formControlName="fin_year" placeholder="Enter Year"
+              class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              readonly />
+          </div>
+          <div class="field col-12 md:col-4">
+            <label for="amount" class="label_field"><b>Amount Utilised:</b></label>
+            <input id="amount" type="text" formControlName="amount" placeholder="Enter Amount"
+              class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+          </div>
+        </div>
+
+        <div class="flex flex-row mt-2">
+          <div class="field col-12">
+            <label for="particulars" class="label_field"><b>Particular of Diseases:</b></label>
+            <textarea id="particulars" formControlName="particulars" type="text" rows="4"
+              placeholder="Enter Diseases name..."
+              class="text-base text-l text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
+          </div>
+        </div>
+
+        <div class="flex flex-row mt-2">
+          <div class="field col-12 md:col-6">
+            <label for="treatment_dtls" class="label_field"><b>Medical treatment taken At(Hospital
+                Name):</b></label>
+            <input id="treatment_dtls" type="text" formControlName="treatment_dtls" placeholder="Enter Hospital Name"
+              class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+          </div>
+          <div *ngIf="i === 0" class="field col-12 md:col-3">
+            <p-button class="custom-tooltip" pTooltip="Add Dependent" tooltipPosition="bottom" icon="pi pi-plus"
+              styleClass="p-button-rounded p-button-text p-button-raised" (click)="onadd()"
+              [style]="{ 'background-color': 'rgb(177 209 161)', 'border-color': 'rgb(116 207 78)', color: '#ffff', 'margin-top': '1.3vw' }"></p-button>
+          </div>
+
+          <div *ngIf="i > 0" class="field col-12 md:col-3">
+            <p-button class="custom-tooltip" pTooltip="Delete Dependent" tooltipPosition="bottom" icon="pi pi-minus"
+              styleClass="p-button-rounded p-button-text p-button-raised" (click)="onminus(i)"
+              [style]="{ 'background-color': 'rgb(223 105 105)', 'border-color': 'rgb(129 54 54)', color: '#ffff', 'margin-top': '1.3vw'}"></p-button>
+          </div>
+        </div>
+      </ng-container>
+
+    </div>
+
+    <div class="field col-12 md:col-6">
+      <button pButton pRipple type="button" label="Submit" class="p-button-raised sub_btn" (click)="save()"></button>
+    </div>
+
+  </form>
+
+</p-card>

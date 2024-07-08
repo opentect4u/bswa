@@ -1,0 +1,65 @@
+<p-card>
+  <div class="row align-items-center">
+    <h3 class="flex align-items-center">
+      <i class="pi pi-list menu-icon"></i>&nbsp;
+      <b>Member GMP Policy List</b>
+    </h3>
+  </div>
+
+  <div class="card mt-4">
+    <p-table [value]="tableData" #dt2 dataKey="id" [rows]="10" [showCurrentPageReport]="true"
+      [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [globalFilterFields]="['memb_type']" [tableStyle]="{
+        'min-width': '55rem',
+        'box-shadow': '0 10px 28px rgba(1.5, 1.5, 1.5, 1.5)',
+      }">
+      <ng-template pTemplate="caption">
+        <div class="flex">
+          <span class="p-input-icon-left ml-auto">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" (input)="filerRes($event)" placeholder="Search by Form No, Member Name, Type"
+              style="width: 350px;" />
+          </span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th id="table_color">Form No</th>
+          <th id="table_color">Member ID</th>
+          <th id="table_color">Policy Holder Name</th>
+          <th id="table_color">Association Name</th>
+          <th id="table_color">Edit</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-memb>
+        <tr>
+          <td class="text-center">
+            <b>{{ memb.form_no }}</b>
+          </td>
+          <td class="text-center">
+            <b>{{ memb.member_id }}</b>
+          </td>
+          <td class="text-center">
+            <b>{{ memb.memb_name }}</b>
+          </td>
+          <td class="text-center">
+            <b>{{ memb.unit_name }}</b>
+          </td>
+          <td class="text-center">
+            <b><a pTooltip="View" tooltipPosition="bottom"
+                (click)="preview(memb.form_no, memb.member_id, memb.policy_holder_type)"><i class="pi pi-eye editLink"
+                  style="cursor: pointer;"></i></a></b>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="5" class="text-center text-red-900">
+            No data available
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</p-card>

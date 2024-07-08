@@ -131,7 +131,7 @@ export class Group_policy_view_formComponent implements OnInit {
 
   ngOnInit() {
     const encodedFormNo = this.route.snapshot.params['form_no'];
-    // this.member_id = localStorage.getItem('user_name')
+    this.member_id = localStorage.getItem('user_name')
     const encodedMemId = this.route.snapshot.params['member_id'];
     console.log(this.member_id,'ooo'); 
     this.form_no = atob(decodeURIComponent(encodedFormNo));
@@ -240,7 +240,7 @@ export class Group_policy_view_formComponent implements OnInit {
       this.resdata = data;
       console.log(this.resdata, '99');
       if(this.resdata.suc > 0) {
-        this.router.navigate(['/admin/group_policy_approve_form'])
+        this.router.navigate(['/admin/admin_group_premium_approve'])
       }
     });    
   }
