@@ -89,9 +89,14 @@ export class SidebarComponent implements OnInit {
         routerLink: ['memb_list'],
       },
       {
-        label: 'Member Policy Details',
+        label: 'Member STP Policy Details',
         icon: 'pi pi-list',
         routerLink: ['member_policy_list'],
+      },
+      {
+        label: 'Member Group Policy Details',
+        icon: 'fa fa-list-alt',
+        routerLink: ['member_gmp_list'],
       },
       {
         label: 'Reports',

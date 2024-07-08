@@ -204,10 +204,11 @@ export class Super_top_up_policy_registerComponent implements OnInit {
   }
 
 
-  onadd(ind_type:any = '',fin_year:any = '',particulars:any = '',amount:any = '',treatment_dtls:any = '') {
+  onadd(sl_no:any = '',ind_type:any = '',fin_year:any = '',particulars:any = '',amount:any = '',treatment_dtls:any = '') {
     // this.phoneNumbers.push('');
     const fieldGroup = this.fb.group(
       {
+        sl_no: [sl_no],
         ind_type: [ind_type],
         fin_year: [fin_year],
         particulars: [particulars],

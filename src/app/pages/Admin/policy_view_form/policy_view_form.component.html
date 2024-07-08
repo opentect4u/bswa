@@ -137,6 +137,9 @@
     <table class="table_space">
       <tr>
         <th class="text-center" style="background-color: aliceblue">
+          <label for="status" class="label_field"><b>Sl No</b></label>
+        </th>
+        <th class="text-center" style="background-color: aliceblue">
           <label for="status" class="label_field"><b><u>STATUS</u></b><span class="label_field"></span></label>
         </th>
         <th class="text-center" style="background-color: aliceblue">
@@ -155,6 +158,8 @@
         </th>
       </tr>
       <tr *ngFor="let dt of spouseInfo; let i = index">
+        <th class="text-center" style="color: rgb(55, 55, 230);"><span class="label_field">{{dt.sl_no}}</span>
+        </th>
         <th class="text-center"><span class="label_field" style="color: rgb(55, 55, 230);">{{dt.ind_type == 'S' ? 'SELF'
             : 'SPOUSE'}}</span></th>
         <th class="text-center" style="width: 8vw;"><span class="label_field"

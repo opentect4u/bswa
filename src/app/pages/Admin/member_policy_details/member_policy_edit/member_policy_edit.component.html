@@ -2,18 +2,19 @@
   <h3 class="text-center"><b>Member Information For Super Topup Policy</b></h3>
   <p-divider type="dashed"></p-divider>
 
-  <div class="flex flex-row">
-    <div class="field col-12 md:col-4">
-      <label for="pre_amont" class="label_field"><b>Policy Holder Type: </b></label>&nbsp;
-    </div>
-  </div>
-
   <form [formGroup]="form">
     <div class="flex flex-row">
-      <div class="field col-12 md:col-8">
+      <div class="field col-12 md:col-6">
+        <label for="policy_holder" class="label_field"><b>Policy Holder Type: </b></label>&nbsp;
+        <input id="policy_holder" type="text" formControlName="policy_holder" placeholder="Enter Member ID"
+          class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          readonly />
+      </div>
+      <div class="field col-12 md:col-6">
         <label for="member_id" class="label_field"><b>Member ID:</b></label>&nbsp;
         <input id="member_id" type="text" formControlName="member_id" placeholder="Enter Member ID"
-          class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+          class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          readonly />
       </div>
     </div>
 
@@ -21,24 +22,19 @@
       <div class="field col-12 md:col-4">
         <label for="member_type" class="label_field"><b>Member Type:</b></label>&nbsp;
         <ng-container>
-          <select id="member_type" formControlName="member_type"
-            class="w-full text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
-            style="appearance: auto; height: 3vw; border-radius: 7px">
-            <option value="N" select>Select Member Type</option>
-            <option value="G">General Membership</option>
-            <option value="L">Life Membership</option>
-          </select>
+          <input id="member_type" type="text" formControlName="member_type" placeholder="Enter Personal No"
+            class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            readonly />
         </ng-container>
       </div>
       <div class="field col-12 md:col-4">
         <label for="unit_name" class="label_field"><b>Unit Name:</b></label>&nbsp;
         <ng-container>
-          <select id="unit_name" formControlName="unit_name"
-            class="w-full text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+          <select id="unit_nm" formControlName="unit_nm"
+            class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
             style="appearance: auto; height: 3vw; border-radius: 7px">
-            <option value="N" select>Select Unit Name</option>
-            <option *ngFor="let option of responsedata_unit" [value]="option.unit_id">{{ option.unit_name }}
-            </option>
+            <option value="">Select Unit Name</option>
+            <option *ngFor="let option of responsedata" [value]="option.unit_id">{{ option.unit_name }}</option>
           </select>
         </ng-container>
       </div>
@@ -168,6 +164,11 @@
 
       <ng-container *ngFor="let group of depenFields_2.controls; let i = index" [formGroupName]="i">
         <div class="flex flex-row mt-5">
+          <!-- <div class="field col-12 md:col-3">
+            <label for="sl_no" class="label_field"><b>Sl No:</b></label>
+            <input id="sl_no" type="text" formControlName="sl_no" placeholder="Enter Sl No"
+              class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+          </div> -->
           <div class="field col-12 md:col-4">
             <label for="ind_type" class="label_field"><b>Status:</b></label>
             <select id="ind_type" formControlName="ind_type"
@@ -221,6 +222,10 @@
         </div>
       </ng-container>
 
+    </div>
+
+    <div class="field col-12 md:col-6">
+      <button pButton pRipple type="button" label="Submit" class="p-button-raised sub_btn" (click)="save()"></button>
     </div>
 
   </form>

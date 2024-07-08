@@ -358,7 +358,12 @@
 
             <ng-container *ngFor="let group of depenFields_2.controls; let i = index" [formGroupName]="i">
               <div class="flex flex-row mt-5">
-                <div class="field col-12 md:col-4">
+                <div class="field col-12 md:col-3">
+                  <label for="sl_no" class="label_field"><b>Sl No:</b></label>
+                  <input id="sl_no" type="text" formControlName="sl_no" placeholder="Enter Sl No"
+                    class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                </div>
+                <div class="field col-12 md:col-3">
                   <label for="ind_type" class="label_field"><b>Status:</b></label>
                   <select id="ind_type" formControlName="ind_type"
                     class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
@@ -368,13 +373,13 @@
                     <option value="P">SPOUSE</option>
                   </select>
                 </div>
-                <div class="field col-12 md:col-4">
+                <div class="field col-12 md:col-3">
                   <label for="fin_year" class="label_field"><b>Year:</b></label>&nbsp;
                   <input id="fin_year" type="text" formControlName="fin_year" placeholder="Enter Year"
                     class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                     readonly />
                 </div>
-                <div class="field col-12 md:col-4">
+                <div class="field col-12 md:col-3">
                   <label for="amount" class="label_field"><b>Amount Utilised:</b></label>
                   <input id="amount" type="text" formControlName="amount" placeholder="Enter Amount"
                     class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />

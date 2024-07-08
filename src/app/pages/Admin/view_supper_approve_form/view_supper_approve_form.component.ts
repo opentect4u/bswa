@@ -33,6 +33,7 @@ interface MembershipInfo {
 }
 
 interface SpouseDepenInfo {
+  sl_no: string,
   ind_type: string,
   fin_year: string,
   particulars: string,

@@ -229,7 +229,7 @@ const routes: Routes = [
           ).then((m) => m.Admin_group_premium_approveModule),
       },
       {
-        path: 'group_policy_view_form/:form_no/:member_id/:pay_mode',
+        path: 'group_policy_view_form/:form_no/:member_id',
         loadChildren: () =>
           import(
             '../Admin/group_policy_view_form/group_policy_view_form.module'
@@ -355,10 +355,24 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'member_policy_edit/:form_no/:member_id',
+        path: 'member_policy_edit/:form_no/:member_id/:policy_type',
         loadChildren: () =>
           import('../Admin/member_policy_details/member_policy_edit/member_policy_edit.module').then(
             (m) => m.Member_policy_editModule
+          ),
+      },
+      {
+        path: 'member_gmp_list',
+        loadChildren: () =>
+          import('../Admin/member_gmp_details/member_gmp_list/member_gmp_list.module').then(
+            (m) => m.Member_gmp_listModule
+          ),
+      },
+      {
+        path: 'member_gmp_edit/:form_no/:member_id/:policy_type',
+        loadChildren: () =>
+          import('../Admin/member_gmp_details/member_gmp_edit/member_gmp_edit.module').then(
+            (m) => m.Member_gmp_editModule
           ),
       },
     ],

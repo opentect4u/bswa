@@ -14,6 +14,8 @@ import { DatePipe } from '@angular/common';
 export class Admin_group_premium_approveComponent implements OnInit {
   userData: any = [];
   form!: FormGroup;
+  tr_status:any = 'Y'
+  tbFilterData: any = []
 
   constructor(private router: Router, private dataServe: DataService, private formBuilder: FormBuilder, private messageService: MessageService, private route: ActivatedRoute,private datePipe: DatePipe) { }
 
@@ -38,7 +40,10 @@ export class Admin_group_premium_approveComponent implements OnInit {
     this.dataServe.global_service(0,'/frm_list_policy_group',`form_no=${this.m['form_no'].value}`).subscribe(data => {
       console.log(data,'kiki')
       this.userData = data;
+      if(this.userData.suc > 0){
       this.userData = this.userData.msg;
+      this.tbFilterData = this.userData.filter((dt:any) => dt.form_status != 'R')
+    }
       console.log(this.userData,'lili');
       
       // this.show_spinner=true;
@@ -57,7 +62,10 @@ export class Admin_group_premium_approveComponent implements OnInit {
     this.dataServe.global_service(0,'/frm_list_policy_group_2',`form_no=${this.m['form_no'].value}`).subscribe(data => {
       console.log(data,'kiki')
       this.userData = data;
+      if(this.userData.suc > 0){
       this.userData = this.userData.msg;
+      this.tbFilterData = this.userData.filter((dt:any) => dt.form_status != 'R')
+      }
       console.log(this.userData,'lili');
       
       // this.show_spinner=true;
@@ -67,15 +75,19 @@ export class Admin_group_premium_approveComponent implements OnInit {
     })
   }
 
-  preview(formNo:any, memb_id: any, pay_mode:any) { //route to the particular restaurant on clicking on the edit option
+  preview(formNo:any, memb_id: any) { //route to the particular restaurant on clicking on the edit option
     // alert(v);
     console.log(memb_id);
     
-    this.router.navigate(['/admin/group_policy_view_form',encodeURIComponent(btoa(formNo)),encodeURIComponent(btoa(memb_id)),pay_mode])
+    this.router.navigate(['/admin/group_policy_view_form',encodeURIComponent(btoa(formNo)),encodeURIComponent(btoa(memb_id))])
   }
 
   img(formNo: any, gender: any, member: any) {
     this.router.navigate(['/admin/admin_preview_form', encodeURIComponent(btoa(formNo)), gender, member]);
+  }
+
+  filterTableData(flag:any){
+    this.tbFilterData = this.userData.length > 0 ? this.userData.filter((dt:any) => flag != 'R' ? dt.form_status != 'R' : dt.form_status == flag) : []
   }
 
 }

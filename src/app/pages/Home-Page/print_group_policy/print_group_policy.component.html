@@ -40,7 +40,7 @@
     <p-card id="divToPrint">
       <div class="row">
         <div class="col-md-6">
-          <h4 style="color: black; float:right;"><b><u>ANNEXURE IV</u></b></h4>
+          <h4 style="color: black;"><b><u>ANNEXURE IV</u></b></h4>
         </div>
       </div>
       <div class="row">
@@ -95,7 +95,8 @@
             </th>
             <th colspan="2">
               <label for="" class="label_field"><b>GENDER : </b>
-                <span style="color: rgb(55, 55, 230);"> {{stpinfo?.gender == 'F' ? 'Female' : 'Male'}}</span></label>
+                <span style="color: rgb(55, 55, 230);"> {{stpinfo?.gender == 'F' ? 'Female' : stpinfo?.gender == 'M' ?
+                  'Male' : ''}}</span></label>
             </th>
           </tr>
           <tr>
@@ -123,7 +124,8 @@
             <th class="text-center" style="color: rgb(55, 55, 230);"><span class="label_field">{{dt.sl_no}}</span></th>
             <th style="width: 89vw;color: rgb(55, 55, 230);"><span class="label_field">{{dt.dependent_name}}</span></th>
             <th style="color: rgb(55, 55, 230);"><span class="label_field">{{dt.relation_name}}</span></th>
-            <th style="color: rgb(55, 55, 230);"><span class="label_field">{{dt.dob | date: 'dd/MM/yyyy'}}</span></th>
+            <th style="color: rgb(55, 55, 230);"><span class="label_field">{{dt?.dob && dt?.dob !== '0000-00-00' ?
+                (dt.dob | date: 'dd/MM/yyyy') : 'N/A'}}</span></th>
           </tr>
           <tr>
             <th colspan="4" class="label_field">

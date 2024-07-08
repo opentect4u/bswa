@@ -30,6 +30,7 @@ interface MembershipInfo {
 }
 
 interface SpouseDepenInfo {
+  sl_no: string,
   ind_type: string,
   fin_year: string,
   particulars: string,
@@ -152,7 +153,8 @@ export class Policy_view_formComponent implements OnInit {
     this.getGenInsInfo();
     this.getSpouseInfo();
     this.getTnxDetails();
-
+    this.getTransactionInfo();
+    this.getRejectTransactionInfo();
   }
 
   getTnxDetails(){
@@ -241,6 +243,59 @@ export class Policy_view_formComponent implements OnInit {
       });
   }
 
+  getTransactionInfo() {
+    // this.dataServe
+    //   .global_service(0, '/get_super_transaction', `form_no=${this.form_no}`)
+    //   .subscribe((trans_dt: any) => {
+    //     this.resdata = trans_dt;
+    //     console.log(this.resdata, '777');
+    //     this.resdata = 
+    //        this.resdata.suc > 0 
+    //          ? this.resdata.msg.length > 0 
+    //          ? this.resdata.msg
+    //          : []
+    //          : [];
+    //     this.traninfo = this.resdata
+    //     this.form.patchValue({
+    //       admissionFee: this.responsedata[0].adm_fee,
+    //       donationFee: this.responsedata[0].donation,
+    //       subscriptionFee:this.responsedata[0].subscription_1,
+    //       subscriptionType:this.responsedata[0].subs_type=='M'? 'Monthly' : 'Yearly',
+    //     })
+    //   });
+    this.dataServe
+      .global_service(0, '/get_super_transaction', `form_no=${this.form_no}`)
+      .subscribe((data: any) => {
+        this.resdata = data;
+        console.log(this.resdata);
+        this.resdata = this.resdata.suc > 0 ? this.resdata.msg : []
+        // console.log(this.resdata[0].subscription_1)
+        this.form.patchValue({
+          resolution_no: this.resdata[0].resolution_no,
+          resolution_dt: this.datePipe.transform(this.resdata[0].resolution_dt, 'yyyy-MM-dd'),
+          status:this.resdata[0].form_status=='T' ? 'Approve' : '',
+          pre_amt: this.resdata[0].premium_amt,
+        })
+      })
+  }
+
+  getRejectTransactionInfo() {
+    this.dataServe
+      .global_service(0, '/get_super_transaction_reject', `form_no=${this.form_no}`)
+      .subscribe((data: any) => {
+        this.resdata = data;
+        console.log(this.resdata);
+        this.resdata = this.resdata.suc > 0 ? this.resdata.msg : []
+        // console.log(this.resdata[0].subscription_1)
+        this.form.patchValue({
+          resolution_no: this.resdata[0].resolution_no,
+          resolution_dt: this.datePipe.transform(this.resdata[0].resolution_dt, 'yyyy-MM-dd'),
+          status:this.resdata[0].form_status=='R',
+          reject: this.resdata[0].remarks
+        })
+      })
+  }
+
   reject_submit(){
     var dt = {
       formNo: this.form_no,
@@ -256,7 +311,7 @@ export class Policy_view_formComponent implements OnInit {
       this.resdata = data;
       console.log(this.resdata, '99');
       if(this.resdata.suc > 0) {
-        this.router.navigate(['/admin/super_policy_approve'])
+        this.router.navigate(['/admin/admin_premium_approve'])
       }
     });    
   }

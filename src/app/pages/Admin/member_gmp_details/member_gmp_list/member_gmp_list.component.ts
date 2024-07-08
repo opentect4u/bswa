@@ -8,26 +8,26 @@ interface TableData{
   form_no: string
   member_id: string
   memb_name:string
-  // mem_type:string
+  unit_name:string
 }
 
 @Component({
-  selector: 'app-member_policy_list',
-  templateUrl: './member_policy_list.component.html',
-  styleUrls: ['./member_policy_list.component.css']
+  selector: 'app-member_gmp_list',
+  templateUrl: './member_gmp_list.component.html',
+  styleUrls: ['./member_gmp_list.component.css']
 })
-export class Member_policy_listComponent implements OnInit {
+export class Member_gmp_listComponent implements OnInit {
   userData:any
   tableData: [TableData] | any
-
+  
   constructor(private router: Router, private dataServe: DataService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-  this.getMemberPolicyDtls()
+    this.getMemberGmpPolicyDtls();
   }
 
-  getMemberPolicyDtls(){
-    this.dataServe.global_service(1, '/member_policy_dtls', null).subscribe(
+  getMemberGmpPolicyDtls(){
+    this.dataServe.global_service(1, '/member_gmp_policy_dtls', null).subscribe(
       (data) => {
         console.log(data, 'kiki');
         this.userData = data;
@@ -47,7 +47,7 @@ export class Member_policy_listComponent implements OnInit {
   }
 
   preview(form_no: any,member_id: any,policy_type:any){
-    this.router.navigate(['/admin/member_policy_edit',encodeURIComponent(btoa(form_no)),member_id,policy_type])
+    this.router.navigate(['/admin/member_gmp_edit',encodeURIComponent(btoa(form_no)),member_id,policy_type])
   }
 
   filerRes(event:any){
