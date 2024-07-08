@@ -48,8 +48,8 @@ private messageService: MessageService
     this.router.navigate(['/admin/dashboard']);
   }
 
-  view(form_no:any ,memb_id: any){
-    this.router.navigate(['/admin/view_super_approve_form',encodeURIComponent(btoa(form_no)),encodeURIComponent(btoa(memb_id))])
+  view(form_no:any ,memb_id: any, phone_no: any){
+    this.router.navigate(['/admin/view_super_approve_form',encodeURIComponent(btoa(form_no)),encodeURIComponent(btoa(memb_id)),encodeURIComponent(btoa(phone_no))])
   }
 
   onadd(){

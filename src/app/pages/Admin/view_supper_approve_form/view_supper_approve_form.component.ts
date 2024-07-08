@@ -131,10 +131,12 @@ get f() {
   ngOnInit() {
     const encodedFormNo = this.route.snapshot.params['form_no'];
     const encodedMemId = this.route.snapshot.params['member_id'];
+    const encodedPhNo = this.route.snapshot.params['phone_no'];
     // this.member_id = localStorage.getItem('user_name')
     
     this.form_no = atob(decodeURIComponent(encodedFormNo));
     this.member_id = atob(decodeURIComponent(encodedMemId));
+    this.phone_no = atob(decodeURIComponent(encodedPhNo));
     console.log(this.member_id,'ooo');
     this.getMemberInfo(this.member_id);
     this.getSpouseInfo();
@@ -217,7 +219,8 @@ get f() {
       resolution_no: this.f['resolution_no'] ? this.f['resolution_no'].value : null,
       resolution_dt: this.f['resolution_dt'] ? this.f['resolution_dt'].value : null,
       status: this.f['status'] ? this.f['status'].value : null,
-      user: localStorage.getItem('user_name')
+      user: localStorage.getItem('user_name'),
+      phone_no: this.phone_no
     }
 
     this.dataServe.global_service(1, '/approve_stp_data',dt ).subscribe((data: any) => {
