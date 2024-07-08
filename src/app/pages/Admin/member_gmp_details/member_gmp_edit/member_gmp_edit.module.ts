@@ -11,6 +11,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [{ path: '', component: Member_gmp_editComponent }];
 
@@ -26,6 +27,7 @@ const routes: Routes = [{ path: '', component: Member_gmp_editComponent }];
     FileUploadModule,
     ReactiveFormsModule,
     ToastModule,
+    FormsModule,
     RouterModule.forChild(routes)
   ],
   declarations: [Member_gmp_editComponent]
