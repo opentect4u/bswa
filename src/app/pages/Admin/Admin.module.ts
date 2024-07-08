@@ -194,7 +194,7 @@ const routes: Routes = [
           ).then((m) => m.Admin_premium_approveModule),
       },
       {
-        path: 'policy_view_form/:form_no/:member_id',
+        path: 'policy_view_form/:form_no/:member_id/:phone_no',
         loadChildren: () =>
           import('../Admin/policy_view_form/policy_view_form.module').then(
             (m) => m.Policy_view_formModule
@@ -215,7 +215,7 @@ const routes: Routes = [
       //     ),
       // },
       {
-        path: 'view_super_approve_form/:form_no/:member_id',
+        path: 'view_super_approve_form/:form_no/:member_id/:phone_no',
         loadChildren: () =>
           import(
             '../Admin/view_supper_approve_form/view_supper_approve_form.module'
