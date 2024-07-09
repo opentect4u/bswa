@@ -44,7 +44,7 @@
             </div>
 
             <div class="flex flex-row">
-              <div class="field col-12 md:col-12" *ngIf="this.responsedata[0]?.mem_type !='AI'">
+              <div class="field col-12 md:col-6" *ngIf="this.responsedata[0]?.mem_type !='AI'">
                 <label for="unit" class="label_field"><b>Unit Name:<span class="text-red-700">*</span></b></label>&nbsp;
                 <ng-container *ngIf="checkedmember">
                   <!-- <input id="unit" type="text" formControlName="unit" placeholder="Enter Unit Name"
@@ -74,6 +74,26 @@
                   </div>
                 </ng-container>
 
+              </div>
+              <div class="field col-12 md:col-6">
+                <ng-container *ngIf="checkedmember">
+                  <label for="phone" class="label_field"><b>Whatsapp Phone No:<span
+                        class="text-red-700">*</span></b></label>&nbsp;
+                  <input id="phone" type="text" formControlName="phone" placeholder="Enter Whatsapp Phone No"
+                    class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                  <div *ngIf="o['phone']?.touched || o['phone']?.dirty">
+                    <small class="text-red-900" *ngIf="o['phone']?.errors">Whatsapp Phone No is required.</small>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="!checkedmember">
+                  <label for="phone" class="label_field"><b>Whatsapp Phone No:<span
+                        class="text-red-700">*</span></b></label>&nbsp;
+                  <input id="phone" type="text" formControlName="phone" placeholder="Enter Whatsapp Phone No"
+                    class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                  <div *ngIf="o['phone']?.touched || o['phone']?.dirty">
+                    <small class="text-red-900" *ngIf="o['phone']?.errors">Member Name is required.</small>
+                  </div>
+                </ng-container>
               </div>
             </div>
 

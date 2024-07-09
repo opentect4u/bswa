@@ -32,7 +32,7 @@ private messageService: MessageService) { }
   }
 
   getData () {
-    this.dataServe.global_service(0,'/transaction_dt_group',null).subscribe(data => {
+    this.dataServe.global_service(0,'/view_grp_trn_dt',null).subscribe(data => {
       console.log(data)
       this.userData = data;
       this.userData =
@@ -46,8 +46,8 @@ back(){
   this.router.navigate(['/admin/dashboard']);
 }
 
-view(form_no:any){
-  this.router.navigate(['/admin/view_group_approve_form',encodeURIComponent(btoa(form_no))])
+view(form_no:any,member_id:any){
+  this.router.navigate(['/admin/view_group_approve_form',encodeURIComponent(btoa(form_no)),member_id])
 }
 
 }

@@ -3,6 +3,14 @@
 
   <form [formGroup]="form">
     <div class="flex flex-row">
+      <div class="field col-12 md:col-12">
+        <label for="policy_holder" class="label_field"><b>Policy Holder Type:</b></label>&nbsp;
+        <input id="policy_holder" type="text" formControlName="policy_holder"
+          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          readonly />
+      </div>
+    </div>
+    <div class="flex flex-row">
       <div class="field col-12 md:col-4">
         <label for="form_no" class="label_field"><b>Form No:</b></label>&nbsp;
         <input id="form_no" type="text" formControlName="form_no"
@@ -22,14 +30,35 @@
           readonly />
       </div> -->
       <div class="field col-12 md:col-4">
+        <label for="unit_name" class="label_field"><b>Unit Name:</b></label>&nbsp;
+        <input id="unit_name" type="text" formControlName="unit_name"
+          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          readonly />
+      </div>
+      <div class="field col-12 md:col-4">
+        <label for="memb_type" class="label_field"><b>Member Type:</b></label>&nbsp;
+        <input id="memb_type" type="text" formControlName="memb_type"
+          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          readonly />
+      </div>
+    </div>
+
+    <div class="flex flex-row">
+      <div class="field col-12 md:col-4">
         <label for="memb_name" class="label_field"><b>Member Name:</b></label>&nbsp;
         <input id="memb_name" type="text" formControlName="memb_name"
           class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
           readonly />
       </div>
       <div class="field col-12 md:col-4">
-        <label for="unit_name" class="label_field"><b>Unit Name:</b></label>&nbsp;
-        <input id="unit_name" type="text" formControlName="unit_name"
+        <label for="member_id" class="label_field"><b>Member ID:</b></label>&nbsp;
+        <input id="member_id" type="text" formControlName="member_id"
+          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          readonly />
+      </div>
+      <div class="field col-12 md:col-4">
+        <label for="phone" class="label_field"><b>Phone No:</b></label>&nbsp;
+        <input id="phone" type="text" formControlName="phone"
           class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
           readonly />
       </div>
@@ -42,27 +71,18 @@
           class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
           readonly />
       </div>
-      <div class="field col-12 md:col-4">
+      <!-- <div class="field col-12 md:col-4">
         <label for="pre_dt" class="label_field"><b>Premium Date:</b></label>&nbsp;
         <input id="pre_dt" type="text" formControlName="pre_dt"
           class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
           readonly />
-      </div>
+      </div> -->
       <div class="field col-12 md:col-4">
         <label for="pre_amt" class="label_field"><b>Premium Amount:</b></label>&nbsp;
         <input id="pre_amt" type="text" formControlName="pre_amt"
           class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
           readonly />
       </div>
-    </div>
-
-    <div class="flex flex-row">
-      <!-- <div class="field col-12 md:col-4">
-        <label for="tot_amt" class="label_field"><b>Total Amount:</b></label>&nbsp;
-        <input id="tot_amt" type="text" formControlName="tot_amt"
-          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-          readonly />
-      </div> -->
       <div class="field col-12 md:col-4">
         <label for="pay_mode" class="label_field"><b>Pay Mode:</b></label>&nbsp;
         <!-- <select id="pay_mode" formControlName="pay_mode"
@@ -77,21 +97,9 @@
           class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
           readonly />
       </div>
-      <div class="field col-12 md:col-4">
-        <label for="resolution_dt" class="label_field"><b>Resolution Date:</b></label>&nbsp;
-        <input id="resolution_dt" type="text" formControlName="resolution_dt"
-          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-          readonly />
-      </div>
-      <div class="field col-12 md:col-4">
-        <label for="resolution_no" class="label_field"><b>Resolution No:</b></label>&nbsp;
-        <input id="resolution_no" type="text" formControlName="resolution_no"
-          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-          readonly />
-      </div>
     </div>
-
-    <div *ngIf="pay_mode === 'Q'">
+    <!-- asdasdasdasd {{pay_mode}} -->
+    <div *ngIf="pay_mode == 'Q'">
       <div class="flex flex-row">
         <div class="field col-12 md:col-4">
           <label for="chq_no" class="label_field"><b>Cheque NO:</b></label>&nbsp;
@@ -113,6 +121,29 @@
         </div>
       </div>
     </div>
+
+    <div class="flex flex-row">
+      <!-- <div class="field col-12 md:col-4">
+        <label for="tot_amt" class="label_field"><b>Total Amount:</b></label>&nbsp;
+        <input id="tot_amt" type="text" formControlName="tot_amt"
+          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          readonly />
+      </div> -->
+
+      <div class="field col-12 md:col-4">
+        <label for="resolution_dt" class="label_field"><b>Resolution Date:</b></label>&nbsp;
+        <input id="resolution_dt" type="text" formControlName="resolution_dt"
+          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          readonly />
+      </div>
+      <div class="field col-12 md:col-4">
+        <label for="resolution_no" class="label_field"><b>Resolution No:</b></label>&nbsp;
+        <input id="resolution_no" type="text" formControlName="resolution_no"
+          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          readonly />
+      </div>
+    </div>
+
 
 
     <div class="flex flex-row btn_space">

@@ -243,7 +243,7 @@ const routes: Routes = [
           ).then((m) => m.Group_policy_approve_formModule),
       },
       {
-        path: 'view_group_approve_form/:form_no',
+        path: 'view_group_approve_form/:form_no/:member_id',
         loadChildren: () =>
           import(
             '../Admin/view_group_approve_form/view_group_approve_form.module'
@@ -374,6 +374,13 @@ const routes: Routes = [
           import('../Admin/member_gmp_details/member_gmp_edit/member_gmp_edit.module').then(
             (m) => m.Member_gmp_editModule
           ),
+      },
+      {
+        path: 'gmp_ins_report',
+        loadChildren: () =>
+          import(
+            '../Admin/gmp_ins_report/gmp_ins_report.module'
+          ).then((m) => m.Gmp_ins_reportModule),
       },
     ],
   },

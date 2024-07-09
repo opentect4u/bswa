@@ -20,6 +20,7 @@ interface MembershipInfo {
   marital_status: string,
   dob: string
   unit_name: string,
+  phone: string,
 }
 
 interface SpouseDepenInfo {

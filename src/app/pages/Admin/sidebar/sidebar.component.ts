@@ -122,6 +122,11 @@ export class SidebarComponent implements OnInit {
             icon: 'pi pi-shield',
             routerLink: ['stp_ins_report'],
           },
+          {
+            label: 'Group Insurance',
+            icon: 'pi pi-list',
+            routerLink: ['gmp_ins_report'],
+          },
         ],
       },
     ];

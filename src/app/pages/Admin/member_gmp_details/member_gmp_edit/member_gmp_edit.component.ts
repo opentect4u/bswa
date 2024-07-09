@@ -51,6 +51,7 @@ export class Member_gmp_editComponent implements OnInit {
       member_type: ['', Validators.required],
       unit_nm: ['', Validators.required],
       member: ['', Validators.required],
+      phone: ['', Validators.required],
       gurdian: ['', Validators.required],
       gen: ['', Validators.required],
       marital_status: ['', Validators.required],
@@ -68,10 +69,10 @@ export class Member_gmp_editComponent implements OnInit {
       user: [localStorage.getItem('user_name')],
     });
 
+    this.getGmpMemberPolicyDetails();
     this.unit();
     this.relationship();
     this.get_non_dtls();
-    this.getGmpMemberPolicyDetails();
 
     this.form.valueChanges.subscribe(() => {
       this.calculateTotalAmount();
@@ -230,6 +231,7 @@ toggleAdditionalOptions(checked:any) {
               member_type: this.memberData?.memb_type== 'G' ? 'General Membership' : this.memberData?.memb_type== 'L' ? 'Life Membership' : this.memberData?.memb_type== 'AI' ? 'Associate Membership' : '',
               unit_nm: this.memberData?.association,
               member: this.memberData?.memb_name,
+              phone: this.memberData?.phone,
               gurdian: this.memberData?.father_husband_name,
               gen: this.memberData?.sex,
               marital_status: this.memberData?.marital_status,
@@ -286,6 +288,7 @@ toggleAdditionalOptions(checked:any) {
         member_id: this.o['member_id'] ? this.o['member_id'].value : null,
         member_type: this.o['member_type'] ? this.o['member_type'].value : null,
         member: this.o['member'] ? this.o['member'].value : null,
+        phone: this.o['phone'] ? this.o['phone'].value : null,
         gurdian: this.o['gurdian'] ? this.o['gurdian'].value : null,
         gen: this.o['gen'] ? this.o['gen'].value : null,
         marital_status: this.o['marital_status'] ? this.o['marital_status'].value : null,

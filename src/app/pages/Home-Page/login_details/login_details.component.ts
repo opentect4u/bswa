@@ -7,10 +7,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./login_details.component.css']
 })
 export class Login_detailsComponent implements OnInit {
+ finance: any
 
   constructor(private router: Router) { }
 
   ngOnInit() {
+    this.finance = 'https://bspwa.in/fin/'
   }
 
  nextPage(){

@@ -20,6 +20,7 @@ interface MembershipInfo {
   marital_status: string,
   dob: string,
   unit_name: string,
+  phone: string,
 }
 
 interface SpouseDepenInfo {
@@ -123,11 +124,19 @@ export class Group_policy_view_formComponent implements OnInit {
     cheque_no: [''],
     bank_name: [''],
   });
+
+  this.form.valueChanges.subscribe(() => {
+    this.calculateTotalAmount();
+  });
  }
 
  get f() {
   return this.form.controls;
 }
+
+// get totalAmount(): number {
+//   return this.calculateTotalAmount();
+// }
 
   ngOnInit() {
     const encodedFormNo = this.route.snapshot.params['form_no'];
@@ -140,14 +149,15 @@ export class Group_policy_view_formComponent implements OnInit {
     // this.getMemberInfo();
     // this.getSpouseInfo();
     // this.getPremiumInfo();
+    this.getTransactionInfo();
   }
   get totalAmount(): number {
     return this.calculateTotalAmount();
   }
 
   calculateTotalAmount(): number {
-    const supTopUp = parseFloat(this.form.get('premium_amt')?.value) || 0;
-    const preAmont = parseFloat(this.form.get('pre_amt_value')?.value) || 0;
+    const supTopUp = parseInt(this.form.get('premium_amt')?.value) || 0;
+    const preAmont = parseInt(this.form.get('pre_amt_value')?.value) || 0;
     return supTopUp + preAmont;
   }
 
@@ -220,6 +230,9 @@ export class Group_policy_view_formComponent implements OnInit {
       this.preinfo!['premium_amt2'] : this.preinfo!['prm_flag3'] == 'Y' ? 
       this.preinfo!['premium_amt3'] : '0';
       this.tot_pre_amt = parseInt(this.preinfo!.premium_amt) + parseInt(this.pre_amt_value)
+      this.form.patchValue({
+        pre_amt : this.tot_pre_amt
+      })
       console.log(this.preinfo,'pre');
       
     });
@@ -291,6 +304,23 @@ export class Group_policy_view_formComponent implements OnInit {
         this.router.navigate(['/admin/group_policy_approve_form'])
       }
     });    
+  }
+
+  getTransactionInfo() {
+    this.dataServe
+      .global_service(0, '/get_gmp_transaction', `form_no=${this.form_no}`)
+      .subscribe((data: any) => {
+        this.resdata = data;
+        console.log(this.resdata);
+        this.resdata = this.resdata.suc > 0 ? this.resdata.msg : []
+        // console.log(this.resdata[0].subscription_1)
+        this.form.patchValue({
+          resolution_no: this.resdata[0].resolution_no,
+          resolution_dt: this.datePipe.transform(this.resdata[0].resolution_dt, 'yyyy-MM-dd'),
+          status:this.resdata[0].form_status=='T' ? 'Accept' : '',
+          pre_amt: this.resdata[0].premium_amt,
+        })
+      })
   }
 
 }

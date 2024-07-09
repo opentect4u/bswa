@@ -4,12 +4,15 @@
 
   <form [formGroup]="form">
     <div class="flex flex-row">
-      <div class="field col-12 md:col-4">
+      <div class="field col-12 md:col-12">
         <label for="policy_holder" class="label_field"><b>Policy Holder Type: </b></label>&nbsp;
         <input id="policy_holder" type="text" formControlName="policy_holder" placeholder="Enter Member ID"
           class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
           readonly />
       </div>
+    </div>
+
+    <div class="flex flex-row">
       <div class="field col-12 md:col-4">
         <label for="member_id" class="label_field"><b>Member ID:</b></label>&nbsp;
         <input id="member_id" type="text" formControlName="member_id" placeholder="Enter Member ID"
@@ -24,9 +27,6 @@
             readonly />
         </ng-container>
       </div>
-    </div>
-
-    <div class="flex flex-row">
       <div class="field col-12 md:col-4">
         <label for="unit_nm" class="label_field"><b>Unit Name:</b></label>&nbsp;
         <ng-container>
@@ -38,6 +38,9 @@
           </select>
         </ng-container>
       </div>
+    </div>
+
+    <div class="flex flex-row">
       <div class="field col-12 md:col-4">
         <label for="member" class="label_field"><b>Member Name:</b></label>&nbsp;
         <ng-container>
@@ -49,6 +52,13 @@
         <label for="gurdian" class="label_field"><b>Father / Husband Name:</b></label>&nbsp;
         <ng-container>
           <input id="gurdian" type="text" formControlName="gurdian" placeholder="Enter Gurdian Name"
+            class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+        </ng-container>
+      </div>
+      <div class="field col-12 md:col-4">
+        <label for="phone" class="label_field"><b>Whatsapp Phone No:</b></label>&nbsp;
+        <ng-container>
+          <input id="phone" type="text" formControlName="phone" placeholder="Enter Whatsapp Phone No"
             class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
         </ng-container>
       </div>
@@ -133,12 +143,12 @@
             <input id="sl_no" type="text" formControlName="sl_no" placeholder="Enter Sl No"
               class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
           </div> -->
-          <div class="field col-12 md:col-3">
+          <div class="field col-12 md:col-4">
             <label for="dependent_name" class="label_field"><b>Dependent Name:</b></label>
             <input id="dependent_name" type="text" formControlName="dependent_name" placeholder="Enter Dependent name"
               class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
           </div>
-          <div class="field col-12 md:col-3">
+          <div class="field col-12 md:col-4">
             <label for="relation" class="label_field"><b>Relationship:</b></label>
             <ng-container>
               <select id="relation" formControlName="relation"
@@ -152,7 +162,7 @@
               <input type="hidden" formControlName="relation" />
             </ng-container>
           </div>
-          <div class="field col-12 md:col-3">
+          <div class="field col-12 md:col-4">
             <label for="dob" class="label_field"><b>DOB(DD/MM/YYYY):</b></label>&nbsp;
             <input id="dob" type="date" formControlName="dob" placeholder="Enter DOB"
               class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />

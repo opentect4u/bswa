@@ -31,10 +31,17 @@
           <td class="text-center"><b>{{ customer.form_no }}</b></td>
           <td class="text-center"><b>{{ customer.trn_dt | date: 'dd/MM/yyyy' }}</b></td>
           <td class="text-center"><b>{{ customer.trn_id }}</b></td>
-          <td class="text-center"><b>{{ customer.ins_period== 'Q' ? 'Quaterly' : customer.ins_period== 'H' ? 'Half
-              Yearly' : 'Yearly' }}</b></td>
-          <td class="text-center"><b><a pTooltip="View" tooltipPosition="bottom" (click)="view(customer.form_no)"><i
-                  class="pi pi-eye editLink"></i></a></b>
+          <td class="text-center">
+            <b>
+              <span
+                class="badge {{ customer.form_status=='T' ? 'badge-Accept' : customer.form_status=='R' ? 'badge-reject' : '' }}">
+                {{ customer.form_status=='T' ? 'Accept' : customer.form_status=='R' ? 'Rejected' :
+                '' }}
+              </span>
+            </b>
+          </td>
+          <td class="text-center"><b><a pTooltip="View" tooltipPosition="bottom"
+                (click)="view(customer.form_no, customer.member_id)"><i class="pi pi-eye editLink"></i></a></b>
           </td>
         </tr>
       </ng-template>
