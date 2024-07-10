@@ -174,7 +174,7 @@ export class Policy_view_formComponent implements OnInit {
               this.resolution_dt
                 ? this.datePipe.transform(this.resolution_dt, 'yyyy-MM-dd')
                 : '',
-            status: this.memb_status,
+            // status: this.memb_status,
             payment: this.tnxData?.pay_mode,
             // cheque_no: this.tnxData?.chq_no,
             // bank_name: this.tnxData?.chq_bank,
@@ -189,7 +189,7 @@ export class Policy_view_formComponent implements OnInit {
             // receipt_no: this.tnxData?.receipt_no,
             trn_id: this.tnxData?.trn_id,
           });
-          this.selectedValue2 = this.tnxData?.pay_mode;
+          
         }
       }); 
   }
@@ -207,6 +207,13 @@ export class Policy_view_formComponent implements OnInit {
               : {}
             : {};
         this.stpinfo = this.responsedata;
+        // this.form.patchValue({
+        //   resolution_no: this.resdata[0].resolution_no,
+        //   resolution_dt: this.datePipe.transform(this.resdata[0].resolution_dt, 'yyyy-MM-dd'),
+        //   status:this.resdata[0].form_status,
+        //   // pre_amt: this.resdata[0].premium_amt,
+        // })
+        // this.selectedValue = this.resdata[0].form_status;
       });
   }
 
@@ -275,9 +282,10 @@ export class Policy_view_formComponent implements OnInit {
         this.form.patchValue({
           resolution_no: this.resdata[0].resolution_no,
           resolution_dt: this.datePipe.transform(this.resdata[0].resolution_dt, 'yyyy-MM-dd'),
-          status:this.resdata[0].form_status=='T' ? 'Approve' : '',
+          status:this.resdata[0].form_status,
           pre_amt: this.resdata[0].premium_amt,
         })
+        this.selectedValue = this.resdata[0].form_status;
       })
   }
 
@@ -292,7 +300,7 @@ export class Policy_view_formComponent implements OnInit {
         this.form.patchValue({
           resolution_no: this.resdata[0].resolution_no,
           resolution_dt: this.datePipe.transform(this.resdata[0].resolution_dt, 'yyyy-MM-dd'),
-          status:this.resdata[0].form_status=='R',
+          status:this.resdata[0].form_status,
           reject: this.resdata[0].remarks
         })
       })

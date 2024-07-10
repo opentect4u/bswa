@@ -140,6 +140,7 @@ get f() {
     console.log(this.member_id,'ooo');
     this.getMemberInfo(this.member_id);
     this.getSpouseInfo();
+    this.getRejectTransactionInfo();
     this.getTransactionInfo();
   }
 
@@ -174,6 +175,23 @@ get f() {
         this.spouseInfo = this.resdata
         // this.ind_type = this.responsedata[0].ind_type;
       });
+  }
+
+  getRejectTransactionInfo() {
+    this.dataServe
+      .global_service(0, '/get_super_transaction_reject', `form_no=${this.form_no}`)
+      .subscribe((data: any) => {
+        this.resdata = data;
+        console.log(this.resdata);
+        this.resdata = this.resdata.suc > 0 ? this.resdata.msg : []
+        // console.log(this.resdata[0].subscription_1)
+        this.form.patchValue({
+          resolution_no: this.resdata[0].resolution_no,
+          resolution_dt: this.datePipe.transform(this.resdata[0].resolution_dt, 'yyyy-MM-dd'),
+          status:this.resdata[0].form_status == 'T' ? 'Approve' : '',
+          reject: this.resdata[0].remarks
+        })
+      })
   }
 
   getTransactionInfo() {
@@ -215,12 +233,13 @@ get f() {
   approve_stp(){
     var dt = {
       formNo: this.form_no,
-      member: this.route.snapshot.params['memb_name'],
+      // member: this.route.snapshot.params['memb_name'],
       resolution_no: this.f['resolution_no'] ? this.f['resolution_no'].value : null,
       resolution_dt: this.f['resolution_dt'] ? this.f['resolution_dt'].value : null,
       status: this.f['status'] ? this.f['status'].value : null,
       user: localStorage.getItem('user_name'),
-      phone_no: this.phone_no
+      phone_no: this.phone_no,
+      member: this.stpinfo?.memb_name
     }
 
     this.dataServe.global_service(1, '/approve_stp_data',dt ).subscribe((data: any) => {

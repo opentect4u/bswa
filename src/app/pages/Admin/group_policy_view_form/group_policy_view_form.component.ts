@@ -246,7 +246,9 @@ export class Group_policy_view_formComponent implements OnInit {
       resolution_dt: this.f['resolution_dt'] ? this.f['resolution_dt'].value : null,
       status: this.f['status'] ? this.f['status'].value : null,
       reject: this.f['reject'] ? this.f['reject'].value : null,
-      user: localStorage.getItem('user_name')
+      user: localStorage.getItem('user_name'),
+      user_name: this.stpinfo?.memb_name,
+      phone_no: this.stpinfo?.phone
     }
 
     this.dataServe.global_service(1, '/reject_group_policy',dt ).subscribe((data: any) => {
@@ -271,6 +273,8 @@ export class Group_policy_view_formComponent implements OnInit {
         ins_period: this.f['ins_period'] ? this.f['ins_period'].value : null,
         pre_dt: this.f['pre_dt'] ? this.f['pre_dt'].value : null,
         pre_amt:  this.f['pre_amt'] ? this.f['pre_amt'].value : null,
+        user_name: this.stpinfo?.memb_name,
+        phone_no: this.stpinfo?.phone
     }
     this.dataServe.global_service(1, '/payment_accept_group',dt ).subscribe((data: any) => {
       this.resdata = data;
@@ -295,6 +299,8 @@ export class Group_policy_view_formComponent implements OnInit {
       cheque_dt: this.f['cheque_dt'] ? this.f['cheque_dt'].value : null,
       cheque_no: this.f['cheque_no'] ? this.f['cheque_no'].value : null,
       bank_name: this.f['bank_name'] ? this.f['bank_name'].value : null,
+      user_name: this.stpinfo?.memb_name,
+      phone_no: this.stpinfo?.phone
     }
 
     this.dataServe.global_service(1, '/payment_accept_cheque_group',dt ).subscribe((data: any) => {
@@ -317,7 +323,7 @@ export class Group_policy_view_formComponent implements OnInit {
         this.form.patchValue({
           resolution_no: this.resdata[0].resolution_no,
           resolution_dt: this.datePipe.transform(this.resdata[0].resolution_dt, 'yyyy-MM-dd'),
-          status:this.resdata[0].form_status=='T' ? 'Accept' : '',
+          status:this.resdata[0].form_status,
           pre_amt: this.resdata[0].premium_amt,
         })
       })

@@ -100,7 +100,9 @@ approve (){
     formNo: this.fromNo,
     // trn_dt:  this.f['trn_dt'] ? this.f['trn_dt'].value : null,
     // tot_amt:  this.f['tot_amt'] ? this.f['tot_amt'].value : null,
-    user: localStorage.getItem('user_name')
+    user: localStorage.getItem('user_name'),
+    user_name: this.userData[0].memb_name,
+    phone_no: this.userData[0].phone,
   }
 
   this.dataServe.global_service(1,'/approve_group',dt).subscribe(data => {

@@ -382,6 +382,13 @@ const routes: Routes = [
             '../Admin/gmp_ins_report/gmp_ins_report.module'
           ).then((m) => m.Gmp_ins_reportModule),
       },
+      {
+        path: 'show_gmp_ins_report/:from_dt/:to_dt/:status',
+        loadChildren: () =>
+          import(
+            '../Admin/show_gmp_ins_report/show_gmp_ins_report.module'
+          ).then((m) => m.Show_gmp_ins_reportModule),
+      },
     ],
   },
 ];

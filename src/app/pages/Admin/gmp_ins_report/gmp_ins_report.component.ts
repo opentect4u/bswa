@@ -52,7 +52,7 @@ export class Gmp_ins_reportComponent implements OnInit {
       to_dt: this.m['to_dt'].value,
       status: this.m['status'].value
     }
-    this.router.navigate(['/admin/show_stp_ins_report',dt.from_dt,dt.to_dt,dt.status]);    
+    this.router.navigate(['/admin/show_gmp_ins_report',dt.from_dt,dt.to_dt,dt.status]);    
   }
 
 
