@@ -32,8 +32,10 @@ export class SubsDepoEntryComponent implements OnInit {
   messageService: any;
   responsedata_subs: any;
   selectedValue2: string = 'C'
+  member_id: any;
+  phone_no: any;
 
-  constructor(private formBuilder: FormBuilder, private dataServe: DataService) { }
+  constructor(private router: Router,private formBuilder: FormBuilder, private dataServe: DataService) { }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -155,7 +157,9 @@ export class SubsDepoEntryComponent implements OnInit {
       form_no: this.f['form_no'].value,
       approval_status: 'U',
       cal_upto: this.userData?.calc_upto,
-      cal_amt: this.userData?.calc_amt
+      cal_amt: this.userData?.calc_amt,
+      phone_no: this.userData?.phone_no,
+      member: this.userData?.memb_name 
     }
     this.dataServe.global_service(1,'/mem_sub_tnx_save',dt).subscribe(data => {
       // console.log(data,'kiki')
@@ -169,9 +173,9 @@ export class SubsDepoEntryComponent implements OnInit {
         ).then((result) => {
           if (result.isConfirmed) {
             this.showDepoEntry = false;
-            this.form.reset()
-            this.entryForm.reset()
-            // this.router.navigate(['/home/life_form_print',encodeURIComponent(btoa(this.formNo))])
+            // this.form.reset()
+            // this.entryForm.reset()
+            this.router.navigate(['/admin/money_receipt',this.m['mem_id'].value])
           }
         });
       }else{

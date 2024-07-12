@@ -8,6 +8,7 @@ interface TrnsDtls {
   trn_id: string;
   sub_amt: string;
   form_no: string;
+  approval_status: string;
 }
 
 @Component({

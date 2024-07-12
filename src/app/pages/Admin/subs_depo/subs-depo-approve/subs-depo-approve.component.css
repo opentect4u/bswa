@@ -1,0 +1,19 @@
+.badge {
+    display: inline-block;
+    padding: 0.5em 1em;
+    font-size: 0.95em;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.375em;
+  }
+  .badge-reject {
+    color: #fff;
+    background-color: #dc3545;
+  }
+  .badge-settlement {
+    color: #fff;
+    background-color: #61d38d;
+  }

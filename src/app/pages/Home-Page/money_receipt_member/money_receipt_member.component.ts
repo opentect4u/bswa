@@ -1,40 +1,52 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from 'src/app/service/data.service';
+import { ActivatedRoute } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 interface TrnData{
 
 }
 
 @Component({
-  selector: 'app-trn-history-view',
-  templateUrl: './trn-history-view.component.html',
-  styleUrls: ['./trn-history-view.component.css']
+  selector: 'app-money_receipt_member',
+  templateUrl: './money_receipt_member.component.html',
+  styleUrls: ['./money_receipt_member.component.css'],
+  providers: [DatePipe],
 })
+export class Money_receipt_memberComponent implements OnInit {
 
-export class TrnHistoryViewComponent implements OnInit {
   trn_id:any
   form_no:any
   trnResData: any;
   trnData: TrnData | any;
   payMode:any = {'C': 'Cash', 'Q': 'Cheque', 'O': 'Online'}
-  divToPrint: any;
   WindowObject: any;
+  divToPrint: any;
+  member_id: any;
 
-  constructor(private route: ActivatedRoute, private dataServe: DataService) { }
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private dataServe: DataService,
+    private datePipe: DatePipe
+  ) { }
 
   ngOnInit() {
-    this.trn_id = this.route.snapshot.params['trn_id'];
-    this.form_no = localStorage.getItem('form_no')
-    this.getTransactionDetails(this.form_no, this.trn_id)
+    this.member_id = this.route.snapshot.params['member_id']
+    this.getTransactionDetails(this.member_id)
   }
 
-  getTransactionDetails(form_no:any, trn_id:any){
-    this.dataServe.global_service(1, '/user_tnx_details',{form_no, trn_id})
+  getTransactionDetails(member_id:any){
+    this.dataServe.global_service(1, '/user_money_receipt',{member_id})
           .subscribe((data: any) => {
             this.trnResData = data;
             this.trnResData = this.trnResData.suc > 0 ? this.trnResData.msg : [];
             this.trnData = this.trnResData.length > 0 ? this.trnResData[0] : {}
+            console.log(this.trnData,'trn_data');
+            
           });
   }
 
@@ -64,9 +76,10 @@ export class TrnHistoryViewComponent implements OnInit {
       '.print_top_head h2{margin: 0; padding: 0; font-size:20px; color:#000;}' +
       '.print_top_head h4{margin: 0; padding: 0; font-size:16px; color:#000;}' +
       '.print_top_Title h4{margin: 0; padding: 0; font-size:16px; color:#000;}' +
-      '.msg_adress{width:120px;} .text-left{text-align: left;} .text-center{text-align: center;} .mt-3{margin-top: 1rem;} .break{height:30px;}'+
+      '.msg_adress{width:120px;}'+
       '.table_head_cus tr td{background: #D9D9D9;}' +
               '} </style>');
+
 
     this.WindowObject.document.writeln(
       '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">'
@@ -85,4 +98,5 @@ export class TrnHistoryViewComponent implements OnInit {
       this.WindowObject.close();
     }, 1000);
   }
+
 }

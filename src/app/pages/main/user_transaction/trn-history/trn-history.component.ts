@@ -17,7 +17,7 @@ export class TrnHistoryComponent implements OnInit {
   constructor(private dataServe: DataService, public dialogService: DialogService, private router: Router) { }
 
   ngOnInit() {
-    this.form_no = 'AI2024000002'//localStorage.getItem('form_no')
+    this.form_no = localStorage.getItem('form_no')
     this.getTransactionDetails(this.form_no)
   }
 

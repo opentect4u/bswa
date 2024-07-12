@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/service/data.service';
 import Swal from 'sweetalert2';
 
@@ -28,7 +29,7 @@ export class DepoTrnsComponent implements OnInit {
   responsedata_subs: any;
   selectedValue2: string = 'C'
   memberType: any = {'G': 'General Membership', 'L': 'Life Membership', 'AI': 'Associate Membership'}
-  constructor(private formBuilder: FormBuilder, private dataServe: DataService) { }
+  constructor(private router: Router,private formBuilder: FormBuilder, private dataServe: DataService) { }
 
   ngOnInit() {
     this.entryForm = this.formBuilder.group({
@@ -137,9 +138,11 @@ export class DepoTrnsComponent implements OnInit {
       form_no: this.f['form_no'].value,
       approval_status: 'U',
       cal_upto: this.userData?.calc_upto,
-      cal_amt: this.userData?.calc_amt
+      cal_amt: this.userData?.calc_amt,
+      phone_no: this.userData?.phone_no,
+      member: this.userData?.memb_name 
     }
-    this.dataServe.global_service(1,'/mem_sub_tnx_save',dt).subscribe(data => {
+    this.dataServe.global_service(1,'/mem_sub_tnx_save_online',dt).subscribe(data => {
       // console.log(data,'kiki')
       this.responseData = data;
       if(this.responseData.suc > 0){
@@ -150,8 +153,8 @@ export class DepoTrnsComponent implements OnInit {
           'success'
         ).then((result) => {
           if (result.isConfirmed) {
-            this.entryForm.reset()
-            // this.router.navigate(['/home/life_form_print',encodeURIComponent(btoa(this.formNo))])
+            // this.entryForm.reset()
+            this.router.navigate(['/home/money_receipt_member',localStorage.getItem('member_id')])
           }
         });
       }else{

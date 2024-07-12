@@ -22,6 +22,7 @@
           <th style="width: 1px" id="table_color">Transaction No.</th>
           <th style="width: 1px" id="table_color">Date</th>
           <th style="width: 1px" id="table_color">Subscription Amount</th>
+          <th style="width: 1px" id="table_color">Status</th>
           <!-- <th style="width: 1px" id="table_color">Transaction ID</th> -->
           <th style="width: 1px" id="table_color">View</th>
         </tr>
@@ -31,15 +32,18 @@
           <td class="text-center"><b>{{ customer.trn_id }}</b></td>
           <td class="text-center"><b>{{ customer.trn_dt | date: 'dd/MM/yyyy' }}</b></td>
           <td class="text-center"><b>{{ customer.sub_amt }}</b></td>
+          <td class="text-center"><b><span
+                class="badge {{ customer.approval_status=='U' ? 'badge-reject' : customer.approval_status=='A' ?  'badge-settlement' : '' }}">
+                {{ customer.approval_status=='U' ? 'Unapproved' : customer.approval_status=='A' ? 'Approved' : '' }}
+              </span></b></td>
           <td class="text-center"><b><a pTooltip="View" tooltipPosition="bottom"
-                (click)="view(customer.trn_id, customer.form_no)"><i
-                  class="pi pi-eye editLink"></i></a></b>
+                (click)="view(customer.trn_id, customer.form_no)"><i class="pi pi-eye editLink"></i></a></b>
           </td>
         </tr>
       </ng-template>
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td colspan="4" class="text-center">No data available</td>
+          <td colspan="5" class="text-center">No data available</td>
         </tr>
       </ng-template>
     </p-table>

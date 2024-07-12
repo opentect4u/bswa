@@ -20,7 +20,7 @@
     </div>
   </form>
 
-  <ng-container *ngIf = 'showDepoEntry'>
+  <ng-container *ngIf='showDepoEntry'>
     <form [formGroup]='entryForm'>
       <p-divider type="dashed"></p-divider>
 
@@ -51,11 +51,9 @@
       <div class="formgrid grid mt-1">
         <div class="field col-12 md:col-4">
           <label for="subs_amt" style="color: black"><b>Subscription Fee</b></label>
-          <input id="subs_amt" type="text" formControlName="subs_amt"
-            placeholder="Enter subscription fee...."
+          <input id="subs_amt" type="text" formControlName="subs_amt" placeholder="Enter subscription fee...."
             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
-          <div
-            *ngIf="f['subs_amt']?.dirty || f['subs_amt']?.touched || f['subs_amt']?.hasError('notDivisibleByTwo')"
+          <div *ngIf="f['subs_amt']?.dirty || f['subs_amt']?.touched || f['subs_amt']?.hasError('notDivisibleByTwo')"
             class="error-message">
             <small class="text-red-700" *ngIf="f['subs_amt']?.errors">
               Please enter a valid Subscription fee it is required.
@@ -75,7 +73,7 @@
             <option value="N" select>Select Payment Mode</option>
             <option value="C">Cash</option>
             <option value="Q">Cheque</option>
-            <option value="O">Online Transaction</option>
+            <!-- <option value="O">Online Transaction</option> -->
           </select>
         </div>
       </div>
@@ -131,8 +129,7 @@
         </div> -->
       </div>
       <div class="flex flex-row">
-        <button pButton pRipple type="button" label="Save" class="p-button-raised sub_btn"
-          (click)="save()"></button>
+        <button pButton pRipple type="button" label="Save" class="p-button-raised sub_btn" (click)="save()"></button>
       </div>
     </form>
   </ng-container>

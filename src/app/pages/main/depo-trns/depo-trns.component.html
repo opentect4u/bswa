@@ -4,6 +4,11 @@
       <i class="pi pi-hourglass menu-icon"></i>&nbsp;
       <b>Subscription Deposit</b>
     </h3>
+
+    <p-divider type="dashed"></p-divider>
+    <h4 class="color">*Scan the QR code to make payment through UPI. If payment is successful put the UPI
+      transaction ID and phone no,
+      through which the payment is made and then click on Save.</h4>
   </div>
 
   <form [formGroup]='entryForm'>
@@ -36,11 +41,9 @@
     <div class="formgrid grid mt-1">
       <div class="field col-12 md:col-4">
         <label for="subs_amt" style="color: black"><b>Subscription Fee</b></label>
-        <input id="subs_amt" type="text" formControlName="subs_amt"
-          placeholder="Enter subscription fee...."
+        <input id="subs_amt" type="text" formControlName="subs_amt" placeholder="Enter subscription fee...."
           class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
-        <div
-          *ngIf="f['subs_amt']?.dirty || f['subs_amt']?.touched || f['subs_amt']?.hasError('notDivisibleByTwo')"
+        <div *ngIf="f['subs_amt']?.dirty || f['subs_amt']?.touched || f['subs_amt']?.hasError('notDivisibleByTwo')"
           class="error-message">
           <small class="text-red-700" *ngIf="f['subs_amt']?.errors">
             Please enter a valid Subscription fee it is required.
@@ -72,16 +75,17 @@
 
     <div class="flex flex-row">
       <div class="field col-6 md:col-6">
-        <label for="receipt_no" style="color: black"><b>Receipt No<span class="text-red-700">*</span></b></label>
-        <input id="receipt_no" type="text" formControlName="receipt_no" placeholder="Enter Receipt No...."
+        <label for="receipt_no" style="color: black"><b>UPI TRansaction ID<span
+              class="text-red-700">*</span></b></label>
+        <input id="receipt_no" type="text" formControlName="receipt_no" placeholder="Enter UPI TRansaction ID...."
           class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
         <div *ngIf="f['receipt_no']?.touched || f['receipt_no']?.dirty">
           <small class="text-red-900" *ngIf="f['receipt_no']?.errors">Receipt No is required.</small>
         </div>
       </div>
       <div class="field col-6 md:col-6">
-        <label for="phone_no" style="color: black"><b>Phone No<span class="text-red-700">*</span></b></label>
-        <input id="phone_no" type="text" formControlName="phone_no" placeholder="Enter Phone No...."
+        <label for="phone_no" style="color: black"><b>UPI Phone No<span class="text-red-700">*</span></b></label>
+        <input id="phone_no" type="text" formControlName="phone_no" placeholder="Enter UPI Phone No...."
           class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
         <div *ngIf="f['phone_no']?.touched || f['phone_no']?.dirty">
           <small class="text-red-900" *ngIf="f['phone_no']?.errors">Phone No is required.</small>
@@ -90,8 +94,7 @@
     </div>
 
     <div class="flex flex-row">
-      <button pButton pRipple type="button" label="Save" class="p-button-raised sub_btn"
-        (click)="save()"></button>
+      <button pButton pRipple type="button" label="Save" class="p-button-raised sub_btn" (click)="save()"></button>
     </div>
   </form>
 </p-card>
