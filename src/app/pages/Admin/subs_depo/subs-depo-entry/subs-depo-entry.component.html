@@ -26,24 +26,24 @@
 
       <h4 class="text-center" style="color: black;">User Details</h4>
       <p>
-        <label>Member Name: </label>
-        <label>{{this.userData!['memb_name']}}</label>
+        <label><b>Member Name: </b></label>
+        <label> {{this.userData!['memb_name']}}</label>
       </p>
       <p>
-        <label>Member ID: </label>
-        <label>{{this.userData!['member_id']}}</label>
+        <label><b>Member ID:</b> </label>
+        <label> {{this.userData!['member_id']}}</label>
       </p>
       <p>
-        <label>Member Type: </label>
-        <label>{{this.userData!['mem_type']}}</label>
+        <label><b>Member Type:</b> </label>
+        <label> {{this.userData!['mem_type']}}</label>
       </p>
       <p>
-        <label>Subscription Upto: </label>
-        <label>{{this.userData!['subscription_upto'] | date: 'MM-yyyy'}}</label>
+        <label><b>Subscription Upto: </b></label>
+        <label> {{this.userData!['subscription_upto'] | date: 'MM-yyyy'}}</label>
       </p>
       <p>
-        <label>Opening: </label>
-        <label>{{this.userData!['calc_amt']}}</label>
+        <label><b>Opening: </b></label>
+        <label> {{this.userData!['calc_amt']}}</label>
       </p>
       <p-divider type="dashed"></p-divider>
 
@@ -73,12 +73,13 @@
             <option value="N" select>Select Payment Mode</option>
             <option value="C">Cash</option>
             <option value="Q">Cheque</option>
-            <!-- <option value="O">Online Transaction</option> -->
+            <option value="O">Online Transaction</option>
           </select>
         </div>
       </div>
 
-      <div class="flex flex-row" *ngIf="entryForm.controls['payment'].value != 'Q'">
+      <div class="flex flex-row"
+        *ngIf="entryForm.controls['payment'].value != 'Q' && entryForm.controls['payment'].value != 'O'">
         <div class="field col-12 md:col-12">
           <label for="receipt_no" style="color: black"><b>Receipt No<span class="text-red-700">*</span></b></label>
           <input id="receipt_no" type="text" formControlName="receipt_no" placeholder="Enter Receipt No...."
@@ -116,8 +117,15 @@
           </div>
           <div class="field col-12 md:col-4">
             <label for="bank_name" style="color: black"><b>Bank Name<span class="text-red-700">*</span></b></label>
-            <input id="bank_name" type="text" formControlName="bank_name" placeholder="Enter Bank Name...."
-              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            <!-- <input id="bank_name" type="text" formControlName="bank_name" placeholder="Enter Bank Name...."
+              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" /> -->
+            <select id="bank_name" formControlName="bank_name" [(ngModel)]="selectedValue3"
+              class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+              style="appearance: auto; height: 3vw; border-radius: 7px">
+              <option value="N" select>Select Bank Name</option>
+              <option *ngFor="let option of responsedata" [value]="option.acc_cd">{{ option.bank_name }}</option>
+              <!-- <option value="O">Online Transaction</option> -->
+            </select>
             <div *ngIf="f['bank_name']?.touched || f['bank_name']?.dirty">
               <small class="text-red-900" *ngIf="f['bank_name']?.errors">Bank Name is required.</small>
             </div>
@@ -128,6 +136,29 @@
             (click)="cheque_accept_life()"></button>
         </div> -->
       </div>
+
+      <div *ngIf="entryForm.controls['payment'].value === 'O'">
+        <div class="flex flex-row">
+          <div class="field col-6 md:col-6">
+            <label for="receipt_no_online" style="color: black"><b>UPI TRansaction ID</b></label>
+            <input id="receipt_no_online" type="text" formControlName="receipt_no_online"
+              placeholder="Enter UPI TRansaction ID...."
+              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            <!-- <div *ngIf="f['receipt_no_online']?.touched || f['receipt_no_online']?.dirty">
+              <small class="text-red-900" *ngIf="f['receipt_no_online']?.errors">Receipt No is required.</small>
+            </div> -->
+          </div>
+          <div class="field col-6 md:col-6">
+            <label for="phone_no" style="color: black"><b>UPI Phone No</b></label>
+            <input id="phone_no" type="text" formControlName="phone_no" placeholder="Enter UPI Phone No...."
+              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            <!-- <div *ngIf="f['phone_no']?.touched || f['phone_no']?.dirty">
+              <small class="text-red-900" *ngIf="f['phone_no']?.errors">Phone No is required.</small>
+            </div> -->
+          </div>
+        </div>
+      </div>
+
       <div class="flex flex-row">
         <button pButton pRipple type="button" label="Save" class="p-button-raised sub_btn" (click)="save()"></button>
       </div>

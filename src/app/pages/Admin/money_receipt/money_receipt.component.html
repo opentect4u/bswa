@@ -61,7 +61,7 @@
         <tr>
           <th>Bank</th>
           <td>:</td>
-          <td>{{trnData?.chq_bank}}</td>
+          <td>{{chqBank[trnData?.chq_bank]}}</td>
         </tr>
       </ng-container>
       <ng-container *ngIf="trnData?.pay_mode == 'O'">

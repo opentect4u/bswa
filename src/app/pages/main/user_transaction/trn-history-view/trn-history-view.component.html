@@ -1,5 +1,5 @@
 <style>
-  .ceperate{
+  .ceperate {
     width: 10%;
   }
 </style>
@@ -72,15 +72,21 @@
           <td class="ceperate"></td>
           <th>Cheque Date</th>
           <td>:</td>
-          <td>{{trnData?.chq_dt}}</td>
+          <td>{{trnData?.chq_dt | date: 'dd/MM/yyyy'}}</td>
         </tr>
-        <tr>
+        <!-- <tr>
           <th>Cheque Bank</th>
           <td>:</td>
           <td>{{trnData?.chq_bank}}</td>
-        </tr>
+        </tr> -->
       </ng-container>
+      <tr>
+        <th>Status</th>
+        <td>:</td>
+        <td>{{trnData?.approval_status == 'U' ? 'Unapproved' : 'Approved'}}</td>
+      </tr>
     </table>
   </div>
-  <p-button class="mt-5" label="PRINT" styleClass="p-button-rounded print_btn" (click)="printDiv()" style="margin-left: 33vw;"></p-button>
+  <p-button class="mt-5" label="PRINT" styleClass="p-button-rounded print_btn" (click)="printDiv()"
+    style="margin-left: 33vw;"></p-button>
 </p-card>

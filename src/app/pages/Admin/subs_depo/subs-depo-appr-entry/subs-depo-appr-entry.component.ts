@@ -64,7 +64,9 @@ export class SubsDepoApprEntryComponent implements OnInit {
   responseData: any;
   trnsData: TrnDtls | undefined;
   entryForm!: FormGroup
-  accType = {C: 'Cash', Q: 'Cheque', O: 'Online'}
+  accType:any = {C: 'Cash', Q: 'Cheque', O: 'Online'}
+  chqBank:any = {'74': 'Cash at BSE(Cal) Co op Cr Soc Ltd', '75': 'Cash at UCO Bank (A/c No.)'}
+
   constructor(private router: Router, private formBuilder: FormBuilder, private route: ActivatedRoute, private dataServe: DataService) { }
   ngOnInit() {
     const enctrn_id = this.route.snapshot.params['trn_no'];
@@ -106,7 +108,9 @@ export class SubsDepoApprEntryComponent implements OnInit {
       sub_type: this.trnsData?.fee_dt.subs_type,
       calc_amt: this.trnsData?.mem_dt.calc_amt,
       calc_upto: this.trnsData?.mem_dt.calc_upto,
-      paid_month_amt: (parseInt(this.trnsData!.sub_amt) - parseInt(this.trnsData!.mem_dt.calc_amt))
+      paid_month_amt: (parseInt(this.trnsData!.sub_amt) - parseInt(this.trnsData!.mem_dt.calc_amt)),
+      phone_no: this.trnsData?.mem_dt.phone_no,
+      member: this.trnsData?.mem_dt.memb_name
     }
     this.dataServe.global_service(1,'/mem_subs_dtls_save',dt).subscribe(data => {
       // console.log(data,'kiki')
@@ -115,11 +119,12 @@ export class SubsDepoApprEntryComponent implements OnInit {
         // this.userData = this.responseData.msg[0];
         Swal.fire(
           'Success',
-          'Subscription deposit submited successfully',
+          'Subscription deposited successfully',
           'success'
         ).then((result) => {
           if (result.isConfirmed) {
-            this.router.navigate(['/admin/subs_depo_approve'])
+            // this.router.navigate(['/admin/subs_depo_approve'])
+            this.router.navigate(['/home/money_receipt_member', this.trnsData?.mem_dt.member_id])
           }
         });
       }else{

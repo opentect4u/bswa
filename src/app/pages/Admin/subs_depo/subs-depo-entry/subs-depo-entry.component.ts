@@ -32,8 +32,10 @@ export class SubsDepoEntryComponent implements OnInit {
   messageService: any;
   responsedata_subs: any;
   selectedValue2: string = 'C'
+  selectedValue3: string = 'N'
   member_id: any;
   phone_no: any;
+  responsedata: any;
 
   constructor(private router: Router,private formBuilder: FormBuilder, private dataServe: DataService) { }
 
@@ -51,8 +53,12 @@ export class SubsDepoEntryComponent implements OnInit {
       bank_name: [''],
       subs_upto: [''],
       mem_name: [''],
-      mem_type: ['']
+      mem_type: [''],
+      receipt_no_online: [''],
+      phone_no: ['']
+
     })
+    this.bank_list();
   }
 
   get m() {
@@ -61,6 +67,16 @@ export class SubsDepoEntryComponent implements OnInit {
 
   get f() {
     return this.entryForm.controls;
+  }
+
+  bank_list() {
+    this.dataServe.global_service(0, '/master/bank_name_list', `org_flag=W`).subscribe((data:any) => {
+      this.responsedata = data
+      console.log(this.responsedata);
+      this.responsedata = this.responsedata.suc > 0 ? this.responsedata.msg : []
+      // this.responsedata = this.responsedata.suc > 0 ? (this.responsedata[0].org_flag.filter((dt:any) => )) : []
+      })
+  
   }
 
   calculateSubsFee() : ValidatorFn{
@@ -148,10 +164,10 @@ export class SubsDepoEntryComponent implements OnInit {
       user: localStorage.getItem('user_name'),
       last_subs: this.f['subs_upto'].value,
       pay_mode: this.f['payment'].value,
-      receipt_no: this.f['receipt_no'].value,
+      receipt_no: this.f['payment'].value == 'C' ? this.f['receipt_no'].value : this.f['payment'].value == 'O' ? this.f['receipt_no_online'].value : '',
       chq_no: this.f['cheque_no'].value,
       chq_dt: this.f['cheque_dt'].value,
-      chq_bank: this.f['bank_name'].value,
+      chq_bank: this.f['payment'].value == 'Q' ? this.f['bank_name'].value : this.f['payment'].value == 'O' ? '75' : '73',
       memb_name: this.f['mem_name'].value,
       memb_type: this.f['mem_type'].value,
       form_no: this.f['form_no'].value,

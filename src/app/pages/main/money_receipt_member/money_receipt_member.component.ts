@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from 'src/app/service/data.service';
@@ -10,19 +10,17 @@ interface TrnData{
 }
 
 @Component({
-  selector: 'app-money_receipt',
-  templateUrl: './money_receipt.component.html',
-  styleUrls: ['./money_receipt.component.css'],
+  selector: 'app-money_receipt_member',
+  templateUrl: './money_receipt_member.component.html',
+  styleUrls: ['./money_receipt_member.component.css'],
   providers: [DatePipe],
 })
-export class Money_receiptComponent implements OnInit {
-  @Input() form!: FormGroup;
+export class Money_receipt_memberComponent implements OnInit {
   trn_id:any
   form_no:any
   trnResData: any;
   trnData: TrnData | any;
   payMode:any = {'C': 'Cash', 'Q': 'Cheque', 'O': 'Online'}
-  chqBank:any = {'74': 'Cash at BSE(Cal) Co op Cr Soc Ltd', '75': 'Cash at UCO Bank (A/c No.)'}
   WindowObject: any;
   divToPrint: any;
   member_id: any;

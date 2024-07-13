@@ -132,7 +132,7 @@ export class DepoTrnsComponent implements OnInit {
       receipt_no: this.f['receipt_no'].value,
       chq_no: this.f['cheque_no'].value,
       chq_dt: this.f['cheque_dt'].value,
-      chq_bank: this.f['bank_name'].value,
+      chq_bank: '75',
       memb_name: this.f['mem_name'].value,
       memb_type: this.f['mem_type'].value,
       form_no: this.f['form_no'].value,
@@ -154,7 +154,7 @@ export class DepoTrnsComponent implements OnInit {
         ).then((result) => {
           if (result.isConfirmed) {
             // this.entryForm.reset()
-            this.router.navigate(['/home/money_receipt_member',localStorage.getItem('member_id')])
+            this.router.navigate(['/main/money_receipt_member',localStorage.getItem('member_id')])
           }
         });
       }else{

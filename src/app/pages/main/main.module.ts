@@ -69,6 +69,13 @@ const routes: Routes = [
             (m) => m.Child_group_policyModule
           ),
       },
+      {
+        path: 'money_receipt_member/:member_id',
+        loadChildren: () =>
+          import('../main/money_receipt_member/money_receipt_member.module').then(
+            (m) => m.Money_receipt_memberModule
+          ),
+      },
     ],
   },
 ];

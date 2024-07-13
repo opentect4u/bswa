@@ -215,9 +215,10 @@
                 && spou_min.length > 0 ? spou_min[0]?.dependent_name : 'N/A'}}</span></label>
           </th>
           <th class="text-center" rowspan="4" style="width: 20%;">
-            <img src="{{spou_min
-                && spou_min.length > 0 ? (spou_min[0]?.spou_pic ? api_base_url + '/' + spou_min[0]?.spou_pic : '') : ''}}" height="100%"
-              width="100%" src="" alt="Photograph" />
+            <img
+              src="{{spou_min
+                && spou_min.length > 0 ? (spou_min[0]?.spou_pic ? api_base_url + '/' + spou_min[0]?.spou_pic : '') : ''}}"
+              height="100%" width="100%" src="" alt="Photograph" />
           </th>
         </tr>
         <tr>
@@ -762,7 +763,7 @@
         <div class="field col-12 md:col-4">
           <label for="subscriptionFee" style="color: black"><b>Subscription Fee</b></label>
           <input id="subscriptionFee" type="text" formControlName="subscriptionFee"
-            placeholder="Enter subscription fee...."
+            placeholder="Enter subscription fee...." (change)="number_validation($event)"
             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
           <div
             *ngIf="f['subscriptionFee']?.dirty || f['subscriptionFee']?.touched || f['subscriptionFee']?.hasError('notDivisibleByTwo')"
@@ -861,7 +862,8 @@
         <div class="flex flex-row">
           <!-- <button pButton pRipple type="button" label="DONE" class="p-button-raised sub_btn" (click)="cheque_accept()"
             [disabled]="f['subscriptionFee'].hasError('notDivisibleByTwo') || f['subscriptionFee'].value == ''"></button> -->
-          <button pButton pRipple type="button" label="DONE" class="p-button-raised sub_btn" (click)="cheque_accept()"></button>
+          <button pButton pRipple type="button" label="DONE" class="p-button-raised sub_btn"
+            (click)="cheque_accept()"></button>
         </div>
       </div>
     </div>
@@ -948,7 +950,8 @@
         <div class="flex flex-row">
           <!-- <button pButton pRipple type="button" label="DONE" class="p-button-raised" (click)="cash_accept_life()"
             [disabled]="f['subscriptionFee_1'].hasError('notDivisibleByTwo') || f['subscriptionFee_1'].value == ''"></button> -->
-          <button pButton pRipple type="button" label="DONE" class="p-button-raised" (click)="cash_accept_life()"></button>
+          <button pButton pRipple type="button" label="DONE" class="p-button-raised"
+            (click)="cash_accept_life()"></button>
         </div>
       </div>
 
