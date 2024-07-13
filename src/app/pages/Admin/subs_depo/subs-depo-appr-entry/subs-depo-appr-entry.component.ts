@@ -110,7 +110,13 @@ export class SubsDepoApprEntryComponent implements OnInit {
       calc_upto: this.trnsData?.mem_dt.calc_upto,
       paid_month_amt: (parseInt(this.trnsData!.sub_amt) - parseInt(this.trnsData!.mem_dt.calc_amt)),
       phone_no: this.trnsData?.mem_dt.phone_no,
-      member: this.trnsData?.mem_dt.memb_name
+      member: this.trnsData?.mem_dt.memb_name,
+      memb_type: this.trnsData?.mem_dt.mem_type,
+      pay_mode: this.trnsData?.pay_mode,
+      acc_code: this.trnsData?.pay_mode != 'Q' ? (this.trnsData?.pay_mode == 'C' ? 73 : (this.trnsData?.pay_mode == 'O' ? 75 : 0)) : this.trnsData.chq_bank,
+      chq_dt: this.trnsData?.chq_dt,
+      chq_no: this.trnsData?.chq_no,
+      remarks: `Amount deposited for opening of member for member no ${this.trnsData?.mem_dt.member_id}`
     }
     this.dataServe.global_service(1,'/mem_subs_dtls_save',dt).subscribe(data => {
       // console.log(data,'kiki')
@@ -124,7 +130,7 @@ export class SubsDepoApprEntryComponent implements OnInit {
         ).then((result) => {
           if (result.isConfirmed) {
             // this.router.navigate(['/admin/subs_depo_approve'])
-            this.router.navigate(['/home/money_receipt_member', this.trnsData?.mem_dt.member_id])
+            this.router.navigate(['/home/money_receipt_member', this.trnsData?.mem_dt.member_id,this.trn_id])
           }
         });
       }else{

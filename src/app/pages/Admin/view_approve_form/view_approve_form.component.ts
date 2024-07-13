@@ -21,6 +21,8 @@ export class View_approve_formComponent implements OnInit {
   trn_id: any = 0;
   pay_mode: any;
   fromNo: any
+  selectedValue3: string = 'N'
+  responsedata: any;
 
   constructor(private router: Router,
     private fb: FormBuilder, private route: ActivatedRoute,
@@ -49,6 +51,7 @@ export class View_approve_formComponent implements OnInit {
         resolution_no: [''],
         resolution_dt: ['']
       });
+      this.bank_list();
      }
 
   ngOnInit() {
@@ -62,6 +65,15 @@ export class View_approve_formComponent implements OnInit {
     this.getData();
   }
  
+  bank_list() {
+    this.dataServe.global_service(0, '/master/bank_name_list', `org_flag=W`).subscribe((data:any) => {
+      this.responsedata = data
+      console.log(this.responsedata);
+      this.responsedata = this.responsedata.suc > 0 ? this.responsedata.msg : []
+      // this.responsedata = this.responsedata.suc > 0 ? (this.responsedata[0].org_flag.filter((dt:any) => )) : []
+      })
+  
+  }
 
   getData () {
     this.dataServe.global_service(0,'/transaction_dt',`form_no=${this.fromNo}`).subscribe(data => {
@@ -112,10 +124,22 @@ approve (){
     sub_amt:  this.f['sub_amt'] ? this.f['sub_amt'].value : null,
     onetime_amt:  this.f['onetime_amt'] ? this.f['onetime_amt'].value : null,
     user: localStorage.getItem('user_name'),
-    tot_amt: this.f['sub_amt'].value + this.f['onetime_amt'].value,
+    tot_amt: this.f['sub_amt'].value + this.f['onetime_amt'].value + (this.f['adm_fee'].value > 0 ? this.f['adm_fee'].value : 0) + (this.f['donation_fee'].value > 0 ? this.f['donation_fee'].value : 0),
     adm_fee: this.f['adm_fee'].value + this.f['adm_fee'].value,
     tot_asso_amt: this.f['sub_amt'].value + this.f['adm_fee'].value,
+    admission_acc_id: this.userData[0].mem_type == 'G' ? 65 : (this.userData[0].mem_type == 'AI' ? 66 : 0),
+    donation_acc_id: this.userData[0].mem_type == 'G' ? 70 : 0,
+    donation_amt: this.f['donation_fee'].value,
+    admission_amt: this.f['adm_fee'].value,
+    chq_no: this.userData[0].chq_no,
+    chq_dt:this.userData[0].chq_dt,
+    memb_type: this.userData[0].mem_type,
+    pay_mode: this.userData[0].pay_mode,
+    acc_code: this.userData[0]?.pay_mode != 'Q' ? (this.userData[0]?.pay_mode == 'C' ? 73 : (this.userData[0]?.pay_mode == 'O' ? 75 : 0)) : this.userData[0].chq_bank,
+    // remarks: Amount deposited for opening of member for member no
   }
+
+  console.log(dt)
 
   this.dataServe.global_service(1,this.mem_type == 'G' ? '/approve' : this.mem_type == 'L ' ? '/approve_life' : '/approve_associate',dt).subscribe(data => {
     console.log(data)

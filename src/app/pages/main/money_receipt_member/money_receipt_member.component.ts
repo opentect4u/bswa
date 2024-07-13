@@ -35,11 +35,12 @@ export class Money_receipt_memberComponent implements OnInit {
 
   ngOnInit() {
     this.member_id = this.route.snapshot.params['member_id']
-    this.getTransactionDetails(this.member_id)
+    this.trn_id = this.route.snapshot.params['trn_id']
+    this.getTransactionDetails(this.member_id, this.trn_id)
   }
 
-  getTransactionDetails(member_id:any){
-    this.dataServe.global_service(1, '/user_money_receipt',{member_id})
+  getTransactionDetails(member_id:any, trn_id:any){
+    this.dataServe.global_service(1, '/user_money_receipt',{member_id, trn_id})
           .subscribe((data: any) => {
             this.trnResData = data;
             this.trnResData = this.trnResData.suc > 0 ? this.trnResData.msg : [];

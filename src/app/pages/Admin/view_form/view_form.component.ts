@@ -74,6 +74,7 @@ export class View_formComponent implements OnInit {
   dep_dt: any;
   selectedValue: string = 'P'
   selectedValue2: string = 'C'
+  selectedValue3: string = 'N'
   form: FormGroup;
   formData: any;
   resdata2: any;
@@ -100,6 +101,7 @@ export class View_formComponent implements OnInit {
   responsedata_subs: any;
   tnxData: trnData | any;
   tnxResData: any;
+  upi_data: any;
   // dept_dt: any;
 
   constructor(private router: Router,
@@ -230,7 +232,7 @@ export class View_formComponent implements OnInit {
               this.remarks = this.responsedata[0].remarks;
 
               this.fee_data_get(this.responsedata[0].mem_type)
-
+              this.bank_list();
               this.subscription_fee()
               this.subscription_fee_life()
               this.getTnxDetails();
@@ -381,6 +383,7 @@ export class View_formComponent implements OnInit {
         formNo: atob(decodeURIComponent(this.encodedFormNo)),
         member: this.memb_name,
         phone_no: this.phone_no,
+        memb_type: this.mem_type,
         resolution_no: this.f['resolution_no'] ? this.f['resolution_no'].value : null,
         resolution_dt: this.f['resolution_dt'] ? this.f['resolution_dt'].value : null,
         status: this.f['status'] ? this.f['status'].value : null,
@@ -553,6 +556,43 @@ export class View_formComponent implements OnInit {
           this.router.navigate(['/admin/approve_form'])
         }
       });   
+    }
+
+    upi_accept(){
+      var dt = {
+        formNo: atob(decodeURIComponent(this.encodedFormNo)),
+        member: this.memb_name,
+        phone_no: this.phone_no,
+        resolution_no: this.f['resolution_no'] ? this.f['resolution_no'].value : null,
+        resolution_dt: this.f['resolution_dt'] ? this.f['resolution_dt'].value : null,
+        status: this.f['status'] ? this.f['status'].value : null,
+        user: localStorage.getItem('user_name'),
+        payment: this.f['payment'] ? this.f['payment'].value : null,
+        admissionFee: this.f['admissionFee'] ? this.f['admissionFee'].value : null,
+        donationFee: this.f['donationFee'] ? this.f['donationFee'].value : null,
+        subscriptionFee:  this.f['subscriptionFee'] ? this.f['subscriptionFee'].value : null,
+        subscriptionType: this.f['subscriptionType'] ? this.f['subscriptionType'].value : null,
+        totalAmount: this.f['totalAmount'] ? this.f['totalAmount'].value : null,
+        receipt_no: this.f['receipt_no'] ? this.f['receipt_no'].value : null,
+        trn_id: this.f['trn_id'].value > 0 ? this.f['trn_id'].value : 0
+      }
+      this.dataServe.global_service(1, '/upi_accept',dt ).subscribe((data: any) => {
+        this.upi_data = data;
+        console.log(this.upi_data, '100');
+        if(this.upi_data.suc > 0) {
+          this.router.navigate(['/admin/approve_form'])
+        }
+      });   
+    }
+
+    bank_list() {
+      this.dataServe.global_service(0, '/master/bank_name_list', `org_flag=W`).subscribe((data:any) => {
+        this.responsedata = data
+        console.log(this.responsedata);
+        this.responsedata = this.responsedata.suc > 0 ? this.responsedata.msg : []
+        // this.responsedata = this.responsedata.suc > 0 ? (this.responsedata[0].org_flag.filter((dt:any) => )) : []
+        })
+    
     }
 
     // number_validation(subscriptionFee:any) {

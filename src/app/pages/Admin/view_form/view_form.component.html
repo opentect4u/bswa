@@ -814,7 +814,7 @@
         </div>
       </div>
 
-      <div class="flex flex-row" *ngIf="form.controls['payment'].value != 'Q'">
+      <div class="flex flex-row" *ngIf="form.controls['payment'].value != 'Q' && form.controls['payment'].value != 'O'">
         <div class="field col-12 md:col-12">
           <label for="receipt_no" style="color: black"><b>Receipt No<span class="text-red-700">*</span></b></label>
           <input id="receipt_no" type="text" formControlName="receipt_no" placeholder="Enter Receipt No...."
@@ -852,8 +852,18 @@
           </div>
           <div class="field col-12 md:col-4">
             <label for="bank_name" style="color: black"><b>Bank Name<span class="text-red-700">*</span></b></label>
-            <input id="bank_name" type="text" formControlName="bank_name" placeholder="Enter Bank Name...."
+            <!-- <input id="bank_name" type="text" formControlName="bank_name" placeholder="Enter Bank Name...."
               class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            <div *ngIf="f['bank_name']?.touched || f['bank_name']?.dirty">
+              <small class="text-red-900" *ngIf="f['bank_name']?.errors">Bank Name is required.</small>
+            </div> -->
+            <select id="bank_name" formControlName="bank_name" [(ngModel)]="selectedValue3"
+              class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+              style="appearance: auto; height: 3vw; border-radius: 7px">
+              <option value="N" select>Select Bank Name</option>
+              <option *ngFor="let option of responsedata" [value]="option.acc_cd">{{ option.bank_name }}</option>
+              <!-- <option value="O">Online Transaction</option> -->
+            </select>
             <div *ngIf="f['bank_name']?.touched || f['bank_name']?.dirty">
               <small class="text-red-900" *ngIf="f['bank_name']?.errors">Bank Name is required.</small>
             </div>
@@ -935,7 +945,7 @@
         </div>
       </div>
 
-      <div class="flex flex-row" *ngIf="form.controls['payment'].value != 'Q'">
+      <div class="flex flex-row" *ngIf="form.controls['payment'].value != 'Q' && form.controls['payment'].value != 'O'">
         <div class="field col-12 md:col-12">
           <label for="receipt_no" style="color: black"><b>Receipt No<span class="text-red-700">*</span></b></label>
           <input id="receipt_no" type="text" formControlName="receipt_no" placeholder="Enter Receipt No...."
@@ -975,8 +985,18 @@
           </div>
           <div class="field col-12 md:col-4">
             <label for="bank_name" style="color: black"><b>Bank Name<span class="text-red-700">*</span></b></label>
-            <input id="bank_name" type="text" formControlName="bank_name" placeholder="Enter Bank Name...."
+            <!-- <input id="bank_name" type="text" formControlName="bank_name" placeholder="Enter Bank Name...."
               class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            <div *ngIf="f['bank_name']?.touched || f['bank_name']?.dirty">
+              <small class="text-red-900" *ngIf="f['bank_name']?.errors">Bank Name is required.</small>
+            </div> -->
+            <select id="bank_name" formControlName="bank_name" [(ngModel)]="selectedValue3"
+              class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+              style="appearance: auto; height: 3vw; border-radius: 7px">
+              <option value="N" select>Select Bank Name</option>
+              <option *ngFor="let option of responsedata" [value]="option.acc_cd">{{ option.bank_name }}</option>
+              <!-- <option value="O">Online Transaction</option> -->
+            </select>
             <div *ngIf="f['bank_name']?.touched || f['bank_name']?.dirty">
               <small class="text-red-900" *ngIf="f['bank_name']?.errors">Bank Name is required.</small>
             </div>
@@ -1050,7 +1070,7 @@
         </div>
       </div>
 
-      <div class="flex flex-row" *ngIf="form.controls['payment'].value != 'Q'">
+      <div class="flex flex-row" *ngIf="form.controls['payment'].value != 'Q' && form.controls['payment'].value != 'O'">
         <div class="field col-12 md:col-12">
           <label for="receipt_no" style="color: black"><b>Receipt No<span class="text-red-700">*</span></b></label>
           <input id="receipt_no" type="text" formControlName="receipt_no" placeholder="Enter Receipt No...."
@@ -1088,8 +1108,18 @@
           </div>
           <div class="field col-12 md:col-4">
             <label for="bank_name" style="color: black"><b>Bank Name<span class="text-red-700">*</span></b></label>
-            <input id="bank_name" type="text" formControlName="bank_name" placeholder="Enter Bank Name...."
+            <!-- <input id="bank_name" type="text" formControlName="bank_name" placeholder="Enter Bank Name...."
               class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            <div *ngIf="f['bank_name']?.touched || f['bank_name']?.dirty">
+              <small class="text-red-900" *ngIf="f['bank_name']?.errors">Bank Name is required.</small>
+            </div> -->
+            <select id="bank_name" formControlName="bank_name" [(ngModel)]="selectedValue3"
+              class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+              style="appearance: auto; height: 3vw; border-radius: 7px">
+              <option value="N" select>Select Bank Name</option>
+              <option *ngFor="let option of responsedata" [value]="option.acc_cd">{{ option.bank_name }}</option>
+              <!-- <option value="O">Online Transaction</option> -->
+            </select>
             <div *ngIf="f['bank_name']?.touched || f['bank_name']?.dirty">
               <small class="text-red-900" *ngIf="f['bank_name']?.errors">Bank Name is required.</small>
             </div>

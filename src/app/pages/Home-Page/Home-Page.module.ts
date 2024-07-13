@@ -91,7 +91,7 @@ const routes: Routes = [
           import('./print_group_policy/print_group_policy.module').then((home) => home.Print_group_policyModule),
       },
       {
-        path: 'money_receipt_member/:member_id',
+        path: 'money_receipt_member/:member_id/:trn_id',
         loadChildren: () =>
           import('./money_receipt_member/money_receipt_member.module').then(
             (m) => m.Money_receipt_memberModule

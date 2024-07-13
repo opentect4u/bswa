@@ -390,7 +390,7 @@ const routes: Routes = [
           ).then((m) => m.Show_gmp_ins_reportModule),
       },
       {
-        path: 'money_receipt/:member_id',
+        path: 'money_receipt/:member_id/:trn_id',
         loadChildren: () =>
           import('../Admin/money_receipt/money_receipt.module').then(
             (m) => m.Money_receiptModule
