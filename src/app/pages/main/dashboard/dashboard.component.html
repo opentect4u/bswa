@@ -12,37 +12,41 @@
             <div class="icon_box_main_sub">
                 <ul class="iconSec">
                     <li>
-                        <a href="/emp/employee_details">
+                        <a (click)="open_member()" style="cursor: pointer;">
                             <figure>
                                 <img width="80px" class="img-thumbnail rounded-1 mb-3"
-                                    src="/assets/images/icon/icon_employee.svg" alt="Odoo Accounting icon" loading="lazy">
-                                <figcaption class="text-truncate small text-o-color-5">Member Details</figcaption>
+                                    src="/assets/images/icon/icon_employee.svg" alt="Odoo Accounting icon"
+                                    loading="lazy">
+                                <figcaption class="text-truncate small text-o-color-5">Member
+                                    Details</figcaption>
                             </figure>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a (click)="open_insurance()" style="cursor: pointer;">
                             <figure>
-                                <img width="80px" class="img-thumbnail rounded-1 mb-3" src="/assets/images/icon/icon_claim.svg"
-                                    alt="Odoo Accounting icon" loading="lazy">
+                                <img width="80px" class="img-thumbnail rounded-1 mb-3"
+                                    src="/assets/images/icon/icon_claim.svg" alt="Odoo Accounting icon" loading="lazy">
                                 <figcaption class="text-truncate small text-o-color-5">Insurance Form</figcaption>
                             </figure>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a (click)="open_transaction()" style="cursor: pointer;">
                             <figure>
                                 <img width="80px" class="img-thumbnail rounded-1 mb-3"
-                                    src="/assets/images/icon/icon_payslip.svg" alt="Odoo Accounting icon" loading="lazy">
+                                    src="/assets/images/icon/icon_payslip.svg" alt="Odoo Accounting icon"
+                                    loading="lazy">
                                 <figcaption class="text-truncate small text-o-color-5">Transaction History</figcaption>
                             </figure>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a (click)="open_subscription()" style="cursor: pointer;">
                             <figure>
                                 <img width="80px" class="img-thumbnail rounded-1 mb-3"
-                                    src="/assets/images/icon/icon_schedule.svg" alt="Odoo Accounting icon" loading="lazy">
+                                    src="/assets/images/icon/icon_schedule.svg" alt="Odoo Accounting icon"
+                                    loading="lazy">
                                 <figcaption class="text-truncate small text-o-color-5">Deposit Subscription</figcaption>
                             </figure>
                         </a>

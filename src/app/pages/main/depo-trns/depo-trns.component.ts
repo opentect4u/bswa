@@ -67,7 +67,8 @@ export class DepoTrnsComponent implements OnInit {
             form_no: this.userData?.form_no,
             subs_upto: this.userData?.subscription_upto,
             mem_name: this.userData?.memb_name,
-            mem_type: this.userData?.mem_type
+            mem_type: this.userData?.mem_type,
+            // trans_id: this.userData?.trans_id
           })
           this.subscription_fee(this.userData?.mem_type)
         }else{
@@ -140,7 +141,8 @@ export class DepoTrnsComponent implements OnInit {
       cal_upto: this.userData?.calc_upto,
       cal_amt: this.userData?.calc_amt,
       phone_no: this.userData?.phone_no,
-      member: this.userData?.memb_name 
+      member: this.userData?.memb_name,
+      // trans_id: this.userData?.trans_id
     }
     this.dataServe.global_service(1,'/mem_sub_tnx_save_online',dt).subscribe(data => {
       // console.log(data,'kiki')
@@ -154,7 +156,7 @@ export class DepoTrnsComponent implements OnInit {
         ).then((result) => {
           if (result.isConfirmed) {
             // this.entryForm.reset()
-            this.router.navigate(['/main/money_receipt_member',localStorage.getItem('member_id')])
+            this.router.navigate(['/main/money_receipt_member',localStorage.getItem('member_id'),this.responseData?.trn_id])
           }
         });
       }else{

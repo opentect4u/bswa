@@ -57,7 +57,7 @@
           <h3 class="letter" style="color: black">
             BOKARO STEEL PEOPLE WELFARE ASSOCIATION
           </h3>
-          
+
           <h4 class="letter" style="color: black">13, Camac Street <br>Kolkata 700017 <br> <br>Dear Sir,<br>
             I am desirous to take the membership of the Association, Details in
             regard to me, my spouse and the family are as below. This is also to
@@ -211,13 +211,6 @@
           <tr></tr>
           <tr>
             <th colspan="3">
-              <label for="depen" class="label_field"><b>NAME OF DEPENDENT :</b><span class="span_space">{{
-                  dependInfo?.dependent_name
-                  }}</span></label>
-            </th>
-          </tr>
-          <tr>
-            <th colspan="3">
               <label for="member_type" class="label_field"><b>ADDRESS :</b><span class="span_space">{{
                   spouseInfo?.spou_memb_address
                   }}</span></label>
@@ -235,6 +228,14 @@
           </tr>
           <tr>
             <th colspan="3">
+              <label for="depen" class="label_field"><b>NAME OF DEPENDENT :</b><span class="span_space">{{
+                  dep_dt ? dep_dt :
+                  'N/A'
+                  }}</span></label>
+            </th>
+          </tr>
+          <tr>
+            <th colspan="3">
               <label for="member_type" class="label_field"><b>SIGNATURE OF SELF :</b><span
                   class="span_space"></span></label>
             </th>
@@ -248,53 +249,49 @@
         </table>
 
         <div class="row mt-3">
-      <div class="col-12">
-        <h4 class="letter color">FOR OFFICE USE ONLY</h4>
-        <br />
-        <h4 class="letter" style="color: black; float: left">
-          Membership Accepted / Rejected vide Resolution No.
-          <span class="span_space">{{ membInfo?.resolution_no }}</span>
-        </h4>
-        <br />
-        <h4 class="letter space">Dated :</h4>
-        <br />
-        <h4 class="letter" style="color: black">
-          Type of Membership :
-          <span class="span_space">{{
-            membInfo?.mem_type == "G"
-              ? "General Membership"
-              : membInfo?.mem_type == "L"
-              ? "Life Membership"
-              : "Associate
-            Membership"
-          }}</span>
-        </h4>
-        <h4 class="letter" style="color: black">
-          Amount to be deposited
-          <span class="span_space">{{ membInfo!.subscription_1 + membInfo!.adm_fee + membInfo!.donation }}</span>
-        </h4>
-        <h4 class="letter" style="color: black">
-          1) Subscription Fee : 
-          <span class="span_space">{{ membInfo?.subscription_1 }}</span>
-        </h4>
-        <h4 class="letter" style="color: black">
-          2) Admission Fee : <span class="span_space">{{ membInfo?.adm_fee }}</span>
-        </h4>
-        <h4 class="letter" style="color: black">
-          3) Donation/ subscription :
-          <span class="span_space">{{ membInfo?.donation }}</span>
-        </h4>
-        <h4 class="letter" style="color: black; margin-left: 60vw">
-          Secretary / President
-        </h4>
-        <p-button
-          label="PRINT"
-          id="brintBtn"
-          styleClass="p-button-rounded print_btn"
-          (click)="printDiv()"
-        ></p-button>
-      </div>
-    </div>
+          <div class="col-12">
+            <h4 class="letter color">FOR OFFICE USE ONLY</h4>
+            <br />
+            <h4 class="letter" style="color: black; float: left">
+              Membership Accepted / Rejected vide Resolution No.
+              <span class="span_space">{{ membInfo?.resolution_no }}</span>
+            </h4>
+            <br />
+            <h4 class="letter space">Dated :</h4>
+            <br />
+            <h4 class="letter" style="color: black">
+              Type of Membership :
+              <span class="span_space">{{
+                membInfo?.mem_type == "G"
+                ? "General Membership"
+                : membInfo?.mem_type == "L"
+                ? "Life Membership"
+                : "Associate
+                Membership"
+                }}</span>
+            </h4>
+            <h4 class="letter" style="color: black">
+              Amount to be deposited
+              <span class="span_space">{{ membInfo!.subscription_1 + membInfo!.adm_fee + membInfo!.donation }}</span>
+            </h4>
+            <h4 class="letter" style="color: black">
+              1) Subscription Fee :
+              <span class="span_space">{{ membInfo?.subscription_1 }}</span>
+            </h4>
+            <h4 class="letter" style="color: black">
+              2) Admission Fee : <span class="span_space">{{ membInfo?.adm_fee }}</span>
+            </h4>
+            <h4 class="letter" style="color: black">
+              3) Donation/ subscription :
+              <span class="span_space">{{ membInfo?.donation }}</span>
+            </h4>
+            <h4 class="letter" style="color: black; margin-left: 60vw">
+              Secretary / President
+            </h4>
+            <p-button label="PRINT" id="brintBtn" styleClass="p-button-rounded print_btn"
+              (click)="printDiv()"></p-button>
+          </div>
+        </div>
 
         <!-- <div class="row mt-3">
           <div class="col-12">

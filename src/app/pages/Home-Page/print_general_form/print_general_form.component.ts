@@ -86,8 +86,8 @@ export class Print_general_formComponent implements OnInit {
   memb_pic: any;
 
   membInfo: MembershipInfo | undefined;
-  spouseInfo: SpouseDepenInfo | undefined;
-  dependInfo: SpouseDepenInfo | undefined;
+  spouseInfo: SpouseDepenInfo | any;
+  dependInfo: SpouseDepenInfo | any;
 
   constructor(
     private router: Router,
@@ -164,6 +164,12 @@ export class Print_general_formComponent implements OnInit {
         this.resdata1 = this.resdata1.suc > 0 ? this.resdata1.msg : {};
         // this.dep_dt = this.resdata1.dep_dt;
         this.dependInfo = this.resdata1.dep_dt.length > 0 ? this.resdata1.dep_dt[0] : {}
+        this.dep_dt = this.resdata.dep_dt;
+                var dep_list = this.dep_dt.length > 0 ? this.dep_dt.map((dt: any) => {
+                  var newArr = `${dt.dependent_name} (${dt.relation_name}${dt.spou_phone > 0 ? `, ${dt.spou_phone}` : ''})`
+                  return newArr;                  
+                }) : [];
+                this.dep_dt = dep_list.join(', ')
         console.log(this.dependInfo,'depend');
         
       });

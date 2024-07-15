@@ -104,7 +104,7 @@ export class View_approve_formComponent implements OnInit {
         pay_mode: this.userData[0].pay_mode=='C' ? 'Cash' : this.userData[0].pay_mode=='Q' ? 'Cheque' : 'Online Transaction',
         chq_no: this.userData[0].chq_no,
         chq_dt: this.datePipe.transform(this.userData[0].chq_dt, 'yyyy-MM-dd'),
-        bank_nm: this.userData[0].chq_bank
+        bank_nm: this.userData[0].chq_bank=='74' ? 'Cash at BSE(Cal) Co op Cr Soc Ltd' : this.userData[0].chq_bank=='75' ? 'Cash at UCO Bank (A/c No.)' : ''
       })
   })
 }

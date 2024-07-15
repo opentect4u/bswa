@@ -43,15 +43,21 @@
           class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
           readonly />
       </div>
-      <div class="field col-12 md:col-4">
+      <!-- <div class="field col-12 md:col-4">
         <label for="email_id" class="label_field"><b>Email ID:</b></label>&nbsp;
         <input id="email_id" type="text" formControlName="email_id"
           class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
           readonly />
-      </div>
+      </div> -->
       <div class="field col-12 md:col-4">
         <label for="staff_no" class="label_field"><b>Staff No:</b></label>&nbsp;
         <input id="staff_no" type="text" formControlName="staff_no"
+          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          readonly />
+      </div>
+      <div class="field col-12 md:col-4">
+        <label for="pers_no" class="label_field"><b>Personal No:</b></label>&nbsp;
+        <input id="pers_no" type="text" formControlName="pers_no"
           class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
           readonly />
       </div>
@@ -59,12 +65,7 @@
 
 
     <div class="flex flex-row">
-      <div class="field col-12 md:col-4">
-        <label for="pers_no" class="label_field"><b>Personal No:</b></label>&nbsp;
-        <input id="pers_no" type="text" formControlName="pers_no"
-          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-          readonly />
-      </div>
+
       <div class="field col-12 md:col-4">
         <label for="min_no" class="label_field"><b>MIN No:</b></label>&nbsp;
         <input id="min_no" type="text" formControlName="min_no"
@@ -85,15 +86,16 @@
           class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
           readonly />
       </div>
-    </div>
-
-    <div class="flex flex-row">
       <div class="field col-12 md:col-4">
         <label for="sub_amt" class="label_field"><b>Subscription Amount:</b></label>&nbsp;
         <input id="sub_amt" type="text" formControlName="sub_amt"
           class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
           readonly />
       </div>
+    </div>
+
+    <div class="flex flex-row">
+
       <div class="field col-12 md:col-4">
         <label for="onetime_amt" class="label_field"><b>Onetime Amount:</b></label>&nbsp;
         <input id="onetime_amt" type="text" formControlName="onetime_amt"
@@ -103,6 +105,12 @@
       <div class="field col-12 md:col-4">
         <label for="adm_fee" class="label_field"><b>Admission Fee:</b></label>&nbsp;
         <input id="adm_fee" type="text" formControlName="adm_fee"
+          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          readonly />
+      </div>
+      <div class="field col-12 md:col-4">
+        <label for="donation_fee" class="label_field"><b>Donation Fee:</b></label>&nbsp;
+        <input id="donation_fee" type="text" formControlName="donation_fee"
           class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
           readonly />
       </div>
@@ -137,6 +145,27 @@
       </div> -->
     </div>
 
+    <div class="flex flex-row">
+      <div class="field col-12 md:col-4">
+        <label for="tot_amt" class="label_field"><b>Total Amount:</b></label>&nbsp;
+        <input id="tot_amt" type="text" formControlName="tot_amt"
+          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          readonly />
+      </div>
+      <div class="field col-12 md:col-4">
+        <label for="resolution_dt" class="label_field"><b>Resolution Date:</b></label>&nbsp;
+        <input id="resolution_dt" type="text" formControlName="resolution_dt"
+          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          readonly />
+      </div>
+      <div class="field col-12 md:col-4">
+        <label for="resolution_no" class="label_field"><b>Resolution No:</b></label>&nbsp;
+        <input id="resolution_no" type="text" formControlName="resolution_no"
+          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          readonly />
+      </div>
+    </div>
+
     <div *ngIf="pay_mode === 'Q'">
       <div class="flex flex-row">
         <div class="field col-12 md:col-4">
@@ -157,31 +186,11 @@
             class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
             readonly /> -->
           <!-- <label for="bank_nm" style="color: black"><b>Bank Name<span class="text-red-700">*</span></b></label> -->
-          <input id="bank_name" type="text" formControlName="bank_name" placeholder="Enter Bank Name...."
-            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+          <input id="bank_nm" type="text" formControlName="bank_nm" placeholder="Enter Bank Name...."
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            readonly />
 
         </div>
-      </div>
-    </div>
-
-    <div class="flex flex-row">
-      <div class="field col-12 md:col-4">
-        <label for="donation_fee" class="label_field"><b>Donation Fee:</b></label>&nbsp;
-        <input id="donation_fee" type="text" formControlName="donation_fee"
-          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-          readonly />
-      </div>
-      <div class="field col-12 md:col-4">
-        <label for="resolution_dt" class="label_field"><b>Resolution Date:</b></label>&nbsp;
-        <input id="resolution_dt" type="text" formControlName="resolution_dt"
-          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-          readonly />
-      </div>
-      <div class="field col-12 md:col-4">
-        <label for="resolution_no" class="label_field"><b>Resolution No:</b></label>&nbsp;
-        <input id="resolution_no" type="text" formControlName="resolution_no"
-          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-          readonly />
       </div>
     </div>
 
