@@ -10,6 +10,7 @@ import { ValidatorsService } from 'src/app/service/validators.service';
 // import { multipleOfTwentyValidator } from './view_form.module';
 
 // import { allowedValuesValidator } from './validators/allowed-values.validator';
+import Swal from 'sweetalert2';
 
 interface trnData {
   form_no: string;
@@ -102,6 +103,7 @@ export class View_formComponent implements OnInit {
   tnxData: trnData | any;
   tnxResData: any;
   upi_data: any;
+  responseData: any;
   // dept_dt: any;
 
   constructor(private router: Router,
@@ -233,8 +235,13 @@ export class View_formComponent implements OnInit {
 
               this.fee_data_get(this.responsedata[0].mem_type)
               this.bank_list();
-              this.subscription_fee()
+              if(this.responsedata[0].mem_type == 'G'){
+                this.subscription_fee()
+              }
+
+              if(this.responsedata[0].mem_type == 'L'){
               this.subscription_fee_life()
+              }
               this.getTnxDetails();
           });
   
@@ -395,7 +402,10 @@ export class View_formComponent implements OnInit {
         subscriptionType: this.f['subscriptionType'] ? this.f['subscriptionType'].value : null,
         totalAmount: this.f['totalAmount'] ? this.f['totalAmount'].value : null,
         receipt_no: this.f['receipt_no'] ? this.f['receipt_no'].value : null,
-        trn_id: this.f['trn_id'].value > 0 ? this.f['trn_id'].value : 0
+        trn_id: this.f['trn_id'].value > 0 ? this.f['trn_id'].value : 0,
+        cheque_dt: this.f['cheque_dt'] ? this.f['cheque_dt'].value : null,
+        cheque_no: this.f['cheque_no'] ? this.f['cheque_no'].value : null,
+        bank_name: this.f['bank_name'] ? this.f['bank_name'].value : null,
         // admissionFee_life:  this.f['admissionFee_life'] ? this.f['admissionFee_life'].value : null,
         // donationFee_life:  this.f['donationFee_life'] ? this.f['donationFee_life'].value : null,
         // subscriptionFee_2:  this.f['subscriptionFee_2'] ? this.f['subscriptionFee_2'].value : null,
@@ -407,10 +417,34 @@ export class View_formComponent implements OnInit {
         this.cash_data = data;
         console.log(this.cash_data, '100');
         if(this.cash_data.suc > 0) {
-          this.router.navigate(['/admin/approve_form'])
+          // this.router.navigate(['/admin/approve_form'])
+          Swal.fire(
+            'Success',
+            'Member Form Accepted successfully',
+            'success'
+          ).then((result) => {
+            if (result.isConfirmed) {
+              // this.router.navigate(['/admin/subs_depo_approve'])
+              this.router.navigate(['/admin/accept_money_receipt', dt.formNo,dt.trn_id])
+            }
+          });
+        }else{
+          Swal.fire(
+            'Error',
+            this.responseData.msg,
+              'error'
+          )
         }
-      });    
-    }
+        },error => {
+          console.error(error);
+          Swal.fire(
+            'Error',
+            error,
+              'error'
+          )
+        });
+    // });
+  }
 
     cash_accept_life(){
       var dt = {
@@ -429,15 +463,41 @@ export class View_formComponent implements OnInit {
         totalAmount_life: this.f['totalAmount_life'] ? this.f['totalAmount_life'].value : null,
         receipt_no: this.f['receipt_no'] ? this.f['receipt_no'].value : null,
         trn_id: this.f['trn_id'].value > 0 ? this.f['trn_id'].value : 0,
+        cheque_dt: this.f['cheque_dt'] ? this.f['cheque_dt'].value : null,
+        cheque_no: this.f['cheque_no'] ? this.f['cheque_no'].value : null,
+        bank_name: this.f['bank_name'] ? this.f['bank_name'].value : null,
       }
 
       this.dataServe.global_service(1, '/payment_accept_life',dt ).subscribe((data: any) => {
         this.cash_data_life = data;
         console.log(this.cash_data_life, '100');
         if(this.cash_data_life.suc > 0) {
-          this.router.navigate(['/admin/approve_form'])
+          // this.router.navigate(['/admin/approve_form'])
+          Swal.fire(
+            'Success',
+            'Member Form Accepted successfully',
+            'success'
+          ).then((result) => {
+            if (result.isConfirmed) {
+              // this.router.navigate(['/admin/subs_depo_approve'])
+              this.router.navigate(['/admin/accept_money_receipt', dt.formNo,dt.trn_id])
+            }
+          });
+        }else{
+          Swal.fire(
+            'Error',
+            this.responseData.msg,
+              'error'
+          )
         }
-      });  
+        },error => {
+          console.error(error);
+          Swal.fire(
+            'Error',
+            error,
+              'error'
+          )
+        });
     }
 
     cash_accept_associate(){
@@ -456,16 +516,42 @@ export class View_formComponent implements OnInit {
         subscriptionFee_associate:  this.f['subscriptionFee_associate'] ? this.f['subscriptionFee_associate'].value : null,
         totalAmount_associate: this.f['totalAmount_associate'] ? this.f['totalAmount_associate'].value : null,
         receipt_no: this.f['receipt_no'] ? this.f['receipt_no'].value : null,
-        trn_id: this.f['trn_id'].value > 0 ? this.f['trn_id'].value : 0
+        trn_id: this.f['trn_id'].value > 0 ? this.f['trn_id'].value : 0,
+        cheque_dt: this.f['cheque_dt'] ? this.f['cheque_dt'].value : null,
+        cheque_no: this.f['cheque_no'] ? this.f['cheque_no'].value : null,
+        bank_name: this.f['bank_name'] ? this.f['bank_name'].value : null,
       }
 
       this.dataServe.global_service(1, '/payment_accept_associate',dt ).subscribe((data: any) => {
         this.cash_data_life = data;
         console.log(this.cash_data_life, '100');
         if(this.cash_data_life.suc > 0) {
-          this.router.navigate(['/admin/approve_form'])
+          // this.router.navigate(['/admin/approve_form'])
+          Swal.fire(
+            'Success',
+            'Member Form Accepted successfully',
+            'success'
+          ).then((result) => {
+            if (result.isConfirmed) {
+              // this.router.navigate(['/admin/subs_depo_approve'])
+              this.router.navigate(['/admin/accept_money_receipt', dt.formNo,dt.trn_id])
+            }
+          });
+        }else{
+          Swal.fire(
+            'Error',
+            this.responseData.msg,
+              'error'
+          )
         }
-      });  
+        },error => {
+          console.error(error);
+          Swal.fire(
+            'Error',
+            error,
+              'error'
+          )
+        }); 
     }
 
     cheque_accept(){
@@ -493,9 +579,32 @@ export class View_formComponent implements OnInit {
         this.cheque_data = data;
         console.log(this.cheque_data, '100');
         if(this.cheque_data.suc > 0) {
-          this.router.navigate(['/admin/approve_form'])
+          // this.router.navigate(['/admin/approve_form'])
+          Swal.fire(
+            'Success',
+            'Member Form Accepted successfully',
+            'success'
+          ).then((result) => {
+            if (result.isConfirmed) {
+              // this.router.navigate(['/admin/subs_depo_approve'])
+              this.router.navigate(['/admin/accept_money_receipt', dt.formNo,dt.trn_id])
+            }
+          });
+        }else{
+          Swal.fire(
+            'Error',
+            this.responseData.msg,
+              'error'
+          )
         }
-      });    
+        },error => {
+          console.error(error);
+          Swal.fire(
+            'Error',
+            error,
+              'error'
+          )
+        });
     }
 
     cheque_accept_life(){
@@ -523,9 +632,32 @@ export class View_formComponent implements OnInit {
         this.cheque_data = data;
         console.log(this.cheque_data, '100');
         if(this.cheque_data.suc > 0) {
-          this.router.navigate(['/admin/approve_form'])
-        }
-      });   
+            // this.router.navigate(['/admin/approve_form'])
+            Swal.fire(
+              'Success',
+              'Member Form Accepted successfully',
+              'success'
+            ).then((result) => {
+              if (result.isConfirmed) {
+                // this.router.navigate(['/admin/subs_depo_approve'])
+                this.router.navigate(['/admin/accept_money_receipt', dt.formNo,dt.trn_id])
+              }
+            });
+          }else{
+            Swal.fire(
+              'Error',
+              this.responseData.msg,
+                'error'
+            )
+          }
+        },error => {
+          console.error(error);
+          Swal.fire(
+            'Error',
+            error,
+              'error'
+          )
+        });
     }
 
     cheque_accept_associate(){
@@ -553,9 +685,32 @@ export class View_formComponent implements OnInit {
         this.cheque_data = data;
         console.log(this.cheque_data, '100');
         if(this.cheque_data.suc > 0) {
-          this.router.navigate(['/admin/approve_form'])
-        }
-      });   
+            // this.router.navigate(['/admin/approve_form'])
+            Swal.fire(
+              'Success',
+              'Member Form Accepted successfully',
+              'success'
+            ).then((result) => {
+              if (result.isConfirmed) {
+                // this.router.navigate(['/admin/subs_depo_approve'])
+                this.router.navigate(['/admin/accept_money_receipt', dt.formNo,dt.trn_id])
+              }
+            });
+          }else{
+            Swal.fire(
+              'Error',
+              this.responseData.msg,
+                'error'
+            )
+          }
+          },error => {
+            console.error(error);
+            Swal.fire(
+              'Error',
+              error,
+                'error'
+            )
+          });  
     }
 
     upi_accept(){
@@ -691,13 +846,19 @@ export class View_formComponent implements OnInit {
         const value = control.value
         console.log(value, 'lalalala');
         
+        // let sub_fee_life = this.responsedata_subs[0].subscription_1
         let sub_fee_life = this.responsedata_subs[0].subscription_1
+        console.log(value,'iiii',sub_fee_life);
+        
         if(value % sub_fee_life !== 0){
           return {notDivisibleByTwo: {value: value}}
         }
         return null
       }
     }
+
+
+
 
     // export function multipleOfTwentyValidator(): ValidatorFn {
 //   return (control: AbstractControl): { [key: string]: any } | null => {

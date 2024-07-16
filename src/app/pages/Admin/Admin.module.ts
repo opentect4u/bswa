@@ -396,6 +396,13 @@ const routes: Routes = [
             (m) => m.Money_receiptModule
           ),
       },
+      {
+        path: 'accept_money_receipt/:form_no/:trn_id',
+        loadChildren: () =>
+          import('../Admin/accept_money_receipt/accept_money_receipt.module').then(
+            (m) => m.Accept_money_receiptModule
+          ),
+      },
     ],
   },
 ];

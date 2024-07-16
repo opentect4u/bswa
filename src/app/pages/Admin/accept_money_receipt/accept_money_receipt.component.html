@@ -31,9 +31,9 @@
         <td>{{trnData?.trn_dt | date: 'dd/MM/yyyy'}}</td>
       </tr>
       <tr>
-        <th>Member ID</th>
+        <th>Form No</th>
         <td>:</td>
-        <td>{{trnData?.member_id}}</td>
+        <td>{{trnData?.form_no}}</td>
         <td class="ceperate"></td>
         <th>Member Name</th>
         <td>:</td>
@@ -56,7 +56,8 @@
           <td class="ceperate"></td>
           <th>Cheque Date</th>
           <td>:</td>
-          <td>{{trnData?.chq_dt | date: 'dd/MM/yyyy'}}</td>
+          <td>
+            {{trnData?.chq_dt | date: 'dd/MM/yyyy' }}</td>
         </tr>
         <tr>
           <th>Bank</th>
@@ -64,7 +65,7 @@
           <td>{{chqBank[trnData?.chq_bank]}}</td>
         </tr>
       </ng-container>
-      <ng-container *ngIf="trnData?.pay_mode == 'O'">
+      <ng-container *ngIf="trnData?.pay_mode == 'C'">
         <tr>
           <th>Receipt NO</th>
           <td>:</td>
@@ -74,7 +75,7 @@
       <tr>
         <th>Status</th>
         <td>:</td>
-        <td>{{trnData?.approval_status == 'U' ? 'Unapproved' : trnData?.approval_status == 'A' ? 'Approved' : ''}}</td>
+        <td>{{trnData?.approval_status == 'U' ? 'Unapproved' : 'Approved'}}</td>
       </tr>
     </table>
   </div>

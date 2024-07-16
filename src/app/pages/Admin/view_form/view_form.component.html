@@ -140,68 +140,82 @@
         <tr>
           <th colspan="2"><label for="form_no" class="label_field"><b>Form No :
               </b><span class="span_space">{{form_no}}</span></label></th>
-          <th class="text-center" rowspan="7" style="width: 20%;">
+          <!-- <th class="text-center" rowspan="7" style="width: 20%;">
             <img src="{{ memb_pic ? (api_base_url + '/' + memb_pic) : '' }}" height="100%" width="100%" alt="" />
-            <!-- <label for="photo" class="label_field"><b><u>PHOTOGRAPH</u></b></label> -->
+          </th> -->
+          <th class="text-center" rowspan="7" style="width: 20%;">
+            <img *ngIf="memb_pic; else noImage" [src]="api_base_url + '/' + memb_pic" height="100%" width="100%"
+              alt="Member Photo" />
+            <ng-template #noImage>
+              <div class="no-image">
+                <i class="pi pi-camera" style="font-size: 2rem"></i>
+                <h5>No Image uploaded</h5>
+              </div>
+            </ng-template>
           </th>
-
         </tr>
         <tr>
-          <th colspan="2"><label for="mem_name" class="label_field"><b>NAME :</b><span
-                class="span_space">{{memb_name}}</span></label>
+          <th colspan="2"><label for="mem_name" class="label_field"><b>NAME :</b><span class="span_space">{{memb_name &&
+                memb_name.length > 0 ? memb_name : 'N/A'}}</span></label>
           </th>
         </tr>
         <tr>
           <th colspan="2"><label for="member_type" class="label_field"><b>TYPE OF
                 MEMBERSHIP
-                :</b><span class="span_space">{{mem_type=='G' ? 'General Membership' : mem_type=='L' ? 'Life Membership'
-                :
+                :</b><span class="span_space">{{mem_type ? mem_type=='G' ? 'General Membership' : mem_type=='L' ? 'Life
+                Membership'
+                : mem_type=='AI' ?
                 'Associate
-                Membership'}}</span></label></th>
+                Membership' : '' : 'N/A'}}</span></label></th>
         </tr>
         <tr>
           <th colspan="2"><label for="unit" class="label_field"><b>NAME OF THE UNIT
                 FROM
                 WHERE SUPERANNUATED
-                :</b><span class="span_space">{{unit_name}}</span></label></th>
+                :</b><span class="span_space">{{unit_name && unit_name.length > 0 ? unit_name : 'N/A'}}</span></label>
+          </th>
         </tr>
         <tr>
           <th colspan="2"><label for="staff_no" class="label_field"><b>STAFF NO
-                :</b><span class="span_space">{{staff_nos}}</span></label>
+                :</b><span class="span_space">{{staff_nos && staff_nos.length > 0 ? staff_nos : 'N/A'}}</span></label>
           </th>
         </tr>
         <tr>
           <th colspan="2"><label for="pers_no" class="label_field"><b>PERS NO
-                :</b><span class="span_space">{{pers_no}}</span></label>
+                :</b><span class="span_space">{{pers_no && pers_no.length > 0 ? pers_no : 'N/A'}}</span></label>
           </th>
         </tr>
         <tr>
           <th colspan="2"><label for="gurd_name" class="label_field"><b>FATHER'S Name
-                :</b><span class="span_space">{{gurdian_name}}</span></label></th>
+                :</b><span class="span_space">{{gurdian_name && gurdian_name.length > 0 ? gurdian_name :
+                'N/A'}}</span></label></th>
         </tr>
         <tr>
           <th colspan="3"><label for="addr" class="label_field"><b>ADDRESS
-                :</b><span class="span_space">{{memb_address}}</span></label>
+                :</b><span class="span_space">{{memb_address && memb_address.length > 0 ? memb_address :
+                'N/A'}}</span></label>
           </th>
         </tr>
         <tr>
-          <th><label for="ps" class="label_field"><b>P.S. </b><span class="span_space">{{ps}}</span></label></th>
-          <th><label for="phone" class="label_field"><b>PHONE NO. </b><span
-                class="span_space">{{phone_no}}</span></label>
+          <th><label for="ps" class="label_field"><b>P.S. </b><span class="span_space">{{ps && ps.length > 0 ? ps :
+                'N/A'}}</span></label></th>
+          <th><label for="phone" class="label_field"><b>PHONE NO. </b><span class="span_space">{{phone_no
+                }}</span></label>
           </th>
-          <th><label for="blood_grp" class="label_field"><b>BLOOD GROUP :</b><span
-                class="span_space">{{blood_grp}}</span></label></th>
+          <th><label for="blood_grp" class="label_field"><b>BLOOD GROUP :</b><span class="span_space">{{blood_grp &&
+                blood_grp.length > 0 ? blood_grp : 'N/A'}}</span></label></th>
         </tr>
         <tr>
-          <th><label for="dob" class="label_field"><b>DATE OF BIRTH :</b><span class="span_space">{{dob}}</span></label>
+          <th><label for="dob" class="label_field"><b>DATE OF BIRTH :</b><span class="span_space">{{dob && dob.length >
+                0 ? dob : 'N/A'}}</span></label>
           </th>
-          <th colspan="2"><label for="email_id" class="label_field"><b>EMAIL NO. </b><span
-                class="span_space">{{email_id}}</span></label>
+          <th colspan="2"><label for="email_id" class="label_field"><b>EMAIL NO. </b><span class="span_space">{{email_id
+                && email_id.length > 0 ? email_id : 'N/A'}}</span></label>
           </th>
         </tr>
         <tr>
-          <th><label for="min_no" class="label_field"><b>MIN NO. (SELF) :</b><span
-                class="span_space">{{min_no}}</span></label></th>
+          <th><label for="min_no" class="label_field"><b>MIN NO. (SELF) :</b><span class="span_space">{{min_no &&
+                min_no.length > 0 ? min_no : 'N/A'}}</span></label></th>
           <th colspan="2"><label for="min_no_spou" class="label_field"><b>MIN NO. (SPOUSE)
                 :</b></label><span class="span_space">{{spou_min
               && spou_min.length > 0 ? spou_min[0]?.spou_min : 'N/A'}}</span></th>
@@ -214,11 +228,21 @@
           <th colspan="2"><label for="spou_name" class="label_field"><b>NAME :</b><span class="span_space">{{spou_min
                 && spou_min.length > 0 ? spou_min[0]?.dependent_name : 'N/A'}}</span></label>
           </th>
-          <th class="text-center" rowspan="4" style="width: 20%;">
+          <!-- <th class="text-center" rowspan="4" style="width: 20%;">
             <img
               src="{{spou_min
                 && spou_min.length > 0 ? (spou_min[0]?.spou_pic ? api_base_url + '/' + spou_min[0]?.spou_pic : '') : ''}}"
               height="100%" width="100%" src="" alt="Photograph" />
+          </th> -->
+          <th class="text-center" rowspan="7" style="width: 20%;">
+            <img *ngIf="spou_min[0]?.spou_pic; else noImage" [src]="api_base_url + '/' + spou_min[0]?.spou_pic"
+              height="100%" width="100%" alt="Member Photo" />
+            <ng-template #noImage>
+              <div class="no-image">
+                <i class="pi pi-camera" style="font-size: 2rem"></i>
+                <h5>No Image uploaded</h5>
+              </div>
+            </ng-template>
           </th>
         </tr>
         <tr>
@@ -243,7 +267,7 @@
         <tr>
           <th colspan="3"><label for="member_type" class="label_field"><b>ADDRESS :</b><span
                 class="span_space">{{spou_min
-                && spou_min.length > 0 ? spou_min[0]?.spou_memb_address : ''}}</span></label>
+                && spou_min.length > 0 ? spou_min[0]?.spou_memb_address : 'N/A'}}</span></label>
           </th>
         </tr>
         <tr>
@@ -261,11 +285,11 @@
         </tr>
         <tr>
           <th colspan="3"><label for="member_type" class="label_field"><b>SIGNATURE OF SELF
-                :</b><span class="span_space"></span></label></th>
+                :</b><span class="span_space">N/A</span></label></th>
         </tr>
         <tr>
           <th colspan="3"><label for="member_type" class="label_field"><b>SIGNATURE OF SPOUSE
-                :</b><span class="span_space"></span></label></th>
+                :</b><span class="span_space">N/A</span></label></th>
         </tr>
       </table>
     </div>
@@ -279,68 +303,81 @@
         <tr>
           <th colspan="2"><label for="form_no" class="label_field"><b>Form No :
               </b><span class="span_space">{{form_no}}</span></label></th>
-          <th class="text-center" rowspan="7" style="width: 20%;">
+          <!-- <th class="text-center" rowspan="7" style="width: 20%;">
             <img src="{{ memb_pic ? (api_base_url + '/' + memb_pic) : '' }}" height="100%" width="100%" alt="" />
-            <!-- <label for="photo" class="label_field"><b><u>PHOTOGRAPH</u></b></label> -->
+          </th> -->
+          <th class="text-center" rowspan="7" style="width: 20%;">
+            <i class="pi pi-camera" style="font-size: 2rem"></i><img *ngIf="memb_pic; else noImage"
+              [src]="api_base_url + '/' + memb_pic" height="100%" width="100%" alt="Member Photo" />
+            <ng-template #noImage>
+              <div class="no-image">
+                <h5>No Image uploaded</h5>
+              </div>
+            </ng-template>
           </th>
-
         </tr>
         <tr>
-          <th colspan="2"><label for="mem_name" class="label_field"><b>NAME :</b><span
-                class="span_space">{{memb_name}}</span></label>
+          <th colspan="2"><label for="mem_name" class="label_field"><b>NAME :</b><span class="span_space">{{memb_name &&
+                memb_name.length > 0 ? memb_name : 'N/A'}}</span></label>
           </th>
         </tr>
         <tr>
           <th colspan="2"><label for="member_type" class="label_field"><b>TYPE OF
                 MEMBERSHIP
-                :</b><span class="span_space">{{mem_type=='G' ? 'General Membership' : mem_type=='L' ? 'Life Membership'
-                :
+                :</b><span class="span_space">{{mem_type ? mem_type=='G' ? 'General Membership' : mem_type=='L' ? 'Life
+                Membership'
+                : mem_type=='AI' ?
                 'Associate
-                Membership'}}</span></label></th>
+                Membership' : '' : 'N/A'}}</span></label></th>
         </tr>
         <tr>
           <th colspan="2"><label for="unit" class="label_field"><b>NAME OF THE UNIT
                 FROM
                 WHERE SUPERANNUATED
-                :</b><span class="span_space">{{unit_name}}</span></label></th>
+                :</b><span class="span_space">{{unit_name && unit_name.length > 0 ? unit_name : 'N/A'}}</span></label>
+          </th>
         </tr>
         <tr>
           <th colspan="2"><label for="staff_no" class="label_field"><b>STAFF NO
-                :</b><span class="span_space">{{staff_nos}}</span></label>
+                :</b><span class="span_space">{{staff_nos && staff_nos.length > 0 ? staff_nos : 'N/A'}}</span></label>
           </th>
         </tr>
         <tr>
           <th colspan="2"><label for="pers_no" class="label_field"><b>PERS NO
-                :</b><span class="span_space">{{pers_no}}</span></label>
+                :</b><span class="span_space">{{pers_no && pers_no.length > 0 ? pers_no : 'N/A'}}</span></label>
           </th>
         </tr>
         <tr>
           <th colspan="2"><label for="gurd_name" class="label_field"><b>FATHER'S Name
-                :</b><span class="span_space">{{gurdian_name}}</span></label></th>
+                :</b><span class="span_space">{{gurdian_name && gurdian_name.length > 0 ? gurdian_name :
+                'N/A'}}</span></label></th>
         </tr>
         <tr>
           <th colspan="3"><label for="addr" class="label_field"><b>ADDRESS
-                :</b><span class="span_space">{{memb_address}}</span></label>
+                :</b><span class="span_space">{{memb_address && memb_address.length > 0 ? memb_address :
+                'N/A'}}</span></label>
           </th>
         </tr>
         <tr>
-          <th><label for="ps" class="label_field"><b>P.S. </b><span class="span_space">{{ps}}</span></label></th>
-          <th><label for="phone" class="label_field"><b>PHONE NO. </b><span
-                class="span_space">{{phone_no}}</span></label>
+          <th><label for="ps" class="label_field"><b>P.S. </b><span class="span_space">{{ps && ps.length > 0 ? ps :
+                'N/A'}}</span></label></th>
+          <th><label for="phone" class="label_field"><b>PHONE NO. </b><span class="span_space">{{phone_no &&
+                phone_no.length > 0 ? phone_no : 'N/A'}}</span></label>
           </th>
-          <th><label for="blood_grp" class="label_field"><b>BLOOD GROUP :</b><span
-                class="span_space">{{blood_grp}}</span></label></th>
+          <th><label for="blood_grp" class="label_field"><b>BLOOD GROUP :</b><span class="span_space">{{blood_grp &&
+                blood_grp.length > 0 ? blood_grp : 'N/A'}}</span></label></th>
         </tr>
         <tr>
-          <th><label for="dob" class="label_field"><b>DATE OF BIRTH :</b><span class="span_space">{{dob}}</span></label>
+          <th><label for="dob" class="label_field"><b>DATE OF BIRTH :</b><span class="span_space">{{dob && dob.length >
+                0 ? dob : 'N/A'}}</span></label>
           </th>
-          <th colspan="2"><label for="email_id" class="label_field"><b>EMAIL NO. </b><span
-                class="span_space">{{email_id}}</span></label>
+          <th colspan="2"><label for="email_id" class="label_field"><b>EMAIL NO. </b><span class="span_space">{{email_id
+                && email_id.length > 0 ? email_id : 'N/A'}}</span></label>
           </th>
         </tr>
         <tr>
-          <th><label for="min_no" class="label_field"><b>MIN NO. (SELF) :</b><span
-                class="span_space">{{min_no}}</span></label></th>
+          <th><label for="min_no" class="label_field"><b>MIN NO. (SELF) :</b><span class="span_space">{{min_no &&
+                min_no.length > 0 ? min_no : 'N/A'}}</span></label></th>
           <th colspan="2"><label for="min_no_spou" class="label_field"><b>MIN NO. (SPOUSE)
                 :</b></label><span class="span_space">{{ spou_min && spou_min.length > 0 ? spou_min[0].spou_min : 'N/A'
               }}</span></th>
@@ -353,9 +390,18 @@
           <th colspan="2"><label for="spou_name" class="label_field"><b>NAME :</b><span class="span_space">{{ spou_min
                 && spou_min.length > 0 ? spou_min[0].dependent_name : 'N/A' }}</span></label>
           </th>
-          <th class="text-center" rowspan="4" style="width: 20%;">
+          <!-- <th class="text-center" rowspan="4" style="width: 20%;">
             <img src="{{spou_min[0]?.spou_pic ? api_base_url + '/' + spou_min[0]?.spou_pic : ''}}" height="100%"
               width="100%" src="" alt="Photograph" />
+          </th> -->
+          <th class="text-center" rowspan="7" style="width: 20%;">
+            <i class="pi pi-camera" style="font-size: 2rem"></i><img *ngIf="membInfo?.memb_pic; else noImage"
+              [src]="api_base_url + '/' + membInfo?.memb_pic" height="100%" width="100%" alt="Member Photo" />
+            <ng-template #noImage>
+              <div class="no-image">
+                <h5>No Image uploaded</h5>
+              </div>
+            </ng-template>
           </th>
         </tr>
         <tr>
@@ -397,11 +443,11 @@
         </tr>
         <tr>
           <th colspan="3"><label for="member_type" class="label_field"><b>SIGNATURE OF SELF
-                :</b><span class="span_space"></span></label></th>
+                :</b><span class="span_space">N/A</span></label></th>
         </tr>
         <tr>
           <th colspan="3"><label for="member_type" class="label_field"><b>SIGNATURE OF SPOUSE
-                :</b><span class="span_space"></span></label></th>
+                :</b><span class="span_space">N/A</span></label></th>
         </tr>
       </table>
     </div>
@@ -417,66 +463,92 @@
           <th colspan="3">
             <label for="form_no" class="label_field"><b>Form No : </b><span class="span_space">{{ form_no
                 }}</span></label>
-          <th class="text-center" rowspan="4" style="width: 20%;">
+            <!-- <th class="text-center" rowspan="4" style="width: 20%;">
             <img src="{{membInfo?.memb_pic ? api_base_url + '/' + membInfo?.memb_pic : ''}}" height="100%" width="100%"
               alt="" />
+          </th> -->
+          <th class="text-center" rowspan="7" style="width: 20%;">
+            <i class="pi pi-camera" style="font-size: 2rem"></i><img *ngIf="membInfo?.memb_pic; else noImage"
+              [src]="api_base_url + '/' + membInfo?.memb_pic" height="100%" width="100%" alt="Member Photo" />
+            <ng-template #noImage>
+              <div class="no-image">
+                <h5>No Image uploaded</h5>
+              </div>
+            </ng-template>
           </th>
+
         </tr>
         <tr>
           <th colspan="3">
-            <label for="mem_name" class="label_field"><b>NAME :</b><span class="span_space">{{ membInfo?.memb_name
+            <label for="mem_name" class="label_field"><b>NAME :</b><span class="span_space">{{ membInfo?.memb_name ?
+                membInfo?.memb_name : 'N/A'
                 }}</span></label>
           </th>
         </tr>
         <tr>
           <th colspan="3">
             <label for="gurd_name" class="label_field"><b>FATHER'S Name :</b><span class="span_space">{{
-                membInfo?.gurdian_name }}</span></label>
+                membInfo?.gurdian_name ? membInfo?.gurdian_name : 'N/A' }}</span></label>
           </th>
         </tr>
         <tr>
           <th>
-            <label for="marital_st" class="label_field" style="width: 74vw;"><b>MARITAL STATUS </b><span
-                class="span_space">{{ membInfo?.marital_status=='M' ? 'Married' : membInfo?.marital_status=='U' ?
-                'Unmarried' : membInfo?.marital_status=='D' ? 'Divorced' : 'Widow'
-                }}</span></label>
+            <label for="marital_st" class="label_field" style="width: 74vw;"><b>MARITAL STATUS : </b><span
+                class="span_space"> {{ membInfo?.marital_status
+                ? membInfo?.marital_status === 'M'
+                ? 'Married'
+                : membInfo?.marital_status === 'U'
+                ? 'Unmarried'
+                : membInfo?.marital_status === 'D'
+                ? 'Divorced'
+                : membInfo?.marital_status === 'W'
+                ? 'Widow'
+                : 'N/A'
+                : 'N/A' }}</span></label>
           </th>
           <th colspan="2">
-            <label for="gender" class="label_field"><b>GENDER </b><span class="span_space">{{ membInfo?.gender=='M' ?
-                'Male' : 'Female'
+            <label for="gender" class="label_field"><b>GENDER : </b><span class="span_space">{{ membInfo?.gender ?
+                (membInfo?.gender === 'M' ? 'Male' : (membInfo?.gender === 'F' ? 'Female' : 'N/A')) : 'N/A'
                 }}</span></label>
           </th>
         </tr>
         <tr>
           <th colspan="3">
-            <label for="dob" class="label_field"><b>DATE OF BIRTH :</b><span class="span_space">{{ membInfo?.dob | date:
-                'dd/MM/yyyy' }}</span></label>
+            <label for="dob" class="label_field"><b>DATE OF BIRTH :</b><span class="span_space">{{ membInfo?.dob ?
+                (membInfo?.dob |
+                date:
+                'dd/MM/yyyy') : 'N/A' }}</span></label>
           </th>
         </tr>
         <tr>
           <th colspan="4">
-            <label for="addr" class="label_field"><b>ADDRESS :</b><span class="span_space">{{ membInfo?.memb_address
+            <label for="addr" class="label_field"><b>ADDRESS :</b><span class="span_space">{{ membInfo?.memb_address ?
+                membInfo?.memb_address : 'N/A'
                 }}</span></label>
           </th>
         </tr>
         <tr>
           <th colspan="2">
             <label for="email_id" class="label_field"><b>EMAIL ID :</b><span class="span_space">{{
-                membInfo?.email_id
+                membInfo?.email_id ? membInfo?.email_id : 'N/A'
                 }}</span></label>
           </th>
           <th colspan="2">
-            <label for="phone" class="label_field"><b>PHONE NO. </b><span class="span_space">{{ membInfo?.phone_no
+            <label for="phone" class="label_field"><b>PHONE NO. </b><span class="span_space">{{ membInfo?.phone_no ?
+                membInfo?.phone_no : 'N/A'
                 }}</span></label>
           </th>
         </tr>
         <tr>
           <th colspan="2">
-            <label for="ps" class="label_field"><b>P.S. </b><span class="span_space">{{membInfo?.ps }}</span></label>
+            <label for="ps" class="label_field"><b>P.S. </b><span class="span_space">{{membInfo?.ps ? membInfo?.ps :
+                'N/A' }}</span></label>
           </th>
           <th colspan="2">
-            <label for="cast" class="label_field"><b>CASTE </b><span class="span_space">{{ membInfo?.caste=='G' ?
-                'General' : membInfo?.caste=='S' ? 'SC' : membInfo?.caste=='T' ? 'ST' : 'Others'
+            <label for="cast" class="label_field"><b>CASTE </b><span class="span_space">{{ membInfo?.caste ?
+                membInfo?.caste=='G' ?
+                'General' : membInfo?.caste=='S' ? 'SC' : membInfo?.caste=='T' ? 'ST'
+                : 'Others' : 'N/A'
                 }}</span></label>
           </th>
         </tr>
@@ -488,19 +560,19 @@
         <tr>
           <th colspan="4">
             <label for="spou_name" class="label_field"><b>NAME OF THE INTRODUCER :</b><span class="span_space">{{
-                spouseInfo?.dependent_name
+                spouseInfo?.dependent_name ? spouseInfo?.dependent_name : 'N/A'
                 }}</span></label>
           </th>
         </tr>
         <tr>
           <th colspan="2">
             <label for="memb_id_no" class="label_field"><b>MEMB ID NO. :</b><span class="span_space">{{
-                spouseInfo?.intro_member_id
+                spouseInfo?.intro_member_id ? spouseInfo?.intro_member_id : 'N/A'
                 }}</span></label>
           </th>
           <th colspan="2">
             <label for="relation" class="label_field"><b>Relation :</b><span class="span_space">{{
-                spouseInfo?.relation_name
+                spouseInfo?.relation_name ? spouseInfo?.relation_name : 'N/A'
                 }}</span></label>
           </th>
         </tr>
@@ -529,6 +601,9 @@
           <th>
             <label for="dob" class="label_field"><b>DOB(DD/MM/YYYY)</b><span class="span_space"></span></label>
           </th>
+        </tr>
+        <tr *ngIf="!dependInfo || dependInfo.length === 0">
+          <td colspan="4" class="text-center span_space"><b>No Data Found</b></td>
         </tr>
         <tr *ngFor="let dt of dependInfo; let i = index">
           <th><span class="span_space">{{i+1}}</span></th>
@@ -826,8 +901,6 @@
       </div>
       <div *ngIf="form.controls['payment'].value!= 'Q'">
         <div class="flex flex-row">
-          <!-- <button pButton pRipple type="button" label="DONE" class="p-button-raised" (click)="cash_accept()"
-            [disabled]="f['subscriptionFee'].hasError('notDivisibleByTwo') || f['subscriptionFee'].value == ''"></button> -->
           <button pButton pRipple type="button" label="DONE" class="p-button-raised" (click)="cash_accept()"></button>
         </div>
       </div>
@@ -852,17 +925,11 @@
           </div>
           <div class="field col-12 md:col-4">
             <label for="bank_name" style="color: black"><b>Bank Name<span class="text-red-700">*</span></b></label>
-            <!-- <input id="bank_name" type="text" formControlName="bank_name" placeholder="Enter Bank Name...."
-              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
-            <div *ngIf="f['bank_name']?.touched || f['bank_name']?.dirty">
-              <small class="text-red-900" *ngIf="f['bank_name']?.errors">Bank Name is required.</small>
-            </div> -->
             <select id="bank_name" formControlName="bank_name" [(ngModel)]="selectedValue3"
               class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
               style="appearance: auto; height: 3vw; border-radius: 7px">
               <option value="N" select>Select Bank Name</option>
               <option *ngFor="let option of responsedata" [value]="option.acc_cd">{{ option.bank_name }}</option>
-              <!-- <option value="O">Online Transaction</option> -->
             </select>
             <div *ngIf="f['bank_name']?.touched || f['bank_name']?.dirty">
               <small class="text-red-900" *ngIf="f['bank_name']?.errors">Bank Name is required.</small>
@@ -870,8 +937,6 @@
           </div>
         </div>
         <div class="flex flex-row">
-          <!-- <button pButton pRipple type="button" label="DONE" class="p-button-raised sub_btn" (click)="cheque_accept()"
-            [disabled]="f['subscriptionFee'].hasError('notDivisibleByTwo') || f['subscriptionFee'].value == ''"></button> -->
           <button pButton pRipple type="button" label="DONE" class="p-button-raised sub_btn"
             (click)="cheque_accept()"></button>
         </div>
@@ -958,8 +1023,6 @@
 
       <div *ngIf="form.controls['payment'].value!= 'Q'">
         <div class="flex flex-row">
-          <!-- <button pButton pRipple type="button" label="DONE" class="p-button-raised" (click)="cash_accept_life()"
-            [disabled]="f['subscriptionFee_1'].hasError('notDivisibleByTwo') || f['subscriptionFee_1'].value == ''"></button> -->
           <button pButton pRipple type="button" label="DONE" class="p-button-raised"
             (click)="cash_accept_life()"></button>
         </div>
@@ -985,17 +1048,11 @@
           </div>
           <div class="field col-12 md:col-4">
             <label for="bank_name" style="color: black"><b>Bank Name<span class="text-red-700">*</span></b></label>
-            <!-- <input id="bank_name" type="text" formControlName="bank_name" placeholder="Enter Bank Name...."
-              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
-            <div *ngIf="f['bank_name']?.touched || f['bank_name']?.dirty">
-              <small class="text-red-900" *ngIf="f['bank_name']?.errors">Bank Name is required.</small>
-            </div> -->
             <select id="bank_name" formControlName="bank_name" [(ngModel)]="selectedValue3"
               class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
               style="appearance: auto; height: 3vw; border-radius: 7px">
               <option value="N" select>Select Bank Name</option>
               <option *ngFor="let option of responsedata" [value]="option.acc_cd">{{ option.bank_name }}</option>
-              <!-- <option value="O">Online Transaction</option> -->
             </select>
             <div *ngIf="f['bank_name']?.touched || f['bank_name']?.dirty">
               <small class="text-red-900" *ngIf="f['bank_name']?.errors">Bank Name is required.</small>
@@ -1003,9 +1060,6 @@
           </div>
         </div>
         <div class="flex flex-row">
-          <!-- <button pButton pRipple type="button" label="DONE" class="p-button-raised sub_btn"
-            (click)="cheque_accept_life()"
-            [disabled]="f['subscriptionFee_1'].hasError('notDivisibleByTwo') || f['subscriptionFee_1'].value == ''"></button> -->
           <button pButton pRipple type="button" label="DONE" class="p-button-raised sub_btn"
             (click)="cheque_accept_life()"></button>
         </div>
@@ -1108,17 +1162,11 @@
           </div>
           <div class="field col-12 md:col-4">
             <label for="bank_name" style="color: black"><b>Bank Name<span class="text-red-700">*</span></b></label>
-            <!-- <input id="bank_name" type="text" formControlName="bank_name" placeholder="Enter Bank Name...."
-              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
-            <div *ngIf="f['bank_name']?.touched || f['bank_name']?.dirty">
-              <small class="text-red-900" *ngIf="f['bank_name']?.errors">Bank Name is required.</small>
-            </div> -->
             <select id="bank_name" formControlName="bank_name" [(ngModel)]="selectedValue3"
               class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
               style="appearance: auto; height: 3vw; border-radius: 7px">
               <option value="N" select>Select Bank Name</option>
               <option *ngFor="let option of responsedata" [value]="option.acc_cd">{{ option.bank_name }}</option>
-              <!-- <option value="O">Online Transaction</option> -->
             </select>
             <div *ngIf="f['bank_name']?.touched || f['bank_name']?.dirty">
               <small class="text-red-900" *ngIf="f['bank_name']?.errors">Bank Name is required.</small>
@@ -1131,6 +1179,7 @@
         </div>
       </div>
     </div>
+
 
     <div *ngIf="form.controls['status'].value === 'R'">
       <div class="flex flex-row">
