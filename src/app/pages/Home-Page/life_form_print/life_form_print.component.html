@@ -85,10 +85,11 @@
                 width="100%" alt="" />
             </th> -->
             <th class="text-center" rowspan="7" style="width: 20%;">
-              <i class="pi pi-camera" style="font-size: 2rem"></i> <img *ngIf="membInfo?.memb_pic; else noImage"
-                [src]="api_base_url + '/' + membInfo?.memb_pic" height="100%" width="100%" alt="Member Photo" />
+              <img *ngIf="membInfo?.memb_pic; else noImage" [src]="api_base_url + '/' + membInfo?.memb_pic"
+                height="100%" width="100%" alt="Member Photo" />
               <ng-template #noImage>
                 <div class="no-image">
+                  <i class="pi pi-camera" style="font-size: 2rem"></i>
                   <h5>No Image uploaded</h5>
                 </div>
               </ng-template>
@@ -203,10 +204,11 @@
                 width="100%" src="" alt="Photograph" />
             </th> -->
               <th class="text-center" rowspan="7" style="width: 20%;">
-                <i class="pi pi-camera" style="font-size: 2rem"></i><img *ngIf="spouseInfo?.spou_pic; else noImage"
-                  [src]="api_base_url + '/' + spouseInfo?.spou_pic" height="100%" width="100%" alt="Member Photo" />
+                <img *ngIf="spouseInfo?.spou_pic; else noImage" [src]="api_base_url + '/' + spouseInfo?.spou_pic"
+                  height="100%" width="100%" alt="Member Photo" />
                 <ng-template #noImage>
                   <div class="no-image">
+                    <i class="pi pi-camera" style="font-size: 2rem"></i>
                     <h5>No Image uploaded</h5>
                   </div>
                 </ng-template>

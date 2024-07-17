@@ -307,10 +307,11 @@
             <img src="{{ memb_pic ? (api_base_url + '/' + memb_pic) : '' }}" height="100%" width="100%" alt="" />
           </th> -->
           <th class="text-center" rowspan="7" style="width: 20%;">
-            <i class="pi pi-camera" style="font-size: 2rem"></i><img *ngIf="memb_pic; else noImage"
-              [src]="api_base_url + '/' + memb_pic" height="100%" width="100%" alt="Member Photo" />
+            <img *ngIf="memb_pic; else noImage" [src]="api_base_url + '/' + memb_pic" height="100%" width="100%"
+              alt="Member Photo" />
             <ng-template #noImage>
               <div class="no-image">
+                <i class="pi pi-camera" style="font-size: 2rem"></i>
                 <h5>No Image uploaded</h5>
               </div>
             </ng-template>
@@ -395,10 +396,11 @@
               width="100%" src="" alt="Photograph" />
           </th> -->
           <th class="text-center" rowspan="7" style="width: 20%;">
-            <i class="pi pi-camera" style="font-size: 2rem"></i><img *ngIf="membInfo?.memb_pic; else noImage"
-              [src]="api_base_url + '/' + membInfo?.memb_pic" height="100%" width="100%" alt="Member Photo" />
+            <img *ngIf="spou_min[0]?.spou_pic; else noImage" [src]="api_base_url + '/' + spou_min[0]?.spou_pic"
+              height="100%" width="100%" alt="Member Photo" />
             <ng-template #noImage>
               <div class="no-image">
+                <i class="pi pi-camera" style="font-size: 2rem"></i>
                 <h5>No Image uploaded</h5>
               </div>
             </ng-template>
@@ -467,11 +469,12 @@
             <img src="{{membInfo?.memb_pic ? api_base_url + '/' + membInfo?.memb_pic : ''}}" height="100%" width="100%"
               alt="" />
           </th> -->
-          <th class="text-center" rowspan="7" style="width: 20%;">
-            <i class="pi pi-camera" style="font-size: 2rem"></i><img *ngIf="membInfo?.memb_pic; else noImage"
-              [src]="api_base_url + '/' + membInfo?.memb_pic" height="100%" width="100%" alt="Member Photo" />
+          <th class="text-center" rowspan="6" style="width: 20%;">
+            <img *ngIf="membInfo?.memb_pic; else noImage" [src]="api_base_url + '/' + membInfo?.memb_pic" height="100%"
+              width="100%" alt="Member Photo" />
             <ng-template #noImage>
               <div class="no-image">
+                <i class="pi pi-camera" style="font-size: 2rem"></i>
                 <h5>No Image uploaded</h5>
               </div>
             </ng-template>
@@ -492,7 +495,7 @@
           </th>
         </tr>
         <tr>
-          <th>
+          <th colspan="2">
             <label for="marital_st" class="label_field" style="width: 74vw;"><b>MARITAL STATUS : </b><span
                 class="span_space"> {{ membInfo?.marital_status
                 ? membInfo?.marital_status === 'M'
@@ -622,10 +625,10 @@
         <tr>
           <th colspan="2">
             <label for="sign_applicant" class="label_field"><b>SIGNATURE OF THE APPLICANT :</b><span
-                class="span_space"></span></label>
+                class="span_space">N/A</span></label>
           </th>
           <th colspan="2">
-            <label for="date" class="label_field"><b>DATE :</b><span class="span_space"></span></label>
+            <label for="date" class="label_field"><b>DATE :</b><span class="span_space">N/A</span></label>
           </th>
         </tr>
         <tr>
@@ -638,10 +641,10 @@
         <tr>
           <th colspan="2">
             <label for="sign_applicant" class="label_field"><b>SIGNATURE OF THE MEMBER WITH ID NO :</b><span
-                class="span_space"></span></label>
+                class="span_space">N/A</span></label>
           </th>
           <th colspan="2">
-            <label for="date" class="label_field"><b>DATE :</b><span class="span_space"></span></label>
+            <label for="date" class="label_field"><b>DATE :</b><span class="span_space">N/A</span></label>
           </th>
         </tr>
       </table>
