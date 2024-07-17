@@ -118,60 +118,101 @@
             class="span_space">{{userData?.min_no ?
             userData?.min_no : 'N/A'}}</span></label></th>
       <th colspan="3"><label for="min_no_spou" class="label_field"><b>MIN NO. (SPOUSE)
-            :</b></label><span class="span_space">{{userData?.spou_dt
-          && userData?.spou_dt.length > 0 ? userData?.spou_dt[0]?.min_no : 'N/A'}}</span></th>
+            :</b></label><span class="span_space">{{userData?.spou_dt[0]?.min_no ? userData?.spou_dt[0]?.min_no :
+          'N/A'}}</span></th>
     </tr>
-    <tr>
-      <th colspan="4" class="text-center" style="background-color: aliceblue;"><label for="member_type"
-          class="label_field color"><b>DETAILS OF THE SPOUSE</b></label></th>
-    </tr>
-    <tr>
-      <th colspan="3"><label for="spou_name" class="label_field"><b>NAME :</b><span
-            class="span_space">{{userData?.spou_dt
-            && userData?.spou_dt.length > 0 ? userData?.spou_dt[0]?.dependent_name : 'N/A'}}</span></label>
-      </th>
-      <th class="text-center" rowspan="4" style="width: 20%;">
-        <img
-          src="{{userData?.spou_dt
-                && userData?.spou_dt.length > 0 ? (userData?.spou_dt[0]?.spou_pic ? api_base_url + '/' + userData?.spou_dt[0]?.spou_pic : '') : ''}}"
-          height="100%" width="100%" src="" alt="Photograph" />
-      </th>
-    </tr>
-    <tr>
-      <th colspan="3"><label for="spou_blood" class="label_field"><b>BLOOD GROUP
-            :</b><span class="span_space">{{userData?.spou_dt
-            && userData?.spou_dt.length > 0 ? userData?.spou_dt[0]?.blood_grp : 'N/A'}}</span></label></th>
-    </tr>
-    <tr>
-      <th colspan="3"><label for="father_name" class="label_field"><b>FATHER'S NAME
-            :</b><span class="span_space">{{userData?.spou_dt
-            && userData?.spou_dt.length > 0 ? userData?.spou_dt[0]?.gurdian_name : 'N/A'}}</span></label></th>
-    </tr>
-    <tr>
-      <th colspan="2"><label for="depen_dob" class="label_field"><b>DATE OF BIRTH :</b><span class="span_space">{{
-            userData?.spou_dt && userData.spou_dt.length > 0 && userData.spou_dt[0].dob ? (userData.spou_dt[0].dob |
-            date: 'dd/MM/yyyy') : 'N/A' }}</span></label>
-      </th>
-      <th><label for="depen_mob" class="label_field"><b>MOBILE NO :</b><span class="span_space">{{userData?.spou_dt
-            && userData?.spou_dt.length > 0 ? userData?.spou_dt[0]?.phone_no : 'N/A'}}</span></label></th>
-    </tr>
-    <tr>
-    </tr>
-    <tr>
-      <th colspan="4"><label for="member_type" class="label_field"><b>ADDRESS :</b><span
-            class="span_space">{{userData?.spou_dt
-            && userData?.spou_dt.length > 0 ? userData?.spou_dt[0]?.memb_address : 'N/A'}}</span></label>
-      </th>
-    </tr>
-    <tr>
-      <th colspan="2"><label for="member_type" class="label_field"><b>P.S. </b><span
-            class="span_space">{{userData?.spou_dt
-            && userData?.spou_dt.length > 0 ? userData?.spou_dt[0].ps : 'N/A'}}</span></label></th>
-      <th colspan="2"><label for="member_type" class="label_field"><b>PHONE NO. </b><span
-            class="span_space">{{userData?.spou_dt
-            && userData?.spou_dt.length > 0 ? userData?.spou_dt[0].phone_no : 'N/A'}}</span></label>
-      </th>
-    </tr>
+    <ng-container *ngIf="userData?.mem_type !='AI'">
+      <tr>
+        <th colspan="4" class="text-center" style="background-color: aliceblue;"><label for="member_type"
+            class="label_field color"><b>DETAILS OF THE SPOUSE</b></label></th>
+      </tr>
+      <tr>
+        <th colspan="3"><label for="spou_name" class="label_field"><b>NAME :</b><span
+              class="span_space">{{userData?.spou_dt[0]?.dependent_name ? userData?.spou_dt[0]?.dependent_name :
+              'N/A'}}</span></label>
+        </th>
+        <!-- <th class="text-center" rowspan="4" style="width: 20%;">
+          <img
+            src="{{userData?.spou_dt
+                  && userData?.spou_dt.length > 0 ? (userData?.spou_dt[0]?.spou_pic ? api_base_url + '/' + userData?.spou_dt[0]?.spou_pic : '') : ''}}"
+            height="100%" width="100%" src="" alt="Photograph" />
+        </th> -->
+        <th class="text-center" rowspan="6" style="width: 20%;">
+          <img *ngIf="userData?.spou_dt[0]?.spou_pic; else noImage"
+            [src]="api_base_url + '/' + userData?.spou_dt[0]?.spou_pic" height="100%" width="100%" alt="" />
+          <ng-template #noImage>
+            <div class="no-image">
+              <i class="pi pi-camera" style="font-size: 2rem"></i>
+              <h5>No Image uploaded</h5>
+            </div>
+          </ng-template>
+        </th>
+      </tr>
+      <tr>
+        <th colspan="3"><label for="spou_blood" class="label_field"><b>BLOOD GROUP
+              :</b><span class="span_space">{{userData?.spou_dt[0]?.blood_grp ? userData?.spou_dt[0]?.blood_grp :
+              'N/A'}}</span></label></th>
+      </tr>
+      <tr>
+        <th colspan="3"><label for="father_name" class="label_field"><b>FATHER'S NAME
+              :</b><span class="span_space">{{userData?.spou_dt[0]?.gurdian_name ? userData?.spou_dt[0]?.gurdian_name :
+              'N/A'}}</span></label></th>
+      </tr>
+      <tr>
+        <th colspan="2"><label for="depen_dob" class="label_field"><b>DATE OF BIRTH :</b><span class="span_space">{{
+              userData?.spou_dt && userData.spou_dt.length > 0 && userData.spou_dt[0].dob ? (userData.spou_dt[0].dob |
+              date: 'dd/MM/yyyy') : 'N/A' }}</span></label>
+        </th>
+        <th><label for="depen_mob" class="label_field"><b>MOBILE NO :</b><span
+              class="span_space">{{userData?.spou_dt[0]?.phone_no ? userData?.spou_dt[0]?.phone_no :
+              'N/A'}}</span></label></th>
+      </tr>
+      <tr>
+      </tr>
+      <tr>
+        <th colspan="4"><label for="member_type" class="label_field"><b>ADDRESS :</b><span
+              class="span_space">{{userData?.spou_dt[0]?.memb_address ? userData?.spou_dt[0]?.memb_address :
+              'N/A'}}</span></label>
+        </th>
+      </tr>
+      <tr>
+        <th colspan="2"><label for="member_type" class="label_field"><b>P.S. </b><span
+              class="span_space">{{userData?.spou_dt[0]?.ps ? userData?.spou_dt[0]?.ps : 'N/A'}}</span></label></th>
+        <th colspan="2"><label for="member_type" class="label_field"><b>PHONE NO. </b><span
+              class="span_space">{{userData?.spou_dt[0]?.phone_no ? userData?.spou_dt[0]?.phone_no :
+              'N/A'}}</span></label>
+        </th>
+      </tr>
+    </ng-container>
+
+    <ng-container *ngIf="userData?.mem_type == 'AI'">
+      <tr>
+        <th colspan="4" class="text-center" style="background-color: aliceblue">
+          <label for="member_type" class="label_field color"><b>DETAILS OF THE INTRODUCER</b></label>
+        </th>
+      </tr>
+      <tr>
+        <th colspan="4">
+          <label for="spou_name" class="label_field"><b>NAME OF THE INTRODUCER :</b><span class="span_space">{{
+              userData?.spou_dt[0]?.dependent_name ? userData?.spou_dt[0]?.dependent_name : 'N/A'
+              }}</span></label>
+        </th>
+      </tr>
+      <tr>
+        <th colspan="2">
+          <label for="memb_id_no" class="label_field"><b>MEMB ID NO. :</b><span class="span_space">{{
+              userData?.spou_dt[0]?.intro_member_id ? userData?.spou_dt[0]?.intro_member_id : 'N/A'
+              }}</span></label>
+        </th>
+        <th colspan="2">
+          <label for="relation" class="label_field"><b>Relation :</b><span class="span_space">{{
+              userData?.spou_dt[0]?.relation_name ? userData?.spou_dt[0]?.relation_name : 'N/A'
+              }}</span></label>
+        </th>
+      </tr>
+    </ng-container>
+
+
     <!-- <tr>
           <th colspan="3"><label for="depen" class="label_field"><b>NAME OF
                 DEPENDENT :</b><span class="span_space">{{userData?.dep_dt ? userData?.dep_dt :

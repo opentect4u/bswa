@@ -321,6 +321,7 @@ export class View_formComponent implements OnInit {
               trn_id: this.tnxData?.trn_id,
             });
             this.selectedValue2 = this.tnxData?.pay_mode;
+            this.selectedValue3 = this.tnxData?.chq_bank;
           }
         }); 
     }

@@ -264,6 +264,16 @@
                     spouseInfo?.spou_phone ? spouseInfo?.spou_phone : 'N/A' }}</span></label>
               </th>
             </tr>
+            <!-- <tr>
+              <th colspan="3">
+                <label for="depen" class="label_field"><b>NAME OF DEPENDENT :</b><span class="span_space">{{
+                    dep_dt ? dep_dt :
+                    'N/A'
+                    }}</span></label>
+              </th>
+            </tr> -->
+          </ng-container>
+          <ng-container *ngIf="resdata.dep_dt.length > 0">
             <tr>
               <th colspan="3">
                 <label for="depen" class="label_field"><b>NAME OF DEPENDENT :</b><span class="span_space">{{

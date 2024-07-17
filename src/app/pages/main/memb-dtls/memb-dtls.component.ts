@@ -91,7 +91,7 @@ export class MembDtlsComponent implements OnInit {
     this.dataServe.global_service(1, '/member_dtls',{form_no, mem_id: localStorage.getItem('member_id'), flag: true, mem_type: localStorage.getItem('mem_type')})
           .subscribe((data: any) => {
             this.memResDt = data;
-            this.memResDt = this.memResDt.suc > 0 ? this.memResDt.msg : [];
+            this.memResDt = this.memResDt.suc > 0 ? this.memResDt.msg : {};
             if(this.memResDt.length > 0){
               this.userData = this.memResDt[0]
             }
