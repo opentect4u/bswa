@@ -47,10 +47,18 @@ export class Associate_membership_formComponent implements OnInit {
   ownFile!: File;
   spouseFile!: File;
   mem_type: any;
+  maxDate!: string;
 
   constructor(private router: Router, private fb: FormBuilder,private route: ActivatedRoute, private dataServe: DataService,private validatorsService: ValidatorsService) { }
 
   ngOnInit() {
+
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const year = today.getFullYear();
+    this.maxDate = `${year}-${month}-${day}`;
+
     this.mem_type = this.route.snapshot.params['mem_type'];
 
 
@@ -86,6 +94,7 @@ export class Associate_membership_formComponent implements OnInit {
     city: [''],
     pin: ['', Validators.required],
     police_st: [''],
+    form_dt: ['', Validators.required],
   });
 
   this.form_1 = this.fb.group({
@@ -144,6 +153,7 @@ export class Associate_membership_formComponent implements OnInit {
       case 0:
         this.personal_info = {
           flag: 'AI',
+          form_dt: this.f['form_dt'] ? this.f['form_dt'].value : null,
           member: this.f['member'] ? this.f['member'].value : null,
           gurdian: this.f['gurdian'] ? this.f['gurdian'].value : null,
           gen: this.f['gen'] ? this.f['gen'].value : null,

@@ -28,6 +28,7 @@ interface trnData {
   chq_dt: string;
   chq_bank: string;
   approval_status: string;
+
 }
 
 @Component({
@@ -104,6 +105,7 @@ export class View_formComponent implements OnInit {
   tnxResData: any;
   upi_data: any;
   responseData: any;
+  maxDate!: string;
   // dept_dt: any;
 
   constructor(private router: Router,
@@ -112,7 +114,7 @@ export class View_formComponent implements OnInit {
       this.form = this.fb.group({
         resolution_no: ['',Validators.required],
         resolution_dt: ['',Validators.required],
-        status: ['',Validators.required],
+        status: [''],
         reject: ['',Validators.required],
         payment: [''],
         admissionFee: [''],
@@ -120,9 +122,9 @@ export class View_formComponent implements OnInit {
         // subscriptionFee: [''],
         subscriptionFee: ['', Validators.required],
         subscriptionType: [{value: 0, disabled: true}],
-        cheque_no: [''],
-        bank_name: [''],
-        cheque_dt: [''],
+        cheque_no: ['', Validators.required],
+        bank_name: ['', Validators.required],
+        cheque_dt: ['', Validators.required],
         admissionFee_life: [''],
         donationFee_life: [''],
         subscriptionFee_2: [''],
@@ -136,7 +138,8 @@ export class View_formComponent implements OnInit {
         receipt_no: [''],
         totalAmount_life: [{ value: 0, disabled: true }],
         totalAmount_associate: [{ value: 0, disabled: true }],
-        trn_id: ['']
+        trn_id: [''],
+        form_dt: ['', Validators.required]
       });
 
       this.calculateTotal();
@@ -200,6 +203,11 @@ export class View_formComponent implements OnInit {
       this.mem_type = this.route.snapshot.params['mem_type'];
       // console.log(encodedFormNo,'jjj')
 
+      const today = new Date();
+      const day = String(today.getDate()).padStart(2, '0');
+      const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+      const year = today.getFullYear();
+      this.maxDate = `${year}-${month}-${day}`;
       
       this.dataServe.global_service(0, '/get_member_dtls',`form_no=${this.form_no}` )
           .subscribe((data: any) => {
@@ -391,6 +399,7 @@ export class View_formComponent implements OnInit {
         member: this.memb_name,
         phone_no: this.phone_no,
         memb_type: this.mem_type,
+        form_dt: this.f['form_dt'] ? this.f['form_dt'].value : null,
         resolution_no: this.f['resolution_no'] ? this.f['resolution_no'].value : null,
         resolution_dt: this.f['resolution_dt'] ? this.f['resolution_dt'].value : null,
         status: this.f['status'] ? this.f['status'].value : null,
@@ -425,7 +434,7 @@ export class View_formComponent implements OnInit {
           ).then((result) => {
             if (result.isConfirmed) {
               // this.router.navigate(['/admin/subs_depo_approve'])
-              this.router.navigate(['/admin/accept_money_receipt', dt.formNo,dt.trn_id])
+              this.router.navigate(['/admin/accept_money_receipt', dt.formNo,this.cash_data.trn_id])
             }
           });
         }else{
@@ -451,6 +460,7 @@ export class View_formComponent implements OnInit {
         formNo: atob(decodeURIComponent(this.encodedFormNo)),
         member: this.memb_name,
         phone_no: this.phone_no,
+        form_dt: this.f['form_dt'] ? this.f['form_dt'].value : null,
         resolution_no: this.f['resolution_no'] ? this.f['resolution_no'].value : null,
         resolution_dt: this.f['resolution_dt'] ? this.f['resolution_dt'].value : null,
         status: this.f['status'] ? this.f['status'].value : null,
@@ -480,7 +490,7 @@ export class View_formComponent implements OnInit {
           ).then((result) => {
             if (result.isConfirmed) {
               // this.router.navigate(['/admin/subs_depo_approve'])
-              this.router.navigate(['/admin/accept_money_receipt', dt.formNo,dt.trn_id])
+              this.router.navigate(['/admin/accept_money_receipt', dt.formNo,this.cash_data_life.trn_id])
             }
           });
         }else{
@@ -505,6 +515,7 @@ export class View_formComponent implements OnInit {
         formNo: atob(decodeURIComponent(this.encodedFormNo)),
         member: this.memb_name,
         phone_no: this.phone_no,
+        form_dt: this.f['form_dt'] ? this.f['form_dt'].value : null,
         resolution_no: this.f['resolution_no'] ? this.f['resolution_no'].value : null,
         resolution_dt: this.f['resolution_dt'] ? this.f['resolution_dt'].value : null,
         status: this.f['status'] ? this.f['status'].value : null,
@@ -534,7 +545,7 @@ export class View_formComponent implements OnInit {
           ).then((result) => {
             if (result.isConfirmed) {
               // this.router.navigate(['/admin/subs_depo_approve'])
-              this.router.navigate(['/admin/accept_money_receipt', dt.formNo,dt.trn_id])
+              this.router.navigate(['/admin/accept_money_receipt', dt.formNo,this.cash_data_life.trn_id])
             }
           });
         }else{
@@ -559,6 +570,7 @@ export class View_formComponent implements OnInit {
         formNo: atob(decodeURIComponent(this.encodedFormNo)),
         member: this.memb_name,
         phone_no: this.phone_no,
+        form_dt: this.f['form_dt'] ? this.f['form_dt'].value : null,
         resolution_no: this.f['resolution_no'] ? this.f['resolution_no'].value : null,
         resolution_dt: this.f['resolution_dt'] ? this.f['resolution_dt'].value : null,
         status: this.f['status'] ? this.f['status'].value : null,
@@ -587,7 +599,7 @@ export class View_formComponent implements OnInit {
           ).then((result) => {
             if (result.isConfirmed) {
               // this.router.navigate(['/admin/subs_depo_approve'])
-              this.router.navigate(['/admin/accept_money_receipt', dt.formNo,dt.trn_id])
+              this.router.navigate(['/admin/accept_money_receipt', dt.formNo,this.cheque_data.trn_id])
             }
           });
         }else{
@@ -612,6 +624,7 @@ export class View_formComponent implements OnInit {
         formNo: atob(decodeURIComponent(this.encodedFormNo)),
         member: this.memb_name,
         phone_no: this.phone_no,
+        form_dt: this.f['form_dt'] ? this.f['form_dt'].value : null,
         resolution_no: this.f['resolution_no'] ? this.f['resolution_no'].value : null,
         resolution_dt: this.f['resolution_dt'] ? this.f['resolution_dt'].value : null,
         status: this.f['status'] ? this.f['status'].value : null,
@@ -640,7 +653,7 @@ export class View_formComponent implements OnInit {
             ).then((result) => {
               if (result.isConfirmed) {
                 // this.router.navigate(['/admin/subs_depo_approve'])
-                this.router.navigate(['/admin/accept_money_receipt', dt.formNo,dt.trn_id])
+                this.router.navigate(['/admin/accept_money_receipt', dt.formNo,this.cheque_data.trn_id])
               }
             });
           }else{
@@ -665,6 +678,7 @@ export class View_formComponent implements OnInit {
         formNo: atob(decodeURIComponent(this.encodedFormNo)),
         member: this.memb_name,
         phone_no: this.phone_no,
+        form_dt: this.f['form_dt'] ? this.f['form_dt'].value : null,
         resolution_no: this.f['resolution_no'] ? this.f['resolution_no'].value : null,
         resolution_dt: this.f['resolution_dt'] ? this.f['resolution_dt'].value : null,
         status: this.f['status'] ? this.f['status'].value : null,
@@ -693,7 +707,7 @@ export class View_formComponent implements OnInit {
             ).then((result) => {
               if (result.isConfirmed) {
                 // this.router.navigate(['/admin/subs_depo_approve'])
-                this.router.navigate(['/admin/accept_money_receipt', dt.formNo,dt.trn_id])
+                this.router.navigate(['/admin/accept_money_receipt', dt.formNo,this.cheque_data.trn_id])
               }
             });
           }else{

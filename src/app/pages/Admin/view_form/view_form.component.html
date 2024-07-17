@@ -285,11 +285,11 @@
         </tr>
         <tr>
           <th colspan="3"><label for="member_type" class="label_field"><b>SIGNATURE OF SELF
-                :</b><span class="span_space">N/A</span></label></th>
+                :</b><span class="span_space"></span></label></th>
         </tr>
         <tr>
           <th colspan="3"><label for="member_type" class="label_field"><b>SIGNATURE OF SPOUSE
-                :</b><span class="span_space">N/A</span></label></th>
+                :</b><span class="span_space"></span></label></th>
         </tr>
       </table>
     </div>
@@ -445,11 +445,11 @@
         </tr>
         <tr>
           <th colspan="3"><label for="member_type" class="label_field"><b>SIGNATURE OF SELF
-                :</b><span class="span_space">N/A</span></label></th>
+                :</b><span class="span_space"></span></label></th>
         </tr>
         <tr>
           <th colspan="3"><label for="member_type" class="label_field"><b>SIGNATURE OF SPOUSE
-                :</b><span class="span_space">N/A</span></label></th>
+                :</b><span class="span_space"></span></label></th>
         </tr>
       </table>
     </div>
@@ -625,10 +625,10 @@
         <tr>
           <th colspan="2">
             <label for="sign_applicant" class="label_field"><b>SIGNATURE OF THE APPLICANT :</b><span
-                class="span_space">N/A</span></label>
+                class="span_space"></span></label>
           </th>
           <th colspan="2">
-            <label for="date" class="label_field"><b>DATE :</b><span class="span_space">N/A</span></label>
+            <label for="date" class="label_field"><b>DATE :</b><span class="span_space"></span></label>
           </th>
         </tr>
         <tr>
@@ -641,10 +641,10 @@
         <tr>
           <th colspan="2">
             <label for="sign_applicant" class="label_field"><b>SIGNATURE OF THE MEMBER WITH ID NO :</b><span
-                class="span_space">N/A</span></label>
+                class="span_space"></span></label>
           </th>
           <th colspan="2">
-            <label for="date" class="label_field"><b>DATE :</b><span class="span_space">N/A</span></label>
+            <label for="date" class="label_field"><b>DATE :</b><span class="span_space"></span></label>
           </th>
         </tr>
       </table>
@@ -858,7 +858,7 @@
       </div>
 
       <div class="formgrid grid">
-        <div class="field col-12 md:col-6">
+        <div class="field col-12 md:col-4">
           <label for="subscriptionType" style="color: black"><b>Subscription Type</b></label>
           <select id="subscriptionType" formControlName="subscriptionType"
             class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
@@ -868,10 +868,18 @@
             <option value="Y">Yearly</option>
           </select>
         </div>
-        <div class="field col-12 md:col-6">
+        <div class="field col-12 md:col-4">
           <label for="totalAmount" style="color: black"><b>Total Amount</b></label>
           <input id="totalAmount" type="number" formControlName="totalAmount" readonly
             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+        </div>
+        <div class="field col-12 md:col-4">
+          <label for="form_dt" class="label_field"><b>Date:<span class="text-red-700">*</span></b></label>&nbsp;
+          <input id="form_dt" type="date" formControlName="form_dt" placeholder="dd/MM/yyyy" [max]="maxDate"
+            class="box_input text-l text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+          <div *ngIf="f['form_dt']?.touched || f['form_dt']?.dirty">
+            <small class="text-red-900" *ngIf="f['form_dt']?.errors">Date is required.</small>
+          </div>
         </div>
       </div>
 
@@ -894,17 +902,18 @@
 
       <div class="flex flex-row" *ngIf="form.controls['payment'].value != 'Q' && form.controls['payment'].value != 'O'">
         <div class="field col-12 md:col-12">
-          <label for="receipt_no" style="color: black"><b>Receipt No<span class="text-red-700">*</span></b></label>
+          <label for="receipt_no" style="color: black"><b>Receipt No</b></label>
           <input id="receipt_no" type="text" formControlName="receipt_no" placeholder="Enter Receipt No...."
             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
-          <div *ngIf="f['receipt_no']?.touched || f['receipt_no']?.dirty">
+          <!-- <div *ngIf="f['receipt_no']?.touched || f['receipt_no']?.dirty">
             <small class="text-red-900" *ngIf="f['receipt_no']?.errors">Receipt No is required.</small>
-          </div>
+          </div> -->
         </div>
       </div>
       <div *ngIf="form.controls['payment'].value!= 'Q'">
         <div class="flex flex-row">
-          <button pButton pRipple type="button" label="DONE" class="p-button-raised" (click)="cash_accept()"></button>
+          <button pButton pRipple type="button" label="DONE" class="p-button-raised" (click)="cash_accept()"
+            [disabled]="f['subscriptionFee'].hasError('notDivisibleByTwo') || f['form_dt'].invalid ||  f['resolution_no'].invalid || f['resolution_dt'].invalid"></button>
         </div>
       </div>
 
@@ -940,8 +949,8 @@
           </div>
         </div>
         <div class="flex flex-row">
-          <button pButton pRipple type="button" label="DONE" class="p-button-raised sub_btn"
-            (click)="cheque_accept()"></button>
+          <button pButton pRipple type="button" label="DONE" class="p-button-raised sub_btn" (click)="cheque_accept()"
+            [disabled]="f['subscriptionFee'].hasError('notDivisibleByTwo') || f['form_dt'].invalid || f['cheque_dt'].invalid || f['cheque_no'].invalid || f['bank_name'].invalid || f['resolution_no'].invalid || f['resolution_dt'].invalid"></button>
         </div>
       </div>
     </div>
@@ -949,28 +958,31 @@
     <div *ngIf="showLifeFee()">
       <h4 class="text-center" style="color: black;">Fee Details</h4>
       <div class="formgrid grid mt-1">
-        <div class="field col-12 md:col-3">
+        <div class="field col-12 md:col-4">
           <label for="admissionFee_life" style="color: black"><b>Admission Fee</b></label>
           <input id="admissionFee_life" type="number" formControlName="admissionFee_life"
             placeholder="Enter admission fee...."
             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
             readonly />
         </div>
-        <div class="field col-12 md:col-3">
+        <div class="field col-12 md:col-4">
           <label for="donationFee_life" style="color: black"><b>Donation Fee</b></label>
           <input id="donationFee_life" type="number" formControlName="donationFee_life"
             placeholder="Enter donation fee...."
             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
             readonly />
         </div>
-        <div class="field col-12 md:col-3">
+        <div class="field col-12 md:col-4">
           <label for="subscriptionFee_2" style="color: black"><b>Onetime Subscription Fee</b></label>
           <input id="subscriptionFee_2" type="text" formControlName="subscriptionFee_2"
             placeholder="Enter subscription fee...."
             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
             readonly />
         </div>
-        <div class="field col-12 md:col-3">
+      </div>
+
+      <div class="formgrid grid">
+        <div class="field col-12 md:col-4">
           <label for="subscriptionFee_1" style="color: black"><b>Yearly Subscription Fee</b></label>
           <input id="subscriptionFee_1" type="text" formControlName="subscriptionFee_1"
             (change)="number_validation($event)" placeholder="Enter subscription fee...."
@@ -981,18 +993,20 @@
             <small class="text-red-700" *ngIf="f['subscriptionFee_1']?.errors">
               Please enter a valid Subscription fee it is required.
             </small>
-            <!-- <div *ngIf="f['subscriptionFee']?.hasError('notDivisibleByTwo')">
-               Subscription fee is required.
-             </div> -->
           </div>
         </div>
-      </div>
-
-      <div class="formgrid grid">
-        <div class="field col-12 md:col-8">
+        <div class="field col-12 md:col-4">
           <label for="totalAmount_life" style="color: black"><b>Total Amount</b></label>
           <input id="totalAmount_life" type="number" formControlName="totalAmount_life" readonly
             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+        </div>
+        <div class="field col-12 md:col-4">
+          <label for="form_dt" class="label_field"><b>Date:<span class="text-red-700">*</span></b></label>&nbsp;
+          <input id="form_dt" type="date" formControlName="form_dt" placeholder="dd/MM/yyyy" [max]="maxDate"
+            class="box_input text-l text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+          <div *ngIf="f['form_dt']?.touched || f['form_dt']?.dirty">
+            <small class="text-red-900" *ngIf="f['form_dt']?.errors">Date is required.</small>
+          </div>
         </div>
       </div>
 
@@ -1015,19 +1029,19 @@
 
       <div class="flex flex-row" *ngIf="form.controls['payment'].value != 'Q' && form.controls['payment'].value != 'O'">
         <div class="field col-12 md:col-12">
-          <label for="receipt_no" style="color: black"><b>Receipt No<span class="text-red-700">*</span></b></label>
+          <label for="receipt_no" style="color: black"><b>Receipt No</b></label>
           <input id="receipt_no" type="text" formControlName="receipt_no" placeholder="Enter Receipt No...."
             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
-          <div *ngIf="f['receipt_no']?.touched || f['receipt_no']?.dirty">
+          <!-- <div *ngIf="f['receipt_no']?.touched || f['receipt_no']?.dirty">
             <small class="text-red-900" *ngIf="f['receipt_no']?.errors">Receipt No is required.</small>
-          </div>
+          </div> -->
         </div>
       </div>
 
       <div *ngIf="form.controls['payment'].value!= 'Q'">
         <div class="flex flex-row">
-          <button pButton pRipple type="button" label="DONE" class="p-button-raised"
-            (click)="cash_accept_life()"></button>
+          <button pButton pRipple type="button" label="DONE" class="p-button-raised" (click)="cash_accept_life()"
+            [disabled]="f['subscriptionFee_1'].hasError('notDivisibleByTwo') || f['form_dt'].invalid ||  f['resolution_no'].invalid || f['resolution_dt'].invalid"></button>
         </div>
       </div>
 
@@ -1064,7 +1078,8 @@
         </div>
         <div class="flex flex-row">
           <button pButton pRipple type="button" label="DONE" class="p-button-raised sub_btn"
-            (click)="cheque_accept_life()"></button>
+            (click)="cheque_accept_life()"
+            [disabled]="f['subscriptionFee_1'].hasError('notDivisibleByTwo') || f['form_dt'].invalid || f['cheque_dt'].invalid || f['cheque_no'].invalid || f['bank_name'].invalid || f['resolution_no'].invalid || f['resolution_dt'].invalid"></button>
         </div>
       </div>
     </div>
@@ -1072,41 +1087,49 @@
     <div *ngIf="showAssociateFee()">
       <h4 class="text-center" style="color: black;">Fee Details</h4>
       <div class="formgrid grid mt-1">
-        <div class="field col-12 md:col-3">
+        <div class="field col-12 md:col-4">
           <label for="admissionFee_associate" style="color: black"><b>Admission Fee</b></label>
           <input id="admissionFee_associate" type="number" formControlName="admissionFee_associate"
             placeholder="Enter admission fee...."
             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
             readonly />
         </div>
-        <div class="field col-12 md:col-3">
+        <div class="field col-12 md:col-4">
           <label for="donationFee_associate" style="color: black"><b>Donation Fee</b></label>
           <input id="donationFee_associate" type="number" formControlName="donationFee_associate"
             placeholder="Enter donation fee...."
             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
             readonly />
         </div>
-        <div class="field col-12 md:col-3">
+        <div class="field col-12 md:col-4">
           <label for="subscriptionFee_associate_one" style="color: black"><b>Onetime Subscription Fee</b></label>
           <input id="subscriptionFee_associate_one" type="text" formControlName="subscriptionFee_associate_one"
             placeholder="Enter subscription fee...."
             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
             readonly />
         </div>
-        <div class="field col-12 md:col-3">
+      </div>
+
+      <div class="formgrid grid">
+        <div class="field col-12 md:col-4">
           <label for="subscriptionFee_associate" style="color: black"><b>Yearly Subscription Fee</b></label>
           <input id="subscriptionFee_associate" type="text" formControlName="subscriptionFee_associate"
             (change)="number_validation($event)" placeholder="Enter subscription fee...."
             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
             readonly />
         </div>
-      </div>
-
-      <div class="formgrid grid">
-        <div class="field col-12 md:col-6">
+        <div class="field col-12 md:col-4">
           <label for="totalAmount_associate" style="color: black"><b>Total Amount</b></label>
           <input id="totalAmount_associate" type="number" formControlName="totalAmount_associate" readonly
             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+        </div>
+        <div class="field col-12 md:col-4">
+          <label for="form_dt" class="label_field"><b>Date:<span class="text-red-700">*</span></b></label>&nbsp;
+          <input id="form_dt" type="date" formControlName="form_dt" placeholder="dd/MM/yyyy" [max]="maxDate"
+            class="box_input text-l text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+          <div *ngIf="f['form_dt']?.touched || f['form_dt']?.dirty">
+            <small class="text-red-900" *ngIf="f['form_dt']?.errors">Date is required.</small>
+          </div>
         </div>
       </div>
 
@@ -1129,19 +1152,19 @@
 
       <div class="flex flex-row" *ngIf="form.controls['payment'].value != 'Q' && form.controls['payment'].value != 'O'">
         <div class="field col-12 md:col-12">
-          <label for="receipt_no" style="color: black"><b>Receipt No<span class="text-red-700">*</span></b></label>
+          <label for="receipt_no" style="color: black"><b>Receipt No</b></label>
           <input id="receipt_no" type="text" formControlName="receipt_no" placeholder="Enter Receipt No...."
             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
-          <div *ngIf="f['receipt_no']?.touched || f['receipt_no']?.dirty">
+          <!-- <div *ngIf="f['receipt_no']?.touched || f['receipt_no']?.dirty">
             <small class="text-red-900" *ngIf="f['receipt_no']?.errors">Receipt No is required.</small>
-          </div>
+          </div> -->
         </div>
       </div>
 
       <div *ngIf="form.controls['payment'].value!= 'Q'">
         <div class="flex flex-row">
-          <button pButton pRipple type="button" label="DONE" class="p-button-raised"
-            (click)="cash_accept_associate()"></button>
+          <button pButton pRipple type="button" label="DONE" class="p-button-raised" (click)="cash_accept_associate()"
+            [disabled]="f['form_dt'].invalid ||  f['resolution_no'].invalid || f['resolution_dt'].invalid"></button>
         </div>
       </div>
 
@@ -1178,7 +1201,8 @@
         </div>
         <div class="flex flex-row">
           <button pButton pRipple type="button" label="DONE" class="p-button-raised sub_btn"
-            (click)="cheque_accept_associate()"></button>
+            (click)="cheque_accept_associate()"
+            [disabled]="f['form_dt'].invalid || f['cheque_dt'].invalid || f['cheque_no'].invalid || f['bank_name'].invalid || f['resolution_no'].invalid || f['resolution_dt'].invalid"></button>
         </div>
       </div>
     </div>
@@ -1196,8 +1220,8 @@
         </div>
       </div>
       <div class="flex flex-row">
-        <button pButton pRipple type="button" label="OK" class="p-button-raised sub_btn"
-          (click)="reject_submit()"></button>
+        <button pButton pRipple type="button" label="OK" class="p-button-raised sub_btn" (click)="reject_submit()"
+          [disabled]="f['form_dt'].invalid || f['receipt_no'].invalid"></button>
       </div>
     </div>
   </form>

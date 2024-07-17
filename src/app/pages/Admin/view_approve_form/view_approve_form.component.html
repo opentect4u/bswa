@@ -3,6 +3,15 @@
 
   <form [formGroup]="form">
     <div class="flex flex-row">
+      <div class="field col-12 md:col-4 size">
+        <label for="voucher_dt" class="label_field"><b>Voucher Date:</b></label> <span
+          class="span_space"><b>{{userData[0].trn_dt |
+            date:
+            'dd/MM/yyyy'}}</b></span>
+      </div>
+    </div>
+
+    <div class="flex flex-row">
       <div class="field col-12 md:col-4">
         <label for="form_no" class="label_field"><b>Form No:</b></label>&nbsp;
         <input id="form_no" type="text" formControlName="form_no"
@@ -21,54 +30,64 @@
           class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
           readonly />
       </div> -->
+
+      <div class="field col-12 md:col-4">
+        <!-- <label for="unit_name" class="label_field"><b>Unit Name:</b></label>&nbsp;
+        <input id="unit_name" type="text" formControlName="unit_name"
+          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          readonly /> -->
+        <label for="trn_id" class="label_field"><b>Transaction ID:</b></label>&nbsp;
+        <input id="trn_id" type="text" formControlName="trn_id"
+          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          readonly />
+      </div>
       <div class="field col-12 md:col-4">
         <label for="memb_name" class="label_field"><b>Member Name:</b></label>&nbsp;
         <input id="memb_name" type="text" formControlName="memb_name"
           class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
           readonly />
       </div>
-
-      <div class="field col-12 md:col-4">
-        <label for="unit_name" class="label_field"><b>Unit Name:</b></label>&nbsp;
-        <input id="unit_name" type="text" formControlName="unit_name"
-          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-          readonly />
-      </div>
     </div>
 
     <div class="flex flex-row">
-      <div class="field col-12 md:col-4">
+      <!-- <div class="field col-12 md:col-4">
         <label for="phone_no" class="label_field"><b>Phone No:</b></label>&nbsp;
         <input id="phone_no" type="text" formControlName="phone_no"
           class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
           readonly />
-      </div>
+      </div> -->
       <!-- <div class="field col-12 md:col-4">
         <label for="email_id" class="label_field"><b>Email ID:</b></label>&nbsp;
         <input id="email_id" type="text" formControlName="email_id"
           class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
           readonly />
       </div> -->
-      <div class="field col-12 md:col-4">
+      <!-- <div class="field col-12 md:col-4">
         <label for="staff_no" class="label_field"><b>Staff No:</b></label>&nbsp;
         <input id="staff_no" type="text" formControlName="staff_no"
           class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
           readonly />
-      </div>
-      <div class="field col-12 md:col-4">
+      </div> -->
+      <!-- <div class="field col-12 md:col-4">
         <label for="pers_no" class="label_field"><b>Personal No:</b></label>&nbsp;
         <input id="pers_no" type="text" formControlName="pers_no"
           class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
           readonly />
-      </div>
+      </div> -->
     </div>
 
 
     <div class="flex flex-row">
 
-      <div class="field col-12 md:col-4">
+      <!-- <div class="field col-12 md:col-4">
         <label for="min_no" class="label_field"><b>MIN No:</b></label>&nbsp;
         <input id="min_no" type="text" formControlName="min_no"
+          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          readonly />
+      </div> -->
+      <div class="field col-12 md:col-4">
+        <label for="phone_no" class="label_field"><b>Phone No:</b></label>&nbsp;
+        <input id="phone_no" type="text" formControlName="phone_no"
           class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
           readonly />
       </div>

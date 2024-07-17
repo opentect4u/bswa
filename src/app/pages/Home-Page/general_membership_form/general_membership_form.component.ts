@@ -53,6 +53,7 @@ export class General_membership_formComponent implements OnInit {
   ownFile!: File;
   spouseFile!: File;
   mem_type: any;
+  maxDate!: string;
   // form_no: any;
 
   constructor(
@@ -64,6 +65,13 @@ export class General_membership_formComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const year = today.getFullYear();
+    this.maxDate = `${year}-${month}-${day}`;
+
     this.unit();
 
     this.mem_type = this.route.snapshot.params['mem_type'];
@@ -106,6 +114,7 @@ export class General_membership_formComponent implements OnInit {
       city: [''],
       pin: ['', Validators.required],
       police_st: [''],
+      form_dt: ['', Validators.required],
     });
     this.form_1 = this.fb.group(
       {
@@ -195,6 +204,7 @@ export class General_membership_formComponent implements OnInit {
         this.personal_info = {
           // member_type: this.f['member_type'] ? this.f['member_type'].value : null,
           flag: 'G',
+          form_dt: this.f['form_dt'] ? this.f['form_dt'].value : null,
           member_opt: this.f['member_opt'] ? this.f['member_opt'].value : null,
           unit_nm: this.f['unit_nm'] ? this.f['unit_nm'].value : null,
           member: this.f['member'] ? this.f['member'].value : null,

@@ -53,6 +53,7 @@ export class Life_membership_formComponent implements OnInit {
   ownFile!: File;
   spouseFile!: File;
   mem_type: any;
+  maxDate!: string;
 
   constructor(private router: Router, private fb: FormBuilder,private route: ActivatedRoute, private dataServe: DataService,private validatorsService: ValidatorsService) { }
 
@@ -62,6 +63,11 @@ export class Life_membership_formComponent implements OnInit {
     //   `We have been informed! <br> Generated Form No is 1234`,
     //   'success'
     // )
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const year = today.getFullYear();
+    this.maxDate = `${year}-${month}-${day}`;
     this.unit();
 
     this.mem_type = this.route.snapshot.params['mem_type'];
@@ -105,6 +111,7 @@ export class Life_membership_formComponent implements OnInit {
     city: [''],
     pin: ['', Validators.required],
     police_st: [''],
+    form_dt: ['', Validators.required],
   });
 
     this.form_1 = this.fb.group(
@@ -186,6 +193,7 @@ export class Life_membership_formComponent implements OnInit {
       case 0:
         this.personal_info = {
           flag: 'L',
+          form_dt: this.f['form_dt'] ? this.f['form_dt'].value : null,
           member_opt: this.f['member_opt'] ? this.f['member_opt'].value : null,
           unit_nm: this.f['unit_nm'] ? this.f['unit_nm'].value : null,
           member: this.f['member'] ? this.f['member'].value : null,

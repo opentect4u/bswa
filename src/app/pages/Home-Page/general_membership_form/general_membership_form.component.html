@@ -11,6 +11,17 @@
 
         <form [formGroup]="form">
           <div class="flex flex-row">
+            <div class="field col-12 md:col-12">
+              <label for="form_dt" class="label_field"><b>Date:<span class="text-red-700">*</span></b></label>&nbsp;
+              <input id="form_dt" type="date" formControlName="form_dt" placeholder="dd/MM/yyyy" [max]="maxDate"
+                class="box_input text-2xl text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+              <div *ngIf="f['form_dt']?.touched || f['form_dt']?.dirty">
+                <small class="text-red-900" *ngIf="f['form_dt']?.errors">Date is required.</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-row">
             <div class="field col-12 md:col-4">
               <label for="member_type" class="label_field"><b>Member Type:</b></label>&nbsp;
               <input id="member_type" type="text" formControlName="member_type" placeholder="Enter Blood Group"

@@ -1,3 +1,11 @@
 .btn_space{
     margin-left: 31vw;
 }
+.span_space{
+    margin-left: 5px;
+    color: rgb(62 66 201);
+    /* float: inline-end; */
+}
+/* .size{
+    margin-left: 53vw;
+} */

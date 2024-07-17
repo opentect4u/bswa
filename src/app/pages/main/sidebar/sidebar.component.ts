@@ -42,11 +42,11 @@ export class SidebarComponent implements OnInit {
       icon: 'pi pi-calendar',
       routerLink: ['depo_subs'],
     },
-    {
-      label: 'Notification',
-      icon: 'pi pi-bell',
-      routerLink: ['memb_noti'],
-    },
+    // {
+    //   label: 'Notification',
+    //   icon: 'pi pi-bell',
+    //   routerLink: ['memb_noti'],
+    // },
   ];
   }
 

@@ -35,7 +35,8 @@
       </p>
       <p>
         <label><b>Member Type:</b> </label>
-        <label> {{this.userData!['mem_type']}}</label>
+        <label> {{this.userData!['mem_type'] == 'G' ? 'General Membership' : this.userData!['mem_type'] == 'L' ? 'Life
+          Membership' : this.userData!['mem_type'] == 'AI' ? 'Associate Membership' : ''}}</label>
       </p>
       <p>
         <label><b>Subscription Upto: </b></label>
@@ -49,7 +50,7 @@
 
       <h4 class="text-center" style="color: black;">Subscription Details</h4>
       <div class="formgrid grid mt-1">
-        <div class="field col-12 md:col-4">
+        <div class="field col-12 md:col-6">
           <label for="subs_amt" style="color: black"><b>Subscription Fee</b></label>
           <input id="subs_amt" type="text" formControlName="subs_amt" placeholder="Enter subscription fee...."
             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
@@ -58,6 +59,14 @@
             <small class="text-red-700" *ngIf="f['subs_amt']?.errors">
               Please enter a valid Subscription fee it is required.
             </small>
+          </div>
+        </div>
+        <div class="field col-12 md:col-6">
+          <label for="form_dt" class="label_field"><b>Date:<span class="text-red-700">*</span></b></label>&nbsp;
+          <input id="form_dt" type="date" formControlName="form_dt" placeholder="dd/MM/yyyy" [max]="maxDate"
+            class="box_input text-l text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+          <div *ngIf="f['form_dt']?.touched || f['form_dt']?.dirty">
+            <small class="text-red-900" *ngIf="f['form_dt']?.errors">Date is required.</small>
           </div>
         </div>
       </div>
@@ -160,7 +169,8 @@
       </div>
 
       <div class="flex flex-row">
-        <button pButton pRipple type="button" label="Save" class="p-button-raised sub_btn" (click)="save()"></button>
+        <button pButton pRipple type="button" label="Save" class="p-button-raised sub_btn" (click)="save()"
+          [disabled]="f['form_dt'].invalid"></button>
       </div>
     </form>
   </ng-container>

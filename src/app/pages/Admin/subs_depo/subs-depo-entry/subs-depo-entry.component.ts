@@ -36,10 +36,19 @@ export class SubsDepoEntryComponent implements OnInit {
   member_id: any;
   phone_no: any;
   responsedata: any;
+  maxDate!: string;
 
   constructor(private router: Router,private formBuilder: FormBuilder, private dataServe: DataService) { }
 
   ngOnInit() {
+
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const year = today.getFullYear();
+    this.maxDate = `${year}-${month}-${day}`;
+
+
     this.form = this.formBuilder.group({
       mem_id: ['',  Validators.required]
     })
@@ -55,8 +64,8 @@ export class SubsDepoEntryComponent implements OnInit {
       mem_name: [''],
       mem_type: [''],
       receipt_no_online: [''],
-      phone_no: ['']
-
+      phone_no: [''],
+      form_dt: ['',Validators.required]
     })
     this.bank_list();
   }
@@ -97,45 +106,57 @@ export class SubsDepoEntryComponent implements OnInit {
       memb_id: this.m['mem_id'].value
     };
 
-    this.dataServe.global_service(1,'/get_mem_subs_dtls',dt).subscribe(data => {
-      // console.log(data,'kiki')
-      this.responseData = data;
-      if(this.responseData.suc > 0){
-        this.userData = this.responseData.msg[0];
-        // console.log(this.userData,'lili');
-        if(this.responseData.msg.length > 0){
-          this.showDepoEntry = true;
-          this.entryForm.patchValue({
-            form_no: this.userData?.form_no,
-            subs_upto: this.userData?.subscription_upto,
-            mem_name: this.userData?.memb_name,
-            mem_type: this.userData?.mem_type
-          })
-          this.subscription_fee(this.userData?.mem_type)
+    if(this.m['mem_id'].value.includes('AI')){
+      Swal.fire(
+        'Warning',
+        'Associate Members are not allowed',
+          'warning'
+      )
+      this.showDepoEntry = false;
+      this.form.reset()
+      this.entryForm.reset()
+    }else{
+      this.dataServe.global_service(1,'/get_mem_subs_dtls',dt).subscribe(data => {
+        // console.log(data,'kiki')
+        this.responseData = data;
+        if(this.responseData.suc > 0){
+          this.userData = this.responseData.msg[0];
+          // console.log(this.userData,'lili');
+          if(this.responseData.msg.length > 0){
+            this.showDepoEntry = true;
+            this.entryForm.patchValue({
+              form_no: this.userData?.form_no,
+              subs_upto: this.userData?.subscription_upto,
+              mem_name: this.userData?.memb_name,
+              mem_type: this.userData?.mem_type
+            })
+            this.subscription_fee(this.userData?.mem_type)
+          }else{
+            Swal.fire(
+              'Warning',
+              'No data found!!!',
+              'warning'
+            )
+          }
         }else{
           Swal.fire(
-            'Warning',
-            'No data found!!!',
-            'warning'
+            'Error',
+            this.responseData.msg,
+              'error'
           )
         }
-      }else{
+        
+        // this.show_spinner=true;
+      },error => {
+        console.error(error);
         Swal.fire(
           'Error',
-          this.responseData.msg,
+          error,
             'error'
         )
-      }
-      
-      // this.show_spinner=true;
-    },error => {
-      console.error(error);
-      Swal.fire(
-        'Error',
-        error,
-          'error'
-      )
-    })
+      })
+    }
+
   }
 
   subscription_fee(memb_type: any){
@@ -159,6 +180,7 @@ export class SubsDepoEntryComponent implements OnInit {
   save(){
     var dt = {
       memb_id: this.m['mem_id'].value,
+      form_dt: this.f['form_dt'] ? this.f['form_dt'].value : null,
       sub_fee: this.responsedata_subs[0].subscription_1,
       sub_amt: this.f['subs_amt'].value,
       user: localStorage.getItem('user_name'),
