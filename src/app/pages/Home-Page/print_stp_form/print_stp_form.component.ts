@@ -171,9 +171,31 @@ export class Print_stp_formComponent implements OnInit {
       '<html><head><title></title><style type="text/css">'
     );
 
-    this.WindowObject.document.writeln(
-      '@media print { .table_space { margin-left: 14px; } .letter{ margin-left: 19px; margin: 6PX; padding: 0; } .letter_style{ margin-left: 22px; margin: 17PX; padding: 0; } p-button.p-element, .print_btn { /* align-items: center;  */ /* position: fixed; */ /* right: 30px; */ bottom: 15px; /* margin-left: 30vw; */ } </style>'
-    );
+    // this.WindowObject.document.writeln(
+    //   '@media print { .table_space { margin-left: 14px; } .letter{ margin-left: 19px; margin: 6PX; padding: 0; } .letter_style{ margin-left: 22px; margin: 17PX; padding: 0; } p-button.p-element, .print_btn { /* align-items: center;  */ /* position: fixed; */ /* right: 30px; */ bottom: 15px; /* margin-left: 30vw; */ } </style>'
+    // );
+    this.WindowObject.document.writeln('@media print { .center { text-align: center;}' +
+      'body{font-family:Arial, Tahoma, Verdana;font-size: 14px;color: #6f7479;}' +'.wrapper{box-shadow: none !important; max-width: 1100px; width: 100%; margin: 0 auto; font-family:Arial, Tahoma, Verdana;}' +'.contant-wraper{box-shadow: none !important;}'+
+      '.table_head_cus tr td{background: #D9D9D9;}' +'tr.table_head_cus td{background: #333; color:#fff; text-align: left; font-size: 14px;}' +
+      'tr.table_head_cus th{background: #333; color:#fff; text-align: left; font-size: 14px;}'+
+      '.print_Section table tbody tr td{border-bottom:#ccc solid 1px; padding:10px;text-align: left;}' +'.print_Section table tbody tr th{border-bottom:#ccc solid 1px; padding:10px;text-align: left;}' +
+      '.print_Section{color: #000;}' +'.print_Section h4{font-size: 16px; color: #000; margin: 0 0 15px 0; padding: 0;}' +
+      '.print_Section p{font-size: 16px; line-height: 20px; color: #000; font-size: 14px; line-height: 23px; margin: 0 0 25px 0; padding: 0;}' +
+      '.print_Section p span.perple{color: rgb(55, 55, 230);}' +
+       '.print_Section h3{font-size: 20px; color: #000; margin: 0 0 15px 0; padding: 0; font-weight: 700;}' +
+      '.print_Section table{margin: 0 !important; width: 100% !important;}' +'.print_Section ul.print_ul{list-style-type: none; padding:0; margin:0;}' +
+      '.print_Section ul.print_ul li{font-size: 16px; color: #000; margin: 0 0 6px 0; padding: 0;}' +'.print_Section ul.print_ul li .li_Span{color: rgb(55, 55, 230); font-weight: 700;}' +
+      '.print_Section table.table_space_cus td span{color: rgb(55, 55, 230); font-weight: 700;}' +
+      '.print_Section table.table_space_cus td.table_td_70{width: 70%;}' +'.print_Section table.table_space_cus td.table_td_30{width: 30%;}' +
+      '.print_Section table.table_space_cus td.table_td_5{width:5%;}' +
+      '.print_Section table.table_space_cus td.table_td_55{width:50%;}' +
+      '.print_Section table.table_space_cus td.table_td_20{width:20%;}' +
+      '.print_Section table.table_space_cus td{font-size: 14px;}' +
+      '.print_Section table.table_space_cus th{font-size: 14px;}'+
+      '.textAlign_left{text-align: left;}'+
+      '.textAlign_right{text-align: right;}'+
+      '.print_Section table.table_space_cus td.no_pading{padding: 0;}' +
+      '} </style>');
     this.WindowObject.document.writeln(
       '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">'
     );

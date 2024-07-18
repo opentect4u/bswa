@@ -53,15 +53,15 @@
             'G' ? 'General
             Membership' : stpinfo?.mem_type ==
             'L' ? 'Life membership' : stpinfo?.mem_type ==
-            'AI' ? 'Associate Membership' : ''}}</u></span>)</h4><br>
+            'AI' ? 'Associate Membership' : 'N/A'}}</u></span>)</h4><br>
       <h4 class="letter" style="color: black">BOKARO STEEL PEOPLE WELFARE ASSOCIATION</h4>
-      <h4 class="letter" style="color: black">Durgapur / Banpur</h4>
+      <h4 class="letter" style="color: black">Durgapur / Burnpur</h4>
       <h4 class="letter" style="color: black">Dear Sir,</h4>
       <h4 class="size" style="color: black">
         I came to understand that the Trust will take a Tailor made Medi-claim / Health Insurance Policy
         for its beneficiaries. As I am an member of the <span
           style="color: rgb(55, 55, 230);"><u>{{stpinfo?.unit_name}}</u></span> ASSOCIATION, having
-        membership no I shall be
+        membership no <span style="color: rgb(55, 55, 230);"><u>{{genInsData?.member_id}}</u></span>. I shall be
         greateful if you kindly extend the above facilites to my self and to my dependents as detailed below.
         The details of the medical history is also appended below :
       </h4>
@@ -73,14 +73,15 @@
       <tr>
         <th colspan="4">
           <label for="" class="label_field"><b>NAME : </b>
-            <span style="color: rgb(55, 55, 230);"> {{stpinfo?.memb_name}}</span>
+            <span style="color: rgb(55, 55, 230);"> {{stpinfo?.memb_name ? stpinfo?.memb_name : 'N/A'}}</span>
           </label>
         </th>
       </tr>
       <tr>
         <th colspan="4">
           <label for="" class="label_field"><b>FATHER'S / HUSBAND'S NAME : </b>
-            <span style="color: rgb(55, 55, 230);"> {{stpinfo?.gurdian_name}}</span></label>
+            <span style="color: rgb(55, 55, 230);"> {{stpinfo?.gurdian_name ? stpinfo?.gurdian_name :
+              'N/A'}}</span></label>
         </th>
       </tr>
       <tr>
@@ -89,23 +90,24 @@
             <span style="color: rgb(55, 55, 230);"> {{stpinfo?.marital_status == 'M' ? 'Married' :
               stpinfo?.marital_status =='U' ? 'Unmarried' :
               stpinfo?.marital_status == 'D' ? 'Divorced' : stpinfo?.marital_status == 'W' ?'Widow' :
-              ''}}</span></label>
+              'N/A'}}</span></label>
         </th>
         <th colspan="2">
           <label for="" class="label_field"><b>GENDER : </b>
             <span style="color: rgb(55, 55, 230);"> {{stpinfo?.gender == 'F' ? 'Female' : stpinfo?.gender == 'M' ?
-              'Male' : ''}}</span></label>
+              'Male' : 'N/A'}}</span></label>
         </th>
       </tr>
       <tr>
         <th colspan="2">
           <label for="" class="label_field"><b>DATE OF BIRTH : </b>
-            <span style="color: rgb(55, 55, 230);"> {{ stpinfo?.dob | date: 'dd/MM/yyyy' }}</span>
+            <span style="color: rgb(55, 55, 230);"> {{ stpinfo?.dob ? (stpinfo?.dob | date: 'dd/MM/yyyy') : 'N/A'
+              }}</span>
           </label>
         </th>
         <th colspan="2">
           <label for="" class="label_field"><b>PHONE NO : </b>
-            <span style="color: rgb(55, 55, 230);"> {{ stpinfo?.phone }}</span>
+            <span style="color: rgb(55, 55, 230);"> {{ stpinfo?.phone ? stpinfo?.phone : 'N/A' }}</span>
           </label>
         </th>
       </tr>
@@ -122,6 +124,9 @@
         <th>
           <label for="status" class="label_field"><b>DOB(DD/MM/YYYY)</b></label>
         </th>
+      </tr>
+      <tr *ngIf="!spouseInfo || spouseInfo.length === 0">
+        <td colspan="4" class="text-center span_space" style="color: rgb(55, 55, 230);"><b>No Data Found</b></td>
       </tr>
       <tr *ngFor="let dt of spouseInfo; let i = index">
         <th class="text-center" style="color: rgb(55, 55, 230);"><span class="span_space">{{dt.sl_no}}</span></th>
@@ -156,32 +161,32 @@
     </table>
   </div>
 
-  <p-divider type="dashed"></p-divider>
-  <h3 class="text-center"><b>Premium Details</b></h3>
+  <!-- <p-divider type="dashed"></p-divider>
+  <h3 class="text-center"><b>Premium Details</b></h3> -->
 
-  <div class="flex flex-row">
+  <!-- <div class="flex flex-row">
     <div class="field col-12 md:col-12">
       <label for="grp_name" class="label_field"><b>Group Name:</b></label>&nbsp;
       <span style="color: rgb(55, 55, 230);"> <b>{{ preinfo?.family_type}}</b></span>
     </div>
-  </div>
+  </div> -->
 
-  <div class="flex flex-row">
+  <!-- <div class="flex flex-row">
     <div class="field col-12 md:col-12">
       <label for="pre_amont" class="label_field"><b>Premium Amount:</b></label>&nbsp;
       <span style="color: rgb(55, 55, 230);"> <b>{{preinfo?.premium_amt}}</b></span>
     </div>
-  </div>
+  </div> -->
 
-  <div class="flex flex-row">
+  <!-- <div class="flex flex-row">
     <div class="field col-12 md:col-6">
       <label for="pre_amont" class="label_field"><b>Do you want to avail a Super Top Up on this
           policy?</b></label>&nbsp;
       <span style="color: rgb(55, 55, 230);"><b> {{pre_amt_flag}}</b></span>
     </div>
-  </div>
+  </div> -->
 
-  <ng-container *ngIf="pre_amt_flag=='Yes'">
+  <!-- <ng-container *ngIf="pre_amt_flag=='Yes'">
     <div class="flex flex-row">
       <div class="field col-12 md:col-12">
         <span style="color: rgb(55, 55, 230);"><b> {{preinfo?.prm_flag2 == 'Y' ? 'Super Top up Amount 12 lacs' :
@@ -197,7 +202,7 @@
     </div>
 
 
-  </ng-container>
+  </ng-container> -->
 
   <div class="row mt-4">
     <h3 class="letter_style text-center" style="color: black">FOR OFFICE USE ONLY
@@ -220,7 +225,7 @@
 
   <form [formGroup]="form">
     <div class="flex flex-row mt-5">
-      <div class="field col-12 md:col-3">
+      <div class="field col-12 md:col-4">
         <label for="resolution_no" class="label_field" style="color: black;"><b>Resolution No:<span
               class="text-red-700">*</span></b></label>&nbsp;
         <input id="resolution_no" type="text" formControlName="resolution_no" placeholder="Enter Resolution No"
@@ -229,7 +234,7 @@
           <small class="text-red-900" *ngIf="f['resolution_no']?.errors">Resolution No is required.</small>
         </div>
       </div>
-      <div class="field col-12 md:col-3">
+      <div class="field col-12 md:col-4">
         <label for="resolution_dt" class="label_field" style="color: black;"><b>Resolution Date:<span
               class="text-red-700">*</span></b></label>&nbsp;
         <input id="resolution_dt" type="date" formControlName="resolution_dt" placeholder="dd/mm/yyyy"
@@ -238,12 +243,13 @@
           <small class="text-red-900" *ngIf="f['resolution_dt']?.errors">resolution_dt is required.</small>
         </div>
       </div>
-      <div class="field col-12 md:col-3">
-        <label for="pre_amt" style="color: black"><b>Premium Amount<span class="text-red-700">*</span></b></label>
+      <!-- <div class="field col-12 md:col-3">
+        <label for="pre_amt" class="label_field" style="color: black"><b>Premium Amount<span
+              class="text-red-700">*</span></b></label>
         <input id="pre_amt" type="text" formControlName="pre_amt" placeholder="Enter Premium Amount...."
-          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
-      </div>
-      <div class="field col-12 md:col-3">
+          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+      </div> -->
+      <div class="field col-12 md:col-4">
         <label for="status" class="label_field" style="color: black;"><b>Status:</b></label>&nbsp;
         <select id="status" formControlName="status" [(ngModel)]="selectedValue"
           class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
@@ -258,7 +264,7 @@
     <!-- <p-divider type="dashed"></p-divider> -->
 
     <div *ngIf="form.controls['status'].value === 'T'">
-      <!-- <div class="formgrid grid mt-3">
+      <div class="formgrid grid mt-3">
         <div class="field col-12 md:col-4">
           <label for="ins_period" style="color: black"><b>Insurance Period</b></label>
           <select id="ins_period" formControlName="ins_period" [(ngModel)]="selectedValue_3"
@@ -269,15 +275,21 @@
         </div>
         <div class="field col-12 md:col-4">
           <label for="pre_dt" style="color: black"><b>Policy Date<span class="text-red-700">*</span></b></label>
-          <input id="pre_dt" type="date" formControlName="pre_dt" placeholder="Enter Premium Amount...."
+          <input id="pre_dt" type="date" formControlName="pre_dt" placeholder="dd/MM/yyyy" [max]="maxDate"
             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
         </div>
-        <div class="field col-12 md:col-4">
+        <!-- <div class="field col-12 md:col-4">
           <label for="pre_amt" style="color: black"><b>Premium Amount<span class="text-red-700">*</span></b></label>
           <input id="pre_amt" type="text" formControlName="pre_amt" placeholder="Enter Premium Amount...."
             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+        </div> -->
+        <div class="field col-12 md:col-4">
+          <label for="pre_amt" class="label_field" style="color: black"><b>Premium Amount<span
+                class="text-red-700">*</span></b></label>
+          <input id="pre_amt" type="text" formControlName="pre_amt" placeholder="Enter Premium Amount...."
+            class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
         </div>
-      </div> -->
+      </div>
 
 
       <p-divider type="dashed"></p-divider>
@@ -296,10 +308,17 @@
           </select>
         </div>
       </div>
-      <div *ngIf="form.controls['payment'].value!= 'Q'">
+      <!-- <div *ngIf="form.controls['payment'].value!= 'Q'">
         <div class="flex flex-row">
           <button pButton pRipple type="button" label="DONE" class="p-button-raised"
             (click)="cash_accept_premium()"></button>
+        </div>
+      </div> -->
+      <div class="flex flex-row" *ngIf="form.controls['payment'].value != 'Q' && form.controls['payment'].value != 'O'">
+        <div class="field col-12 md:col-12">
+          <label for="receipt_no" style="color: black"><b>Receipt No</b></label>
+          <input id="receipt_no" type="text" formControlName="receipt_no" placeholder="Enter Receipt No...."
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
         </div>
       </div>
 
@@ -323,18 +342,30 @@
           </div>
           <div class="field col-12 md:col-4">
             <label for="bank_name" style="color: black"><b>Bank Name<span class="text-red-700">*</span></b></label>
-            <input id="bank_name" type="text" formControlName="bank_name" placeholder="Enter Bank Name...."
-              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            <select id="bank_name" formControlName="bank_name" [(ngModel)]="selectedValue3"
+              class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+              style="appearance: auto; height: 3vw; border-radius: 7px">
+              <option value="N" select>Select Bank Name</option>
+              <option *ngFor="let option of responsedata_trust" [value]="option.acc_cd">{{ option.bank_name }}</option>
+            </select>
             <div *ngIf="f['bank_name']?.touched || f['bank_name']?.dirty">
               <small class="text-red-900" *ngIf="f['bank_name']?.errors">Bank Name is required.</small>
             </div>
           </div>
+
         </div>
-        <div class="flex flex-row">
+        <!-- <div class="flex flex-row">
           <button pButton pRipple type="button" label="DONE" class="p-button-raised sub_btn"
             (click)="cheque_accept()"></button>
-        </div>
+        </div> -->
       </div>
+
+
+    </div>
+
+    <div class="flex flex-row" *ngIf="form.controls['status'].value === 'T'">
+      <button pButton pRipple type="button" label="Save" class="p-button-raised sub_btn" (click)="save()"
+        [disabled]="f['resolution_no'].invalid || f['resolution_dt'].invalid || f['pre_dt'].invalid || f['pre_amt'].invalid || f['cheque_dt'].invalid || f['cheque_no'].invalid || f['bank_name'].invalid"></button>
     </div>
 
 

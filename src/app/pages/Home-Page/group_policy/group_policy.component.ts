@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, isFormArray, Validators } from '@angular/forms';
 import { DataService } from 'src/app/service/data.service';
 import { ValidatorsService } from 'src/app/service/validators.service';
 import Swal from 'sweetalert2';
@@ -45,6 +45,7 @@ export class Group_policyComponent implements OnInit {
   checkedmember: any  = false
   isMember: boolean = true;
   responsedata_unit: any;
+  maxDate!: string;
 
 
   constructor(
@@ -58,6 +59,12 @@ export class Group_policyComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const year = today.getFullYear();
+    this.maxDate = `${year}-${month}-${day}`;
+
     this.mem_type = this.route.snapshot.params['mem_type'];
     this.user = localStorage.setItem
     this.form = this.fb.group({
@@ -84,7 +91,8 @@ export class Group_policyComponent implements OnInit {
       // dependent_name: [''],
       // relation: [''],
       // dob: [''],
-      depenFields_1: this.fb.array([])
+      depenFields_1: this.fb.array([]),
+      form_dt: ['', Validators.required],
     });
 
     // this.getData_dependents();
@@ -132,6 +140,30 @@ export class Group_policyComponent implements OnInit {
       this.get_non_dtls()
       this.unit()
       this.relationship()
+    }
+  }
+
+  // onPolicyAddDependent(memb_oprn: any) {
+  //   if(memb_oprn == 'J'){
+  //     this.checkedmember = true;
+  //     this.onadd()
+  //   }
+  // }
+
+  onPolicyAddDependent(event: Event): void {
+    const selectedValue = (event.target as HTMLSelectElement).value;
+    if (selectedValue === 'J') {
+    this.onadd()
+    } else {
+      Swal.fire(
+        'Warning',
+        'There is no access to add More Dependent',
+          'warning'
+      ).then((result) => {
+        if (result.isConfirmed) {
+          this.depenFields_1.clear()
+              }
+            });
     }
   }
 
@@ -191,6 +223,7 @@ export class Group_policyComponent implements OnInit {
       console.log(this.responsedata[0].unit_id)
       this.form.patchValue({
         policy_holder_type: this.responsedata[0].policy_holder_type,
+        // form_dt: this.responsedata[0].form_dt,
         unit: this.responsedata[0].unit_id,
         member_type: this.responsedata[0].mem_type,
         member: this.responsedata[0].memb_name,
@@ -257,12 +290,12 @@ onadd(sl_no:any = '',dependent_name:any = '',relation:any = '',dob:any = '',type
       name_diseases: [name_diseases],
       relation: [relation_id]
     },
-    {
-      validators: this.validatorsService.conditionalRequiredValidator(
-        'dependent_name', 
-        ['dob', 'relation_name','type_diseases','name_diseases']
-      ),
-    }
+    // {
+    //   validators: this.validatorsService.conditionalRequiredValidator(
+    //     'dependent_name', 
+    //     ['dob', 'relation_name','type_diseases','name_diseases']
+    //   ),
+    // }
   );
   this.depenFields_1.push(fieldGroup);
   // console.log(this.depenFields.controls, 'ADD');
@@ -290,11 +323,12 @@ onminus(index: number) {
 }
 
 final_submit(){
-  var sup_top_flag = this.o['sup_top_up'].value != '' ? this.sup_top_list.filter((dt: any) => dt.value == this.o['sup_top_up'].value) : ''
+  // var sup_top_flag = this.o['sup_top_up'].value != '' ? this.sup_top_list.filter((dt: any) => dt.value == this.o['sup_top_up'].value) : ''
   var dt = {
       flag: 'GP',
       checkedmember: this.checkedmember,
       policy_holder_type: this.o['policy_holder_type']? this.o['policy_holder_type'].value : null,
+      form_dt: this.o['form_dt'] ? this.o['form_dt'].value : null,
       unit: this.o['unit']? this.o['unit'].value : null,
       member_id: this.o['member_id'] ? this.o['member_id'].value : null,
       type_diseases: this.o['type_diseases'] ? this.o['type_diseases'].value : null,
@@ -302,20 +336,20 @@ final_submit(){
       member: this.o['member'] ? this.o['member'].value : null,
       phone: this.o['phone'] ? this.o['phone'].value : null,
       dependent_dt: this.depenFields_1.value,
-      grp_name : this.o['grp_name'] ? this.o['grp_name'].value : null,
-      pre_amont : this.o['pre_amont'] ? this.o['pre_amont'].value : null,
+      // grp_name : this.o['grp_name'] ? this.o['grp_name'].value : null,
+      // pre_amont : this.o['pre_amont'] ? this.o['pre_amont'].value : null,
       // super_top_up_yes : this.o['super_top_up_yes'] ? this.o['super_top_up_yes'].value : null,
       // super_top_up_no : this.o['super_top_up_no'] ? this.o['super_top_up_no'].value : null,
-      sup_top_up : this.o['sup_top_up'] ? this.o['sup_top_up'].value : null,
-      sup_pre_amont : this.o['sup_pre_amont'] ? this.o['sup_pre_amont'].value : null,
-      sup_tot_amont : this.o['sup_tot_amont'] ? this.o['sup_tot_amont'].value : null,
+      // sup_top_up : this.o['sup_top_up'] ? this.o['sup_top_up'].value : null,
+      // sup_pre_amont : this.o['sup_pre_amont'] ? this.o['sup_pre_amont'].value : null,
+      // sup_tot_amont : this.o['sup_tot_amont'] ? this.o['sup_tot_amont'].value : null,
       member_type: this.o['member_type'] ? this.o['member_type'].value : null,
       gurdian: this.o['gurdian'] ? this.o['gurdian'].value : null,
       gen: this.o['gen'] ? this.o['gen'].value : null,
       marital_status: this.o['marital_status'] ? this.o['marital_status'].value : null,
       gen_dob: this.o['gen_dob'] ? this.o['gen_dob'].value : null,
       memb_oprn: this.o['memb_oprn'] ? this.o['memb_oprn'].value : null,
-      sup_top_flag: sup_top_flag.length > 0 ? sup_top_flag[0].flag : '',
+      // sup_top_flag: sup_top_flag.length > 0 ? sup_top_flag[0].flag : '',
       
   }
   this.dataServe.global_service(1, '/save_group_policy_form', dt).subscribe(

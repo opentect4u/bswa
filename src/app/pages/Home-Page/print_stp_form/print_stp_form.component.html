@@ -37,251 +37,291 @@
 <div class="background">
   <div class="form-container">
     <p-card id="divToPrint">
-      <div class="row">
-        <div class="col-12">
-          <h4 class="letter" style="color: black">TO</h4>
-          <h4 class="letter" style="color: black">The Secreatry</h4>
-          <h3 class="letter" style="color: black">
-            BOSEC WELFARE TRUST
-          </h3>
-          <h4 class="letter" style="color: black">13 CAMAC STREET,</h4>
-          <h4 class="letter" style="color: black">KOLKATA 700017</h4>
-          <h4 class="letter" style="color: black">(Through: <span
-              style="color: rgb(55, 55, 230);"><u>{{stpinfo?.mem_type == 'G' ? 'General Membership' :
-                stpinfo?.mem_type == 'L' ? 'Life
-                membership' : ''}}</u></span>)</h4>
-          <h4 class="letter" style="color: black">Dear Sir,</h4>
-          <h4 class="size" style="color: black">
-            This is to inform you that the under signed is the member of <span
-              style="color: rgb(55, 55, 230);"><u>{{stpinfo?.mem_type == 'G' ? 'General
-                Membership' : stpinfo?.mem_type == 'L' ? 'Life
-                membership' : ''}}</u></span> having membership no.
-            <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.member_id}}</u></span> and
-            Superannuated from <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.unit_name}}</u></span>. My SAIL
-            PERSONNEL NO. is <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.personel_no}}</u></span>.
-            I am interested to join in the scheme of super top up policy with the UNITED INDIA INSURANCE CO LTD for the
-            year
-            subject to premium and other term. The details of the undersigned are as under:
-          </h4>
-        </div>
-      </div>
+      <div class="print_Section">
+        <div class="row">
+          <div class="col-12">
+            <!-- <h4 class="letter" style="color: black">TO</h4>
 
-      <div class="row">
-        <table class="table_space">
-          <tr>
-            <th class="text-center" style="background-color: aliceblue">
-              <label for="status" class="label_field"><b>STATUS</b></label>
-            </th>
-            <th class="text-center" style="background-color: aliceblue">
-              <label for="status" class="label_field"><b>NAME</b><span class="span_space"></span></label>
-            </th>
-            <th class="text-center" style="background-color: aliceblue">
-              <label for="status" class="label_field"><b>MIN NO</b><span class="span_space"></span></label>
-            </th>
-            <th class="text-center" style="background-color: aliceblue">
-              <label for="status" class="label_field"><b>DOB</b><span class="span_space"></span></label>
-            </th>
-            <th class="text-center" style="background-color: aliceblue">
-              <label for="status" class="label_field"><b>MOBILE NO</b><span class="span_space"></span></label>
-            </th>
-            <th class="text-center" style="background-color: aliceblue">
-              <label for="status" class="label_field"><b>ADDRESS</b><span class="span_space"></span></label>
-            </th>
-          </tr>
-
-          <tr>
-            <th class="text-center"><span class="label_field" style="color: rgb(55, 55, 230);">SELF</span></th>
-            <th class="text-center"><span class="label_field"
-                style="color: rgb(55, 55, 230);">{{stpinfo?.memb_name!='null' ? stpinfo?.memb_name : 'N/A'}}</span></th>
-            <th class="text-center"><span class="label_field" style="color: rgb(55, 55, 230);">{{stpinfo?.min_no!='null'
-                ? stpinfo?.min_no : 'N/A'}}</span></th>
-            <th class="text-center"><span class="label_field" style="color: rgb(55, 55, 230);"> {{stpinfo?.dob &&
-                stpinfo?.dob !== '0000-00-00' ? (stpinfo?.dob | date: 'MM/dd/yyyy') :
-                'N/A'}}</span></th>
-            <th class="text-center"><span class="label_field" style="color: rgb(55, 55, 230);">{{
-                stpinfo?.phone_no}}</span></th>
-            <th class="text-center"><span class="label_field"
-                style="color: rgb(55, 55, 230);">{{stpinfo?.mem_address!='null' ? stpinfo?.mem_address : 'N/A'}}</span>
-            </th>
-          </tr>
-          <tr>
-            <th class="text-center"><span class="label_field" style="color: rgb(55, 55, 230);">SPOUSE</span></th>
-            <th class="text-center"><span class="label_field" style="color: rgb(55, 55, 230);">{{
-                stpinfo?.dependent_name!= 'null' ? stpinfo?.dependent_name : 'N/A'}}</span></th>
-            <th class="text-center"><span class="label_field"
-                style="color: rgb(55, 55, 230);">{{stpinfo?.spou_min_no!='null' ? stpinfo?.spou_min_no : 'N/A'}}</span>
-            </th>
-            <th class="text-center">
-              <span class="label_field" style="color: rgb(55, 55, 230);">
-                {{stpinfo?.spou_dob && stpinfo?.spou_dob !== '0000-00-00' ? (stpinfo?.spou_dob | date: 'MM/dd/yyyy') :
-                'N/A'}}
-              </span>
-            </th>
-
-            <th class="text-center"><span class="label_field"
-                style="color: rgb(55, 55, 230);">{{stpinfo?.spou_phone}}</span>
-            </th>
-            <th class="text-center"><span class="label_field"
-                style="color: rgb(55, 55, 230);">{{stpinfo?.spou_address!='null' ? stpinfo?.spou_address :
-                'N/A'}}</span></th>
-          </tr>
-        </table>
-      </div>
-
-      <div class="row mt-4">
-        <h4 class="letter_style" style="color: black">
-          <u>I am giving below the total usage of amount under SAIL MEDICLAIM POLICY FOR THE YEAR under IPD are as
-            below:</u>
-        </h4>
-      </div>
-
-      <div class="row">
-        <table class="table_space">
-          <tr>
-            <th class="text-center" style="background-color: aliceblue">
-              <label for="status" class="label_field"><b>Sl No</b></label>
-            </th>
-            <th class="text-center" style="background-color: aliceblue">
-              <label for="status" class="label_field"><b><u>STATUS</u></b><span class="label_field"></span></label>
-            </th>
-            <th class="text-center" style="background-color: aliceblue">
-              <label for="status" class="label_field"><b><u>YEAR</u></b><span class="label_field"></span></label>
-            </th>
-            <th class="text-center" style="background-color: aliceblue">
-              <label for="status" class="label_field"><b><u>PARTICULAR OF DISEASE</u></b><span
-                  class="label_field"></span></label>
-            </th>
-            <th class="text-center" style="background-color: aliceblue">
-              <label for="status" class="label_field"><b><u>AMOUNT UTILISED</u></b><span
-                  class="label_field"></span></label>
-            </th>
-            <th colspan="2" class="text-center" style="background-color: aliceblue">
-              <label for="status" class="label_field"><b><u>MEDICAL TREATMENT TAKEN AT (HOSPITAL NAME)</u></b><span
-                  class="label_field"></span></label>
-            </th>
-          </tr>
-          <tr *ngFor="let dt of spouseInfo; let i = index">
-            <th class="text-center" style="color: rgb(55, 55, 230);"><span class="label_field">{{dt.sl_no}}</span>
-            </th>
-            <th class="text-center"><span class="label_field" style="color: rgb(55, 55, 230);">{{dt.ind_type == 'S' ?
-                'SELF' : 'SPOUSE'}}</span></th>
-            <th class="text-center" style="width: 8vw;"><span class="label_field"
-                style="color: rgb(55, 55, 230);">{{dt.fin_year}}</span></th>
-            <th style="width: 38vw;"><span class="label_field"
-                style="color: rgb(55, 55, 230);">{{dt.particulars}}</span></th>
-            <th><span class="label_field" style="color: rgb(55, 55, 230);">{{dt.amount}}</span></th>
-            <th><span class="label_field" style="color: rgb(55, 55, 230);">{{dt.treatment_dtls}}</span></th>
-          </tr>
-        </table>
-      </div>
-
-      <div class="row mt-3">
-        <h4 class="letter_style" style="color: black">
-          (Year means 11th July to 10th July of next year)
-          I do hereby declare that all the information are correct. For any misinformation I will be liable for the loss
-          suffered by you and will be liable to pay including penalty if any. As and when premium is declared we will
-          deposit the same as per the procedure. I have read out the terms and agreed.
-        </h4>
-        <h4 class="letter_style" style="color: black;margin-left: 67vw;">
-          Thanking You,
-        </h4>
-        <h4 class="letter_style" style="color: black;margin-left: 67vw;">
-          Yours faithfully,
-        </h4><br>
-        <span class="span_space" style="color: rgb(9, 42, 233);margin-left: 62vw;"><b></b></span>
-        <h4 class="letter_style" style="color: black;margin-left: 62vw;">
-          Signature with date
-        </h4>
-      </div>
-
-      <div class="row mt-5">
-        <p class="label_field" style="color: black"><b>Insurance is coverage rendered to the individual/members during
-            any
-            uncertain loss; it's not made for making profit or any type of speculation/gambling. Likewise, in Health
-            Insurance coverage provided to the Policy holders during their Hospitaliration (treatment of which cannot be
-            done from OPD/domiciliary basis). Therefore, members are requested to be judicial while taking Insurance
-            coverage for their hospitalization, any type of forceful admission (where hospital infrastructure is not at
-            all
-            required) in hospital, request for over stav or doing diagnostic tests through IPD admission (which can be
-            easily done through OPD) by prudent members will be discouraged.</b></p>
-
-        <p class="label_field" style="color: black"><b>Similarly, super top up policy is an additional benefit/coverage
-            designed for the members applicable only when the basic coverage got exhausted. It is basically designed to
-            extend support to the members in case of hospitalization involved with huge uncertain expenses (beyond basic
-            policy coverage). Chronic diseases which require certain repeated hospitalization will not come under the
-            scope
-            of this Super Top up Policy.</b></p>
-
-        <p class="label_field" style="color: black">What is a super top up Health policy?</p>
-
-        <p class="label_field" style="color: black"><b>✔</b> Super top up policy is designed that an insurer can claim
-          after a certain amount for reimbursement of IPD Hospitalization. This certain amount is called as threshold
-          amount
-        </p>
-
-        <p class="label_field" style="color: black"><b>✔</b> When a single member (either self or spouse) is joining
-          the
-          scheme, his threshold amount has been kept as 4 lacs. The amount has been fixed considering the SAIL MEDICLAIM
-          POLICY. This threshold amount is applicable at the time of application (for example a person has already
-          consumed
-          certain amount at the time of joining in the scheme will not be taken into a/c) - The premium for 2021-22
-          (11/7/2021 to 10/7/2022) is Rs. 2400/- including service tax</p>
-
-        <p class="label_field" style="color: black"><b>✔</b> In case of Self & spouse, i.e. both the threshold amount
-          has
-          been kept at Rs. 8 lacs considering the SAIL MEDICLAIM SCHEME. The premium is Rs. 4650/- for the period as
-          mentioned above.</p>
-
-        <p class="label_field" style="color: black"><b>✔ <u>Though the policy covers the pre disease, but there is
-              restriction which has been kept by the trust for the members those require multiple hospitalization during
+            <h4 class="letter" style="color: black">The Secreatry</h4>
+            <h3 class="letter" style="color: black">
+              BOSEC WELFARE TRUST
+            </h3>
+            <h4 class="letter" style="color: black">13 CAMAC STREET,</h4>
+            <h4 class="letter" style="color: black">KOLKATA 700017</h4>
+            <h4 class="letter" style="color: black">(Through: <span
+                style="color: rgb(55, 55, 230);"><u>{{stpinfo?.mem_type == 'G' ? 'General Membership' :
+                  stpinfo?.mem_type == 'L' ? 'Life
+                  membership' : ''}}</u></span>)</h4>
+            <h4 class="letter" style="color: black">Dear Sir,</h4>
+            <h4 class="size" style="color: black">
+              This is to inform you that the under signed is the member of <span
+                style="color: rgb(55, 55, 230);"><u>{{stpinfo?.mem_type == 'G' ? 'General
+                  Membership' : stpinfo?.mem_type == 'L' ? 'Life
+                  membership' : ''}}</u></span> having membership no.
+              <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.member_id}}</u></span> and
+              Superannuated from <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.unit_name}}</u></span>. My SAIL
+              PERSONNEL NO. is <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.personel_no}}</u></span>.
+              I am interested to join in the scheme of super top up policy with the UNITED INDIA INSURANCE CO LTD for the
+              year
+              subject to premium and other term. The details of the undersigned are as under:
+            </h4> -->
+            <p>To <br> The Secreatry <br>
+              <b>BOSEC WELFARE TRUST</b> <br>
+              13, CAMAC STREET, <br>
+              KOLKATA 700017
+            </p>
+            <h4>(Through: <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.mem_type == 'G' ? 'General Membership' :
+                  stpinfo?.mem_type == 'L' ? 'Life
+                  membership' : ''}}</u></span>)</h4>
+            <p>Dear Sir,</p>
+            <p>This is to inform you that the under signed is the member of <span class="perple"><u>{{stpinfo?.mem_type
+                  == 'G' ? 'General
+                  Membership' : stpinfo?.mem_type == 'L' ? 'Life
+                  membership' : ''}}</u></span> having membership no.
+              <span class="perple"><u>{{stpinfo?.member_id}}</u></span> and
+              Superannuated from <span class="perple"><u>{{stpinfo?.unit_name}}</u></span>. My SAIL
+              PERSONNEL NO. is <span class="perple"><u>{{stpinfo?.personel_no}}</u></span>.
+              I am interested to join in the scheme of super top up policy with the UNITED INDIA INSURANCE CO LTD for
               the
-              year is not being considered, as the concept of joining any health insurance scheme is for coverage. In
-              this
-              cases the membership deemed to be taken as insurance for claim and not for coverage.</u></b></p>
-
-        <p class="label_field" style="color: black">The above restriction has to be kept to keep the policy continuity,
-          otherwise the members having terminal disease will be join the scheme and the ICR will go up to a large extent
-          and
-
-          it will not be possible for continuance of the policy. The terms and condition of the Insurance policy is
-          strictly
-          as per the terms of SAIL
-
-          <b>MEDICLAIM INSURANCE</b> and the restriction on SAIL MEDICLAIM SCHEME will also applicable in this scheme.
-        </p>
-
-        <p class="label_field" style="color: black">Entry period strictly as per the renewal period of SAIL MEDICLAIM.
-          However, when a member joining mediclaim scheme of SAIL at the time of superannuation, he can simultaneously
-          can
-          join in the scheme at any time during the year.</p>
-
-      </div>
-
-      <div class="row mt-5 text-center">
-        <span class="letter_style" style="color: rgb(9, 42, 233)"><b></b></span>
-        <p class="label_field" style="color: black"><b>Signature with date</b></p>
-      </div>
-
-      <!-- <p-divider type="dashed"></p-divider>
-      <h3 class="text-center"><b>Please click on Download option to connect with SBCOLLECT PAYMENT LINK </b></h3> -->
-
-      <!-- <div class="flex flex-row">
-        <div class="container mt-5">
-          <div class="card">
-            <div class="card-body">
-              <h3 class="card-title">SBCOLLECT PAYMENT LINK</h3>
-              <p class="card-text"><b>File: 2.12 MB</b>
-              </p>
-              <p><a href="https://www.onlinesbi.sbi/sbicollect/icollecthome.htm" class="btn btn-primary dwn_btn"
-                  target="_blank">Download</a></p>
-            </div>
+              year
+              subject to premium and other term. The details of the undersigned are as under:
+            </p>
           </div>
         </div>
-      </div> -->
 
-      <div class="row mt-5 text-center">
-        <p-button label="PRINT" styleClass="p-button-rounded print_btn" (click)="printDiv()"></p-button>
+        <div class="row">
+          <table class="table_space_cus">
+            <tr class="table_head_cus">
+              <th>
+                <b>STATUS</b>
+              </th>
+              <th>
+                <b>NAME</b><span class="span_space"></span>
+              </th>
+              <th>
+                <b>MIN NO</b><span class="span_space"></span>
+              </th>
+              <th>
+                <b>DOB</b><span class="span_space"></span>
+              </th>
+              <th>
+                <b>MOBILE NO</b><span class="span_space"></span>
+              </th>
+              <th>
+                <b>ADDRESS</b><span class="span_space"></span>
+              </th>
+            </tr>
+
+            <tr>
+              <th><span>SELF</span></th>
+              <th><span>{{stpinfo?.memb_name!='null' ? stpinfo?.memb_name : 'N/A'}}</span>
+              </th>
+              <th><span>{{stpinfo?.min_no!='null'
+                  ? stpinfo?.min_no : 'N/A'}}</span></th>
+              <th><span> {{stpinfo?.dob &&
+                  stpinfo?.dob !== '0000-00-00' ? (stpinfo?.dob | date: 'MM/dd/yyyy') :
+                  'N/A'}}</span></th>
+              <th><span>{{
+                  stpinfo?.phone_no}}</span></th>
+              <th><span>{{stpinfo?.mem_address!='null' ? stpinfo?.mem_address :
+                  'N/A'}}</span>
+              </th>
+            </tr>
+            <tr>
+              <th><span>SPOUSE</span></th>
+              <th><span>{{
+                  stpinfo?.dependent_name!= 'null' ? stpinfo?.dependent_name : 'N/A'}}</span></th>
+              <th><span>{{stpinfo?.spou_min_no!='null' ? stpinfo?.spou_min_no :
+                  'N/A'}}</span>
+              </th>
+              <th>
+                <span>
+                  {{stpinfo?.spou_dob && stpinfo?.spou_dob !== '0000-00-00' ? (stpinfo?.spou_dob | date: 'MM/dd/yyyy') :
+                  'N/A'}}
+                </span>
+              </th>
+
+              <th><span>{{stpinfo?.spou_phone}}</span>
+              </th>
+              <th><span>{{stpinfo?.spou_address!='null' ? stpinfo?.spou_address :
+                  'N/A'}}</span></th>
+            </tr>
+          </table>
+        </div>
+
+        <div class="row mt-4">
+          <h4><br><br>
+            <u>I am giving below the total usage of amount under SAIL MEDICLAIM POLICY FOR THE YEAR under IPD are as
+              below:</u>
+          </h4>
+        </div>
+
+        <div class="row">
+          <table class="table_space">
+            <tr class="table_head_cus">
+              <th>
+                <b>Sl No</b>
+              </th>
+              <th>
+                <b>STATUS</b><span class="label_field"></span>
+              </th>
+              <th>
+                <b>YEAR</b><span class="label_field"></span>
+              </th>
+              <th>
+                <b>PARTICULAR OF DISEASE</b><span class="label_field"></span>
+              </th>
+              <th>
+                <b>AMOUNT UTILISED</b><span class="label_field"></span>
+              </th>
+              <th colspan="2">
+                <b>MEDICAL TREATMENT TAKEN AT (HOSPITAL NAME)</b><span class="label_field"></span>
+              </th>
+            </tr>
+            <tr *ngFor="let dt of spouseInfo; let i = index">
+              <th><span>{{dt.sl_no}}</span>
+              </th>
+              <th><span>{{dt.ind_type == 'S' ?
+                  'SELF' : 'SPOUSE'}}</span></th>
+              <th><span>{{dt.fin_year}}</span></th>
+              <th><span>{{dt.particulars}}</span></th>
+              <th><span>{{dt.amount}}</span></th>
+              <th><span>{{dt.treatment_dtls}}</span></th>
+            </tr>
+          </table>
+        </div>
+
+        <div class="row mt-3">
+          <!-- <h4 class="letter_style" style="color: black">
+            (Year means 11th July to 10th July of next year)
+            I do hereby declare that all the information are correct. For any misinformation I will be liable for the
+            loss
+            suffered by you and will be liable to pay including penalty if any. As and when premium is declared we will
+            deposit the same as per the procedure. I have read out the terms and agreed.
+          </h4>
+          <h4 class="letter_style" style="color: black;margin-left: 67vw;">
+            Thanking You,
+          </h4>
+          <h4 class="letter_style" style="color: black;margin-left: 67vw;">
+            Yours faithfully,
+          </h4><br>
+          <span class="span_space" style="color: rgb(9, 42, 233);margin-left: 62vw;"><b></b></span>
+          <h4 class="letter_style" style="color: black;margin-left: 62vw;">
+            Signature with date
+          </h4> -->
+          <p>
+            (Year means 11th July to 10th July of next year)
+            I do hereby declare that all the information are correct. For any misinformation I will be liable for the
+            loss
+            suffered by you and will be liable to pay including penalty if any. As and when premium is declared we will
+            deposit the same as per the procedure. I have read out the terms and agreed.
+          </p>
+          <p>
+            Thanking You, <br>
+            Yours faithfully,
+            <br> <br> <br>
+            <b>Signature with date</b>
+          </p>
+        </div>
+
+        <div class="row mt-5">
+          <p><b>Insurance is coverage rendered to the individual/members during
+              any
+              uncertain loss; it's not made for making profit or any type of speculation/gambling. Likewise, in Health
+              Insurance coverage provided to the Policy holders during their Hospitaliration (treatment of which cannot
+              be
+              done from OPD/domiciliary basis). Therefore, members are requested to be judicial while taking Insurance
+              coverage for their hospitalization, any type of forceful admission (where hospital infrastructure is not
+              at
+              all
+              required) in hospital, request for over stav or doing diagnostic tests through IPD admission (which can be
+              easily done through OPD) by prudent members will be discouraged.</b></p>
+
+          <p><b>Similarly, super top up policy is an additional
+              benefit/coverage
+              designed for the members applicable only when the basic coverage got exhausted. It is basically designed
+              to
+              extend support to the members in case of hospitalization involved with huge uncertain expenses (beyond
+              basic
+              policy coverage). Chronic diseases which require certain repeated hospitalization will not come under the
+              scope
+              of this Super Top up Policy.</b></p>
+
+          <p>What is a super top up Health policy?</p>
+
+          <p><b>✔</b> Super top up policy is designed that an insurer can claim
+            after a certain amount for reimbursement of IPD Hospitalization. This certain amount is called as threshold
+            amount
+          </p>
+
+          <p><b>✔</b> When a single member (either self or spouse) is joining
+            the
+            scheme, his threshold amount has been kept as 4 lacs. The amount has been fixed considering the SAIL
+            MEDICLAIM
+            POLICY. This threshold amount is applicable at the time of application (for example a person has already
+            consumed
+            certain amount at the time of joining in the scheme will not be taken into a/c) - The premium for 2021-22
+            (11/7/2021 to 10/7/2022) is Rs. 2400/- including service tax</p>
+
+          <p><b>✔</b> In case of Self & spouse, i.e. both the threshold amount
+            has
+            been kept at Rs. 8 lacs considering the SAIL MEDICLAIM SCHEME. The premium is Rs. 4650/- for the period as
+            mentioned above.</p>
+
+          <p><b>✔ <u>Though the policy covers the pre disease, but there is
+                restriction which has been kept by the trust for the members those require multiple hospitalization
+                during
+                the
+                year is not being considered, as the concept of joining any health insurance scheme is for coverage. In
+                this
+                cases the membership deemed to be taken as insurance for claim and not for coverage.</u></b></p>
+
+          <p>The above restriction has to be kept to keep the policy
+            continuity,
+            otherwise the members having terminal disease will be join the scheme and the ICR will go up to a large
+            extent
+            and
+
+            it will not be possible for continuance of the policy. The terms and condition of the Insurance policy is
+            strictly
+            as per the terms of SAIL
+
+            <b>MEDICLAIM INSURANCE</b> and the restriction on SAIL MEDICLAIM SCHEME will also applicable in this scheme.
+          </p>
+
+          <p>Entry period strictly as per the renewal period of SAIL MEDICLAIM.
+            However, when a member joining mediclaim scheme of SAIL at the time of superannuation, he can simultaneously
+            can
+            join in the scheme at any time during the year.</p>
+
+        </div>
+
+        <div class="row mt-5 text-center">
+          <span class="letter_style" style="color: rgb(9, 42, 233)"><b></b></span>
+          <p><b>Signature with date</b></p>
+        </div>
+        <!-- <p-divider type="dashed"></p-divider>
+        <h3 class="text-center"><b>Please click on Download option to connect with SBCOLLECT PAYMENT LINK </b></h3> -->
+
+        <!-- <div class="flex flex-row">
+          <div class="container mt-5">
+            <div class="card">
+              <div class="card-body">
+                <h3 class="card-title">SBCOLLECT PAYMENT LINK</h3>
+                <p class="card-text"><b>File: 2.12 MB</b>
+                </p>
+                <p><a href="https://www.onlinesbi.sbi/sbicollect/icollecthome.htm" class="btn btn-primary dwn_btn"
+                    target="_blank">Download</a></p>
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+        <div class="row mt-5 text-center">
+          <p-button label="PRINT" styleClass="p-button-rounded print_btn" (click)="printDiv()"></p-button>
+        </div>
       </div>
+
     </p-card>
   </div>
 </div>

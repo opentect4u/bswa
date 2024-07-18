@@ -5,6 +5,7 @@ import { DataService } from 'src/app/service/data.service';
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 
 interface MemberStatus {
   name: string;
@@ -84,17 +85,18 @@ export class Group_policy_view_formComponent implements OnInit {
   memb_pic: any;
   responsedata_1: any;
 
-  spouseInfo: [SpouseDepenInfo] | undefined;
+  spouseInfo: SpouseDepenInfo[] | undefined;
   stpinfo: MembershipInfo | undefined;
   ind_type: any;
   treatment_dtls:any;
   particulars:any;
   amount:any;
   fin_year:any;
-  form: FormGroup;
+  form!: FormGroup;
   selectedValue: string = 'P';
   selectedValue2: string = 'C';
   selectedValue_3: string = 'Y';
+  selectedValue3: string = 'N'
   cheque_data: any;
 
   sup_top_list: any = [];
@@ -104,6 +106,9 @@ export class Group_policy_view_formComponent implements OnInit {
   pre_amt_value: any;
   tot_pre_amt: number = 0;
   genInsData: any
+  maxDate!: string;
+  responsedata_trust: any;
+  save_dt: any;
 
   constructor(
     private router: Router,
@@ -111,24 +116,7 @@ export class Group_policy_view_formComponent implements OnInit {
     private route: ActivatedRoute,
     private dataServe: DataService,
     private datePipe: DatePipe
-  ) { this.form = this.fb.group({
-    resolution_no: ['',Validators.required],
-    resolution_dt: ['',Validators.required],
-    status: ['',Validators.required],
-    reject: ['',Validators.required],
-    payment: [''],
-    pre_amt: [''],
-    ins_period: [''],
-    pre_dt: [''],
-    cheque_dt: [''],
-    cheque_no: [''],
-    bank_name: [''],
-  });
-
-  this.form.valueChanges.subscribe(() => {
-    this.calculateTotalAmount();
-  });
- }
+  ) {}
 
  get f() {
   return this.form.controls;
@@ -139,21 +127,59 @@ export class Group_policy_view_formComponent implements OnInit {
 // }
 
   ngOnInit() {
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const year = today.getFullYear();
+    this.maxDate = `${year}-${month}-${day}`;
+    
     const encodedFormNo = this.route.snapshot.params['form_no'];
     this.member_id = localStorage.getItem('user_name')
     const encodedMemId = this.route.snapshot.params['member_id'];
     console.log(this.member_id,'ooo'); 
     this.form_no = atob(decodeURIComponent(encodedFormNo));
     this.member_id = atob(decodeURIComponent(encodedMemId));
+
+    this.form = this.fb.group({
+      resolution_no: ['',Validators.required],
+      resolution_dt: ['',Validators.required],
+      status: [''],
+      reject: ['',Validators.required],
+      payment: [''],
+      pre_amt: ['',Validators.required],
+      ins_period: [{value: 0, disabled: true}],
+      pre_dt: ['',Validators.required],
+      cheque_dt: ['',Validators.required],
+      cheque_no: ['',Validators.required],
+      bank_name: ['',Validators.required],
+      receipt_no: [''],
+    });
+  
+    this.form.valueChanges.subscribe(() => {
+      this.calculateTotalAmount();
+    });
+
     this.getGenInsInfo()
     // this.getMemberInfo();
     // this.getSpouseInfo();
     // this.getPremiumInfo();
     this.getTransactionInfo();
+    this.bank_list();
   }
-  get totalAmount(): number {
-    return this.calculateTotalAmount();
+
+  bank_list() {
+    this.dataServe.global_service(0, '/master/bank_name_list_trust', `org_flag=T`).subscribe((data:any) => {
+      this.responsedata_trust = data
+      console.log(this.responsedata_trust);
+      this.responsedata_trust = this.responsedata_trust.suc > 0 ? this.responsedata_trust.msg : []
+      // this.responsedata = this.responsedata.suc > 0 ? (this.responsedata[0].org_flag.filter((dt:any) => )) : []
+      })
+  
   }
+
+  // get totalAmount(): number {
+  //   return this.calculateTotalAmount();
+  // }
 
   calculateTotalAmount(): number {
     const supTopUp = parseInt(this.form.get('premium_amt')?.value) || 0;
@@ -231,7 +257,7 @@ export class Group_policy_view_formComponent implements OnInit {
       this.preinfo!['premium_amt3'] : '0';
       this.tot_pre_amt = parseInt(this.preinfo!.premium_amt) + parseInt(this.pre_amt_value)
       this.form.patchValue({
-        pre_amt : this.tot_pre_amt
+        // pre_amt : this.tot_pre_amt
       })
       console.log(this.preinfo,'pre');
       
@@ -321,12 +347,63 @@ export class Group_policy_view_formComponent implements OnInit {
         this.resdata = this.resdata.suc > 0 ? this.resdata.msg : []
         // console.log(this.resdata[0].subscription_1)
         this.form.patchValue({
-          resolution_no: this.resdata[0].resolution_no,
-          resolution_dt: this.datePipe.transform(this.resdata[0].resolution_dt, 'yyyy-MM-dd'),
-          status:this.resdata[0].form_status,
-          pre_amt: this.resdata[0].premium_amt,
+          resolution_no: this.resdata[0]?.resolution_no,
+          resolution_dt: this.datePipe.transform(this.resdata[0]?.resolution_dt, 'yyyy-MM-dd'),
+          status:this.resdata[0]!.form_status,
+          pre_amt: this.resdata[0]?.premium_amt,
         })
       })
+  }
+
+  save(){
+    var dt = {
+      formNo: this.form_no,
+      resolution_no: this.f['resolution_no'] ? this.f['resolution_no'].value : null,
+      resolution_dt: this.f['resolution_dt'] ? this.f['resolution_dt'].value : null,
+      status: this.f['status'] ? this.f['status'].value : null,
+      user: localStorage.getItem('user_name'),
+      ins_period: this.f['ins_period'] ? this.f['ins_period'].value : null,
+      pre_dt: this.f['pre_dt'] ? this.f['pre_dt'].value : null,
+      pre_amt:  this.f['pre_amt'] ? this.f['pre_amt'].value : null,
+      payment: this.f['payment'] ? this.f['payment'].value : null,
+      cheque_dt: this.f['cheque_dt'] ? this.f['cheque_dt'].value : null,
+      cheque_no: this.f['cheque_no'] ? this.f['cheque_no'].value : null,
+      bank_name: this.f['payment'].value == 'Q' ? this.f['bank_name'].value : this.f['payment'].value == 'O' ? '75' : '73',
+      user_name: this.stpinfo?.memb_name,
+      phone_no: this.stpinfo?.phone
+    }
+    this.dataServe.global_service(1,'/save_trn_data_gmp',dt).subscribe(data => {
+      // console.log(data,'kiki')
+      this.save_dt = data;
+      if(this.save_dt.suc > 0){
+        // this.userData = this.save_dt.msg[0];
+        Swal.fire(
+          'Success',
+          'Subscription deposit submited successfully',
+          'success'
+        ).then((result) => {
+          if (result.isConfirmed) {
+            // this.showDepoEntry = false;
+            // this.form.reset()
+            // this.entryForm.reset()
+            // this.router.navigate(['/admin/money_receipt',this.m['mem_id'].value, this.save_dt.trn_id])
+          }
+        });
+      }else{
+        Swal.fire(
+          'Error',
+          this.save_dt.msg,
+            'error'
+        )
+      }
+    },error => {
+      console.error(error);
+      Swal.fire(
+        'Error',
+        error,
+          'error'
+      )
+    })
   }
 
 }

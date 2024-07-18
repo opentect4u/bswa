@@ -28,7 +28,7 @@
         <div>
           <form [formGroup]="form">
             <div class="flex flex-row">
-              <div class="field col-12 md:col-8">
+              <div class="field col-12 md:col-6">
                 <label for="member_id" class="label_field"><b>Member ID:<span
                       class="text-red-700">*</span></b></label>&nbsp;
                 <input id="member_id" type="text" formControlName="member_id" placeholder="Enter Member ID"
@@ -44,7 +44,24 @@
             </div>
 
             <div class="flex flex-row">
-              <div class="field col-12 md:col-6" *ngIf="this.responsedata[0]?.mem_type !='AI'">
+              <div class="field col-12 md:col-4">
+                <label for="form_dt" class="label_field"><b>Date:<span class="text-red-700">*</span></b></label>&nbsp;
+                <ng-container *ngIf="checkedmember">
+                  <input id="form_dt" type="date" formControlName="form_dt" placeholder="dd/MM/yyyy" [max]="maxDate"
+                    class="box_input text-2xl text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                  <div *ngIf="o['form_dt']?.touched || o['form_dt']?.dirty">
+                    <small class="text-red-900" *ngIf="o['form_dt']?.errors">Date is required.</small>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="!checkedmember">
+                  <input id="form_dt" type="date" formControlName="form_dt" placeholder="dd/MM/yyyy" [max]="maxDate"
+                    class="box_input text-2xl text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                  <div *ngIf="o['form_dt']?.touched || o['form_dt']?.dirty">
+                    <small class="text-red-900" *ngIf="o['form_dt']?.errors">Date is required.</small>
+                  </div>
+                </ng-container>
+              </div>
+              <div class="field col-12 md:col-4" *ngIf="this.responsedata[0]?.mem_type !='AI'">
                 <label for="unit" class="label_field"><b>Unit Name:<span class="text-red-700">*</span></b></label>&nbsp;
                 <ng-container *ngIf="checkedmember">
                   <!-- <input id="unit" type="text" formControlName="unit" placeholder="Enter Unit Name"
@@ -75,7 +92,7 @@
                 </ng-container>
 
               </div>
-              <div class="field col-12 md:col-6">
+              <div class="field col-12 md:col-4">
                 <ng-container *ngIf="checkedmember">
                   <label for="phone" class="label_field"><b>Whatsapp Phone No:<span
                         class="text-red-700">*</span></b></label>&nbsp;
@@ -240,7 +257,7 @@
                     readonly /> -->
                   <select id="memb_oprn" formControlName="memb_oprn"
                     class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
-                    style="appearance: auto; height: 3vw; border-radius: 7px">
+                    style="appearance: auto; height: 3vw; border-radius: 7px" (change)="onPolicyAddDependent($event)">
                     <option value="">Select Operation</option>
                     <option value="S">Self</option>
                     <option value="J">Spouse</option>
@@ -378,10 +395,10 @@
 
 
 
-            <p-divider type="dashed"></p-divider>
-            <h3 class="text-center"><b>Premium Details</b></h3>
+            <!-- <p-divider type="dashed"></p-divider>
+            <h3 class="text-center"><b>Premium Details</b></h3> -->
 
-            <div class="flex flex-row">
+            <!-- <div class="flex flex-row">
               <div class="field col-12 md:col-12">
                 <label for="grp_name" class="label_field"><b>Group Name:</b></label>&nbsp;
                 <select id="grp_name" formControlName="grp_name"
@@ -396,19 +413,19 @@
                   </ng-container>
                 </select>
               </div>
-            </div>
+            </div> -->
 
 
-            <div class="flex flex-row">
+            <!-- <div class="flex flex-row">
               <div class="field col-12 md:col-12">
                 <label for="pre_amont" class="label_field"><b>Premium Amount:</b></label>&nbsp;
                 <input id="pre_amont" type="text" formControlName="pre_amont" placeholder="Enter Premium Amount"
                   class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                   readonly />
               </div>
-            </div>
+            </div> -->
 
-            <div class="flex flex-row">
+            <!-- <div class="flex flex-row">
               <div class="field col-12 md:col-6">
                 <label for="pre_amont" class="label_field"><b>Do you want to avail a Super Top Up on this
                     policy?</b></label>&nbsp;
@@ -427,9 +444,9 @@
                   <label for="super_top_up_no" class="label_field ml-2">No</label>
                 </div>
               </div>
-            </div>
+            </div> -->
 
-            <ng-container *ngIf="additionalOptions">
+            <!-- <ng-container *ngIf="additionalOptions">
               <div class="flex flex-row">
 
                 <div class="field col-12 md:col-3" *ngFor="let option of sup_top_list; let i = index">
@@ -460,14 +477,14 @@
               </div>
 
 
-            </ng-container>
+            </ng-container> -->
 
 
 
           </form>
 
-          <button pButton pRipple type="button" label="Submit" class="p-button-raised final"
-            (click)="final_submit()"></button>
+          <button pButton pRipple type="button" label="Submit" class="p-button-raised final" (click)="final_submit()"
+            [disabled]="o['member_id'].invalid || o['form_dt'].invalid || o['unit'].invalid || o['phone'].invalid || o['member_type'].invalid || o['member'].invalid || o['gurdian'].invalid ||  o['gen'].invalid ||  o['marital_status'].invalid ||  o['gen_dob'].invalid || o['memb_oprn'].invalid"></button>
         </div>
 
 

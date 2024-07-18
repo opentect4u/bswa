@@ -162,14 +162,14 @@ export class SubsDepoEntryComponent implements OnInit {
   subscription_fee(memb_type: any){
     this.dataServe.global_service(0, '/master/subscription_fee_dynamic', `memb_type=${memb_type}`).subscribe((data:any) => {
       this.responsedata_subs = data
-      // console.log(this.responsedata_subs,'ooo');
+      console.log(this.responsedata_subs,'ooopsss');
       this.responsedata_subs = this.responsedata_subs.suc > 0 ? this.responsedata_subs.msg : []
       var nowDate = new Date()
       var cal_upto = new Date(this.userData!.calc_upto)
       var cal_month = nowDate.getMonth() - cal_upto.getMonth()
       
       this.entryForm.patchValue({
-        subs_amt: cal_month * this.responsedata_subs[0].subscription_1 + parseInt(this.userData!.calc_amt)
+        subs_amt: (cal_month > 0 ? cal_month : 1) * this.responsedata_subs[0].subscription_1 + parseInt(this.userData!.calc_amt)
       })
       this.entryForm.get('subs_amt')?.setValidators([Validators.required, this.calculateSubsFee()])
       this.entryForm.get('subs_amt')?.updateValueAndValidity();
