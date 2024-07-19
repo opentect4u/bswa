@@ -109,6 +109,7 @@ export class Group_policy_view_formComponent implements OnInit {
   maxDate!: string;
   responsedata_trust: any;
   save_dt: any;
+  
 
   constructor(
     private router: Router,
@@ -146,9 +147,10 @@ export class Group_policy_view_formComponent implements OnInit {
       status: [''],
       reject: ['',Validators.required],
       payment: [''],
+      form_dt: ['',Validators.required],
       pre_amt: ['',Validators.required],
       ins_period: [{value: 0, disabled: true}],
-      pre_dt: ['',Validators.required],
+      pre_dt: [''],
       cheque_dt: ['',Validators.required],
       cheque_no: ['',Validators.required],
       bank_name: ['',Validators.required],
@@ -346,12 +348,26 @@ export class Group_policy_view_formComponent implements OnInit {
         console.log(this.resdata);
         this.resdata = this.resdata.suc > 0 ? this.resdata.msg : []
         // console.log(this.resdata[0].subscription_1)
-        this.form.patchValue({
-          resolution_no: this.resdata[0]?.resolution_no,
-          resolution_dt: this.datePipe.transform(this.resdata[0]?.resolution_dt, 'yyyy-MM-dd'),
-          status:this.resdata[0]!.form_status,
-          pre_amt: this.resdata[0]?.premium_amt,
-        })
+        if(this.resdata.length > 0){
+          this.form.patchValue({
+            resolution_no: this.resdata[0]?.resolution_no,
+            resolution_dt: this.datePipe.transform(this.resdata[0]?.resolution_dt, 'yyyy-MM-dd'),
+            status:this.resdata[0]?.form_status,
+            pre_amt: this.resdata[0]?.premium_amt,
+            form_dt: this.datePipe.transform(this.resdata[0]?.form_dt, 'yyyy-MM-dd'),
+            pre_dt: this.datePipe.transform(this.resdata[0]?.premium_dt, 'yyyy-MM-dd'),
+            receipt_no: this.resdata[0]?.receipt_no,
+            payment: this.resdata[0]?.pay_mode,
+            cheque_dt: this.datePipe.transform(this.resdata[0]?.chq_dt, 'yyyy-MM-dd'),
+            cheque_no: this.resdata[0]?.chq_no,
+            bank_name: this.resdata[0]?.chq_bank,
+          });
+          this.selectedValue2 = this.resdata[0]?.pay_mode;
+          this.selectedValue3 = this.resdata[0]?.chq_bank;
+        }
+         
+        
+       
       })
   }
 
@@ -362,31 +378,34 @@ export class Group_policy_view_formComponent implements OnInit {
       resolution_dt: this.f['resolution_dt'] ? this.f['resolution_dt'].value : null,
       status: this.f['status'] ? this.f['status'].value : null,
       user: localStorage.getItem('user_name'),
-      ins_period: this.f['ins_period'] ? this.f['ins_period'].value : null,
+      // ins_period: this.f['ins_period'] ? this.f['ins_period'].value : null,
+      form_dt: this.f['form_dt'] ? this.f['form_dt'].value : null,
       pre_dt: this.f['pre_dt'] ? this.f['pre_dt'].value : null,
       pre_amt:  this.f['pre_amt'] ? this.f['pre_amt'].value : null,
       payment: this.f['payment'] ? this.f['payment'].value : null,
+      receipt_no: this.f['receipt_no'] ? this.f['receipt_no'].value : null,
       cheque_dt: this.f['cheque_dt'] ? this.f['cheque_dt'].value : null,
       cheque_no: this.f['cheque_no'] ? this.f['cheque_no'].value : null,
-      bank_name: this.f['payment'].value == 'Q' ? this.f['bank_name'].value : this.f['payment'].value == 'O' ? '75' : '73',
-      user_name: this.stpinfo?.memb_name,
+      bank_name: this.f['payment'].value == 'Q' ? this.f['bank_name'].value : this.f['payment'].value == 'O' ? '75' : '16',
+      member: this.stpinfo?.memb_name,
       phone_no: this.stpinfo?.phone
     }
     this.dataServe.global_service(1,'/save_trn_data_gmp',dt).subscribe(data => {
-      // console.log(data,'kiki')
       this.save_dt = data;
+      console.log(this.save_dt,'save_dt');
+      
       if(this.save_dt.suc > 0){
-        // this.userData = this.save_dt.msg[0];
         Swal.fire(
           'Success',
-          'Subscription deposit submited successfully',
+          'Premium deposit successfully',
           'success'
         ).then((result) => {
           if (result.isConfirmed) {
             // this.showDepoEntry = false;
             // this.form.reset()
             // this.entryForm.reset()
-            // this.router.navigate(['/admin/money_receipt',this.m['mem_id'].value, this.save_dt.trn_id])
+            this.router.navigate(['/admin/accept_gmp_money_receipt',this.form_no, this.save_dt.trn_id])
+            // this.router.navigate(['/admin/group_policy_approve_form'])
           }
         });
       }else{

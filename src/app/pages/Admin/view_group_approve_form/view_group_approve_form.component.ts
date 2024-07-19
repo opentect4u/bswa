@@ -4,6 +4,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from 'src/app/service/data.service';
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-view_group_approve_form',
@@ -69,7 +70,7 @@ export class View_group_approve_formComponent implements OnInit {
       this.form.patchValue({
         policy_holder: this.userData[0]?.policy_holder_type == 'M' ? 'BSPWA Member' : this.userData[0]?.policy_holder_type == 'N' ? 'Member of Other SAIL Association' : '',
         form_no: this.userData[0]?.form_no,
-        // trn_dt: this.datePipe.transform(this.userData[0].trn_dt, 'yyyy-MM-dd'),
+        trn_dt: this.datePipe.transform(this.userData[0].trn_dt, 'yyyy-MM-dd'),
         trn_id: this.userData[0].trn_id,
         memb_name: this.userData[0].memb_name,
         memb_type: this.userData[0].memb_type == 'G' ? 'General Member' :  this.userData[0].memb_type == 'L' ? 'Life Member' : this.userData[0].memb_type == 'AI' ? 'Associate Member' : '',
@@ -81,7 +82,7 @@ export class View_group_approve_formComponent implements OnInit {
         pay_mode: this.userData[0].pay_mode=='C' ? 'Cash' : this.userData[0].pay_mode=='Q' ? 'Cheque' : 'Online Transaction',
         chq_no: this.userData[0].chq_no,
         chq_dt: this.datePipe.transform(this.userData[0].chq_dt, 'yyyy-MM-dd'),
-        bank_nm: this.userData[0].chq_bank,
+        bank_nm: this.userData[0].chq_bank == '13' ? 'CASH AT UCO LC ROAD BRANCH' : this.userData[0].chq_bank == '14' ? 'CASH AT SBI LA MARINERE BR' : this.userData[0].chq_bank == '15' ? 'CASH at UIIC CD A/C' : '',
         ins_period: this.userData[0].ins_period=='Q' ? 'Quaterly' : this.userData[0].ins_period=='H' ? 'Half- Yearly' : this.userData[0].ins_period=='Y' ? 'Yearly' : '',
         // pre_dt: this.datePipe.transform(this.userData[0].premium_dt, 'yyyy-MM-dd'),
         resolution_dt: this.datePipe.transform(this.userData[0].resolution_dt, 'yyyy-MM-dd'),
@@ -98,9 +99,16 @@ get f() {
 approve (){
   var dt = {
     formNo: this.fromNo,
-    // trn_dt:  this.f['trn_dt'] ? this.f['trn_dt'].value : null,
-    // tot_amt:  this.f['tot_amt'] ? this.f['tot_amt'].value : null,
+    pre_amt:  this.f['pre_amt'] ? this.f['pre_amt'].value : null,
     user: localStorage.getItem('user_name'),
+    approval_status: 'A',
+    trn_id: this.userData[0].trn_id,
+    trn_dt: this.userData[0].trn_dt,
+    pay_mode: this.userData[0].pay_mode,
+    acc_code: this.userData[0].pay_mode != 'Q' ? (this.userData[0].pay_mode == 'C' ? 73 : (this.userData[0].pay_mode == 'O' ? 75 : 0)) : this.userData[0].chq_bank,
+    chq_dt: this.userData[0].chq_dt,
+    chq_no: this.userData[0].chq_no,
+    remarks: `Amount deposited for premium of - ${this.userData[0].memb_name}`,
     user_name: this.userData[0].memb_name,
     phone_no: this.userData[0].phone,
   }
@@ -109,8 +117,29 @@ approve (){
     console.log(data)
     this.userData = data;
     if(this.userData.suc > 0){
-      this.router.navigate(['/admin/group_policy_approve_form'])
+      Swal.fire(
+        'Success',
+        'Premium Approved successfully',
+        'success'
+      ).then((result) => {
+        if (result.isConfirmed) {
+        this.router.navigate(['/admin/group_policy_approve_form'])
+        }
+      });
+    }else{
+      Swal.fire(
+        'Error',
+        this.userData.msg,
+          'error'
+      )
     }
+  },error => {
+    console.error(error);
+    Swal.fire(
+      'Error',
+      error,
+        'error'
+    )
 })
 }
 

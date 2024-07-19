@@ -265,19 +265,27 @@
 
     <div *ngIf="form.controls['status'].value === 'T'">
       <div class="formgrid grid mt-3">
-        <div class="field col-12 md:col-4">
+        <!-- <div class="field col-12 md:col-4">
           <label for="ins_period" style="color: black"><b>Insurance Period</b></label>
           <select id="ins_period" formControlName="ins_period" [(ngModel)]="selectedValue_3"
             class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
             style="appearance: auto; height: 3vw; border-radius: 7px">
             <option value="Y" select>Yearly</option>
           </select>
-        </div>
+        </div> -->
         <div class="field col-12 md:col-4">
-          <label for="pre_dt" style="color: black"><b>Policy Date<span class="text-red-700">*</span></b></label>
-          <input id="pre_dt" type="date" formControlName="pre_dt" placeholder="dd/MM/yyyy" [max]="maxDate"
+          <label for="form_dt" style="color: black"><b>Date<span class="text-red-700">*</span></b></label>
+          <input id="form_dt" type="date" formControlName="form_dt" placeholder="dd/MM/yyyy" [max]="maxDate"
             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+          <div *ngIf="f['form_dt']?.touched || f['form_dt']?.dirty">
+            <small class="text-red-900" *ngIf="f['form_dt']?.errors">Date is required.</small>
+          </div>
         </div>
+        <!-- <div class="field col-12 md:col-4">
+          <label for="pre_dt" style="color: black"><b>Policy Date<span class="text-red-700">*</span></b></label>
+          <input id="pre_dt" type="date" formControlName="pre_dt" placeholder="dd/MM/yyyy"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+        </div> -->
         <!-- <div class="field col-12 md:col-4">
           <label for="pre_amt" style="color: black"><b>Premium Amount<span class="text-red-700">*</span></b></label>
           <input id="pre_amt" type="text" formControlName="pre_amt" placeholder="Enter Premium Amount...."
@@ -288,7 +296,11 @@
                 class="text-red-700">*</span></b></label>
           <input id="pre_amt" type="text" formControlName="pre_amt" placeholder="Enter Premium Amount...."
             class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+          <div *ngIf="f['pre_amt']?.touched || f['pre_amt']?.dirty">
+            <small class="text-red-900" *ngIf="f['pre_amt']?.errors">Premium Amount is required.</small>
+          </div>
         </div>
+
       </div>
 
 
@@ -365,7 +377,7 @@
 
     <div class="flex flex-row" *ngIf="form.controls['status'].value === 'T'">
       <button pButton pRipple type="button" label="Save" class="p-button-raised sub_btn" (click)="save()"
-        [disabled]="f['resolution_no'].invalid || f['resolution_dt'].invalid || f['pre_dt'].invalid || f['pre_amt'].invalid || f['cheque_dt'].invalid || f['cheque_no'].invalid || f['bank_name'].invalid"></button>
+        [disabled]="form.controls['payment'].value == 'C' ? f['resolution_no'].invalid || f['resolution_dt'].invalid || f['form_dt'].invalid || f['pre_amt'].invalid : form.controls['payment'].value == 'Q' ? f['resolution_no'].invalid || f['resolution_dt'].invalid || f['form_dt'].invalid || f['pre_amt'].invalid || f['cheque_dt'].invalid || f['cheque_no'].invalid || f['bank_name'].invalid : form.controls['payment'].value == 'O' ? f['resolution_no'].invalid || f['resolution_dt'].invalid || f['form_dt'].invalid || f['pre_amt'].invalid : ''"></button>
     </div>
 
 

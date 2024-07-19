@@ -1,0 +1,7 @@
+.color{
+    color: #3B82F6;
+    align-items: center;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
