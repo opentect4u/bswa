@@ -106,7 +106,7 @@
         <ng-container>
           <select id="memb_oprn" formControlName="memb_oprn"
             class="w-full text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
-            style="appearance: auto; height: 3vw; border-radius: 7px">
+            style="appearance: auto; height: 3vw; border-radius: 7px" (change)="onPolicyAddDependent($event)">
             <option value="">Select Operation</option>
             <option value="S">Self</option>
             <option value="J">Spouse</option>

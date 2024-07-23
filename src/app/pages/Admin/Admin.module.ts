@@ -369,7 +369,7 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'member_gmp_edit/:form_no/:member_id/:policy_type',
+        path: 'member_gmp_edit/:form_no/:member_id/:policy_type/:memb_oprn',
         loadChildren: () =>
           import('../Admin/member_gmp_details/member_gmp_edit/member_gmp_edit.module').then(
             (m) => m.Member_gmp_editModule

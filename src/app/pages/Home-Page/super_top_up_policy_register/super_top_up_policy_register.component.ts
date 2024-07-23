@@ -47,6 +47,7 @@ export class Super_top_up_policy_registerComponent implements OnInit {
   selectedValue2: string = '';
   selectedValue3: string = 'N';
   userData: any;
+  maxDate!: string;
 
   // UserData: any;
 
@@ -61,6 +62,12 @@ export class Super_top_up_policy_registerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const year = today.getFullYear();
+    this.maxDate = `${year}-${month}-${day}`;
+
     this.mem_type = this.route.snapshot.params['mem_type'];
     this.member_id = this.route.snapshot.params['member_id'];
     this.form = this.fb.group({
@@ -80,8 +87,8 @@ export class Super_top_up_policy_registerComponent implements OnInit {
       spou_dob: [''],
       spou_mobile: [''],
       spou_mem: [''],
-      depenFields_2: this.fb.array([])
-
+      depenFields_2: this.fb.array([]),
+      form_dt: ['', Validators.required],
     });
     this.get_fin_year()
     if(this.depenFields_2.controls.length == 0)
@@ -252,6 +259,7 @@ export class Super_top_up_policy_registerComponent implements OnInit {
         checkedmember: this.checkedmember,
         unit: this.o['unit_name']? this.o['unit_name'].value : null,
         member_id: this.o['member_id'] ? this.o['member_id'].value : null,
+        form_dt: this.o['form_dt'] ? this.o['form_dt'].value : null,
         member: this.o['member'] ? this.o['member'].value : null,
         fin_yr: this.o['fin_yr'] ? this.o['fin_yr'].value : null,
         member_type: this.o['member_type'] ? this.o['member_type'].value : null,

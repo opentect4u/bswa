@@ -28,6 +28,7 @@ export class General_membership_formComponent implements OnInit {
   // gender!: Gender[];
   // marital!: Marital[];
   items!: any[];
+  // items!: { label: string }[];
   // caste!: Caste[];
   value!: string;
   relation!: Relationship[];
@@ -167,6 +168,7 @@ export class General_membership_formComponent implements OnInit {
       subscriptionType: [''],
     });
   }
+ 
 
   get f() {
     return this.form.controls;
@@ -183,6 +185,16 @@ export class General_membership_formComponent implements OnInit {
   get ff() {
     return this.form_4.controls;
   }
+
+  // onGenderChange(event: any){
+  //   console.log(event.target.value);
+  //   var dropVal = event.target.value
+  //   if (dropVal === 'F') {
+  //     this.items = this.items.map(item => item.label === 'Spouse Information' ? { label: 'Husband Information' } : item);
+  //   } else {
+  //     this.items = this.items.map(item => item.label === 'Husband Information' ? { label: 'Spouse Information' } : item);
+  //   }
+  // }
 
   onFileSelected(fileData: any) {
     const { file, flag } = fileData;

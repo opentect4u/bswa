@@ -46,8 +46,8 @@ export class Member_gmp_listComponent implements OnInit {
     );
   }
 
-  preview(form_no: any,member_id: any,policy_type:any){
-    this.router.navigate(['/admin/member_gmp_edit',encodeURIComponent(btoa(form_no)),member_id,policy_type])
+  preview(form_no: any,member_id: any,policy_type:any,memb_oprn:any){
+    this.router.navigate(['/admin/member_gmp_edit',encodeURIComponent(btoa(form_no)),member_id,policy_type,memb_oprn])
   }
 
   filerRes(event:any){

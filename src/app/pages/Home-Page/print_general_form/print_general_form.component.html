@@ -184,7 +184,7 @@
                   spouseInfo?.spou_min ? spouseInfo?.spou_min : 'N/A'}}</span></label>
             </th>
           </tr>
-          <ng-container *ngIf="resdata.spouse_dt.length > 0">
+          <ng-container *ngIf="resdata?.spouse_dt.length > 0">
             <tr>
               <th colspan="3" class="text-center" style="background-color: aliceblue">
                 <label for="member_type" class="label_field color2"><b>DETAILS OF THE SPOUSE</b></label>
@@ -258,7 +258,7 @@
               </th>
             </tr>
           </ng-container>
-          <ng-container *ngIf="resdata.dep_dt.length > 0">
+          <ng-container *ngIf="resdata?.dep_dt.length > 0">
             <tr>
               <th colspan="3">
                 <label for="depen" class="label_field"><b>NAME OF DEPENDENT :</b><span class="span_space">{{
@@ -306,7 +306,7 @@
             </h4>
             <h4 class="letter" style="color: black">
               Amount to be deposited
-              <span class="span_space">{{ membInfo!.subscription_1 + membInfo!.adm_fee + membInfo!.donation }}</span>
+              <span class="span_space">{{ membInfo?.subscription_1 + membInfo!.adm_fee + membInfo!.donation }}</span>
             </h4>
             <h4 class="letter" style="color: black">
               1) Subscription Fee :

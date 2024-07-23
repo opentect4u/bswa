@@ -167,7 +167,7 @@ export class Life_form_printComponent implements OnInit {
         this.resdata1 = this.resdata1.suc > 0 ? this.resdata1.msg : {};
         // this.dep_dt = this.resdata1.dep_dt;
         this.dependInfo = this.resdata1.dep_dt.length > 0 ? this.resdata1.dep_dt[0] : {}
-        this.dep_dt = this.resdata.dep_dt;
+        this.dep_dt = this.resdata?.dep_dt;
         var dep_list = this.dep_dt.length > 0 ? this.dep_dt.map((dt: any) => {
           var newArr = `${dt.dependent_name} (${dt.relation_name}${dt.spou_phone > 0 ? `, ${dt.spou_phone}` : ''})`
           return newArr;                  

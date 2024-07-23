@@ -282,6 +282,15 @@
           <option value="R">Reject</option>
         </select>
       </div>
+
+      <!-- <div class="field col-12 md:col-4">
+        <label for="form_dt" style="color: black"><b>Date<span class="text-red-700">*</span></b></label>
+        <input id="form_dt" type="date" formControlName="form_dt" placeholder="dd/MM/yyyy" [max]="maxDate"
+          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+        <div *ngIf="f['form_dt']?.touched || f['form_dt']?.dirty">
+          <small class="text-red-900" *ngIf="f['form_dt']?.errors">Date is required.</small>
+        </div>
+      </div> -->
     </div>
 
     <div *ngIf="form.controls['status'].value === 'T'">

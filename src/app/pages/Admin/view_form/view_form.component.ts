@@ -313,6 +313,8 @@ export class View_formComponent implements OnInit {
                 this.tnxData?.chq_dt
                   ? this.datePipe.transform(this.tnxData?.chq_dt, 'yyyy-MM-dd')
                   : '',
+              form_dt: this.tnxData?.trn_dt ? this.datePipe.transform(this.tnxData?.trn_dt, 'yyyy-MM-dd')
+              : '',    
               subscriptionFee_2: this.tnxData?.premium_amt,
               subscriptionFee_1: this.tnxData?.sub_amt,
               admissionFee_life: this.tnxData?.adm_fee,

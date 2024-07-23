@@ -103,6 +103,23 @@ export class Member_gmp_editComponent implements OnInit {
     });
   }
 
+  onPolicyAddDependent(event: Event): void {
+    const selectedValue = (event.target as HTMLSelectElement).value;
+    if (selectedValue === 'J') {
+    this.onadd()
+    } else {
+      Swal.fire(
+        'Warning',
+        'There is no access to add More Dependent',
+          'warning'
+      ).then((result) => {
+        if (result.isConfirmed) {
+          this.depenFields_1.clear()
+              }
+            });
+    }
+  }
+
   unit() {
     this.dataServe
       .global_service(0, '/master/unit_list', null)

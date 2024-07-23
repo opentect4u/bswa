@@ -116,6 +116,7 @@ export class Policy_view_formComponent implements OnInit {
 
   tnxData: trnData | any;
   tnxResData: any;
+  // maxDate!: string;
 
   constructor(
     private router: Router,
@@ -142,6 +143,12 @@ export class Policy_view_formComponent implements OnInit {
   }
 
   ngOnInit() {
+    // const today = new Date();
+    // const day = String(today.getDate()).padStart(2, '0');
+    // const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    // const year = today.getFullYear();
+    // this.maxDate = `${year}-${month}-${day}`;
+
     const encodedFormNo = this.route.snapshot.params['form_no'];
     const encodedMemId = this.route.snapshot.params['member_id'];
     const encodedPhNo = this.route.snapshot.params['phone_no'];
@@ -334,6 +341,7 @@ export class Policy_view_formComponent implements OnInit {
       resolution_no: this.f['resolution_no'] ? this.f['resolution_no'].value : null,
       resolution_dt: this.f['resolution_dt'] ? this.f['resolution_dt'].value : null,
       status: this.f['status'] ? this.f['status'].value : null,
+      // form_dt: this.f['form_dt'] ? this.f['form_dt'].value : null,
       // pre_amt: this.f['pre_amt'] ? this.f['pre_amt'].value : null,
       // payment: this.f['payment'] ? this.f['payment'].value : null,
       trn_id: this.f['trn_id'].value > 0 ? this.f['trn_id'].value : 0,
