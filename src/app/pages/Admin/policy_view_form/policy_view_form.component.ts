@@ -5,6 +5,7 @@ import { DataService } from 'src/app/service/data.service';
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 
 interface MembershipInfo {
   mem_type: string,
@@ -329,8 +330,30 @@ export class Policy_view_formComponent implements OnInit {
       this.resdata = data;
       console.log(this.resdata, '99');
       if(this.resdata.suc > 0) {
-        this.router.navigate(['/admin/admin_premium_approve'])
+        Swal.fire(
+          'Success',
+          'Form Rejected Successfully',
+          'success'
+        ).then((result) => {
+          if (result.isConfirmed) {
+            // this.router.navigate(['/admin/super_policy_approve'])
+            this.router.navigate(['/admin/admin_premium_approve'])
+          }
+        });
+      }else {
+        Swal.fire(
+          'Error',
+          this.resdata.msg,
+            'error'
+        )
       }
+    },error => {
+      console.error(error);
+      Swal.fire(
+        'Error',
+        error,
+          'error'
+      )
     });    
   }
 
@@ -351,10 +374,31 @@ export class Policy_view_formComponent implements OnInit {
 
     this.dataServe.global_service(1, '/approve_super',dt ).subscribe((data: any) => {
       this.resdata = data;
-      console.log(this.resdata, '99');
+      // console.log(this.resdata, '99');
       if(this.resdata.suc > 0) {
-        this.router.navigate(['/admin/super_policy_approve'])
+        Swal.fire(
+          'Success',
+          'Super Top Up Form Accepted successfully',
+          'success'
+        ).then((result) => {
+          if (result.isConfirmed) {
+            this.router.navigate(['/admin/super_policy_approve'])
+          }
+        });
+      }else {
+        Swal.fire(
+          'Error',
+          this.resdata.msg,
+            'error'
+        )
       }
+    },error => {
+      console.error(error);
+      Swal.fire(
+        'Error',
+        error,
+          'error'
+      )
     });    
   }
 

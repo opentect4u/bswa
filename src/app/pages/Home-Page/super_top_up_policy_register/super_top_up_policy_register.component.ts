@@ -43,9 +43,10 @@ export class Super_top_up_policy_registerComponent implements OnInit {
 
   // member_type='N'
 
-  selectedValue: string = '';
-  selectedValue2: string = '';
+  selectedValue: string = 'N' ;
+  selectedValue2: string = 'N';
   selectedValue3: string = 'N';
+  selectedValue_4: string = 'N';
   userData: any;
   maxDate!: string;
 
@@ -175,7 +176,6 @@ export class Super_top_up_policy_registerComponent implements OnInit {
 
   changedate(event:any,i:any) {
     console.log(event.target.value,i);
-
     const filtervalue = this.depenFields_2.value.filter((dt:any) => dt.ind_type == event.target.value)
     console.log(filtervalue.length);
     
@@ -189,20 +189,32 @@ export class Super_top_up_policy_registerComponent implements OnInit {
       fin_year: this.finYearData.prev_fin_year
      })
     }else {
-     
+      
     }
   }
 
   onPolicyHolderTypeChange(isMember: any) {
+  
     this.form.reset()
+    
     // this.depenFields_2.clear()
+    
     if(isMember === 'M'){
+      
       this.checkedmember = true;
+      this.selectedValue = 'N';
+      this.selectedValue2 = 'N';
+      this.selectedValue3 = 'N';
+      
       this.unit()
       this.relationship()
     }else{
-
+      // this.selectedValue_4 = 'N';
       this.checkedmember = false;
+      this.selectedValue = 'N';
+      this.selectedValue2 = 'N';
+      this.selectedValue3 = 'N';
+  
       // this.onadd()
       // this.get_non_dtls()
       this.unit()

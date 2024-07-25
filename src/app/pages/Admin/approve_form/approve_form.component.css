@@ -45,6 +45,30 @@
     border: 2px solid #50b0dd;
   }
 
+  .badge {
+    display: inline-block;
+    padding: 0.5em 1em;
+    font-size: 0.95em;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.375em;
+  }
+  .badge-pending {
+    color: #fff;
+    background-color: #ffc107;
+  }
+  .badge-reject {
+    color: #fff;
+    background-color: #dc3545;
+  }
+  .badge-Accept {
+    color: #fff;
+    background-color: #67c574;
+  }
+
   /* .search{
     padding-left: 51rem;
   } */

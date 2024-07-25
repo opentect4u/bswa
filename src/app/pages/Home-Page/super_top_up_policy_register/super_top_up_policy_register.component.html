@@ -81,7 +81,7 @@
 
           <div class="flex flex-row">
             <div class="field col-12 md:col-4">
-              <label for="member_type" class="label_field"><b>Member Type:<span
+              <label for="member_type" class="label_field"><b>Member Type: <span
                     class="text-red-700">*</span></b></label>&nbsp;
               <ng-container *ngIf="checkedmember">
                 <!-- <input id="member_type" type="text" formControlName="member_type" placeholder="Enter Member Type"
@@ -90,7 +90,7 @@
                 <select id="member_type" formControlName="member_type" [(ngModel)]="selectedValue"
                   class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                   style="appearance: auto; height: 3vw; border-radius: 7px">
-                  <option value="N" select>Select Member Type</option>
+                  <option value="N">Select Member Type</option>
                   <option value="G">General Membership</option>
                   <option value="L">Life Membership</option>
                 </select>
@@ -102,7 +102,7 @@
                 <select id="member_type" formControlName="member_type" [(ngModel)]="selectedValue"
                   class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                   style="appearance: auto; height: 3vw; border-radius: 7px">
-                  <option value="N" select>Select Member Type</option>
+                  <option value="N">Select Member Type</option>
                   <option value="G">General Membership</option>
                   <option value="L">Life Membership</option>
                 </select>
@@ -122,7 +122,7 @@
                 <select id="unit_name" formControlName="unit_name" [(ngModel)]="selectedValue2"
                   class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                   style="appearance: auto; height: 3vw; border-radius: 7px">
-                  <option value="N" select>Select Unit Name</option>
+                  <option value="N">Select Unit Name</option>
                   <option *ngFor="let option of responsedata_unit" [value]="option.unit_id">{{ option.unit_name }}
                   </option>
                 </select>
@@ -134,7 +134,7 @@
                 <select id="unit_name" formControlName="unit_name" [(ngModel)]="selectedValue2"
                   class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                   style="appearance: auto; height: 3vw; border-radius: 7px">
-                  <option value="N" select>Select Unit Name</option>
+                  <option value="N">Select Unit Name</option>
                   <option *ngFor="let option of responsedata_unit" [value]="option.unit_id">{{ option.unit_name }}
                   </option>
                 </select>
@@ -174,7 +174,7 @@
                 <select id="memb_opr" formControlName="memb_opr" [(ngModel)]="selectedValue3"
                   class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                   style="appearance: auto; height: 3vw; border-radius: 7px">
-                  <option value="N" selected>Select Operation</option>
+                  <option value="N">Select Operation</option>
                   <option value="S">Self</option>
                   <option value="J">Spouse</option>
                 </select>
@@ -186,7 +186,7 @@
                 <select id="memb_opr" formControlName="memb_opr" [(ngModel)]="selectedValue3"
                   class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                   style="appearance: auto; height: 3vw; border-radius: 7px">
-                  <option value="N" selected>Select Operation</option>
+                  <option value="N">Select Operation</option>
                   <option value="S">Self</option>
                   <option value="J">Spouse</option>
                 </select>
@@ -382,11 +382,11 @@
                     class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                 </div>
                 <div class="field col-12 md:col-3">
-                  <label for="ind_type" class="label_field"><b>Status:</b></label>
-                  <select id="ind_type" formControlName="ind_type"
+                  <label for="ind_type" class="label_field"><b>Status: </b></label>
+                  <select id="ind_type" formControlName="ind_type" [(ngModel)]="selectedValue_4"
                     class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                     style="appearance: auto; height: 3vw; border-radius: 7px" (change)="changedate($event,i)">
-                    <option value="null">Select Status</option>
+                    <option value="N">Select Status</option>
                     <option value="S">SELF</option>
                     <option value="P">SPOUSE</option>
                   </select>

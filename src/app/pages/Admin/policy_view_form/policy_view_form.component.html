@@ -316,8 +316,8 @@
         </div>
       </div> -->
       <div class="flex flex-row mt-3">
-        <button pButton pRipple type="button" label="Accept" class="p-button-raised sub_btn"
-          (click)="approve()"></button>
+        <button pButton pRipple type="button" label="Accept" class="p-button-raised sub_btn" (click)="approve()"
+          [disabled]="f['resolution_no'].invalid || f['resolution_dt'].invalid"></button>
       </div>
     </div>
 

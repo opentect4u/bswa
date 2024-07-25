@@ -250,7 +250,10 @@ export class View_formComponent implements OnInit {
               if(this.responsedata[0].mem_type == 'L'){
               this.subscription_fee_life()
               }
+
               this.getTnxDetails();
+
+              
           });
   
           if(this.mem_type != 'AI'){
@@ -315,12 +318,14 @@ export class View_formComponent implements OnInit {
                   : '',
               form_dt: this.tnxData?.trn_dt ? this.datePipe.transform(this.tnxData?.trn_dt, 'yyyy-MM-dd')
               : '',    
-              subscriptionFee_2: this.tnxData?.premium_amt,
+              // subscriptionFee_2: this.tnxData?.premium_amt,
+              subscriptionFee_2: this.tnxData?.onetime_amt,
               subscriptionFee_1: this.tnxData?.sub_amt,
               admissionFee_life: this.tnxData?.adm_fee,
               tot_amt: this.tnxData?.tot_amt,
               receipt_no: this.tnxData?.receipt_no,
               trn_id: this.tnxData?.trn_id,
+              reject: this.remarks
             });
             this.selectedValue2 = this.tnxData?.pay_mode;
             this.selectedValue3 = this.tnxData?.chq_bank;
@@ -587,7 +592,8 @@ export class View_formComponent implements OnInit {
         cheque_no: this.f['cheque_no'] ? this.f['cheque_no'].value : null,
         bank_name: this.f['bank_name'] ? this.f['bank_name'].value : null,
         totalAmount: this.f['totalAmount'] ? this.f['totalAmount'].value : null,
-        trn_id: this.f['trn_id'].value > 0 ? this.f['trn_id'].value : 0
+        trn_id: this.f['trn_id'].value > 0 ? this.f['trn_id'].value : 0,
+        receipt_no: this.f['receipt_no'] ? this.f['receipt_no'].value : null,
       }
 
       this.dataServe.global_service(1, '/payment_accept_cheque',dt ).subscribe((data: any) => {
@@ -641,7 +647,8 @@ export class View_formComponent implements OnInit {
         cheque_no: this.f['cheque_no'] ? this.f['cheque_no'].value : null,
         bank_name: this.f['bank_name'] ? this.f['bank_name'].value : null,
         totalAmount_life: this.f['totalAmount_life'] ? this.f['totalAmount_life'].value : null,
-        trn_id: this.f['trn_id'].value > 0 ? this.f['trn_id'].value : 0
+        trn_id: this.f['trn_id'].value > 0 ? this.f['trn_id'].value : 0,
+        receipt_no: this.f['receipt_no'] ? this.f['receipt_no'].value : null,
       }
 
       this.dataServe.global_service(1, '/payment_accept_cheque_life',dt ).subscribe((data: any) => {
@@ -695,7 +702,8 @@ export class View_formComponent implements OnInit {
         cheque_no: this.f['cheque_no'] ? this.f['cheque_no'].value : null,
         bank_name: this.f['bank_name'] ? this.f['bank_name'].value : null,
         totalAmount_associate: this.f['totalAmount_associate'] ? this.f['totalAmount_associate'].value : null,
-        trn_id: this.f['trn_id'].value > 0 ? this.f['trn_id'].value : 0
+        trn_id: this.f['trn_id'].value > 0 ? this.f['trn_id'].value : 0,
+        receipt_no: this.f['receipt_no'] ? this.f['receipt_no'].value : null,
       }
 
       this.dataServe.global_service(1, '/payment_accept_cheque_associate',dt ).subscribe((data: any) => {

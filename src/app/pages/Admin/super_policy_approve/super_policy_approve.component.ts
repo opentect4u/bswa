@@ -45,7 +45,7 @@ private messageService: MessageService
 }
 
   back(){
-    this.router.navigate(['/admin/dashboard']);
+    this.router.navigate(['/admin/admin_premium_approve']);
   }
 
   view(form_no:any ,memb_id: any, phone_no: any){

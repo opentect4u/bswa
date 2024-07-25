@@ -1,7 +1,7 @@
 <p-card>
   <div class="row">
     <h3 class="float-start head_active">
-      <a class="heading" (click)="back()">Dashboard</a> / Approve Membership Form
+      <a class="heading" (click)="back()">Accept & Reject Membership Form</a> / Approve Membership Form
     </h3>
   </div>
 
@@ -21,7 +21,7 @@
         <tr>
           <th style="width: 1px" id="table_color">Form No</th>
           <th style="width: 1px" id="table_color">Member Name</th>
-          <!-- <th style="width: 1px" id="table_color">Transaction ID</th> -->
+          <th style="width: 1px" id="table_color">Status</th>
           <th style="width: 1px" id="table_color">View</th>
         </tr>
       </ng-template>
@@ -31,6 +31,15 @@
           <!-- <td class="text-center"><b>{{ customer.trn_dt | date: 'dd/MM/yyyy' }}</b></td>
           <td class="text-center"><b>{{ customer.trn_id }}</b></td> -->
           <td class="text-center"><b>{{ customer.memb_name }}</b></td>
+          <td class="text-center">
+            <b>
+              <span
+                class="badge {{ customer.memb_status=='P' ? 'badge-pending' : customer.memb_status=='R' ? 'badge-reject' : 'badge-Accept' }}">
+                {{ customer.memb_status=='P' ? 'Pending' : customer.memb_status=='R' ? 'Reject' :
+                customer.memb_status=='T' ? 'Accept' : '' }}
+              </span>
+            </b>
+          </td>
           <td class="text-center"><b><a pTooltip="View" tooltipPosition="bottom"
                 (click)="view(customer.form_no,customer.mem_type,customer.pay_mode)"><i
                   class="pi pi-eye editLink"></i></a></b>
