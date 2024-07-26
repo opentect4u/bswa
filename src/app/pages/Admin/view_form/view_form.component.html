@@ -1221,7 +1221,7 @@
       </div>
       <div class="flex flex-row">
         <button pButton pRipple type="button" label="OK" class="p-button-raised sub_btn" (click)="reject_submit()"
-          [disabled]="f['form_dt'].invalid || f['receipt_no'].invalid"></button>
+          [disabled]="f['resolution_dt'].invalid || f['resolution_no'].invalid || f['reject'].invalid"></button>
       </div>
     </div>
   </form>

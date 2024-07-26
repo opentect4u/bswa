@@ -115,41 +115,75 @@ export class Super_top_up_policy_registerComponent implements OnInit {
   submit(){
       var dt = {
         member_id: this.o['member_id'] ? this.o['member_id'].value : null,
-      }
-      // this.dataServe.global_service(0, '/check_member_id', `member_id=${dt.member_id}`).subscribe((data:any) =>{
-      //   this.member_dt = data
-      //   if (this.member_dt.suc > 0){
-      //     this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Member ID already exists' });
-      //   } else {
-          
-      //   }
-      // })
+      };
+    
   
       this.dataServe.global_service(0, '/get_member_policy_super', `member_id=${dt.member_id}`).subscribe((data:any) => {
         this.responsedata = data
         console.log(this.responsedata);
-        this.responsedata = this.responsedata.suc > 0 ? this.responsedata.msg : []
-        this.formNo = this.responsedata[0].form_no
-        console.log(this.responsedata[0].subscription_1)
-        this.form.patchValue({
-          member_type: this.responsedata[0].mem_type,
-          unit_name: this.responsedata[0].unit_id,
-          personal_no: this.responsedata[0].pers_no,
-          memb_opr: this.responsedata[0].memb_oprn,
-          member: this.responsedata[0].memb_name,
-          min_no: this.responsedata[0].min_no,
-          gen_dob: this.datePipe.transform(this.responsedata[0].dob, 'yyyy-MM-dd'),
-          mobile: this.responsedata[0].phone_no,
-          // topup_year: this.responsedata[0].gurdian_name,
-          mem: this.responsedata[0].memb_address,
-          spouse: this.responsedata[0].dependent_name,
-          spouse_min_no: this.responsedata[0].spou_min,
-          spou_dob: this.datePipe.transform(this.responsedata[0].spou_db, 'yyyy-MM-dd'),
-          spou_mobile: this.responsedata[0].spou_phone,
-          spou_mem: this.responsedata[0].spou_address,   })
-        })
-  
+       
+        // this.form.reset()
+      
+        if(this.responsedata.suc == 2){
+          Swal.fire(
+            'Warning',
+            'Member ID already exists',
+            'warning'
+          ).then((result) => {
+            if (result.isConfirmed) {
+              this.form.reset()
+            }
+          });
+        } else if (this.responsedata.suc > 0 && this.responsedata.suc < 2){
+          this.responsedata = this.responsedata.suc > 0 ? this.responsedata.msg : []
+          this.formNo = this.responsedata[0]?.form_no
+          console.log(this.responsedata[0].subscription_1)
 
+        if(this.responsedata[0].spou_dt && this.responsedata[0].spou_dt.length > 0){
+          this.form.patchValue({
+            member_type: this.responsedata[0].mem_type,
+            unit_name: this.responsedata[0].unit_id,
+            personal_no: this.responsedata[0].pers_no,
+            memb_opr: this.responsedata[0].memb_oprn,
+            member: this.responsedata[0].memb_name,
+            min_no: this.responsedata[0].min_no,
+            gen_dob: this.responsedata[0].dob !== '0000-00-00 00:00:00' ? this.datePipe.transform(this.responsedata[0].dob, 'yyyy-MM-dd') : '',
+            mobile: this.responsedata[0].phone_no,
+            // topup_year: this.responsedata[0].gurdian_name,
+            mem: this.responsedata[0].memb_address,
+            spouse: this.responsedata[0]!.spou_dt[0].dependent_name,
+          spouse_min_no: this.responsedata[0]!.spou_dt[0].spou_min,
+          spou_dob: this.responsedata[0]!.spou_dt[0].spou_db !== '0000-00-00 00:00:00' ? this.datePipe.transform(this.responsedata[0]!.spou_dt[0].spou_db, 'yyyy-MM-dd') : '',
+          spou_mobile: this.responsedata[0]!.spou_dt[0].spou_phone,
+          spou_mem: this.responsedata[0]!.spou_dt[0].spou_address,
+          })
+        }else {
+          this.form.patchValue({
+            member_type: this.responsedata[0].mem_type,
+            unit_name: this.responsedata[0].unit_id,
+            personal_no: this.responsedata[0].pers_no,
+            memb_opr: this.responsedata[0].memb_oprn,
+            member: this.responsedata[0].memb_name,
+            min_no: this.responsedata[0].min_no,
+            gen_dob: this.responsedata[0].dob !== '0000-00-00 00:00:00' ? this.datePipe.transform(this.responsedata[0].dob, 'yyyy-MM-dd') : '',
+            mobile: this.responsedata[0].phone_no,
+            // topup_year: this.responsedata[0].gurdian_name,
+            mem: this.responsedata[0].memb_address,
+          
+          })
+        }
+      }else {
+        Swal.fire(
+          'Error',
+          'Member Details Not Found',
+          'error'
+        ).then((result) => {
+          if (result.isConfirmed) {
+            // this.entryForm.reset()
+          }
+        });
+      }
+      });
   }
 
   unit() {
@@ -200,26 +234,22 @@ export class Super_top_up_policy_registerComponent implements OnInit {
     // this.depenFields_2.clear()
     
     if(isMember === 'M'){
-      
       this.checkedmember = true;
-      this.selectedValue = 'N';
-      this.selectedValue2 = 'N';
-      this.selectedValue3 = 'N';
-      this.selectedValue_4 = 'N';
       this.unit()
       this.relationship()
     }else{
       
       this.checkedmember = false;
-      this.selectedValue = 'N';
-      this.selectedValue2 = 'N';
-      this.selectedValue3 = 'N';
-      this.selectedValue_4 = 'N';
+      
       // this.onadd()
       // this.get_non_dtls()
       this.unit()
       this.relationship()
     }
+    this.selectedValue = 'N';
+    this.selectedValue2 = 'N';
+    this.selectedValue3 = 'N';
+    this.selectedValue_4 = 'N';
   }
 
 
