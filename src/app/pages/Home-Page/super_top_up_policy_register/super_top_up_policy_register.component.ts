@@ -205,16 +205,16 @@ export class Super_top_up_policy_registerComponent implements OnInit {
       this.selectedValue = 'N';
       this.selectedValue2 = 'N';
       this.selectedValue3 = 'N';
-      
+      this.selectedValue_4 = 'N';
       this.unit()
       this.relationship()
     }else{
-      // this.selectedValue_4 = 'N';
+      
       this.checkedmember = false;
       this.selectedValue = 'N';
       this.selectedValue2 = 'N';
       this.selectedValue3 = 'N';
-  
+      this.selectedValue_4 = 'N';
       // this.onadd()
       // this.get_non_dtls()
       this.unit()

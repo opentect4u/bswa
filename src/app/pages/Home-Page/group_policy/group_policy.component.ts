@@ -47,6 +47,16 @@ export class Group_policyComponent implements OnInit {
   responsedata_unit: any;
   maxDate!: string;
 
+  selectedValue: string = 'N';
+  selectedValue_1: string = 'N';
+  selectedValue_2: string = 'N';
+  selectedValue_3: string = 'N';
+  selectedValue_4: string = 'N';
+  selectedValue_5: string = 'N';
+  selectedValue_6: string = 'N';
+  selectedValue_7: string = 'N';
+  // selectedValue8: string = 'N';
+
 
   constructor(
     private router: Router,
@@ -131,11 +141,28 @@ export class Group_policyComponent implements OnInit {
     this.depenFields_1.clear()
     if(isMember === 'M'){
       this.checkedmember = true;
+      this.selectedValue = 'N';
+      this.selectedValue_1 = 'N'; 
+      this.selectedValue_2 = 'N';
+      this.selectedValue_3 = 'N';
+      this.selectedValue_4 = 'N';
+      this.selectedValue_5 = 'N';
+      this.selectedValue_6 = 'N';
+      this.selectedValue_7 = 'N';
+      // this.selectedValue8 = 'N';
       this.unit()
       this.relationship()
     }else{
 
       this.checkedmember = false;
+      this.selectedValue_1 = 'N'; 
+      this.selectedValue_2 = 'N';
+      this.selectedValue_3 = 'N';
+      this.selectedValue_4 = 'N';
+      this.selectedValue_5 = 'N';
+      this.selectedValue_6 = 'N';
+      this.selectedValue_7 = 'N';
+      // this.selectedValue8 = 'N';
       this.onadd()
       this.get_non_dtls()
       this.unit()
