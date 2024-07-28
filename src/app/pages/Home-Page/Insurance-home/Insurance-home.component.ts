@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-Insurance-home',
@@ -14,7 +15,16 @@ export class InsuranceHomeComponent implements OnInit {
   }
 
   super_policy(){
-    this.router.navigate(['/home/super_topup_register'])
+    Swal.fire(
+      'Warning',
+      'This Policy Only for General & Life Membership',
+      'warning'
+    ).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigate(['/home/super_topup_register'])
+      }
+    });
+    
   }
 
   group_policy(){

@@ -393,8 +393,8 @@
         </div>
       </div>
       <div class="flex flex-row">
-        <button pButton pRipple type="button" label="OK" class="p-button-raised sub_btn"
-          (click)="reject_submit()"></button>
+        <button pButton pRipple type="button" label="OK" class="p-button-raised sub_btn" (click)="reject_submit()"
+          [disabled]="f['resolution_no'].invalid || f['resolution_dt'].invalid || f['reject'].invalid"></button>
       </div>
     </div>
   </form>

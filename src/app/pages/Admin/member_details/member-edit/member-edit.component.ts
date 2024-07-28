@@ -242,27 +242,27 @@ export class MemberEditComponent implements OnInit {
               police_st: this.memberData?.ps,
               mem_id: this.memberData?.member_id,
               spouse_fr: {
-                sl_no: this.memberData?.spou_dt.sl_no > 0 ? this.memberData?.spou_dt.sl_no : 0,
-                spou_name: this.memberData?.spou_dt.dependent_name,
-                spou_gurd_name: this.memberData?.spou_dt.gurdian_name,
-                spou_blood_grp: this.memberData?.spou_dt.blood_grp,
-                spou_dob: this.memberData?.spou_dt.dob > 0
+                sl_no: this.memberData?.spou_dt[0].sl_no > 0 ? this.memberData?.spou_dt[0].sl_no : 0,
+                spou_name: this.memberData?.spou_dt[0].dependent_name,
+                spou_gurd_name: this.memberData?.spou_dt[0].gurdian_name,
+                spou_blood_grp: this.memberData?.spou_dt[0].blood_grp,
+                spou_dob: this.memberData?.spou_dt[0].dob != '0000-00-00'
                   ? this.datePipe.transform(
-                      this.memberData?.spou_dt.dob,
+                      this.memberData?.spou_dt[0].dob,
                       'yyyy-MM-dd'
                     )
                   : '',
                 // spou_phone: this.memberData?.spou_dt,
-                spou_mobile_no: this.memberData?.spou_dt.phone_no,
-                spou_min_no: this.memberData?.spou_dt.min_no,
-                spou_mem_addr: this.memberData?.spou_dt.memb_address,
-                spou_police_st: this.memberData?.spou_dt.ps,
-                spou_city: this.memberData?.spou_dt.city_town_dist,
+                spou_mobile_no: this.memberData?.spou_dt[0].phone_no,
+                spou_min_no: this.memberData?.spou_dt[0].min_no,
+                spou_mem_addr: this.memberData?.spou_dt[0].memb_address,
+                spou_police_st: this.memberData?.spou_dt[0].ps,
+                spou_city: this.memberData?.spou_dt[0].city_town_dist,
               },
               intro_fr: {
-                intro_member_id: this.memberData?.spou_dt?.intro_member_id,
-                intro_name: this.memberData?.spou_dt?.dependent_name,
-                relation_intro: this.memberData?.spou_dt?.relation,
+                intro_member_id: this.memberData?.spou_dt[0]?.intro_member_id,
+                intro_name: this.memberData?.spou_dt[0]?.dependent_name,
+                relation_intro: this.memberData?.spou_dt[0]?.relation,
               },
             });
 
@@ -301,7 +301,7 @@ export class MemberEditComponent implements OnInit {
             //   );
             // }
 
-            this.spouseFileName = this.memberData?.spou_dt.memb_pic ? `${this.api_url}/${this.memberData?.spou_dt.memb_pic}` : null
+            this.spouseFileName = this.memberData?.spou_dt[0].memb_pic ? `${this.api_url}/${this.memberData?.spou_dt[0].memb_pic}` : null
             this.memFileName = this.memberData?.memb_pic ? `${this.api_url}/${this.memberData?.memb_pic}` : null
           }
           console.log(this.userData, 'lili');

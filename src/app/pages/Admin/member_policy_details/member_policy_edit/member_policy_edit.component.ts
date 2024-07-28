@@ -217,28 +217,28 @@ export class Member_policy_editComponent implements OnInit {
             this.memberData = this.userData.msg[0];
             this.form.patchValue({
               policy_holder: this.memberData?.policy_holder_type== 'M' ? 'BSPWA Member' : 'Member of Other SAIL Association',
-              member_id: this.memberData?.member_id,
+              member_id: this.memberData?.member_id != 'null' ? this.memberData?.member_id : '',
               member_type: this.memberData?.memb_type== 'G' ? 'General Membership' : this.memberData?.memb_type== 'L' ? 'Life Membership' : '',
-              memb_opr: this.memberData?.memb_oprn,
-              unit_nm: this.memberData?.association,
-              member: this.memberData?.memb_name,
-              gen_dob: this.memberData?.dob
+              memb_opr: this.memberData?.memb_oprn != 'null' ? this.memberData?.memb_oprn : '',
+              unit_nm: this.memberData?.association != 'null' ? this.memberData?.association :'',
+              member: this.memberData?.memb_name != 'null' ? this.memberData?.memb_name : '',
+              gen_dob: this.memberData?.dob != '0000-00-00'
                 ? this.datePipe.transform(this.memberData?.dob, 'yyyy-MM-dd')
                 : '',
-              mobile: this.memberData?.phone_no,
-              personal_no: this.memberData?.personel_no,
-              min_no: this.memberData?.min_no,
-              mem: this.memberData?.mem_address,
+              mobile: this.memberData?.phone_no != 'null' ? this.memberData?.phone_no : '',
+              personal_no: this.memberData?.personel_no != 'null' ? this.memberData?.personel_no : '',
+              min_no: this.memberData?.min_no != 'null' ? this.memberData?.min_no : '',
+              mem: this.memberData?.mem_address != 'null' ? this.memberData?.mem_address : '',
               fin_yr: this.memberData?.fin_yr
               ? this.datePipe.transform(this.memberData?.fin_yr, 'yyyy-MM-dd')
               : '',
-              spouse: this.memberData?.dependent_name,
-              spouse_min_no: this.memberData?.spou_min_no,
-              spou_dob: this.memberData?.spou_dob
+              spouse: this.memberData?.dependent_name != 'null' ? this.memberData?.dependent_name : '',
+              spouse_min_no: this.memberData?.spou_min_no != 'null' ?  this.memberData?.spou_min_no : '',
+              spou_dob: this.memberData?.spou_dob != '0000-00-00'
               ? this.datePipe.transform(this.memberData?.spou_dob, 'yyyy-MM-dd')
               : '',
-              spou_mobile: this.memberData?.spou_phone,
-              spou_mem: this.memberData?.spou_address,
+              spou_mobile: this.memberData?.spou_phone != '0' ? this.memberData?.spou_phone : '',
+              spou_mem: this.memberData?.spou_address != 'null' ? this.memberData?.spou_address : '',
             });
 
 
