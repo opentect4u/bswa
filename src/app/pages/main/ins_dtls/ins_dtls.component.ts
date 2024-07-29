@@ -77,8 +77,9 @@ interface DepInfo {
 export class Ins_dtlsComponent implements OnInit {
   mem_id:any
   mem_type:any
-  insData: any;
+  insData: any  = {};
   userData: UserInfo | any;
+  dependentsData: any = [];
 
   constructor(private dataServe: DataService) { }
 
@@ -88,15 +89,33 @@ export class Ins_dtlsComponent implements OnInit {
    this.getInsuranceDetails();
   }
 
+  // getInsuranceDetails(){
+  //   this.dataServe.global_service(1, '/insurance_dtls',{mem_id: localStorage.getItem('member_id')})
+  //         .subscribe((data: any) => {
+  //           this.insData = data;
+  //           this.insData = this.insData.suc > 0 ? this.insData.msg : {};
+  //           if(this.insData.length > 0){
+  //             this.userData = this.insData[0]
+  //           }
+  //         });
+  // }
+
   getInsuranceDetails(){
-    this.dataServe.global_service(1, '/insurance_dtls',{mem_id: localStorage.getItem('member_id')})
-          .subscribe((data: any) => {
-            this.insData = data;
-            this.insData = this.insData.suc > 0 ? this.insData.msg : {};
-            if(this.insData.length > 0){
-              this.userData = this.insData[0]
-            }
-          });
+    this.dataServe.global_service(1, '/insurance_dtls', {mem_id: localStorage.getItem('member_id')})
+      .subscribe((data: any) => {
+        if (data.suc > 0) {
+          this.insData = data.msg;
+          this.dependentsData = data.dependents;
+          
+          if (this.insData.length > 0) {
+            this.userData = this.insData[0];
+          }
+        } else {
+          this.insData = {};
+          this.dependentsData = [];
+        }
+      });
   }
+  
 
 }

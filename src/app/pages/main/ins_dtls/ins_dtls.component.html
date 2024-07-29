@@ -31,7 +31,8 @@
   }
 </style>
 <p-card id="divToPrint">
-  <h1 class="label_field title">You are enlisted under <span class="heading">{{userData?.form_type == 'GP' ? 'Existing
+  <h1 class="label_field title">You are enlisted under <span class="heading">{{userData?.form_type == 'GP' ?
+      'Existing
       Group
       Policy' :
       userData?.form_type == 'STP' ? 'Super Topup Policy' : ''}}</span></h1>
@@ -41,72 +42,81 @@
           class="label_field color"><b>DETAILS OF THE MEMBER</b></label></th>
     </tr>
     <tr>
-      <th colspan="4"><label for="mem_name" class="label_field"><b>NAME :</b><span class="span_space"></span></label>
+      <th colspan="4"><label for="mem_name" class="label_field"><b>NAME :</b><span class="label_field heading">
+            {{userData?.memb_name}}</span></label>
       </th>
     </tr>
     <tr>
       <th colspan="4"><label for="addr" class="label_field"><b>MEMBER ID
-            :</b><span class="span_space"></span></label>
+            :</b><span class="label_field heading"> {{userData?.member_id}}</span></label>
       </th>
     </tr>
     <tr>
       <th colspan="4"><label for="member_type" class="label_field"><b>TYPE OF
             MEMBERSHIP
-            :</b><span class="span_space"></span></label></th>
+            :</b><span class="label_field heading"> {{userData?.memb_type == 'G' ? 'General Membership' :
+            userData?.memb_type ==
+            'L' ? 'Life Membership' : userData?.memb_type == 'AI' ? 'Associate Membership' : ''}}</span></label></th>
     </tr>
-    <tr>
+    <tr *ngIf="userData?.memb_type != 'AI'">
       <th colspan="4"><label for="unit" class="label_field"><b>NAME OF THE UNIT
             FROM
             WHERE SUPERANNUATED
-            :</b><span class="span_space"></span></label></th>
+            :</b><span class="label_field heading"> {{userData?.unit_name}}</span></label></th>
     </tr>
     <tr>
       <th colspan="4"><label for="gurd_name" class="label_field"><b>FATHER'S Name
-            :</b><span class="span_space"></span></label>
+            :</b><span class="label_field heading"> {{userData?.father_husband_name}}</span></label>
       </th>
     </tr>
     <tr>
-      <th colspan="2"><label for="ps" class="label_field"><b>MARITAL STATUS: </b><span
-            class="span_space"></span></label></th>
-      <th colspan="2"><label for="phone" class="label_field"><b>GENDER: </b><span class="span_space"></span></label>
+      <th colspan="2"><label for="ps" class="label_field"><b>MARITAL STATUS: </b><span class="label_field heading">
+            {{userData.marital_status == 'U' ? 'Unmarried' : userData.marital_status == 'M' ? 'Married' :
+            userData.marital_status == 'W' ? 'Widow' : userData.marital_status == 'D' ? 'Divorce' : ''}}</span></label>
+      </th>
+      <th colspan="2"><label for="phone" class="label_field"><b>GENDER: </b><span class="label_field heading">
+            {{userData?.sex == 'M' ? 'Male' : userData?.sex == 'F' ? 'Female' : ''}}</span></label>
       </th>
     </tr>
     <tr>
-      <th colspan="2"><label for="dob" class="label_field"><b>DATE OF BIRTH :</b><span
-            class="span_space"></span></label>
+      <th colspan="2"><label for="dob" class="label_field"><b>DATE OF BIRTH :</b><span class="label_field heading">
+            {{userData?.dob | date : 'dd/MM/yyyy'}}</span></label>
       </th>
-      <th colspan="2"><label for="email_id" class="label_field"><b>PHONE NO: </b><span
-            class="span_space"></span></label>
+      <th colspan="2"><label for="email_id" class="label_field"><b>PHONE NO: </b><span class="label_field heading">
+            {{userData?.phone}}</span></label>
       </th>
     </tr>
+    <table>
+      <tr>
+        <th colspan="4" class="text-center" style="background-color: aliceblue;"><label for="member_type"
+            class="label_field color"><b>DETAILS OF DEPENDENT</b></label></th>
+      </tr>
+      <tr>
+        <th colspan="1">
+          <label for="sl_no" class="label_field"><b>SL NO</b><span class="label_field heading"></span></label>
+        </th>
+        <th colspan="1">
+          <label for="dependent_name" class="label_field"><b>NAME OF THE DEPENDENTS</b><span
+              class="label_field heading"></span></label>
+        </th>
+        <th colspan="1">
+          <label for="phone_no" class="label_field"><b>DOB</b><span class="label_field heading"></span></label>
+        </th>
+        <th colspan="1">
+          <label for="relationship" class="label_field"><b>RELATIONSHIP</b><span
+              class="label_field heading"></span></label>
+        </th>
+      </tr>
+      <tr *ngIf="!dependentsData || dependentsData.length === 0">
+        <td colspan="4" class="text-center span_space"><b>No Data Found</b></td>
+      </tr>
+      <tr *ngFor="let dt of dependentsData; let i = index">
+        <th colspan="4"><span class="label_field heading">{{i + 4}}</span></th>
+        <th colspan="4"><span class="label_field heading">{{dt.dept_name}}</span></th>
+        <th colspan="4"><span class="label_field heading">{{dt.dob | date: 'dd/MM/yyyy'}}</span></th>
+        <th colspan="4"><span class="label_field heading">{{dt.relation_name}}</span></th>
+      </tr>
+    </table>
 
-    <tr>
-      <th colspan="4" class="text-center" style="background-color: aliceblue;"><label for="member_type"
-          class="label_field color"><b>DETAILS OF DEPENDENT</b></label></th>
-    </tr>
-    <tr>
-      <th>
-        <label for="sl_no" class="label_field"><b>SL NO</b><span class="span_space"></span></label>
-      </th>
-      <th>
-        <label for="dependent_name" class="label_field"><b>NAME OF THE DEPENDENTS</b><span
-            class="span_space"></span></label>
-      </th>
-      <th>
-        <label for="phone_no" class="label_field"><b>DOB</b><span class="span_space"></span></label>
-      </th>
-      <th>
-        <label for="relationship" class="label_field"><b>RELATIONSHIP</b><span class="span_space"></span></label>
-      </th>
-    </tr>
-    <tr *ngIf="!userData?.dep_dt || userData?.dep_dt.length === 0">
-      <td colspan="4" class="text-center span_space"><b>No Data Found</b></td>
-    </tr>
-    <tr *ngFor="let dt of userData?.dep_dt; let i = index">
-      <th><span class="span_space"></span></th>
-      <th style="width: 38vw;"><span class="span_space"></span></th>
-      <th style="width: 38vw;"><span class="span_space"></span></th>
-      <th><span class="span_space"></span></th>
-    </tr>
   </table>
 </p-card>
