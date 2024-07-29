@@ -62,33 +62,33 @@
                 </ng-container>
               </div>
               <div class="field col-12 md:col-4" *ngIf="this.responsedata[0]?.mem_type !='AI'">
-                <label for="unit" class="label_field"><b>Unit Name:<span class="text-red-700">*</span></b></label>&nbsp;
+                <label for="unit" class="label_field"><b>Unit Name:</b></label>&nbsp;
                 <ng-container *ngIf="checkedmember">
                   <!-- <input id="unit" type="text" formControlName="unit" placeholder="Enter Unit Name"
                     class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                     readonly /> -->
-                  <select id="unit" formControlName="unit" [(ngModel)]="selectedValue"
-                    class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary" 
-                    style="appearance: auto; height: 3vw; border-radius: 7px">
-                    <option value="N">Select Unit Name</option>
-                    <option *ngFor="let option of responsedata_unit" [value]="option.unit_id">{{ option.unit_name }}
-                    </option>
-                  </select>
-                  <div *ngIf="o['unit']?.touched || o['unit']?.dirty">
-                    <small class="text-red-900" *ngIf="o['unit']?.errors">Unit Name is required.</small>
-                  </div>
-                </ng-container>
-                <ng-container *ngIf="!checkedmember">
-                  <select id="unit" formControlName="unit" [(ngModel)]="selectedValue"
+                  <select id="unit" formControlName="unit"
                     class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                     style="appearance: auto; height: 3vw; border-radius: 7px">
                     <option value="N">Select Unit Name</option>
                     <option *ngFor="let option of responsedata_unit" [value]="option.unit_id">{{ option.unit_name }}
                     </option>
                   </select>
-                  <div *ngIf="o['unit']?.touched || o['unit']?.dirty">
+                  <!-- <div *ngIf="o['unit']?.touched || o['unit']?.dirty">
                     <small class="text-red-900" *ngIf="o['unit']?.errors">Unit Name is required.</small>
-                  </div>
+                  </div> -->
+                </ng-container>
+                <ng-container *ngIf="!checkedmember">
+                  <select id="unit" formControlName="unit"
+                    class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                    style="appearance: auto; height: 3vw; border-radius: 7px">
+                    <option value="N">Select Unit Name</option>
+                    <option *ngFor="let option of responsedata_unit" [value]="option.unit_id">{{ option.unit_name }}
+                    </option>
+                  </select>
+                  <!-- <div *ngIf="o['unit']?.touched || o['unit']?.dirty">
+                    <small class="text-red-900" *ngIf="o['unit']?.errors">Unit Name is required.</small>
+                  </div> -->
                 </ng-container>
 
               </div>
@@ -121,7 +121,7 @@
                 <ng-container *ngIf="checkedmember">
                   <!-- <input id="member_type" type="text" formControlName="member_type" placeholder="Enter Member Type"
                     class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" /> -->
-                  <select id="member_type" formControlName="member_type" [(ngModel)]="selectedValue_1"
+                  <select id="member_type" formControlName="member_type"
                     class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                     style="appearance: auto; height: 3vw; border-radius: 7px">
                     <option value="N">Select Member Type</option>
@@ -135,7 +135,7 @@
                 </ng-container>
 
                 <ng-container *ngIf="!checkedmember">
-                  <select id="member_type" formControlName="member_type" [(ngModel)]="selectedValue_1"
+                  <select id="member_type" formControlName="member_type"
                     class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                     style="appearance: auto; height: 3vw; border-radius: 7px">
                     <option value="N">Select Member Type</option>
@@ -176,7 +176,7 @@
                   <!-- <input id="gen" type="text" formControlName="gen" placeholder="Enter Gender"
                     class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                     readonly /> -->
-                  <select id="gen" formControlName="gen" [(ngModel)]="selectedValue_2"
+                  <select id="gen" formControlName="gen"
                     class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                     style="appearance: auto; height: 3vw; border-radius: 7px">
                     <option value="N">Select Gender</option>
@@ -188,7 +188,7 @@
                   </div>
                 </ng-container>
                 <ng-container *ngIf="!checkedmember">
-                  <select id="gen" formControlName="gen" [(ngModel)]="selectedValue_2"
+                  <select id="gen" formControlName="gen"
                     class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                     style="appearance: auto; height: 3vw; border-radius: 7px">
                     <option value="N">Select Gender</option>
@@ -209,7 +209,7 @@
                     placeholder="Enter Marital Status"
                     class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                     readonly /> -->
-                  <select id="marital_status" formControlName="marital_status" [(ngModel)]="selectedValue_3"
+                  <select id="marital_status" formControlName="marital_status"
                     class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                     style="appearance: auto; height: 3vw; border-radius: 7px">
                     <option value="N">Select Marital Status</option>
@@ -223,7 +223,7 @@
                   </div>
                 </ng-container>
                 <ng-container *ngIf="!checkedmember">
-                  <select id="marital_status" formControlName="marital_status" [(ngModel)]="selectedValue_3"
+                  <select id="marital_status" formControlName="marital_status"
                     class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                     style="appearance: auto; height: 3vw; border-radius: 7px">
                     <option value="N">Select Marital Status</option>
@@ -249,57 +249,56 @@
 
             <div class="flex flex-row">
               <div class="field col-12 md:col-4" *ngIf="this.responsedata[0]?.mem_type !='AI'">
-                <label for="memb_oprn" class="label_field"><b>Member Operation:<span
-                      class="text-red-700">*</span></b></label>&nbsp;
+                <label for="memb_oprn" class="label_field"><b>Member Operation:</b></label>&nbsp;
                 <ng-container *ngIf="checkedmember">
                   <!-- <input id="memb_oprn" type="text" formControlName="memb_oprn" placeholder="Enter Member Operation"
                     class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                     readonly /> -->
-                  <select id="memb_oprn" formControlName="memb_oprn" [(ngModel)]="selectedValue_4"
+                  <select id="memb_oprn" formControlName="memb_oprn"
                     class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                     style="appearance: auto; height: 3vw; border-radius: 7px" (change)="onPolicyAddDependent($event)">
                     <option value="N">Select Operation</option>
                     <option value="S">Self</option>
                     <option value="J">Spouse</option>
                   </select>
-                  <div *ngIf="o['memb_oprn']?.touched || o['memb_oprn']?.dirty">
+                  <!-- <div *ngIf="o['memb_oprn']?.touched || o['memb_oprn']?.dirty">
                     <small class="text-red-900" *ngIf="o['memb_oprn']?.errors">Operation is required.</small>
-                  </div>
+                  </div> -->
                 </ng-container>
                 <ng-container *ngIf="!checkedmember">
-                  <select id="memb_oprn" formControlName="memb_oprn" [(ngModel)]="selectedValue_4"
+                  <select id="memb_oprn" formControlName="memb_oprn"
                     class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                     style="appearance: auto; height: 3vw; border-radius: 7px">
                     <option value="N">Select Operation</option>
                     <option value="S">Self</option>
                     <option value="J">Spouse</option>
                   </select>
-                  <div *ngIf="o['memb_oprn']?.touched || o['memb_oprn']?.dirty">
+                  <!-- <div *ngIf="o['memb_oprn']?.touched || o['memb_oprn']?.dirty">
                     <small class="text-red-900" *ngIf="o['memb_oprn']?.errors">Operation is required.</small>
-                  </div>
+                  </div> -->
                 </ng-container>
 
               </div>
               <div class="field col-12 md:col-4">
                 <label for="type_diseases" class="label_field"><b>Suffering from any diseases:</b></label>&nbsp;
                 <ng-container *ngIf="checkedmember">
-                <select id="type_diseases" formControlName="type_diseases" [(ngModel)]="selectedValue_5"
-                  class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
-                  style="appearance: auto; height: 3vw; border-radius: 7px">
-                  <option value="N" select>Select</option>
-                  <option value="Y">Yes</option>
-                  <option value="N">No</option>
-                </select>
-              </ng-container>
-              <ng-container *ngIf="!checkedmember">
-                <select id="type_diseases" formControlName="type_diseases" [(ngModel)]="selectedValue_5"
-                  class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
-                  style="appearance: auto; height: 3vw; border-radius: 7px">
-                  <option value="N" select>Select</option>
-                  <option value="Y">Yes</option>
-                  <option value="N">No</option>
-                </select>
-              </ng-container>
+                  <select id="type_diseases" formControlName="type_diseases"
+                    class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                    style="appearance: auto; height: 3vw; border-radius: 7px">
+                    <option value="N" select>Select</option>
+                    <option value="Y">Yes</option>
+                    <option value="N">No</option>
+                  </select>
+                </ng-container>
+                <ng-container *ngIf="!checkedmember">
+                  <select id="type_diseases" formControlName="type_diseases"
+                    class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                    style="appearance: auto; height: 3vw; border-radius: 7px">
+                    <option value="N" select>Select</option>
+                    <option value="Y">Yes</option>
+                    <option value="N">No</option>
+                  </select>
+                </ng-container>
                 <!-- <div *ngIf="o['type_diseases']?.touched || o['type_diseases']?.dirty">
                   <small class="text-red-900" *ngIf="o['type_diseases']?.errors">Suffering from any diseases is
                     required.</small>
@@ -309,13 +308,15 @@
               <div class="field col-12 md:col-4">
                 <label for="name_diseases" class="label_field"><b>Type of Diseases:</b></label>&nbsp;
                 <ng-container *ngIf="checkedmember">
-                <input id="name_diseases" type="text" formControlName="name_diseases" placeholder="Enter Diseases name"
-                  class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                  <input id="name_diseases" type="text" formControlName="name_diseases"
+                    placeholder="Enter Diseases name"
+                    class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                 </ng-container>
                 <ng-container *ngIf="!checkedmember">
-                  <input id="name_diseases" type="text" formControlName="name_diseases" placeholder="Enter Diseases name"
+                  <input id="name_diseases" type="text" formControlName="name_diseases"
+                    placeholder="Enter Diseases name"
                     class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
-                  </ng-container>
+                </ng-container>
                 <!-- <div *ngIf="o['name_diseases']?.touched || o['name_diseases']?.dirty">
                   <small class="text-red-900" *ngIf="o['name_diseases']?.errors">Type of Diseases is required.</small>
                 </div> -->
@@ -332,26 +333,26 @@
                   <div class="field col-12 md:col-3">
                     <label for="sl_no" class="label_field"><b>Sl No:</b></label>
                     <ng-container *ngIf="checkedmember">
-                    <input id="sl_no" type="text" formControlName="sl_no" placeholder="Enter Sl No"
-                      class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                      <input id="sl_no" type="text" formControlName="sl_no" placeholder="Enter Sl No"
+                        class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                     </ng-container>
                     <ng-container *ngIf="!checkedmember">
                       <input id="sl_no" type="text" formControlName="sl_no" placeholder="Enter Sl No"
                         class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
-                      </ng-container>
+                    </ng-container>
                   </div>
                   <div class="field col-12 md:col-3">
                     <label for="dependent_name" class="label_field"><b>Dependent Name:</b></label>
                     <ng-container *ngIf="checkedmember">
                       <input id="dependent_name" type="text" formControlName="dependent_name"
-                      placeholder="Enter Dependent name"
-                      class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
-                      </ng-container>
-                      <ng-container *ngIf="!checkedmember">
-                        <input id="dependent_name" type="text" formControlName="dependent_name"
                         placeholder="Enter Dependent name"
                         class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
-                        </ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="!checkedmember">
+                      <input id="dependent_name" type="text" formControlName="dependent_name"
+                        placeholder="Enter Dependent name"
+                        class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                    </ng-container>
                   </div>
                   <div class="field col-12 md:col-3">
                     <label for="relation" class="label_field"><b>Relationship:</b></label>
@@ -359,7 +360,7 @@
                       <!-- <input id="relation_name" type="text" formControlName="relation_name"
                         placeholder="Enter Dependent name"
                         class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" /> -->
-                      <select id="relation" formControlName="relation" [(ngModel)]="selectedValue_6"
+                      <select id="relation" formControlName="relation"
                         class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                         style="appearance: auto; height: 3vw; border-radius: 7px">
                         <option value="N">Select Relationship</option>
@@ -370,7 +371,7 @@
                       <input type="hidden" formControlName="relation" />
                     </ng-container>
                     <ng-container *ngIf="!checkedmember">
-                      <select id="relation" formControlName="relation" [(ngModel)]="selectedValue_6"
+                      <select id="relation" formControlName="relation"
                         class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                         style="appearance: auto; height: 3vw; border-radius: 7px">
                         <option value="N">Select Relationship</option>
@@ -385,11 +386,11 @@
                     <label for="dob" class="label_field"><b>DOB(DD/MM/YYYY):</b></label>&nbsp;
                     <ng-container *ngIf="checkedmember">
                       <input id="dob" type="date" formControlName="dob" placeholder="Enter DOB"
-                      class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                        class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                     </ng-container>
                     <ng-container *ngIf="!checkedmember">
                       <input id="dob" type="date" formControlName="dob" placeholder="Enter DOB"
-                      class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                        class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                     </ng-container>
                   </div>
                 </div>
@@ -397,22 +398,22 @@
                   <div class="field col-12 md:col-3">
                     <label for="type_diseases" class="label_field"><b>Suffering from any diseases:</b></label>&nbsp;
                     <ng-container *ngIf="checkedmember">
-                      <select id="type_diseases" formControlName="type_diseases" [(ngModel)]="selectedValue_7"
-                      class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
-                      style="appearance: auto; height: 3vw; border-radius: 7px">
-                      <option value="N" selected>Select</option>
-                      <option value="Y">Yes</option>
-                      <option value="N">No</option>
-                    </select>
+                      <select id="type_diseases" formControlName="type_diseases"
+                        class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                        style="appearance: auto; height: 3vw; border-radius: 7px">
+                        <option value="N" selected>Select</option>
+                        <option value="Y">Yes</option>
+                        <option value="N">No</option>
+                      </select>
                     </ng-container>
                     <ng-container *ngIf="!checkedmember">
-                      <select id="type_diseases" formControlName="type_diseases" [(ngModel)]="selectedValue_7"
-                      class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
-                      style="appearance: auto; height: 3vw; border-radius: 7px">
-                      <option value="N" selected>Select</option>
-                      <option value="Y">Yes</option>
-                      <option value="N">No</option>
-                    </select>
+                      <select id="type_diseases" formControlName="type_diseases"
+                        class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                        style="appearance: auto; height: 3vw; border-radius: 7px">
+                        <option value="N" selected>Select</option>
+                        <option value="Y">Yes</option>
+                        <option value="N">No</option>
+                      </select>
                     </ng-container>
                   </div>
 
@@ -420,13 +421,13 @@
                     <label for="name_diseases" class="label_field"><b>Type of Diseases:</b></label>&nbsp;
                     <ng-container *ngIf="checkedmember">
                       <input id="name_diseases" type="text" formControlName="name_diseases"
-                      placeholder="Enter Diseases name"
-                      class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                        placeholder="Enter Diseases name"
+                        class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                     </ng-container>
                     <ng-container *ngIf="!checkedmember">
                       <input id="name_diseases" type="text" formControlName="name_diseases"
-                      placeholder="Enter Diseases name"
-                      class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                        placeholder="Enter Diseases name"
+                        class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                     </ng-container>
                   </div>
 
@@ -538,7 +539,7 @@
           </form>
 
           <button pButton pRipple type="button" label="Submit" class="p-button-raised final" (click)="final_submit()"
-            [disabled]="o['member_id'].invalid || o['form_dt'].invalid || o['unit'].invalid || o['phone'].invalid || o['member_type'].invalid || o['member'].invalid || o['gurdian'].invalid ||  o['gen'].invalid ||  o['marital_status'].invalid ||  o['gen_dob'].invalid || o['memb_oprn'].invalid"></button>
+            [disabled]="o['member_id'].invalid || o['form_dt'].invalid || o['phone'].invalid || o['member_type'].invalid || o['member'].invalid || o['gurdian'].invalid ||  o['gen'].invalid ||  o['marital_status'].invalid ||  o['gen_dob'].invalid"></button>
         </div>
 
 

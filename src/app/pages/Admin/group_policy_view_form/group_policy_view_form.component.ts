@@ -109,6 +109,8 @@ export class Group_policy_view_formComponent implements OnInit {
   maxDate!: string;
   responsedata_trust: any;
   save_dt: any;
+
+  trn_id = 0
   
 
   constructor(
@@ -364,6 +366,8 @@ export class Group_policy_view_formComponent implements OnInit {
           });
           this.selectedValue2 = this.resdata[0]?.pay_mode;
           this.selectedValue3 = this.resdata[0]?.chq_bank;
+
+          this.trn_id = this.resdata[0]?.trn_id;
         }
          
         
@@ -388,7 +392,8 @@ export class Group_policy_view_formComponent implements OnInit {
       cheque_no: this.f['cheque_no'] ? this.f['cheque_no'].value : null,
       bank_name: this.f['payment'].value == 'Q' ? this.f['bank_name'].value : this.f['payment'].value == 'O' ? '75' : '16',
       member: this.stpinfo?.memb_name,
-      phone_no: this.stpinfo?.phone
+      phone_no: this.stpinfo?.phone,
+      trn_id: this.trn_id
     }
     this.dataServe.global_service(1,'/save_trn_data_gmp',dt).subscribe(data => {
       this.save_dt = data;

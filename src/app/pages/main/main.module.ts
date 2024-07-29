@@ -76,6 +76,13 @@ const routes: Routes = [
             (m) => m.Money_receipt_memberModule
           ),
       },
+      {
+        path: 'ins_dtls',
+        loadChildren: () =>
+          import('./ins_dtls/ins_dtls.module').then(
+            (m) => m.Ins_dtlsModule
+          ),
+      },
     ],
   },
 ];

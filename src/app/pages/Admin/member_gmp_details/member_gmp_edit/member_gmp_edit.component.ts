@@ -296,7 +296,7 @@ toggleAdditionalOptions(checked:any) {
   }
 
   save_gmp(){
-    var sup_top_flag = this.o['sup_top_up'].value != '' ? this.sup_top_list.filter((dt: any) => dt.value == this.o['sup_top_up'].value) : ''
+    // var sup_top_flag = this.o['sup_top_up'].value != '' ? this.sup_top_list.filter((dt: any) => dt.value == this.o['sup_top_up'].value) : ''
     var dt = {
         flag: 'GP',
         form_no: this.form_no,
@@ -321,7 +321,7 @@ toggleAdditionalOptions(checked:any) {
         sup_tot_amont : this.o['sup_tot_amont'] ? this.o['sup_tot_amont'].value : null,
        
         
-        sup_top_flag: sup_top_flag.length > 0 ? sup_top_flag[0].flag : '',
+        // sup_top_flag: sup_top_flag.length > 0 ? sup_top_flag[0].flag : '',
         
     }
     this.dataServe

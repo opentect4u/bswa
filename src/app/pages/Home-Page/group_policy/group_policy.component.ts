@@ -47,14 +47,14 @@ export class Group_policyComponent implements OnInit {
   responsedata_unit: any;
   maxDate!: string;
 
-  selectedValue: string = 'N';
-  selectedValue_1: string = 'N';
-  selectedValue_2: string = 'N';
-  selectedValue_3: string = 'N';
-  selectedValue_4: string = 'N';
-  selectedValue_5: string = 'N';
-  selectedValue_6: string = 'N';
-  selectedValue_7: string = 'N';
+  // selectedValue: string = 'N';
+  // selectedValue_1: string = 'N';
+  // selectedValue_2: string = 'N';
+  // selectedValue_3: string = 'N';
+  // selectedValue_4: string = 'N';
+  // selectedValue_5: string = 'N';
+  // selectedValue_6: string = 'N';
+  // selectedValue_7: string = 'N';
   // selectedValue8: string = 'N';
 
 
@@ -88,14 +88,14 @@ export class Group_policyComponent implements OnInit {
       gen_dob: ['', Validators.required],
       type_diseases: ['', Validators.required],
       name_diseases: ['', Validators.required],
-      memb_oprn: ['', Validators.required],
+      memb_oprn: [''],
       grp_name: [''],
       pre_amont: [''],
       sup_top_up: [''],
       sup_pre_amont: [''],
       sup_tot_amont: [''],
       policy_holder_type: [''],
-      unit: ['', Validators.required],
+      unit: [''],
       // unit_name: ['', Validators.required],
       // sl_no: [''],
       // dependent_name: [''],
@@ -141,33 +141,35 @@ export class Group_policyComponent implements OnInit {
     this.depenFields_1.clear()
     if(isMember === 'M'){
       this.checkedmember = true;
-      this.selectedValue = 'N';
-      this.selectedValue_1 = 'N'; 
-      this.selectedValue_2 = 'N';
-      this.selectedValue_3 = 'N';
-      this.selectedValue_4 = 'N';
-      this.selectedValue_5 = 'N';
-      this.selectedValue_6 = 'N';
-      this.selectedValue_7 = 'N';
+      // this.selectedValue = 'N';
+      // this.selectedValue_1 = 'N'; 
+      // this.selectedValue_2 = 'N';
+      // this.selectedValue_3 = 'N';
+      // this.selectedValue_4 = 'N';
+      // this.selectedValue_5 = 'N';
+      // this.selectedValue_6 = 'N';
+      // this.selectedValue_7 = 'N';
       // this.selectedValue8 = 'N';
       this.unit()
       this.relationship()
     }else{
 
       this.checkedmember = false;
-      this.selectedValue_1 = 'N'; 
-      this.selectedValue_2 = 'N';
-      this.selectedValue_3 = 'N';
-      this.selectedValue_4 = 'N';
-      this.selectedValue_5 = 'N';
-      this.selectedValue_6 = 'N';
-      this.selectedValue_7 = 'N';
+      // this.selectedValue = 'N';
+      // this.selectedValue_1 = 'N'; 
+      // this.selectedValue_2 = 'N';
+      // this.selectedValue_3 = 'N';
+      // this.selectedValue_4 = 'N';
+      // this.selectedValue_5 = 'N';
+      // this.selectedValue_6 = 'N';
+      // this.selectedValue_7 = 'N';
       // this.selectedValue8 = 'N';
       this.onadd()
       this.get_non_dtls()
       this.unit()
       this.relationship()
     }
+    // this.relationship()
   }
 
   // onPolicyAddDependent(memb_oprn: any) {
@@ -245,26 +247,50 @@ export class Group_policyComponent implements OnInit {
     this.dataServe.global_service(0, '/get_member_policy', `member_id=${dt.member_id}`).subscribe((data:any) => {
       this.responsedata = data
       console.log(this.responsedata);
-      this.responsedata = this.responsedata.suc > 0 ? this.responsedata.msg : []
-      this.formNo = this.responsedata[0].form_no
-      console.log(this.responsedata[0].unit_id)
-      this.form.patchValue({
-        policy_holder_type: this.responsedata[0].policy_holder_type,
-        // form_dt: this.responsedata[0].form_dt,
-        unit: this.responsedata[0].unit_id,
-        member_type: this.responsedata[0].mem_type,
-        member: this.responsedata[0].memb_name,
-        phone: this.responsedata[0].phone_no,
-        memb_oprn: this.responsedata[0].memb_oprn,
-        gurdian: this.responsedata[0].gurdian_name,
-        gen: this.responsedata[0].gender,
-        marital_status: this.responsedata[0].marital_status,
-        gen_dob: this.datePipe.transform(this.responsedata[0].dob, 'yyyy-MM-dd'),
-      })
-      })
 
-      this.getData_dependents()
-  }
+      if(this.responsedata.suc == 2){
+        Swal.fire(
+          'Warning',
+          'This Member ID already exists in STP Policy',
+          'warning'
+        ).then((result) => {
+          if (result.isConfirmed) {
+            this.form.reset()
+          }
+        });
+      }else if (this.responsedata.suc > 0 && this.responsedata.suc < 2){
+        this.responsedata = this.responsedata.suc > 0 ? this.responsedata.msg : []
+        this.formNo = this.responsedata[0].form_no
+        console.log(this.responsedata[0].unit_id)
+        this.form.patchValue({
+          policy_holder_type: this.responsedata[0].policy_holder_type,
+          // form_dt: this.responsedata[0].form_dt,
+          unit: this.responsedata[0].unit_id,
+          member_type: this.responsedata[0].mem_type,
+          member: this.responsedata[0].memb_name,
+          phone: this.responsedata[0].phone_no,
+          memb_oprn: this.responsedata[0].memb_oprn,
+          gurdian: this.responsedata[0].gurdian_name,
+          gen: this.responsedata[0].gender,
+          marital_status: this.responsedata[0].marital_status,
+          gen_dob: this.datePipe.transform(this.responsedata[0].dob, 'yyyy-MM-dd'),
+        });
+        }else {
+          Swal.fire(
+            'Error',
+            'Member Details Not Found',
+            'error'
+          ).then((result) => {
+            if (result.isConfirmed) {
+              this.form.reset()
+            }
+          });
+        }
+  
+        this.getData_dependents()
+      });
+    }
+
 
   getData_dependents () {
     var dt = {

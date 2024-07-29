@@ -1,0 +1,112 @@
+<style>
+  table {
+    width: 96%;
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+  th {
+    background-color: #f2f2f2;
+    text-align: left;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  th,
+  td {
+    padding: 15px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+  }
+</style>
+<p-card id="divToPrint">
+  <h1 class="label_field title">You are enlisted under <span class="heading">{{userData?.form_type == 'GP' ? 'Existing
+      Group
+      Policy' :
+      userData?.form_type == 'STP' ? 'Super Topup Policy' : ''}}</span></h1>
+  <table class="table_space">
+    <tr>
+      <th colspan="4" class="text-center" style="background-color: aliceblue;"><label for="member_type"
+          class="label_field color"><b>DETAILS OF THE MEMBER</b></label></th>
+    </tr>
+    <tr>
+      <th colspan="4"><label for="mem_name" class="label_field"><b>NAME :</b><span class="span_space"></span></label>
+      </th>
+    </tr>
+    <tr>
+      <th colspan="4"><label for="addr" class="label_field"><b>MEMBER ID
+            :</b><span class="span_space"></span></label>
+      </th>
+    </tr>
+    <tr>
+      <th colspan="4"><label for="member_type" class="label_field"><b>TYPE OF
+            MEMBERSHIP
+            :</b><span class="span_space"></span></label></th>
+    </tr>
+    <tr>
+      <th colspan="4"><label for="unit" class="label_field"><b>NAME OF THE UNIT
+            FROM
+            WHERE SUPERANNUATED
+            :</b><span class="span_space"></span></label></th>
+    </tr>
+    <tr>
+      <th colspan="4"><label for="gurd_name" class="label_field"><b>FATHER'S Name
+            :</b><span class="span_space"></span></label>
+      </th>
+    </tr>
+    <tr>
+      <th colspan="2"><label for="ps" class="label_field"><b>MARITAL STATUS: </b><span
+            class="span_space"></span></label></th>
+      <th colspan="2"><label for="phone" class="label_field"><b>GENDER: </b><span class="span_space"></span></label>
+      </th>
+    </tr>
+    <tr>
+      <th colspan="2"><label for="dob" class="label_field"><b>DATE OF BIRTH :</b><span
+            class="span_space"></span></label>
+      </th>
+      <th colspan="2"><label for="email_id" class="label_field"><b>PHONE NO: </b><span
+            class="span_space"></span></label>
+      </th>
+    </tr>
+
+    <tr>
+      <th colspan="4" class="text-center" style="background-color: aliceblue;"><label for="member_type"
+          class="label_field color"><b>DETAILS OF DEPENDENT</b></label></th>
+    </tr>
+    <tr>
+      <th>
+        <label for="sl_no" class="label_field"><b>SL NO</b><span class="span_space"></span></label>
+      </th>
+      <th>
+        <label for="dependent_name" class="label_field"><b>NAME OF THE DEPENDENTS</b><span
+            class="span_space"></span></label>
+      </th>
+      <th>
+        <label for="phone_no" class="label_field"><b>DOB</b><span class="span_space"></span></label>
+      </th>
+      <th>
+        <label for="relationship" class="label_field"><b>RELATIONSHIP</b><span class="span_space"></span></label>
+      </th>
+    </tr>
+    <tr *ngIf="!userData?.dep_dt || userData?.dep_dt.length === 0">
+      <td colspan="4" class="text-center span_space"><b>No Data Found</b></td>
+    </tr>
+    <tr *ngFor="let dt of userData?.dep_dt; let i = index">
+      <th><span class="span_space"></span></th>
+      <th style="width: 38vw;"><span class="span_space"></span></th>
+      <th style="width: 38vw;"><span class="span_space"></span></th>
+      <th><span class="span_space"></span></th>
+    </tr>
+  </table>
+</p-card>

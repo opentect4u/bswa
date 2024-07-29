@@ -30,7 +30,7 @@ export class SidebarComponent implements OnInit {
     {
       label: 'Insurance Form',
       icon: 'pi pi-list',
-      routerLink: ['ins_form'],
+      routerLink: ['ins_dtls'],
     },
     {
       label: 'Transaction History',
