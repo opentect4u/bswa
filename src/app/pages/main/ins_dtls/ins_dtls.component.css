@@ -5,3 +5,28 @@
 .title{
     color: black;
 }
+
+.size {
+    float: inline-end;
+    margin-right: 41px;
+}
+
+.size1 {
+    float: inline-start;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.5em 1em;
+    font-size: 0.95em;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.375em;
+  }
+  .badge-pending {
+    color: #073fdb;
+    background-color: #e9d188;
+  }

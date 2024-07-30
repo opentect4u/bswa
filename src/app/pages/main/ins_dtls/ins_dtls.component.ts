@@ -34,6 +34,7 @@ interface UserInfo {
   resolution_dt: string;
   spou_dt: DepInfo;
   dep_dt: [DepInfo];
+  userMedicalData: MedicalInfo[];
 }
 
 interface DepInfo {
@@ -68,6 +69,15 @@ interface DepInfo {
   relation_dep: string;
 }
 
+interface MedicalInfo {
+  sl_no: string;
+  ind_type: string;
+  fin_year: string;
+  amount: string;
+  particulars: string;
+  treatment_dtls: string;
+}
+
 @Component({
   selector: 'app-ins_dtls',
   templateUrl: './ins_dtls.component.html',
@@ -80,6 +90,7 @@ export class Ins_dtlsComponent implements OnInit {
   insData: any  = {};
   userData: UserInfo | any;
   dependentsData: any = [];
+  userMedicalData: any = [];
 
   constructor(private dataServe: DataService) { }
 
@@ -109,10 +120,12 @@ export class Ins_dtlsComponent implements OnInit {
           
           if (this.insData.length > 0) {
             this.userData = this.insData[0];
+            this.userMedicalData = this.userData[0].userMedicalData || [];
           }
         } else {
-          this.insData = {};
+          this.insData = [];
           this.dependentsData = [];
+          this.userMedicalData = [];
         }
       });
   }
