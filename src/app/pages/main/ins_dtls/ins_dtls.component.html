@@ -222,7 +222,7 @@
             'N/A'}}</span></label>
       </th>
       <th colspan="3"><label for="min_no" class="label_field"><b>MIN NO :</b><span class="label_field heading">
-            {{userData?.spou_min_no != '' ? userData?.spou_min_no : 'N/A'}}</span></label></th>
+            {{userData?.spou_min_no != 'null' ? userData?.spou_min_no : 'N/A'}}</span></label></th>
     </tr>
     <tr>
       <th colspan="6"><label for="mob_no" class="label_field"><b>MOBILE NO :</b><span class="label_field heading">
@@ -257,13 +257,13 @@
             class="label_field heading"></span></label>
       </th>
       <th>
-        <label for="diseases" class="label_field"><b>HOSPITAL NAME</b><span class="label_field heading"></span></label>
+        <label for="diseases" class="label_field"><b>HOSPITAL NAME{{userData}}</b><span class="label_field heading"></span></label>
       </th>
     </tr>
     <tr *ngIf="!userMedicalData  || userMedicalData.length ===0">
-      <td colspan="6" class="text-center span_space heading"><b>No Data Found</b></td>
+      <td colspan="6" class="text-center span_space heading"><b>No Data Found </b></td>
     </tr>
-    <tr *ngFor="let data of userMedicalData ; let i = index">
+    <tr *ngFor="let data of userMedicalData; let i = index">
       <th><span class="label_field heading">{{i+1}}</span></th>
       <th><span class="label_field heading">{{data.ind_type == 'S' ? 'Self' : data.ind_type == 'J' ? 'Spouse' :
           ''}}</span>
