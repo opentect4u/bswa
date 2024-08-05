@@ -54,6 +54,8 @@ export class Super_top_up_policy_registerComponent implements OnInit {
   errorMessage: string = '';
   // UserData: any;
 
+  // isDisabled: boolean = true
+
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -130,21 +132,20 @@ export class Super_top_up_policy_registerComponent implements OnInit {
        
         // this.form.reset()
 
-        // if(this.responsedata.suc == 3){
-        //   Swal.fire(
-        //     'Warning',
-        //     'AI members are not allowed',
-        //     'warning'
-        //   ).then((result) => {
-        //     if (result.isConfirmed) {
-        //       this.form.reset()
-        //     }
-        //   });
-        // }else {
-          if(this.responsedata.suc == 2){
+        if(this.responsedata.suc == 3){
+          Swal.fire(
+            'Warning',
+            'This Member ID already exists in STP Policy',
+            'warning'
+          ).then((result) => {
+            if (result.isConfirmed) {
+              this.form.reset()
+            }
+          });
+        }else if(this.responsedata.suc == 2){
             Swal.fire(
               'Warning',
-              'Member ID already exists',
+              'Member ID already exists in GMP Policy',
               'warning'
             ).then((result) => {
               if (result.isConfirmed) {

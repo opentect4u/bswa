@@ -153,11 +153,13 @@ export class Policy_view_formComponent implements OnInit {
     const encodedFormNo = this.route.snapshot.params['form_no'];
     const encodedMemId = this.route.snapshot.params['member_id'];
     const encodedPhNo = this.route.snapshot.params['phone_no'];
+    // const encodedName = ;
     // this.member_id = localStorage.getItem('user_name')
     
     this.form_no = atob(decodeURIComponent(encodedFormNo));
     this.member_id = atob(decodeURIComponent(encodedMemId));
-    this.phone_no = atob(decodeURIComponent(encodedPhNo))
+    this.phone_no = atob(decodeURIComponent(encodedPhNo));
+    // this.memb_name = this.route.snapshot.params['memb_name']
     console.log(this.member_id,'ooo');
     // this.getMemberInfo(this.member_id);
     this.getGenInsInfo();
@@ -216,10 +218,11 @@ export class Policy_view_formComponent implements OnInit {
             : {};
         this.stpinfo = this.responsedata;
         // this.form.patchValue({
-        //   resolution_no: this.resdata[0].resolution_no,
-        //   resolution_dt: this.datePipe.transform(this.resdata[0].resolution_dt, 'yyyy-MM-dd'),
-        //   status:this.resdata[0].form_status,
+        //   // resolution_no: this.resdata[0].resolution_no,
+        //   // resolution_dt: this.datePipe.transform(this.resdata[0].resolution_dt, 'yyyy-MM-dd'),
+        //   // status:this.resdata[0].form_status,
         //   // pre_amt: this.resdata[0].premium_amt,
+        //   memb_name: this.stpinfo?.memb_name
         // })
         // this.selectedValue = this.resdata[0].form_status;
       });
@@ -317,7 +320,7 @@ export class Policy_view_formComponent implements OnInit {
   reject_submit(){
     var dt = {
       formNo: this.form_no,
-      member: this.route.snapshot.params['memb_name'],
+      member: this.stpinfo?.memb_name,
       resolution_no: this.f['resolution_no'] ? this.f['resolution_no'].value : null,
       resolution_dt: this.f['resolution_dt'] ? this.f['resolution_dt'].value : null,
       status: this.f['status'] ? this.f['status'].value : null,
@@ -360,7 +363,7 @@ export class Policy_view_formComponent implements OnInit {
   approve(){
     var dt = {
       formNo: this.form_no,
-      member: this.route.snapshot.params['memb_name'],
+      member: this.stpinfo?.memb_name,
       resolution_no: this.f['resolution_no'] ? this.f['resolution_no'].value : null,
       resolution_dt: this.f['resolution_dt'] ? this.f['resolution_dt'].value : null,
       status: this.f['status'] ? this.f['status'].value : null,

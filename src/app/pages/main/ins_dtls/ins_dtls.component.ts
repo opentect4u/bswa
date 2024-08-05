@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { DataService } from 'src/app/service/data.service';
+import Swal from 'sweetalert2';
 
 interface UserInfo {
   form_no: string;
@@ -35,6 +36,12 @@ interface UserInfo {
   spou_dt: DepInfo;
   dep_dt: [DepInfo];
   // userMedicalData: MedicalInfo[];
+  sl_no: string;
+  ind_type: string;
+  fin_year: string;
+  amount: string;
+  particulars: string;
+  treatment_dtls: string;
 }
 
 interface DepInfo {
@@ -90,14 +97,14 @@ export class Ins_dtlsComponent implements OnInit {
   insData: any  = {};
   userData: UserInfo | any;
   dependentsData: any = [];
-  userMedicalData: MedicalInfo | any ;
+  // userMedicalData: MedicalInfo | any ;
 
   constructor(private dataServe: DataService) { }
 
   ngOnInit() {
   // this.form_no = localStorage.getItem('form_no')
-  // this.mem_id = localStorage.getItem('member_id')
-   this.getInsuranceDetails();
+  const mem_id = localStorage.getItem('member_id')
+   this.getInsuranceDetails(mem_id);
   }
 
   // getInsuranceDetails(){
@@ -111,21 +118,35 @@ export class Ins_dtlsComponent implements OnInit {
   //         });
   // }
 
-  getInsuranceDetails(){
-    this.dataServe.global_service(1, '/insurance_dtls', {mem_id: localStorage.getItem('member_id')})
+  getInsuranceDetails(mem_id : any){
+    this.dataServe.global_service(1, '/insurance_dtls', {mem_id})
       .subscribe((data: any) => {
-        if (data.suc > 0) {
-          this.insData = data.msg;
-          this.dependentsData = data.dependents;
+        if (data && data.suc > 0) {
+          this.insData = data.msg || [];
+          this.dependentsData = data.dependents || [];
           
-          if (this.insData.length > 0) {
-            this.userData = this.insData[0];
-            this.userMedicalData = this.userData[0]?.userMedicalData || [];
-          }
+          // if (this.insData.length > 0) {
+          //   this.userData = this.insData[0];
+          //   // this.userMedicalData = this.userData;
+          // }
+
+          this.userData = this.insData.length > 0 ? this.insData : [];
+          console.log(this.userData,'medical');
+          
         } else {
+          // Swal.fire(
+          //   'Warning',
+          //   'There is no access to add More Dependent',
+          //     'warning'
+          // ).then((result) => {
+          //   if (result.isConfirmed) {
+          //     this.depenFields_1.clear()
+          //         }
+          //       });
           this.insData = [];
           this.dependentsData = [];
-          this.userMedicalData = [];
+          this.userData = [];
+          // this.userMedicalData = [];
         }
       });
   }

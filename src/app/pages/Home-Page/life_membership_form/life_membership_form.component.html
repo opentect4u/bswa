@@ -220,11 +220,11 @@
                 class="box_input text-2xl text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
             </div>
             <div class="field col-12 md:col-4">
-              <label for="pin" class="label_field"><b>PIN No:<span class="text-red-700">*</span></b></label>&nbsp;
-              <input id="pin" type="number" formControlName="pin" placeholder="Enter PIN No"
+              <label for="pin" class="label_field"><b>PIN Code:<span class="text-red-700">*</span></b></label>&nbsp;
+              <input id="pin" type="number" formControlName="pin" placeholder="Enter PIN Code"
                 class="box_input text-2xl text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
               <div *ngIf="f['pin']?.touched || f['pin']?.dirty">
-                <small class="text-red-900" *ngIf="f['pin']?.errors">PIN No is required.</small>
+                <small class="text-red-900" *ngIf="f['pin']?.errors">PIN Code is required.</small>
               </div>
             </div>
             <div class="field col-12 md:col-4">

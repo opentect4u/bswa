@@ -242,50 +242,61 @@ export class Group_policyComponent implements OnInit {
   submit(){
     var dt = {
       member_id: this.o['member_id'] ? this.o['member_id'].value : null,
-      member: this.o['member'] ? this.o['member_id'].value : null,
+      member: this.o['member'] ? this.o['member'].value : null,
+      // policy_holder_type: 'M',
     }
     this.dataServe.global_service(0, '/get_member_policy', `member_id=${dt.member_id}`).subscribe((data:any) => {
       this.responsedata = data
       console.log(this.responsedata);
 
-      if(this.responsedata.suc == 2){
+      if(this.responsedata.suc == 3){
         Swal.fire(
           'Warning',
-          'This Member ID already exists in STP Policy',
+          'This Member ID already exists in GMP Policy',
           'warning'
         ).then((result) => {
           if (result.isConfirmed) {
             this.form.reset()
           }
         });
-      }else if (this.responsedata.suc > 0 && this.responsedata.suc < 2){
-        this.responsedata = this.responsedata.suc > 0 ? this.responsedata.msg : []
-        this.formNo = this.responsedata[0].form_no
-        console.log(this.responsedata[0].unit_id)
-        this.form.patchValue({
-          policy_holder_type: this.responsedata[0].policy_holder_type,
-          // form_dt: this.responsedata[0].form_dt,
-          unit: this.responsedata[0].unit_id,
-          member_type: this.responsedata[0].mem_type,
-          member: this.responsedata[0].memb_name,
-          phone: this.responsedata[0].phone_no,
-          memb_oprn: this.responsedata[0].memb_oprn,
-          gurdian: this.responsedata[0].gurdian_name,
-          gen: this.responsedata[0].gender,
-          marital_status: this.responsedata[0].marital_status,
-          gen_dob: this.datePipe.transform(this.responsedata[0].dob, 'yyyy-MM-dd'),
-        });
-        }else {
+      } else if(this.responsedata.suc == 2){
           Swal.fire(
-            'Error',
-            'Member Details Not Found',
-            'error'
+            'Warning',
+            'This Member ID already exists in STP Policy',
+            'warning'
           ).then((result) => {
             if (result.isConfirmed) {
               this.form.reset()
             }
           });
-        }
+        }else if (this.responsedata.suc > 0 && this.responsedata.suc < 2){
+          this.responsedata = this.responsedata.suc > 0 ? this.responsedata.msg : []
+          this.formNo = this.responsedata[0].form_no
+          console.log(this.responsedata[0].unit_id)
+          this.form.patchValue({
+            policy_holder_type: this.responsedata[0].policy_holder_type,
+            // form_dt: this.responsedata[0].form_dt,
+            unit: this.responsedata[0].unit_id,
+            member_type: this.responsedata[0].mem_type,
+            member: this.responsedata[0].memb_name,
+            phone: this.responsedata[0].phone_no,
+            memb_oprn: this.responsedata[0].memb_oprn,
+            gurdian: this.responsedata[0].gurdian_name,
+            gen: this.responsedata[0].gender,
+            marital_status: this.responsedata[0].marital_status,
+            gen_dob: this.datePipe.transform(this.responsedata[0].dob, 'yyyy-MM-dd'),
+          });
+          }else {
+            Swal.fire(
+              'Error',
+              'Member Details Not Found',
+              'error'
+            ).then((result) => {
+              if (result.isConfirmed) {
+                this.form.reset()
+              }
+            });
+          }
   
         this.getData_dependents()
       });

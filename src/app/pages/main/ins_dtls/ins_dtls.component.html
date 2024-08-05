@@ -30,15 +30,19 @@
     color: rgb(0, 0, 0);
   }
 </style>
-<p-card id="divToPrint" *ngIf="userData?.form_type == 'GP'">
+<p-card *ngIf="userData.length ===0">
+  <h4 class="text-center" style="color: red;">Member does not have any Insurance...</h4>
+</p-card>
+<p-card *ngIf="userData.length > 0">
+  <ng-container *ngIf="userData[0]?.form_type == 'GP'">
   <h1 class="text-center label_field title">You are enlisted under <span
-      class="heading badge {{ userData?.form_type =='GP' ? 'badge-pending' :''}}">{{userData?.form_type == 'GP' ?
+      class="heading badge {{ userData[0]?.form_type =='GP' ? 'badge-pending' :''}}">{{userData[0]?.form_type == 'GP' ?
       'Existing
       Group
       Policy' : 'N/A'}}</span></h1>
-  <h1 class="label_field title size1">Policy Holder Type :<span class="heading"> {{userData?.policy_holder_type == 'M' ?
-      'BSPWA Member' : userData?.policy_holder_type == 'N' ? 'Member of other Sail Association' : 'N/A'}}</span></h1>
-  <h1 class="label_field title size">Form Fillup Date :<span class="heading"> {{userData?.form_dt | date :
+  <h1 class="label_field title size1">Policy Holder Type :<span class="heading"> {{userData[0]?.policy_holder_type == 'M' ?
+      'BSPWA Member' : userData[0]?.policy_holder_type == 'N' ? 'Member of other Sail Association' : 'N/A'}}</span></h1>
+  <h1 class="label_field title size">Form Fillup Date :<span class="heading"> {{userData[0]?.form_dt | date :
       'dd/MM/yyyy'}}</span></h1>
   <table class="table_space">
     <tr>
@@ -47,58 +51,58 @@
     </tr>
     <tr>
       <th colspan="5"><label for="mem_name" class="label_field"><b>NAME :</b><span class="label_field heading">
-            {{userData?.memb_name}}</span></label>
+            {{userData[0]?.memb_name}}</span></label>
       </th>
     </tr>
     <tr>
       <th colspan="5"><label for="addr" class="label_field"><b>MEMBER ID
-            :</b><span class="label_field heading"> {{userData?.member_id}}</span></label>
+            :</b><span class="label_field heading"> {{userData[0]?.member_id}}</span></label>
       </th>
     </tr>
     <tr>
       <th colspan="5"><label for="member_type" class="label_field"><b>TYPE OF
             MEMBERSHIP
-            :</b><span class="label_field heading"> {{userData?.memb_type == 'G' ? 'General Membership' :
-            userData?.memb_type ==
-            'L' ? 'Life Membership' : userData?.memb_type == 'AI' ? 'Associate Membership' : ''}}</span></label></th>
+            :</b><span class="label_field heading"> {{userData[0]?.memb_type == 'G' ? 'General Membership' :
+            userData[0]?.memb_type ==
+            'L' ? 'Life Membership' : userData[0]?.memb_type == 'AI' ? 'Associate Membership' : ''}}</span></label></th>
     </tr>
-    <tr *ngIf="userData?.memb_type != 'AI'">
+    <tr *ngIf="userData[0]?.memb_type != 'AI'">
       <th colspan="5"><label for="unit" class="label_field"><b>NAME OF THE UNIT
             FROM
             WHERE SUPERANNUATED
-            :</b><span class="label_field heading"> {{userData?.unit_name}}</span></label></th>
+            :</b><span class="label_field heading"> {{userData[0]?.unit_name}}</span></label></th>
     </tr>
     <tr>
       <th colspan="5"><label for="gurd_name" class="label_field"><b>FATHER'S Name
-            :</b><span class="label_field heading"> {{userData?.father_husband_name}}</span></label>
+            :</b><span class="label_field heading"> {{userData[0]?.father_husband_name}}</span></label>
       </th>
     </tr>
     <tr>
       <th colspan="2"><label for="ps" class="label_field"><b>MARITAL STATUS: </b><span class="label_field heading">
-            {{userData?.marital_status == 'U' ? 'Unmarried' : userData?.marital_status == 'M' ? 'Married' :
-            userData?.marital_status == 'W' ? 'Widow' : userData?.marital_status == 'D' ? 'Divorce' :
+            {{userData[0]?.marital_status == 'U' ? 'Unmarried' : userData[0]?.marital_status == 'M' ? 'Married' :
+            userData[0]?.marital_status == 'W' ? 'Widow' : userData[0]?.marital_status == 'D' ? 'Divorce' :
             ''}}</span></label>
       </th>
       <th colspan="3"><label for="phone" class="label_field"><b>GENDER: </b><span class="label_field heading">
-            {{userData?.sex == 'M' ? 'Male' : userData?.sex == 'F' ? 'Female' : ''}}</span></label>
+            {{userData[0]?.sex == 'M' ? 'Male' : userData[0]?.sex == 'F' ? 'Female' : ''}}</span></label>
       </th>
     </tr>
     <tr>
       <th colspan="2"><label for="dob" class="label_field"><b>DATE OF BIRTH :</b><span class="label_field heading">
-            {{userData?.dob | date : 'dd/MM/yyyy'}}</span></label>
+            {{userData[0]?.dob | date : 'dd/MM/yyyy'}}</span></label>
       </th>
       <th colspan="3"><label for="email_id" class="label_field"><b>PHONE NO: </b><span class="label_field heading">
-            {{userData?.phone}}</span></label>
+            {{userData[0]?.phone}}</span></label>
       </th>
     </tr>
     <tr>
       <th colspan="2"><label for="memb_oprn" class="label_field"><b>MEMBER OPERATION:
           </b><span class="label_field heading">
-            {{userData?.memb_oprn == 'S' ? 'Self' : userData?.memb_oprn == 'J' ? 'Spouse' : 'N/A'}}</span></label>
+            {{userData[0]?.memb_oprn == 'S' ? 'Self' : userData[0]?.memb_oprn == 'P' ? 'Spouse' : 'N/A'}}</span></label>
       </th>
       <th colspan="3"><label for="dissease" class="label_field"><b>DISEASES SUFFER
             fROM: </b><span class="label_field heading">
-            {{userData?.disease_flag != 'N' ? userData?.disease_type : 'N/A'}}</span></label>
+            {{userData[0]?.disease_flag != 'N' ? userData[0]?.disease_type : 'N/A'}}</span></label>
       </th>
     </tr>
     <tr>
@@ -136,18 +140,19 @@
       <th><span class="label_field heading">{{dt.disease_type}}</span></th>
     </tr>
   </table>
-
+</ng-container>
 </p-card>
 
-<p-card *ngIf="userData?.form_type != 'GP'">
+<p-card *ngIf="userData.length > 0">
+  <ng-container *ngIf="userData[0]?.form_type != 'GP'">
   <h1 class="text-center label_field title">You are enlisted under <span
-      class="heading badge {{ userData?.form_type !='GP' ? 'badge-pending' :''}}">{{userData?.form_type !=
+      class="heading badge {{ userData[0]?.form_type !='GP' ? 'badge-pending' :''}}">{{userData[0]?.form_type !=
       'GP' ?
       'Super Topup
       Policy' : 'N/A'}}</span></h1>
-  <h1 class="label_field title size1">Policy Holder Type :<span class="heading"> {{userData?.policy_holder_type == 'M' ?
-      'BSPWA Member' : userData?.policy_holder_type == 'N' ? 'Member of other Sail Association' : 'N/A'}}</span></h1>
-  <h1 class="label_field title size">Form Fillup Date :<span class="heading"> {{userData?.form_dt | date :
+  <h1 class="label_field title size1">Policy Holder Type :<span class="heading"> {{userData[0]?.policy_holder_type == 'M' ?
+      'BSPWA Member' : userData[0]?.policy_holder_type == 'N' ? 'Member of other Sail Association' : 'N/A'}}</span></h1>
+  <h1 class="label_field title size">Form Fillup Date :<span class="heading"> {{userData[0]?.form_dt | date :
       'dd/MM/yyyy'}}</span></h1>
   <table class="table_space">
     <tr>
@@ -156,55 +161,55 @@
     </tr>
     <tr>
       <th colspan="6"><label for="mem_name" class="label_field"><b>NAME :</b><span class="label_field heading">
-            {{userData?.memb_name}}</span></label>
+            {{userData[0]?.memb_name}}</span></label>
       </th>
     </tr>
     <tr>
       <th colspan="6"><label for="addr" class="label_field"><b>MEMBER ID
-            :</b><span class="label_field heading"> {{userData?.member_id}}</span></label>
+            :</b><span class="label_field heading"> {{userData[0]?.member_id}}</span></label>
       </th>
     </tr>
     <tr>
       <th colspan="6"><label for="member_type" class="label_field"><b>TYPE OF
             MEMBERSHIP
-            :</b><span class="label_field heading"> {{userData?.memb_type == 'G' ? 'General Membership' :
-            userData?.memb_type ==
+            :</b><span class="label_field heading"> {{userData[0]?.memb_type == 'G' ? 'General Membership' :
+            userData[0]?.memb_type ==
             'L' ? 'Life Membership' : ''}}</span></label></th>
     </tr>
-    <tr *ngIf="userData?.memb_type != 'AI'">
+    <tr *ngIf="userData[0]?.memb_type != 'AI'">
       <th colspan="6"><label for="unit" class="label_field"><b>NAME OF THE UNIT
             FROM
             WHERE SUPERANNUATED
-            :</b><span class="label_field heading"> {{userData?.unit_name}}</span></label></th>
+            :</b><span class="label_field heading"> {{userData[0]?.unit_name}}</span></label></th>
     </tr>
     <tr>
       <th colspan="3"><label for="gurd_name" class="label_field"><b>PERSONNEL NO
-            :</b><span class="label_field heading"> {{userData?.personel_no}}</span></label>
+            :</b><span class="label_field heading"> {{userData[0]?.personel_no}}</span></label>
       </th>
       <th colspan="3"><label for="gurd_name" class="label_field"><b>MIN NO
-            :</b><span class="label_field heading"> {{userData?.min_no}}</span></label>
+            :</b><span class="label_field heading"> {{userData[0]?.min_no}}</span></label>
       </th>
     </tr>
     <tr>
       <th colspan="3"><label for="dob" class="label_field"><b>DATE OF BIRTH :</b><span class="label_field heading">
-            {{userData?.dob | date: 'dd/MM/yyyy'}}</span></label>
+            {{userData[0]?.dob | date: 'dd/MM/yyyy'}}</span></label>
       </th>
       <th colspan="3"><label for="email_id" class="label_field"><b>PHONE NO: </b><span class="label_field heading">
-            {{userData?.phone_no}}</span></label>
+            {{userData[0]?.phone_no}}</span></label>
       </th>
     </tr>
     <tr>
       <th colspan="3"><label for="memb_oprn" class="label_field"><b>MEMBER OPERATION:
           </b><span class="label_field heading">
-            {{userData?.memb_oprn == 'S' ? 'Self' : userData?.memb_oprn == 'J' ? 'Spouse' : 'N/A'}}</span></label>
+            {{userData[0]?.memb_oprn == 'S' ? 'Self' : userData[0]?.memb_oprn == 'J' ? 'Spouse' : 'N/A'}}</span></label>
       </th>
       <th colspan="3"><label for="dissease" class="label_field"><b>JOINING YEAR: </b><span class="label_field heading">
-            {{userData?.fin_yr | date: 'dd/MM/yyyy'}}</span></label>
+            {{userData[0]?.fin_yr | date: 'dd/MM/yyyy'}}</span></label>
       </th>
     </tr>
     <tr>
       <th colspan="6"><label for="address" class="label_field"><b>ADDRESS: </b><span class="label_field heading">
-            {{userData?.mem_address}}</span></label>
+            {{userData[0]?.mem_address}}</span></label>
     </tr>
     <tr>
       <th colspan="6" class="text-center" style="background-color: aliceblue;"><label for="member_type"
@@ -212,26 +217,26 @@
     </tr>
     <tr>
       <th colspan="6"><label for="spou_name" class="label_field"><b>SPOUSE NAME :</b><span class="label_field heading">
-            {{userData?.dependent_name != 'null' ? userData?.dependent_name : 'N/A'}}</span></label>
+            {{userData[0]?.dependent_name != 'null' ? userData[0]?.dependent_name : 'N/A'}}</span></label>
       </th>
     </tr>
     <tr>
       <th colspan="3"><label for="depen_dob" class="label_field"><b>DATE OF BIRTH :</b><span
-            class="label_field heading"> {{userData?.spou_dob != '0000-00-00' ? (userData?.spou_dob | date:
+            class="label_field heading"> {{userData[0]?.spou_dob != '0000-00-00' ? (userData[0]?.spou_dob | date:
             'dd/MM/yyyy') :
             'N/A'}}</span></label>
       </th>
       <th colspan="3"><label for="min_no" class="label_field"><b>MIN NO :</b><span class="label_field heading">
-            {{userData?.spou_min_no != 'null' ? userData?.spou_min_no : 'N/A'}}</span></label></th>
+            {{userData[0]?.spou_min_no != 'null' ? userData[0]?.spou_min_no : 'N/A'}}</span></label></th>
     </tr>
     <tr>
       <th colspan="6"><label for="mob_no" class="label_field"><b>MOBILE NO :</b><span class="label_field heading">
-            {{userData?.spou_phone != '0' ? userData?.spou_phone : 'N/A'}}</span></label>
+            {{userData[0]?.spou_phone != '0' ? userData[0]?.spou_phone : 'N/A'}}</span></label>
       </th>
     </tr>
     <tr>
       <th colspan="6"><label for="member_type" class="label_field"><b>ADDRESS :</b><span class="label_field heading">
-            {{userData?.spou_address != 'null' ? userData?.spou_address : 'N/A'}}</span></label>
+            {{userData[0]?.spou_address != 'null' ? userData[0]?.spou_address : 'N/A'}}</span></label>
       </th>
     </tr>
     <tr>
@@ -257,21 +262,23 @@
             class="label_field heading"></span></label>
       </th>
       <th>
-        <label for="diseases" class="label_field"><b>HOSPITAL NAME{{userData}}</b><span class="label_field heading"></span></label>
+        <label for="diseases" class="label_field"><b>HOSPITAL NAME</b><span class="label_field heading"></span></label>
       </th>
     </tr>
-    <tr *ngIf="!userMedicalData  || userMedicalData.length ===0">
-      <td colspan="6" class="text-center span_space heading"><b>No Data Found </b></td>
+    <tr *ngIf="userData && userData.length === 0">
+      <td colspan="6" class="text-center span_space heading"><b>No Data Found</b></td>
     </tr>
-    <tr *ngFor="let data of userMedicalData; let i = index">
+    
+    <tr *ngFor="let dt of userData; let i = index">
       <th><span class="label_field heading">{{i+1}}</span></th>
-      <th><span class="label_field heading">{{data.ind_type == 'S' ? 'Self' : data.ind_type == 'J' ? 'Spouse' :
+      <th><span class="label_field heading">{{dt.ind_type == 'S' ? 'Self' : dt.ind_type == 'P' ? 'Spouse' :
           ''}}</span>
       </th>
-      <th><span class="label_field heading">{{data.fin_year}}</span></th>
-      <th><span class="label_field heading">{{data.amount}}</span></th>
-      <th><span class="label_field heading">{{data.particulars}}</span></th>
-      <th><span class="label_field heading">{{data.treatment_dtls}}</span></th>
+      <th><span class="label_field heading">{{dt.fin_year}}</span></th>
+      <th><span class="label_field heading">{{dt.amount}}</span></th>
+      <th><span class="label_field heading">{{dt.particulars}}</span></th>
+      <th><span class="label_field heading">{{dt.treatment_dtls}}</span></th>
     </tr>
   </table>
+</ng-container>
 </p-card>
