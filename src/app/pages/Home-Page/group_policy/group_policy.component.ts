@@ -417,7 +417,7 @@ onminus(index: number) {
 }
 
 final_submit(){
-  // var sup_top_flag = this.o['sup_top_up'].value != '' ? this.sup_top_list.filter((dt: any) => dt.value == this.o['sup_top_up'].value) : ''
+  var sup_top_flag = this.o['sup_top_up'].value != '' ? this.sup_top_list.filter((dt: any) => dt.value == this.o['sup_top_up'].value) : ''
   var dt = {
       flag: 'GP',
       checkedmember: this.checkedmember,
@@ -430,20 +430,20 @@ final_submit(){
       member: this.o['member'] ? this.o['member'].value : null,
       phone: this.o['phone'] ? this.o['phone'].value : null,
       dependent_dt: this.depenFields_1.value,
-      // grp_name : this.o['grp_name'] ? this.o['grp_name'].value : null,
-      // pre_amont : this.o['pre_amont'] ? this.o['pre_amont'].value : null,
-      // super_top_up_yes : this.o['super_top_up_yes'] ? this.o['super_top_up_yes'].value : null,
-      // super_top_up_no : this.o['super_top_up_no'] ? this.o['super_top_up_no'].value : null,
-      // sup_top_up : this.o['sup_top_up'] ? this.o['sup_top_up'].value : null,
-      // sup_pre_amont : this.o['sup_pre_amont'] ? this.o['sup_pre_amont'].value : null,
-      // sup_tot_amont : this.o['sup_tot_amont'] ? this.o['sup_tot_amont'].value : null,
+      grp_name : this.o['grp_name'] ? this.o['grp_name'].value : null,
+      pre_amont : this.o['pre_amont'] ? this.o['pre_amont'].value : null,
+      super_top_up_yes : this.o['super_top_up_yes'] ? this.o['super_top_up_yes'].value : null,
+      super_top_up_no : this.o['super_top_up_no'] ? this.o['super_top_up_no'].value : null,
+      sup_top_up : this.o['sup_top_up'] ? this.o['sup_top_up'].value : null,
+      sup_pre_amont : this.o['sup_pre_amont'] ? this.o['sup_pre_amont'].value : null,
+      sup_tot_amont : this.o['sup_tot_amont'] ? this.o['sup_tot_amont'].value : null,
       member_type: this.o['member_type'] ? this.o['member_type'].value : null,
       gurdian: this.o['gurdian'] ? this.o['gurdian'].value : null,
       gen: this.o['gen'] ? this.o['gen'].value : null,
       marital_status: this.o['marital_status'] ? this.o['marital_status'].value : null,
       gen_dob: this.o['gen_dob'] ? this.o['gen_dob'].value : null,
       memb_oprn: this.o['memb_oprn'] ? this.o['memb_oprn'].value : null,
-      // sup_top_flag: sup_top_flag.length > 0 ? sup_top_flag[0].flag : '',
+      sup_top_flag: sup_top_flag.length > 0 ? sup_top_flag[0].flag : '',
       
   }
   this.dataServe.global_service(1, '/save_group_policy_form', dt).subscribe(
