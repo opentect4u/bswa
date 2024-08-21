@@ -189,12 +189,42 @@ export class Group_policyComponent implements OnInit {
         'There is no access to add More Dependent',
           'warning'
       ).then((result) => {
+        (event.target as HTMLSelectElement).value = 'S';
         if (result.isConfirmed) {
           this.depenFields_1.clear()
               }
             });
     }
   }
+
+//   onPolicyAddDependent(event: Event): void {
+//     const selectedValue = (event.target as HTMLSelectElement).value;
+    
+//     if (selectedValue === 'S') { 
+//         Swal.fire(
+//             'Notice',
+//             'You have selected "Self". Changing selection to "Spouse".',
+//             'info'
+//         ).then(() => {
+//             // Automatically change to "Spouse"
+//             (event.target as HTMLSelectElement).value = 'J';
+//             this.onadd(); 
+//         });
+//     } else if (selectedValue === 'J') { 
+//         this.onadd();
+//     } else {
+//         Swal.fire(
+//             'Warning',
+//             'There is no access to add more dependents.',
+//             'warning'
+//         ).then((result) => {
+//             if (result.isConfirmed) {
+//                 this.depenFields_1.clear();
+//             }
+//         });
+//     }
+// }
+
 
   unit() {
     this.dataServe
