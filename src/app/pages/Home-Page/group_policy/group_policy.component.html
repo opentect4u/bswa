@@ -323,6 +323,61 @@
               </div>
             </div>
 
+          <!-- Upload document 22.08.2024 -->
+
+
+          <h3 class="text-center"><b>Upload Document</b></h3>
+          <p-divider type="dashed"></p-divider>
+          
+
+          <div class="flex flex-row">
+            <!-- Member Photograph Upload -->
+            <div class="field col-12 md:col-6">
+              <label for="own_img" class="size"><b>Member Photograph:<span class="text-red-700">(.JPG,.JPEG,.PNG)</span></b></label>&nbsp;
+              <div class="card flex justify-content-left">
+                <p-toast></p-toast>
+                <p-fileUpload name="own_file" (onSelect)="onUpload($event, 'O')" (onRemove)="onRemove($event, 'O')" [customUpload]="true" [multiple]="false" accept="image/*">
+                  <ng-template pTemplate="content">
+                    <ul *ngIf="uploadedFiles.length">
+                      <li *ngFor="let file of uploadedFiles">
+                        <!-- <div *ngIf="filePreview[file.name]" (click)="showPreview(filePreview[file.name])" style="cursor: pointer; margin-top: 10px;">
+                          <img [src]="filePreview[file.name]" alt="Image Preview" style="max-width: 100px; max-height: 100px;" />
+                        </div> -->
+                      </li>
+                    </ul>
+                  </ng-template>
+                </p-fileUpload>
+              </div>
+            </div>
+          
+            <!-- Spouse Photograph Upload -->
+            <div class="field col-12 md:col-6">
+              <label for="spou_img" class="size"><b>Document:<span class="text-red-700">(.JPG,.JPEG,.PNG)</span></b></label>&nbsp;
+              <div class="card flex justify-content-right">
+                <p-toast></p-toast>
+                <p-fileUpload name="spouse_file" (onSelect)="onUpload($event, 'S')" (onRemove)="onRemove($event, 'S')" [customUpload]="true" [multiple]="false" accept="image/*">
+                  <ng-template pTemplate="content">
+                    <ul *ngIf="uploadedFiles.length">
+                      <li *ngFor="let file of uploadedFiles">
+                        <!-- <div *ngIf="filePreview[file.name]" (click)="showPreview(filePreview[file.name])" style="cursor: pointer; margin-top: 10px;">
+                          <img [src]="filePreview[file.name]" alt="Image Preview" style="max-width: 100px; max-height: 100px;" />
+                        </div> -->
+                      </li>
+                    </ul>
+                  </ng-template>
+                </p-fileUpload>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Dialog for displaying the image preview -->
+          <!-- <p-dialog header="Image Preview" [(visible)]="displayImageDialog" [modal]="true" [style]="{width: '50vw'}" [responsive]="true" [baseZIndex]="10000">
+            <img *ngIf="selectedImage" [src]="selectedImage" alt="Image Preview_1" style="width: 100%; height: auto;" />
+          </p-dialog> -->
+          
+
+<!------->
+
             <p-divider type="dashed"></p-divider>
             <h3 class="text-center"><b>Dependents Information</b></h3>
 
@@ -442,6 +497,48 @@
                       icon="pi pi-minus" styleClass="p-button-rounded p-button-text p-button-raised"
                       (click)="onminus(i)"
                       [style]="{ 'background-color': 'rgb(223 105 105)', 'border-color': 'rgb(129 54 54)', color: '#ffff', 'margin-top': '1.3vw'}"></p-button>
+                  </div>
+                </div>
+
+                <div class="flex flex-row">
+                  <!-- Member Photograph Upload -->
+                  <div class="field col-12 md:col-6">
+                    <label for="own_imgs" class="size"><b>Member Photograph:<span class="text-red-700">(.JPG,.JPEG,.PNG)</span></b></label>&nbsp;
+                    <div class="card flex justify-content-left">
+                      <p-toast></p-toast>
+                      <p-fileUpload name="own_files" (onSelect)="onUpload($event, 'OF')" (onRemove)="onRemove($event, 'O')" [customUpload]="true" [multiple]="false" accept="image/*">
+                        <ng-template pTemplate="content">
+                          <ul *ngIf="uploadedFiles.length">
+                            <li *ngFor="let files of uploadedFiles">
+                              <!-- <div *ngIf="filePreview[file.name]" (click)="showPreview(filePreview[file.name])" style="cursor: pointer; margin-top: 10px;">
+                                <img [src]="filePreview[file.name]" alt="Image Preview" style="max-width: 100px; max-height: 100px;" />
+                              </div> -->
+                              <!-- {{ files.name }} - {{ files.size }} bytes -->
+                            </li>
+                          </ul>
+                        </ng-template>
+                      </p-fileUpload>
+                    </div>
+                  </div>
+                
+                  <!-- Spouse Photograph Upload -->
+                  <div class="field col-12 md:col-6">
+                    <label for="spou_imgs" class="size"><b>Document:<span class="text-red-700">(.JPG,.JPEG,.PNG)</span></b></label>&nbsp;
+                    <div class="card flex justify-content-right">
+                      <p-toast></p-toast>
+                      <p-fileUpload name="spouse_files" (onSelect)="onUpload($event, 'SF')" (onRemove)="onRemove($event, 'S')" [customUpload]="true" [multiple]="false" accept="image/*">
+                        <ng-template pTemplate="content">
+                          <ul *ngIf="uploadedFiles.length">
+                            <li *ngFor="let files of uploadedFiles">
+                              <!-- <div *ngIf="filePreview[file.name]" (click)="showPreview(filePreview[file.name])" style="cursor: pointer; margin-top: 10px;">
+                                <img [src]="filePreview[file.name]" alt="Image Preview" style="max-width: 100px; max-height: 100px;" />
+                              </div> -->
+                              <!-- {{ files.name }} - {{ files.size }} bytes -->
+                            </li>
+                          </ul>
+                        </ng-template>
+                      </p-fileUpload>
+                    </div>
                   </div>
                 </div>
               </ng-container>

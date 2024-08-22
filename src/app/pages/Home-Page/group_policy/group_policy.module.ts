@@ -15,9 +15,12 @@ import { DividerModule } from 'primeng/divider';
 import { BadgeModule } from 'primeng/badge';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { FileUploadModule } from 'primeng/fileupload';
+import { DialogModule } from 'primeng/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { ToastModule } from 'primeng/toast';
+// import {Gen_img_uploadModule} from '../../Admin/gen_img_upload/gen_img_upload.module'
 const routes:Routes=[
   {path:'',component:Group_policyComponent}
 ]
@@ -40,7 +43,10 @@ const routes:Routes=[
     FileUploadModule,
     ReactiveFormsModule,
     RadioButtonModule,
+    ToastModule,
+    DialogModule,
     // FormsModule,
+    // Gen_img_uploadModule,
     RouterModule.forChild(routes)
   ],
   declarations: [Group_policyComponent]

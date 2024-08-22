@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormArray, FormBuilder, FormGroup, isFormArray, Validators } from '@angular/forms';
 import { DataService } from 'src/app/service/data.service';
@@ -20,6 +20,12 @@ interface MemberStatus {
   providers: [MessageService,DatePipe],
 })
 export class Group_policyComponent implements OnInit {
+  @Output() fileSelected = new EventEmitter();
+  uploadedFiles: any[] = [];
+  // filePreview: { [key: string]: string | ArrayBuffer | null } = {};
+  // selectedImage: string | ArrayBuffer | null = null;
+  // displayImageDialog: boolean = false; 
+
   ingredient!: string;
   value!: string;
   date!: Date;
@@ -46,6 +52,12 @@ export class Group_policyComponent implements OnInit {
   isMember: boolean = true;
   responsedata_unit: any;
   maxDate!: string;
+  filteredGroups: any[] = [];
+  ownFile: any = []
+  spouseFile: any = []
+  ownsFiles!: File;
+  spousesFile!: File;
+
 
   // selectedValue: string = 'N';
   // selectedValue_1: string = 'N';
@@ -66,7 +78,8 @@ export class Group_policyComponent implements OnInit {
     private route: ActivatedRoute,
     private messageService: MessageService,
     private datePipe: DatePipe
-  ) { }
+  ) {
+   }
 
   ngOnInit() {
     const today = new Date();
@@ -88,6 +101,8 @@ export class Group_policyComponent implements OnInit {
       gen_dob: ['', Validators.required],
       type_diseases: ['', Validators.required],
       name_diseases: ['', Validators.required],
+      own_file: [''],
+      spouse_file: [''],
       memb_oprn: [''],
       grp_name: [''],
       pre_amont: [''],
@@ -110,6 +125,8 @@ export class Group_policyComponent implements OnInit {
     this.form.valueChanges.subscribe(() => {
       this.calculateTotalAmount();
     });
+
+    
   }
 
   get totalAmount(): number {
@@ -129,11 +146,13 @@ export class Group_policyComponent implements OnInit {
     .global_service(0, '/get_non_premium_dtls', null)
     .subscribe((data: any) => {
       this.responsedata = data;
-      console.log(this.responsedata, '555');
+      // console.log(this.responsedata, '555');
       this.responsedata =
         this.responsedata.suc > 0 ? this.responsedata.msg : [];
-      this.responsedata[0]['pre_dt'] = this.responsedata
+      this.responsedata[0]['pre_dt'] = this.responsedata;
+      // this.filterGroupNamesBasedOnMemberType();      
     });
+    console.log(this.responsedata[0]['pre_dt'],'predata');
   }
 
   onPolicyHolderTypeChange(isMember: any) {
@@ -181,9 +200,20 @@ export class Group_policyComponent implements OnInit {
 
   onPolicyAddDependent(event: Event): void {
     const selectedValue = (event.target as HTMLSelectElement).value;
+
     if (selectedValue === 'J') {
+      this.responsedata[0].pre_dt = this.responsedata[0].pre_dt.filter(
+        (group: any) => group.family_catg == 'J'
+      );
+      console.log(this.responsedata[0].pre_dt,'hyhy');
+      
+
     this.onadd()
     } else {
+      this.responsedata[0].pre_dt = this.responsedata[0].pre_dt.filter(
+        (group: any) => group.family_catg == 'S'
+      );
+
       Swal.fire(
         'Warning',
         'There is no access to add More Dependent',
@@ -224,6 +254,11 @@ export class Group_policyComponent implements OnInit {
 //         });
 //     }
 // }
+
+// filterGroupNamesBasedOnMemberType() {
+//   this.filteredGroups = this.responsedata[0]?.pre_dt || [];
+// }
+
 
 
   unit() {
@@ -372,7 +407,7 @@ export class Group_policyComponent implements OnInit {
 
 }
 
-onadd(sl_no:any = '',dependent_name:any = '',relation:any = '',dob:any = '',type_diseases:any = '',name_diseases:any = '', relation_id:any = '') {
+onadd(sl_no:any = '',dependent_name:any = '',relation:any = '',dob:any = '',type_diseases:any = '',name_diseases:any = '', relation_id:any = '', own_files:any = '', spouse_files:any = '') {
   const formattedDob = this.datePipe.transform(dob, 'yyyy-MM-dd');
   const fieldGroup = this.fb.group(
     {
@@ -382,7 +417,9 @@ onadd(sl_no:any = '',dependent_name:any = '',relation:any = '',dob:any = '',type
       dob: [formattedDob],
       type_diseases: [type_diseases],
       name_diseases: [name_diseases],
-      relation: [relation_id]
+      relation: [relation_id],
+      own_files: [own_files],
+      spouse_files: [spouse_files]
     },
     // {
     //   validators: this.validatorsService.conditionalRequiredValidator(
@@ -416,60 +453,131 @@ onminus(index: number) {
   });
 }
 
-final_submit(){
-  var sup_top_flag = this.o['sup_top_up'].value != '' ? this.sup_top_list.filter((dt: any) => dt.value == this.o['sup_top_up'].value) : ''
-  var dt = {
-      flag: 'GP',
-      checkedmember: this.checkedmember,
-      policy_holder_type: this.o['policy_holder_type']? this.o['policy_holder_type'].value : null,
-      form_dt: this.o['form_dt'] ? this.o['form_dt'].value : null,
-      unit: this.o['unit']? this.o['unit'].value : null,
-      member_id: this.o['member_id'] ? this.o['member_id'].value : null,
-      type_diseases: this.o['type_diseases'] ? this.o['type_diseases'].value : null,
-      name_diseases: this.o['name_diseases'] ? this.o['name_diseases'].value : null,
-      member: this.o['member'] ? this.o['member'].value : null,
-      phone: this.o['phone'] ? this.o['phone'].value : null,
-      dependent_dt: this.depenFields_1.value,
-      grp_name : this.o['grp_name'] ? this.o['grp_name'].value : null,
-      pre_amont : this.o['pre_amont'] ? this.o['pre_amont'].value : null,
-      super_top_up_yes : this.o['super_top_up_yes'] ? this.o['super_top_up_yes'].value : null,
-      super_top_up_no : this.o['super_top_up_no'] ? this.o['super_top_up_no'].value : null,
-      sup_top_up : this.o['sup_top_up'] ? this.o['sup_top_up'].value : null,
-      sup_pre_amont : this.o['sup_pre_amont'] ? this.o['sup_pre_amont'].value : null,
-      sup_tot_amont : this.o['sup_tot_amont'] ? this.o['sup_tot_amont'].value : null,
-      member_type: this.o['member_type'] ? this.o['member_type'].value : null,
-      gurdian: this.o['gurdian'] ? this.o['gurdian'].value : null,
-      gen: this.o['gen'] ? this.o['gen'].value : null,
-      marital_status: this.o['marital_status'] ? this.o['marital_status'].value : null,
-      gen_dob: this.o['gen_dob'] ? this.o['gen_dob'].value : null,
-      memb_oprn: this.o['memb_oprn'] ? this.o['memb_oprn'].value : null,
-      sup_top_flag: sup_top_flag.length > 0 ? sup_top_flag[0].flag : '',
+// final_submit(){
+//   var sup_top_flag = this.o['sup_top_up'].value != '' ? this.sup_top_list.filter((dt: any) => dt.value == this.o['sup_top_up'].value) : ''
+//   const formData = new FormData();
+//   var dt = {
+//       flag: 'GP',
+//       checkedmember: this.checkedmember,
+//       policy_holder_type: this.o['policy_holder_type']? this.o['policy_holder_type'].value : null,
+//       form_dt: this.o['form_dt'] ? this.o['form_dt'].value : null,
+//       unit: this.o['unit']? this.o['unit'].value : null,
+//       member_id: this.o['member_id'] ? this.o['member_id'].value : null,
+//       type_diseases: this.o['type_diseases'] ? this.o['type_diseases'].value : null,
+//       name_diseases: this.o['name_diseases'] ? this.o['name_diseases'].value : null,
+//       member: this.o['member'] ? this.o['member'].value : null,
+//       phone: this.o['phone'] ? this.o['phone'].value : null,
+//       own_file: this.o['own_file'] ? this.o['own_file'].value : null,
+//       spouse_file: this.o['spouse_file'] ? this.o['spouse_file'].value : null,
+//       dependent_dt: this.depenFields_1.value,
+//       grp_name : this.o['grp_name'] ? this.o['grp_name'].value : null,
+//       pre_amont : this.o['pre_amont'] ? this.o['pre_amont'].value : null,
+//       super_top_up_yes : this.o['super_top_up_yes'] ? this.o['super_top_up_yes'].value : null,
+//       super_top_up_no : this.o['super_top_up_no'] ? this.o['super_top_up_no'].value : null,
+//       sup_top_up : this.o['sup_top_up'] ? this.o['sup_top_up'].value : null,
+//       sup_pre_amont : this.o['sup_pre_amont'] ? this.o['sup_pre_amont'].value : null,
+//       sup_tot_amont : this.o['sup_tot_amont'] ? this.o['sup_tot_amont'].value : null,
+//       member_type: this.o['member_type'] ? this.o['member_type'].value : null,
+//       gurdian: this.o['gurdian'] ? this.o['gurdian'].value : null,
+//       gen: this.o['gen'] ? this.o['gen'].value : null,
+//       marital_status: this.o['marital_status'] ? this.o['marital_status'].value : null,
+//       gen_dob: this.o['gen_dob'] ? this.o['gen_dob'].value : null,
+//       memb_oprn: this.o['memb_oprn'] ? this.o['memb_oprn'].value : null,
+//       sup_top_flag: sup_top_flag.length > 0 ? sup_top_flag[0].flag : '',
       
+//   }
+//   this.dataServe.global_service(1, '/save_group_policy_form', dt).subscribe(
+//     data => {
+//       console.log(data);
+//       this.groupSaveData = data;
+//       if (this.groupSaveData.suc > 0) {
+//         this.formNo = this.groupSaveData.form_no;
+//         // this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data saved successfully' });
+//         // this.router.navigate(['/main/dashboard']);
+//         Swal.fire(
+//           'Success! Your form is submitted successfully.',
+//           `We have been informed! <br> Generated Form No is ${this.formNo}`,
+//           'success'
+//         ).then((result) => {
+//           if (result.isConfirmed) {
+//                   this.router.navigate(['/home/print_group_policy',encodeURIComponent(btoa(this.formNo))])
+//                 }
+//               });
+//       } else {
+//         Swal.fire(
+//           'Error',
+//           'Your form is not submitted successfully!',
+//           'error'
+//         );
+//         // this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to save data' });
+//       }
+//     },
+//     error => {
+//       console.error(error);
+//       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'An error occurred while saving data' });
+//     }
+//   );
+// }
+
+final_submit(){
+  var sup_top_flag = this.o['sup_top_up'].value != '' ? this.sup_top_list.filter((dt: any) => dt.value == this.o['sup_top_up'].value) : '';
+  
+  const formData = new FormData();
+  
+  formData.append('flag', 'GP');
+  formData.append('checkedmember', this.checkedmember);
+  formData.append('policy_holder_type', this.o['policy_holder_type']?.value || '');
+  formData.append('form_dt', this.o['form_dt']?.value || '');
+  formData.append('unit', this.o['unit']?.value || '');
+  formData.append('member_id', this.o['member_id']?.value || '');
+  formData.append('type_diseases', this.o['type_diseases']?.value || '');
+  formData.append('name_diseases', this.o['name_diseases']?.value || '');
+  formData.append('member', this.o['member']?.value || '');
+  formData.append('phone', this.o['phone']?.value || '');
+  for(let dt of this.ownFile){
+    formData.append('own_file', dt);
   }
-  this.dataServe.global_service(1, '/save_group_policy_form', dt).subscribe(
+  for(let dt of this.spouseFile){
+    formData.append('spouse_file', dt);
+  }
+  formData.append('dependent_dt', this.depenFields_1.value);
+  formData.append('grp_name', this.o['grp_name']?.value || '');
+  formData.append('pre_amont', this.o['pre_amont']?.value || '');
+  formData.append('super_top_up_yes', this.o['super_top_up_yes']?.value || '');
+  formData.append('super_top_up_no', this.o['super_top_up_no']?.value || '');
+  formData.append('sup_top_up', this.o['sup_top_up']?.value || '');
+  formData.append('sup_pre_amont', this.o['sup_pre_amont']?.value || '');
+  formData.append('sup_tot_amont', this.o['sup_tot_amont']?.value || '');
+  formData.append('member_type', this.o['member_type']?.value || '');
+  formData.append('gurdian', this.o['gurdian']?.value || '');
+  formData.append('gen', this.o['gen']?.value || '');
+  formData.append('marital_status', this.o['marital_status']?.value || '');
+  formData.append('gen_dob', this.o['gen_dob']?.value || '');
+  formData.append('memb_oprn', this.o['memb_oprn']?.value || '');
+  formData.append('sup_top_flag', sup_top_flag.length > 0 ? sup_top_flag[0].flag : '');
+  
+  // Send data using FormData
+  this.dataServe.global_service(1, '/save_group_policy_form', formData).subscribe(
     data => {
       console.log(data);
       this.groupSaveData = data;
       if (this.groupSaveData.suc > 0) {
         this.formNo = this.groupSaveData.form_no;
-        // this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data saved successfully' });
-        // this.router.navigate(['/main/dashboard']);
         Swal.fire(
           'Success! Your form is submitted successfully.',
           `We have been informed! <br> Generated Form No is ${this.formNo}`,
           'success'
         ).then((result) => {
           if (result.isConfirmed) {
-                  this.router.navigate(['/home/print_group_policy',encodeURIComponent(btoa(this.formNo))])
-                }
-              });
+            this.router.navigate(['/home/print_group_policy', encodeURIComponent(btoa(this.formNo))]);
+          }
+        });
       } else {
         Swal.fire(
           'Error',
           'Your form is not submitted successfully!',
           'error'
         );
-        // this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to save data' });
       }
     },
     error => {
@@ -478,6 +586,7 @@ final_submit(){
     }
   );
 }
+
 
 getPremiumAmt(event:any){
   console.log(event.target.value);
@@ -508,4 +617,74 @@ getPremiumAmt(event:any){
   }
 }
 
+onFileSelected(fileData: any) {
+  const { file, flag } = fileData;
+  switch (flag) {
+    case 'O':
+      this.ownFile = file;
+      break;
+    case 'S':
+      this.spouseFile = file;
+      break;
+    case 'OF':
+      this.ownsFiles = file;
+      break;
+    case 'SF':
+      this.spousesFile = file;  
+      break;
+    default:
+      break;
+  }
+}
+
+// onUpload(event: any, type: string) {
+//   const file = event.files[0];
+//   this.uploadedFiles.push(file);
+
+//   const reader = new FileReader();
+//   reader.onload = () => {
+//     this.filePreview[file.name] = reader.result;
+//   };
+//   reader.readAsDataURL(file);
+// }
+
+// onRemove(event: any, type: string) {
+//   this.uploadedFiles = this.uploadedFiles.filter(file => file !== event.file);
+//   delete this.filePreview[event.file.name];
+//   if (this.selectedImage && this.selectedImage === event.file) {
+//     this.selectedImage = null;
+//     this.displayImageDialog = false;
+//   }
+// }
+
+// showPreview(image: string | ArrayBuffer | null) {
+//   this.selectedImage = image;
+//   this.displayImageDialog = true;
+// }
+
+onUpload(event: any, flag: any) {
+  const file = event.files[0];
+console.log(file,'filee');
+
+  if (file) {
+    if(flag == 'O') this.ownFile.push(file);
+    if(flag == 'S') this.spouseFile.push(file);
+    // this.fileSelected.emit({ file, flag });
+  }
+
+  // for (let file of event.files) {
+  //   this.uploadedFiles.push(file);
+  // }
+
+  // this.messageService.add({
+  //   severity: 'info',
+  //   summary: 'File Uploaded',
+  //   detail: '',
+  // });
+}
+
+onRemove(event: any, flag: any) {
+  console.log(event, 'clear event');
+  this.fileSelected.emit({ file: '', flag });
+}
 }

@@ -13,6 +13,8 @@ export class DataService {
 
   global_service(flag: any, api_path: any, data: any) {
     var token = localStorage.getItem('token') || '';
+    console.log(token,"token");
+    
     let headers = new HttpHeaders();
     if (token != '') {
       headers = headers.set('authorization', token);
