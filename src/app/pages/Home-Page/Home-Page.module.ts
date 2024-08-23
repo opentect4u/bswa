@@ -86,7 +86,7 @@ const routes: Routes = [
           import('./group_policy/group_policy.module').then((home) => home.Group_policyModule),
       },
       {
-        path: 'print_group_policy/:form_no',
+        path: 'print_group_policy/:form_no/:policy_holder_type',
         loadChildren: () =>
           import('./print_group_policy/print_group_policy.module').then((home) => home.Print_group_policyModule),
       },

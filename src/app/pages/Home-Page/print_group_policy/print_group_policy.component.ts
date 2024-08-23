@@ -21,6 +21,8 @@ interface MembershipInfo {
   dob: string
   unit_name: string,
   phone: string,
+  memb_img: string,
+  doc_img: string,
 }
 
 interface SpouseDepenInfo {
@@ -82,6 +84,7 @@ export class Print_group_policyComponent implements OnInit {
   resdata1: any;
   dep_dt: any;
   memb_pic: any;
+  memb_img: any;
   responsedata_1: any;
   unit_name: any;
   spouseInfo: SpouseDepenInfo[] | undefined;
@@ -127,6 +130,8 @@ export class Print_group_policyComponent implements OnInit {
               : {}
             : {};
         this.stpinfo = this.responsedata;
+        console.log(this.stpinfo,'stp');
+        
       });
   }
 

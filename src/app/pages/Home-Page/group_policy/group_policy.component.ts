@@ -55,8 +55,8 @@ export class Group_policyComponent implements OnInit {
   filteredGroups: any[] = [];
   ownFile: any = []
   spouseFile: any = []
-  ownsFiles!: File;
-  spousesFile!: File;
+  ownsFiles: any = []
+  spousesFile: any = []
 
 
   // selectedValue: string = 'N';
@@ -540,7 +540,13 @@ final_submit(){
   for(let dt of this.spouseFile){
     formData.append('spouse_file', dt);
   }
-  formData.append('dependent_dt', this.depenFields_1.value);
+  formData.append('dependent_dt', JSON.stringify(this.depenFields_1.value));
+  for(let dt of this.ownsFiles){
+    formData.append('own_files', dt);
+  }
+  for(let dt of this.spousesFile){
+    formData.append('spouse_files', dt);
+  }
   formData.append('grp_name', this.o['grp_name']?.value || '');
   formData.append('pre_amont', this.o['pre_amont']?.value || '');
   formData.append('super_top_up_yes', this.o['super_top_up_yes']?.value || '');
@@ -561,15 +567,18 @@ final_submit(){
     data => {
       console.log(data);
       this.groupSaveData = data;
+      console.log(this.groupSaveData,'ytytytytyt');
+      
       if (this.groupSaveData.suc > 0) {
         this.formNo = this.groupSaveData.form_no;
+        this.checkedmember = this.groupSaveData.policy_holder_type == 'true' ? 'M' : 'N';
         Swal.fire(
           'Success! Your form is submitted successfully.',
           `We have been informed! <br> Generated Form No is ${this.formNo}`,
           'success'
         ).then((result) => {
           if (result.isConfirmed) {
-            this.router.navigate(['/home/print_group_policy', encodeURIComponent(btoa(this.formNo))]);
+            this.router.navigate(['/home/print_group_policy', encodeURIComponent(btoa(this.formNo)),this.checkedmember]);
           }
         });
       } else {
@@ -669,6 +678,8 @@ console.log(file,'filee');
   if (file) {
     if(flag == 'O') this.ownFile.push(file);
     if(flag == 'S') this.spouseFile.push(file);
+    if(flag == 'OF') this.ownsFiles.push(file);
+    if(flag == 'SF') this.spousesFile.push(file);
     // this.fileSelected.emit({ file, flag });
   }
 
