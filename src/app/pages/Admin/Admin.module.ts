@@ -410,6 +410,20 @@ const routes: Routes = [
             (m) => m.Accept_gmp_money_receiptModule
           ),
       },
+      {
+        path: 'gmp_memb_trans_report',
+        loadChildren: () =>
+          import(
+            '../Admin/gmp_memb_trans_report/gmp_memb_trans_report.module'
+          ).then((m) => m.Gmp_memb_trans_reportModule),
+      },
+      {
+        path: 'show_gmp_trans_report/:from_dt/:to_dt',
+        loadChildren: () =>
+          import(
+            '../Admin/show_gmp_trans_report/show_gmp_trans_report.module'
+          ).then((m) => m.Show_gmp_trans_reportModule),
+      },
     ],
   },
 ];

@@ -146,13 +146,13 @@ export class Group_policyComponent implements OnInit {
     .global_service(0, '/get_non_premium_dtls', null)
     .subscribe((data: any) => {
       this.responsedata = data;
-      // console.log(this.responsedata, '555');
+      console.log(this.responsedata, '555');
       this.responsedata =
         this.responsedata.suc > 0 ? this.responsedata.msg : [];
       this.responsedata[0]['pre_dt'] = this.responsedata;
       // this.filterGroupNamesBasedOnMemberType();      
     });
-    console.log(this.responsedata[0]['pre_dt'],'predata');
+    console.log(this.responsedata,'predata');
   }
 
   onPolicyHolderTypeChange(isMember: any) {
@@ -202,10 +202,10 @@ export class Group_policyComponent implements OnInit {
     const selectedValue = (event.target as HTMLSelectElement).value;
 
     if (selectedValue === 'J') {
-      this.responsedata[0].pre_dt = this.responsedata[0].pre_dt.filter(
+      this.responsedata = this.responsedata.filter(
         (group: any) => group.family_catg == 'J'
       );
-      console.log(this.responsedata[0].pre_dt,'hyhy');
+      // console.log(this.responsedata[0].pre_dt,'hyhy');
       
 
     this.onadd()

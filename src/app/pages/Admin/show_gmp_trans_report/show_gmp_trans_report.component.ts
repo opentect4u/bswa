@@ -4,15 +4,22 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from 'src/app/service/data.service';
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import * as XLSX from 'xlsx';
+import * as XLSX from 'xlsx'
 
 @Component({
-  selector: 'app-show_stp_ins_report',
-  templateUrl: './show_stp_ins_report.component.html',
-  styleUrls: ['./show_stp_ins_report.component.css'],
+  selector: 'app-show_gmp_trans_report',
+  templateUrl: './show_gmp_trans_report.component.html',
+  styleUrls: ['./show_gmp_trans_report.component.css'],
   providers: [DatePipe],
 })
-export class Show_stp_ins_reportComponent implements OnInit {
+export class Show_gmp_trans_reportComponent implements OnInit {
+  public data: any[] = [
+    { name: 'Sayantika Dhar', email: 'sayantika@synergicsoftek.in'},
+    { name: 'Subham Samanta', email: 'subham@synergicsoftek.in'},
+    { name: 'Rupsa Chakraborty', email: 'rupsa@synergicsoftek.in'},
+    { name: 'Soumyadeep Mondal', email: 'soumyadeep@synergicsoftek.in'},
+    { name: 'Somnath Thakur', email: 'somnath@synergicsoftek.in'},
+  ]
   mem_type: any;
   WindowObject: any;
   divToPrint: any;
@@ -20,34 +27,20 @@ export class Show_stp_ins_reportComponent implements OnInit {
   from_dt: any;
   to_dt: any;
   member_type: any;
-  status: any
 
-  constructor(
-    private router: Router,
+  constructor(private router: Router,
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private dataServe: DataService,
-    private datePipe: DatePipe
-  ) { }
+    private datePipe: DatePipe) { }
 
   ngOnInit() {
     const encodedFormNo = this.route.snapshot.params['form_no'];
+    // this.form_no = ato b(decodeURIComponent(encodedFormNo));
     this.member_type = this.route.snapshot.params['member_type'];
     this.from_dt = this.route.snapshot.params['from_dt'];
     this.to_dt = this.route.snapshot.params['to_dt'];
-    this.status = this.route.snapshot.params['status'];
-    this.show_data();
-  }
-
-  show_data(){
-    this.dataServe.global_service(0,'/stp_status_report',`from_dt=${this.from_dt}&to_dt=${this.to_dt}&status=${this.status}`).subscribe(data => {
-      console.log(data,'kiki')
-      this.userData = data;
-      this.userData = this.userData.msg;
-      console.log(this.userData,'lili');
-    },error => {
-      console.error(error);
-    })
+    
   }
 
   printDiv() {
@@ -99,26 +92,12 @@ export class Show_stp_ins_reportComponent implements OnInit {
   }
 
   download(){
-    const dataWithSlNo = this.userData.map((customer: { form_no: any; fin_year: any; member_id: string; unit_name: any; memb_name: any; min_no: any; dob: string | number | Date; }, index: number) => {
-      return {
-        'SL No': index + 1,
-        'Form No': customer.form_no,
-        'Financial Year': customer.fin_year,
-        'Member ID': customer.member_id,
-        'Member Name': customer.memb_name,
-        'Unit Name': customer.unit_name,
-        'DOB': this.datePipe.transform(customer.dob, 'dd/MM/yyyy'),
-        'MIN No': customer.min_no,
-
-        // Add or remove columns as needed
-      };
-    }); 
-    const ws = XLSX.utils.json_to_sheet(dataWithSlNo);
+    const ws = XLSX.utils.json_to_sheet(this.data);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb,ws, 'placeholder');
 
 
-    XLSX.writeFile(wb, 'STP Insurance List.xlsx')
+    XLSX.writeFile(wb, 'GMP Transaction List.xlsx')
   }
 
 }

@@ -4,6 +4,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from 'src/app/service/data.service';
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-show_gmp_ins_report',
@@ -95,6 +96,28 @@ export class Show_gmp_ins_reportComponent implements OnInit {
     setTimeout(() => {
       this.WindowObject.close();
     }, 1000);
+  }
+
+  download(){
+    const dataWithSlNo = this.userData.map((customer: { form_no: any; member_id: any; memb_type: string; memb_name: any; phone: any; father_husband_name: any; dob: string | number | Date; }, index: number) => {
+      return {
+        'SL No': index + 1,
+        'Form No': customer.form_no,
+        'Member ID': customer.member_id,
+        'Member Type': customer.memb_type == 'G' ? 'General Membership' : customer.memb_type == 'L' ? 'Life Membership' : customer.memb_type == 'AI' ? 'Associate Membership' : '',
+        'Member Name': customer.memb_name,
+        'Phone': customer.phone,
+        'Guardian Name': customer.father_husband_name,
+        'DOB': this.datePipe.transform(customer.dob, 'dd/MM/yyyy')
+        // Add or remove columns as needed
+      };
+    }); 
+    const ws = XLSX.utils.json_to_sheet(dataWithSlNo);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb,ws, 'placeholder');
+
+
+    XLSX.writeFile(wb, 'GMP Insurance List.xlsx')
   }
 
 }

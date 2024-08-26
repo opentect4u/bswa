@@ -4,6 +4,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from 'src/app/service/data.service';
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-show_clear_report',
@@ -97,6 +98,26 @@ export class Show_clear_reportComponent implements OnInit {
     setTimeout(() => {
       this.WindowObject.close();
     }, 1000);
+  }
+
+  download(){
+    const dataWithSlNo = this.userData.map((customer: { member_id: any; mem_type: string; memb_name: any; cleared_upto: any; default_amt: any;}, index: number) => {
+      return {
+        'SL No': index + 1,
+        'Member ID': customer.member_id,
+        'Member Type': customer.mem_type == 'G' ? 'General Membership' : customer.mem_type == 'L' ? 'Life Membership' : customer.mem_type == 'AI' ? 'Associate Membership' : '',
+        'Member Name': customer.memb_name,
+        'Cleared Upto': customer.cleared_upto,
+        'Amount': customer.default_amt,
+        // Add or remove columns as needed
+      };
+    }); 
+    const ws = XLSX.utils.json_to_sheet(dataWithSlNo);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb,ws, 'placeholder');
+
+
+    XLSX.writeFile(wb, 'Subscription cleared List.xlsx')
   }
 
 }

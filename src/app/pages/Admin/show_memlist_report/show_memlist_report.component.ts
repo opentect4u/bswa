@@ -4,6 +4,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from 'src/app/service/data.service';
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-show_memlist_report',
@@ -99,6 +100,28 @@ export class Show_memlist_reportComponent implements OnInit {
     setTimeout(() => {
       this.WindowObject.close();
     }, 1000);
+  }
+
+  download(){
+    const dataWithSlNo = this.userData.map((customer: { unit_name: any; member_id: string;  memb_name: any; min_no: any; memb_address: any; ps:any; city_town_dist: any; pin_no: any; phone_no: any; email_id: any}, index: number) => {
+      return {
+        'SL No': index + 1,
+        'Unit Name': customer.unit_name,
+        'Member ID': customer.member_id,
+        'Member Name': customer.memb_name,
+        'MIN No': customer.min_no,
+        'Address': this.formatAddress(customer.memb_address, customer.ps, customer.city_town_dist, customer.pin_no),
+        'Phone No': customer.phone_no,
+        'Email ID': customer.email_id
+        // Add or remove columns as needed
+      };
+    }); 
+    const ws = XLSX.utils.json_to_sheet(dataWithSlNo);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb,ws, 'placeholder');
+
+
+    XLSX.writeFile(wb, 'Member Register List.xlsx')
   }
 
 }

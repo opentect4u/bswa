@@ -4,6 +4,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from 'src/app/service/data.service';
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-show_transaction_report',
@@ -134,6 +135,34 @@ export class Show_transaction_reportComponent implements OnInit {
     setTimeout(() => {
       this.WindowObject.close();
     }, 1000);
+  }
+
+
+  download(){
+    const dataWithSlNo = this.userData.map((customer: { member_id: string; memb_name: any; adm_fee: any;donation: any; sub_amt: any; onetime_amt: any; premium_amt: any; pay_mode: any; receipt_no: any; chq_no: any;  chq_dt: string}, index: number) => {
+      return {
+        'SL No': index + 1,
+        'Member ID': customer.member_id,
+        'Member Name': customer.memb_name,
+        'Admission Fee': customer.adm_fee,
+        'Donation Fee': customer.donation,
+        'Subscription Fee': customer.sub_amt,
+        'Onetime Amount': customer.onetime_amt,
+        'Premium Amount': customer.premium_amt,
+        'Pay Mode': customer.pay_mode=='C' ? 'Cash' : customer.pay_mode=='Q' ? 'Cheque' : customer.       pay_mode=='T' ?
+          'Online Transaction' : '',
+        'Receipt No': customer.receipt_no,
+        'Cheque No': customer.chq_no,
+        'Cheque Date' : this.datePipe.transform(customer.chq_dt, 'dd/MM/yyyy'),
+        // Add or remove columns as needed
+      };
+    }); 
+    const ws = XLSX.utils.json_to_sheet(dataWithSlNo);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb,ws, 'placeholder');
+
+
+    XLSX.writeFile(wb, 'Member Transaction List.xlsx')
   }
   
 }
