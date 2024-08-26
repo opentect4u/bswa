@@ -200,32 +200,41 @@ export class Group_policyComponent implements OnInit {
 
   onPolicyAddDependent(event: Event): void {
     const selectedValue = (event.target as HTMLSelectElement).value;
-
-    if (selectedValue === 'J') {
-      this.responsedata = this.responsedata.filter(
-        (group: any) => group.family_catg == 'J'
-      );
-      // console.log(this.responsedata[0].pre_dt,'hyhy');
-      
-
-    this.onadd()
-    } else {
-      this.responsedata[0].pre_dt = this.responsedata[0].pre_dt.filter(
-        (group: any) => group.family_catg == 'S'
-      );
-
-      Swal.fire(
-        'Warning',
-        'There is no access to add More Dependent',
+  
+    // this.get_non_dtls().subscribe((data: any) => {
+      this.dataServe
+      .global_service(0, '/get_non_premium_dtls', null)
+      .subscribe((data: any) => {
+      this.responsedata = data.suc > 0 ? data.msg : [];
+      this.responsedata[0]['pre_dt'] = this.responsedata;
+  
+      // Filter the data based on the selected value
+      if (selectedValue === 'J') {
+        this.responsedata[0].pre_dt = this.responsedata[0].pre_dt.filter(
+          (group: any) => group.family_catg == 'J'
+        );
+        this.onadd();
+      } else {
+        this.responsedata[0].pre_dt = this.responsedata[0].pre_dt.filter(
+          (group: any) => group.family_catg == 'S'
+        );
+  
+        Swal.fire(
+          'Warning',
+          'There is no access to add More Dependent',
           'warning'
-      ).then((result) => {
-        (event.target as HTMLSelectElement).value = 'S';
-        if (result.isConfirmed) {
-          this.depenFields_1.clear()
-              }
-            });
-    }
+        ).then((result) => {
+          (event.target as HTMLSelectElement).value = 'S';
+          if (result.isConfirmed) {
+            this.depenFields_1.clear();
+          }
+        });
+      }
+    });
   }
+  
+
+  
 
 //   onPolicyAddDependent(event: Event): void {
 //     const selectedValue = (event.target as HTMLSelectElement).value;
@@ -673,13 +682,27 @@ onFileSelected(fileData: any) {
 
 onUpload(event: any, flag: any) {
   const file = event.files[0];
-console.log(file,'filee');
+  const maxFileSize = 1 * 1024 * 1024; // 1MB
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+  console.log(file,'filee');
 
   if (file) {
+    if (!allowedTypes.includes(file.type)) {
+      this.showError('Invalid file type. Only JPG, JPEG, and PNG are allowed.');
+      return;
+    }
+
+    if (file.size > maxFileSize) {
+      this.showError('File size exceeds the limit of 2MB.');
+      return;
+    }
+    
     if(flag == 'O') this.ownFile.push(file);
     if(flag == 'S') this.spouseFile.push(file);
     if(flag == 'OF') this.ownsFiles.push(file);
     if(flag == 'SF') this.spousesFile.push(file);
+
+    this.showSuccess('File uploaded successfully.');
     // this.fileSelected.emit({ file, flag });
   }
 
@@ -692,6 +715,14 @@ console.log(file,'filee');
   //   summary: 'File Uploaded',
   //   detail: '',
   // });
+}
+
+showError(message: string) {
+  this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
+}
+
+showSuccess(message: string) {
+  this.messageService.add({ severity: 'success', summary: 'Success', detail: message });
 }
 
 onRemove(event: any, flag: any) {

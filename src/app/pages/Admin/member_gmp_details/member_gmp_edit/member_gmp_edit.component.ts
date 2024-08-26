@@ -233,7 +233,7 @@ toggleAdditionalOptions(checked:any) {
             this.memberData = this.userData.msg[0];
             this.addOpt = this.memberData.premium_dt[0]?.prm_flag2 == 'Y' || this.memberData.premium_dt[0]?.prm_flag3 == 'Y' ? 'Y' : 'N';
 
-            var filter_res_dt = this.responsedata.length > 0 ? (this.responsedata[0].pre_dt.filter((dt:any) => dt.family_type_id == this.memberData.premium_dt[0]?.premium_id)) : []
+            var filter_res_dt = this.responsedata && this.responsedata.length > 0 ? (this.responsedata[0].pre_dt.filter((dt:any) => dt.family_type_id == this.memberData.premium_dt[0]?.premium_id)) : []
             if(filter_res_dt.length > 0){
               var sup_top_dt = [{name: 'Super Top up Amount 12 lacs', value: filter_res_dt[0].premium2, flag: 'p2'}, {name: 'Super Top up Amount 24 lacs', value: filter_res_dt[0].premium3, flag: 'p3'}]
               this.sup_top_list = sup_top_dt

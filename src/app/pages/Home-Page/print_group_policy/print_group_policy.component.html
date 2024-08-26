@@ -74,10 +74,11 @@
               13, CAMAC STREET, <br>
               KOLKATA 700017
             </p>
-            <h4>(Through: <u>{{stpinfo?.mem_type ==
+            <h4>(Through: <span
+              style="color: rgb(55, 55, 230);"><u>{{stpinfo?.mem_type ==
                 'G' ? 'General
                 Membership' : stpinfo?.mem_type == 'L' ? 'Life membership' : stpinfo?.mem_type == 'AI' ? 'Associate
-                Membership' : 'N/A'}}</u>)</h4>
+                Membership' : 'N/A'}}</u></span>)</h4>
             <p><strong>BOKARO STEEL PEOPLE WELFARE ASSOCIATION</strong> <br>
               Durgapur / Burnpur <br>
               Dear Sir,</p>
@@ -192,6 +193,9 @@
           <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_space_cus">
             <tbody>
               <tr>
+                <td align="left" valign="middle"><b>FORM FILL UP DATE : </b><span> {{ stpinfo?.form_dt ? (stpinfo?.form_dt | date: 'dd/MM/yyyy') : 'N/A'}}</span></td>
+              </tr>
+              <tr>
                 <td align="left" valign="middle"><b>NAME : </b><span> {{stpinfo?.memb_name ? stpinfo?.memb_name :
                     'N/A'}}</span></td>
               </tr>
@@ -221,33 +225,75 @@
                 </td>
               </tr>
               <tr>
-                <td align="left" valign="middle"><b>DATE OF BIRTH : </b>
+                <td align="left" valign="middle" class="no_pading">
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tbody>
+                    <tr>
+                    <td align="left" valign="middle" class="table_td_30"><b>DATE OF BIRTH : </b>
                   <span> {{ stpinfo?.dob ? (stpinfo?.dob | date: 'dd/MM/yyyy') : 'N/A'}}</span>
                 </td>
-              </tr>
+                <td align="left" valign="middle" class="table_td_40"><b>PHONE NO : </b>
+                  <span> {{ stpinfo?.phone ? stpinfo?.phone : 'N/A'}}</span>
+                </td>
+                <td align="left" valign="middle" class="table_td_30"><b>STATUS : </b>
+                  <span> {{ stpinfo?.memb_oprn == 'S' ? 'Self' : stpinfo?.memb_oprn == 'J' ? 'Spouse' : 'N/A'}}</span>
+                </td>
+                  </tr>
+                  </tbody>
+                </table>
+                </td>
+                </tr>
+                <tr>
+                  <td align="left" valign="middle" class="no_pading">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tbody>
+                      <tr>
+                      <td align="left" valign="middle" class="table_td_30"><b>SUFFERING FROM ANY DISEASES : </b>
+                    <span> {{ stpinfo?.disease_flag == 'Y' ? 'Yes' : stpinfo?.disease_flag == 'N' ? 'No' : 'N/A'}}</span>
+                  </td>
+                  <td align="left" valign="middle" class="table_td_70"><b>DISEASES NAME : </b>
+                    <span> {{ stpinfo?.disease_type ? stpinfo?.disease_type : 'N/A'}}</span>
+                  </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                  </td>
+                  </tr>
+                  <tr>
+                    <th class="text-center" valign="middle"><h5><b>Upload Document</b></h5></th>
+                  </tr>
               <tr>
-                <td class="text-center" colspan="3" style="width: 20%;">
-                  <img *ngIf="stpinfo?.memb_img; else noImage" [src]="api_base_url  + '/' + 'uploads' + '/' + stpinfo?.memb_img"
-                    height="25%" width="25%" alt="Member Photo" />
-                  <ng-template #noImage>
-                    <div class="no-image">
-                      <i class="pi pi-camera" style="font-size: 2rem"></i>
-                      <h5>No Image uploaded</h5>
-                    </div>
-                  </ng-template>
+                <td align="left" valign="middle" class="no_pading">
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tbody>
+                      <tr>
+                        <td class="text-center" colspan="3" style="width: 20%;">
+                          <img *ngIf="stpinfo?.memb_img; else noImage" [src]="api_base_url  + '/' + 'uploads' + '/' + stpinfo?.memb_img"
+                            height="25%" width="25%" alt="Member Photo" />
+                          <ng-template #noImage>
+                            <div class="no-image">
+                              <i class="pi pi-camera" style="font-size: 2rem"></i>
+                              <h5>No Image uploaded</h5>
+                            </div>
+                          </ng-template>
+                        </td>
+                        <td class="text-center" colspan="3" style="width: 20%;">
+                          <img *ngIf="stpinfo?.doc_img; else noImage" [src]="api_base_url + '/' + 'uploads' + '/' + stpinfo?.doc_img"
+                            height="25%" width="25%" alt="Member Photo" />
+                          <ng-template #noImage>
+                            <div class="no-image">
+                              <i class="pi pi-camera" style="font-size: 2rem"></i>
+                              <h5>No Image uploaded</h5>
+                            </div>
+                          </ng-template>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </td>
               </tr>
               <tr>
-                <th class="text-center" colspan="3" style="width: 20%;">
-                  <img *ngIf="stpinfo?.doc_img; else noImage" [src]="api_base_url + '/' + 'uploads' + '/' + stpinfo?.doc_img"
-                    height="25%" width="25%" alt="Member Photo" />
-                  <ng-template #noImage>
-                    <div class="no-image">
-                      <i class="pi pi-camera" style="font-size: 2rem"></i>
-                      <h5>No Image uploaded</h5>
-                    </div>
-                  </ng-template>
-                </th>
+                <th class="text-center" valign="middle"><h5><b>Dependent Information</b></h5></th>
               </tr>
               <tr>
                 <td align="left" valign="middle" class="no_pading">
@@ -256,11 +302,15 @@
                       <tr class="table_head_cus">
                         <td align="left" valign="middle" class="table_td_5"><b>Sl No</b></td>
                         <td align="left" valign="middle" class="table_td_55"><b>Name of the Dependents</b></td>
-                        <td align="left" valign="middle" class="table_td_20"><b>Relationship</b></td>
-                        <td align="left" valign="middle" class="table_td_20"><b>DOB(DD/MM/YYYY)</b></td>
+                        <td align="left" valign="middle" class="table_td_5"><b>Relationship</b></td>
+                        <td align="left" valign="middle" class="table_td_5"><b>DOB(DD/MM/YYYY)</b></td>
+                        <td align="left" valign="middle" class="table_td_5"><b>Suffering from any diseases</b></td>
+                        <td align="left" valign="middle" class="table_td_20"><b>Diseases Name</b></td>
+                        <td align="left" valign="middle" class="table_td_20"><b>Photograph</b></td>
+                        <td align="left" valign="middle" class="table_td_20"><b>Document</b></td>
                       </tr>
                       <tr *ngIf="!spouseInfo || spouseInfo.length === 0">
-                        <td colspan="4" class="text-center span_space"><b>No Data Found</b></td>
+                        <td colspan="8" class="text-center span_space"><b>No Data Found</b></td>
                       </tr>
                       <tr *ngFor="let dt of spouseInfo; let i = index">
                         <td align="left" valign="middle"><span>{{dt.sl_no}}</span></td>
@@ -268,6 +318,14 @@
                         <td align="left" valign="middle"><span>{{dt.relation_name}}</span></td>
                         <td align="left" valign="middle"><span>{{dt?.dob && dt?.dob !== '0000-00-00' ?
                             (dt.dob | date: 'dd/MM/yyyy') : 'N/A'}}</span></td>
+                        <td align="left" valign="middle"><span>{{dt.disease_flag == 'Y' ? 'Yes' : dt.disease_flag == 'N' ? 'No' : ''}}</span></td>
+                        <td align="left" valign="middle"><span>{{dt.disease_type}}</span></td>
+                        <td align="left" valign="middle">
+                          <img *ngIf="dt.dep_doc" [src]="api_base_url + '/uploads/' + dt.dep_doc" height="50" width="50" alt="Dependent Image" />
+                        </td>
+                        <td align="left" valign="middle">
+                          <img *ngIf="dt.dep_img" [src]="api_base_url + '/uploads/' + dt.dep_img" height="50" width="50" alt="Dependent Image" />
+                        </td>
                       </tr>
 
                     </tbody>
@@ -358,7 +416,7 @@
         </ng-container>
 
         <p-divider type="dashed"></p-divider>
-        <h3>FOR OFFICE USE ONLY </h3>
+        <h3 class="text-center">FOR OFFICE USE ONLY </h3>
 
         <div class="row mt-4">
           <p><b>The Board of Trustee vide their resolution no. dated

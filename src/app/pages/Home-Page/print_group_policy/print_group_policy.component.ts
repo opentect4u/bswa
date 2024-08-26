@@ -23,6 +23,10 @@ interface MembershipInfo {
   phone: string,
   memb_img: string,
   doc_img: string,
+  form_dt: string;
+  memb_oprn: string;
+  disease_flag: string;
+  disease_type: string;
 }
 
 interface SpouseDepenInfo {
@@ -30,6 +34,10 @@ interface SpouseDepenInfo {
   dependent_name: string,
   relation_name: string,
   dob: string,
+  disease_flag: string,
+  disease_type: string;
+  dep_img: string;
+  dep_doc: string;
 }
 
 interface PremiumInfo {

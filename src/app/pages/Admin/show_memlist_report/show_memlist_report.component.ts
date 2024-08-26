@@ -38,7 +38,7 @@ export class Show_memlist_reportComponent implements OnInit {
   }
 
   show_data(){
-    this.dataServe.global_service(0,'/member_list_report',`period=${this.period}&member_type=${this.member_type}`).subscribe(data => {
+    this.dataServe.global_service(0,'/member_list_report',`period=${encodeURIComponent(this.period)}&member_type=${this.member_type}`).subscribe(data => {
       console.log(data,'kiki')
       this.userData = data;
       this.userData = this.userData.msg;
