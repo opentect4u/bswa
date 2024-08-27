@@ -13,13 +13,13 @@ import * as XLSX from 'xlsx'
   providers: [DatePipe],
 })
 export class Show_gmp_trans_reportComponent implements OnInit {
-  public data: any[] = [
-    { name: 'Sayantika Dhar', email: 'sayantika@synergicsoftek.in'},
-    { name: 'Subham Samanta', email: 'subham@synergicsoftek.in'},
-    { name: 'Rupsa Chakraborty', email: 'rupsa@synergicsoftek.in'},
-    { name: 'Soumyadeep Mondal', email: 'soumyadeep@synergicsoftek.in'},
-    { name: 'Somnath Thakur', email: 'somnath@synergicsoftek.in'},
-  ]
+  // public data: any[] = [
+  //   { name: 'Sayantika Dhar', email: 'sayantika@synergicsoftek.in'},
+  //   { name: 'Subham Samanta', email: 'subham@synergicsoftek.in'},
+  //   { name: 'Rupsa Chakraborty', email: 'rupsa@synergicsoftek.in'},
+  //   { name: 'Soumyadeep Mondal', email: 'soumyadeep@synergicsoftek.in'},
+  //   { name: 'Somnath Thakur', email: 'somnath@synergicsoftek.in'},
+  // ]
   mem_type: any;
   WindowObject: any;
   divToPrint: any;
@@ -40,7 +40,18 @@ export class Show_gmp_trans_reportComponent implements OnInit {
     this.member_type = this.route.snapshot.params['member_type'];
     this.from_dt = this.route.snapshot.params['from_dt'];
     this.to_dt = this.route.snapshot.params['to_dt'];
-    
+    this.show_data_trans()
+  }
+
+  show_data_trans(){
+    this.dataServe.global_service(0,'/gmp_trans_report',`from_dt=${this.from_dt}&to_dt=${this.to_dt}`).subscribe(data => {
+      console.log(data,'kiki')
+      this.userData = data;
+      this.userData = this.userData.msg;
+      console.log(this.userData,'lili');
+    },error => {
+      console.error(error);
+    })
   }
 
   printDiv() {
@@ -92,7 +103,24 @@ export class Show_gmp_trans_reportComponent implements OnInit {
   }
 
   download(){
-    const ws = XLSX.utils.json_to_sheet(this.data);
+    const dataWithSlNo = this.userData.map((customer: { member_id: any;  memb_name: any; unit_name: any; trn_id: any; trn_dt:  string | number | Date; dept_name: any; premium_dt:  string | number | Date; family_type: any; premium_amt: any; prm_flag2: any; prm_flag3: any; premium_amt2: any; premium_amt3: any;}, index: number) => {
+      return {
+        'SL No': index + 1,
+        'Member ID': customer.member_id,
+        'Member Name': customer.memb_name,
+        'Association': customer.unit_name,
+        'Transaction ID': customer.trn_id,
+        'Transaction Date': this.datePipe.transform(customer.trn_dt, 'dd/MM/yyyy'),
+        'Dependents Name': customer.dept_name,
+        'Premium Date':  this.datePipe.transform(customer.premium_dt, 'dd/MM/yyyy'),
+        'Group Name': customer.family_type,
+        'Premium Amount': customer.premium_amt,
+        'Super Top up Group Name': customer.prm_flag2 == 'Y' ? 'Super Top up Amount 12 lacs' : customer.prm_flag3 == 'Y' ? 'Super Top up Amount 24 lacs' : 'N/A',
+        'Super Top up Premium Amount': customer.prm_flag2 == 'Y' ? customer.premium_amt2 : customer.prm_flag3 == 'Y' ? customer.premium_amt3 : 'N/A',
+        // Add or remove columns as needed
+      };
+    }); 
+    const ws = XLSX.utils.json_to_sheet(dataWithSlNo);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb,ws, 'placeholder');
 

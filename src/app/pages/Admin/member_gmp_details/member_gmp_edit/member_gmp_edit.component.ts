@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,  Output, EventEmitter, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/service/data.service';
@@ -15,6 +15,8 @@ import { environment } from 'src/environments/environment';
   providers: [DatePipe, MessageService],
 })
 export class Member_gmp_editComponent implements OnInit {
+  @Output() fileSelected = new EventEmitter();
+  uploadedFiles: any[] = [];
   form_no: any;
   member_id: any;
   form!: FormGroup;
@@ -29,6 +31,10 @@ export class Member_gmp_editComponent implements OnInit {
   additionalOptions: any = false;
   addOpt:any = 'N';
   groupSaveData: any;
+  ownFile: any = []
+  spouseFile: any = []
+  ownsFiles: any = []
+  spousesFile: any = []
 
   constructor(
     private router: Router,
@@ -36,7 +42,8 @@ export class Member_gmp_editComponent implements OnInit {
     private dataServe: DataService,
     private validatorsService: ValidatorsService,
     private route: ActivatedRoute,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private messageService: MessageService,
   ) { }
 
   ngOnInit() {
@@ -342,6 +349,57 @@ toggleAdditionalOptions(checked:any) {
           Swal.fire('Error', this.responsedata.msg, 'error');
         }
       });
+    }
+
+
+    onUpload(event: any, flag: any) {
+      const file = event.files[0];
+      const maxFileSize = 1 * 1024 * 1024; // 1MB
+      const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+      console.log(file,'filee');
+    
+      if (file) {
+        if (!allowedTypes.includes(file.type)) {
+          this.showError('Invalid file type. Only JPG, JPEG, and PNG are allowed.');
+          return;
+        }
+    
+        if (file.size > maxFileSize) {
+          this.showError('File size exceeds the limit of 2MB.');
+          return;
+        }
+        
+        if(flag == 'O') this.ownFile.push(file);
+        if(flag == 'S') this.spouseFile.push(file);
+        if(flag == 'OF') this.ownsFiles.push(file);
+        if(flag == 'SF') this.spousesFile.push(file);
+    
+        this.showSuccess('File uploaded successfully.');
+        // this.fileSelected.emit({ file, flag });
+      }
+    
+      // for (let file of event.files) {
+      //   this.uploadedFiles.push(file);
+      // }
+    
+      // this.messageService.add({
+      //   severity: 'info',
+      //   summary: 'File Uploaded',
+      //   detail: '',
+      // });
+    }
+    
+    showError(message: string) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
+    }
+    
+    showSuccess(message: string) {
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: message });
+    }
+    
+    onRemove(event: any, flag: any) {
+      console.log(event, 'clear event');
+      this.fileSelected.emit({ file: '', flag });
     }
     
   }
