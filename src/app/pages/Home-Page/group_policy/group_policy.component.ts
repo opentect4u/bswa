@@ -57,7 +57,9 @@ export class Group_policyComponent implements OnInit {
   spouseFile: any = []
   ownsFiles: any = []
   spousesFile: any = []
-
+  gurdianName: string = '';
+  memberName: string = '';
+  dependentName: string = '';
 
   // selectedValue: string = 'N';
   // selectedValue_1: string = 'N';
@@ -126,7 +128,10 @@ export class Group_policyComponent implements OnInit {
       this.calculateTotalAmount();
     });
 
-    
+   this.unit();
+   this.relationship();
+   this.onadd(); 
+   this.get_non_dtls();
   }
 
   get totalAmount(): number {
@@ -417,7 +422,11 @@ export class Group_policyComponent implements OnInit {
 }
 
 onadd(sl_no:any = '',dependent_name:any = '',relation:any = '',dob:any = '',type_diseases:any = '',name_diseases:any = '', relation_id:any = '', own_files:any = '', spouse_files:any = '') {
-  const formattedDob = this.datePipe.transform(dob, 'yyyy-MM-dd');
+  // const formattedDob = this.datePipe.transform(dob, 'yyyy-MM-dd');
+  const isValidDate = dob && new Date(dob).toString() !== 'Invalid Date';
+
+const formattedDob = isValidDate ? this.datePipe.transform(dob, 'yyyy-MM-dd') : null;
+
   const fieldGroup = this.fb.group(
     {
       sl_no: [sl_no],
@@ -535,7 +544,7 @@ final_submit(){
   
   formData.append('flag', 'GP');
   formData.append('checkedmember', this.checkedmember);
-  formData.append('policy_holder_type', this.o['policy_holder_type']?.value || '');
+  formData.append('policy_holder_type', this.o['policy_holder_type']?.value || 'N');
   formData.append('form_dt', this.o['form_dt']?.value || '');
   formData.append('unit', this.o['unit']?.value || '');
   formData.append('member_id', this.o['member_id']?.value || '');
@@ -729,4 +738,17 @@ onRemove(event: any, flag: any) {
   console.log(event, 'clear event');
   this.fileSelected.emit({ file: '', flag });
 }
+
+convertToUppercase() {
+  this.gurdianName = this.gurdianName?.toUpperCase() || '';
+  this.memberName = this.memberName?.toUpperCase() || '';
+  // this.dependentName = this.dependentName?.toUpperCase() || '';
+}
+
+onDependentNameChange(event: Event) {
+  const input = event.target as HTMLInputElement;
+  const value = input.value.toUpperCase();
+  this.form.get('dependent_name')?.setValue(value, { emitEvent: false });
+}
+
 }

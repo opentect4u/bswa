@@ -102,7 +102,7 @@ export class Print_stp_formComponent implements OnInit {
   ngOnInit() {
     const encodedFormNo = this.route.snapshot.params['form_no'];
     this.member_id = localStorage.getItem('user_name')
-    console.log(this.member_id,'ooo');
+    // console.log(this.member_id,'ooo');
     
     this.form_no = atob(decodeURIComponent(encodedFormNo));
     // this.getMemberInfo();
@@ -112,11 +112,11 @@ export class Print_stp_formComponent implements OnInit {
 
   getMemberInfo(memb_id:any) {
     this.dataServe
-      .global_service(0, '/get_member_policy_print_super', `member_id=${memb_id}`)
+      .global_service(0, '/get_member_policy_print_super', `member_id=${memb_id}&&form_no=${this.form_no}`)
       .subscribe((data: any) => {
         this.responsedata = data;
         console.log(this.responsedata, '666');
-        this.responsedata =
+        this.responsedata =  this.responsedata &&
           this.responsedata.suc > 0
             ? this.responsedata.msg.length > 0
               ? this.responsedata.msg[0]

@@ -71,7 +71,7 @@ const routes: Routes = [
           import('./login_details/login_details.module').then((home) => home.Login_detailsModule),
       },
       {
-        path: 'print_stp_form/:form_no',
+        path: 'print_stp_form/:form_no/:policy_holder_type',
         loadChildren: () =>
           import('./print_stp_form/print_stp_form.module').then((home) => home.Print_stp_formModule),
       },

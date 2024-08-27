@@ -107,7 +107,9 @@ export class Print_group_policyComponent implements OnInit {
   preinfo:  PremiumInfo | undefined;
   pre_amt_flag: any;
   pre_amt_value: any;
+  tot_amt_value: any;
   genInsData: any;
+  checkedmember: any  = false
 
   constructor(
     private router: Router,
@@ -122,12 +124,20 @@ export class Print_group_policyComponent implements OnInit {
     this.member_id = localStorage.getItem('user_name')
     console.log(this.member_id,'ooo'); 
     this.form_no = atob(decodeURIComponent(encodedFormNo));
+    this.checkedmember = this.route.snapshot.params['checkedmember'];
     this.getGenInsInfo()
   }
 
+//   calculateTotalAmount() {
+//     const premiumAmt = this.preinfo?.premium_amt || 0;
+//     const additionalAmt = this.pre_amt_value || 0;
+    
+//     this.tot_amt_value = premiumAmt + additionalAmt;
+// }
+
   getMemberInfo(memb_id:any) {
     this.dataServe
-      .global_service(0, '/get_member_policy_print', `member_id=${memb_id}`)
+      .global_service(0, '/get_member_policy_print', `member_id=${memb_id}&&form_no=${this.form_no}`)
       .subscribe((data: any) => {
         this.responsedata = data;
         console.log(this.responsedata, '666');
@@ -164,7 +174,7 @@ export class Print_group_policyComponent implements OnInit {
 
   getSpouseInfo(memb_id:any) {
     this.dataServe
-      .global_service(0, '/get_member_policy_dependent_print', `member_id=${memb_id}`)
+      .global_service(0, '/get_member_policy_dependent_print', `member_id=${memb_id}&&form_no=${this.form_no}`)
       .subscribe((spouse_dt: any) => {
         this.resdata = spouse_dt;
         console.log(this.resdata, '777');
@@ -196,7 +206,7 @@ export class Print_group_policyComponent implements OnInit {
       this.preinfo!['premium_amt2'] : this.preinfo!['prm_flag3'] == 'Y' ? 
       this.preinfo!['premium_amt3'] : '0';
       console.log(this.preinfo,'pre');
-      
+      this.tot_amt_value = (this.preinfo?.premium_amt)  + (this.pre_amt_value) ;
     });
   }
   // getPremiumAmt(event:any){

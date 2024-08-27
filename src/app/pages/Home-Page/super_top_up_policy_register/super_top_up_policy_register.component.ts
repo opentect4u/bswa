@@ -40,7 +40,7 @@ export class Super_top_up_policy_registerComponent implements OnInit {
   checkedmember: any  = false
   responsedata_unit: any;
   responsedata_rel: any;
-
+  policy_holder_type: any
   // member_type='N'
 
   selectedValue: string = 'N' ;
@@ -52,6 +52,9 @@ export class Super_top_up_policy_registerComponent implements OnInit {
 
   inputValue: string = '';
   errorMessage: string = '';
+
+  spouseName: string = '';
+  memberName: string = '';
   // UserData: any;
 
   // isDisabled: boolean = true
@@ -94,12 +97,15 @@ export class Super_top_up_policy_registerComponent implements OnInit {
       spou_mem: [''],
       depenFields_2: this.fb.array([]),
       form_dt: ['', Validators.required],
+      policy_holder_type: ['']
     });
     this.get_fin_year()
     if(this.depenFields_2.controls.length == 0)
       this.onadd();
     // this.onInputChange();
       // this.changedate();
+      this.unit()
+      this.relationship()
   }
   ngAfterViewInit(): void {
     //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
@@ -321,6 +327,7 @@ export class Super_top_up_policy_registerComponent implements OnInit {
         flag: 'STP',
         checkedmember: this.checkedmember,
         unit: this.o['unit_name']? this.o['unit_name'].value : null,
+        // policy_holder_type: this.o['policy_holder_type']? this.o['policy_holder_type'].value : 'N',
         member_id: this.o['member_id'] ? this.o['member_id'].value : null,
         form_dt: this.o['form_dt'] ? this.o['form_dt'].value : null,
         member: this.o['member'] ? this.o['member'].value : null,
@@ -347,8 +354,9 @@ export class Super_top_up_policy_registerComponent implements OnInit {
         this.groupSaveData = data;
         console.log(this.groupSaveData,'data');
         
-        if (this.groupSaveData.suc > 0) {
+        if (this.groupSaveData && this.groupSaveData.suc > 0) {
           this.formNo = this.groupSaveData.form_no;
+          this.checkedmember = this.groupSaveData.policy_holder_type == 'true' ? 'M' : 'N';
           // this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data saved successfully' });
           // this.router.navigate(['/main/dashboard']);
           Swal.fire(
@@ -357,7 +365,7 @@ export class Super_top_up_policy_registerComponent implements OnInit {
             'success'
           ).then((result) => {
             if (result.isConfirmed) {
-                    this.router.navigate(['/home/print_stp_form',encodeURIComponent(btoa(this.formNo))])
+                    this.router.navigate(['/home/print_stp_form',encodeURIComponent(btoa(this.formNo)),this.checkedmember])
                   }
                 });
         } else {
@@ -379,6 +387,12 @@ get_fin_year(){
       this.finYearData = this.finYearData.suc > 0 ? this.finYearData.msg : {}
     }
   );
+}
+
+convertToUppercase() {
+  this.spouseName = this.spouseName?.toUpperCase() || '';
+  this.memberName = this.memberName?.toUpperCase() || '';
+  // this.dependentName = this.dependentName?.toUpperCase() || '';
 }
 
 }

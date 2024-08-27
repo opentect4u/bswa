@@ -1,7 +1,7 @@
 <div class="background">
   <div class="form-container">
     <p-card>
-      <ng-container>
+      <ng-container>  
         <h3 class="text-center"><b>Member Information For Super Topup Policy</b></h3>
         <p-divider type="dashed"></p-divider>
 
@@ -14,11 +14,11 @@
               <input type="radio" name="policyHolderType" id="member" value="M" (click)="onPolicyHolderTypeChange('M')">
               <label for="member" class="label_field ml-2"><b>BSPWA Member</b></label>
             </div>
-          </div>
+          </div>  
           <div class="field col-12 md:col-4">
             <div class="flex align-items-center">
               <input type="radio" name="policyHolderType" id="non_member" value="N"
-                (click)="onPolicyHolderTypeChange('N')">
+                (click)="onPolicyHolderTypeChange('N')" checked>
               <label for="non_member" class="label_field ml-2"><b>Member of Other SAIL Association</b></label>
             </div>
           </div>
@@ -200,6 +200,8 @@
                     class="text-red-700">*</span></b></label>&nbsp;
               <ng-container *ngIf="checkedmember">
                 <input id="member" type="text" formControlName="member" placeholder="Enter Member name"
+                [(ngModel)]="memberName" 
+                (ngModelChange)="convertToUppercase()"
                   class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                 <div *ngIf="o['member']?.touched || o['member']?.dirty">
                   <small class="text-red-900" *ngIf="o['member']?.errors">Member Name is required.</small>
@@ -207,6 +209,8 @@
               </ng-container>
               <ng-container *ngIf="!checkedmember">
                 <input id="member" type="text" formControlName="member" placeholder="Enter Member name"
+                [(ngModel)]="memberName" 
+                (ngModelChange)="convertToUppercase()"
                   class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                 <div *ngIf="o['member']?.touched || o['member']?.dirty">
                   <small class="text-red-900" *ngIf="o['member']?.errors">Member Name is required.</small>
@@ -236,14 +240,14 @@
             <div class="field col-12 md:col-4">
               <label for="gen_dob" class="label_field"><b>DOB:<span class="text-red-700">*</span></b></label>&nbsp;
               <ng-container *ngIf="checkedmember">
-                <input id="gen_dob" type="date" formControlName="gen_dob" placeholder="dd/MM/yyyy"
+                <input id="gen_dob" type="date" formControlName="gen_dob" placeholder="dd/MM/yyyy" [max]="maxDate"
                   class="box_input text-2xl text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                 <div *ngIf="o['gen_dob']?.touched || o['gen_dob']?.dirty">
                   <small class="text-red-900" *ngIf="o['gen_dob']?.errors">DOB is required.</small>
                 </div>
               </ng-container>
               <ng-container *ngIf="!checkedmember">
-                <input id="gen_dob" type="date" formControlName="gen_dob" placeholder="dd/MM/yyyy"
+                <input id="gen_dob" type="date" formControlName="gen_dob" placeholder="dd/MM/yyyy" [max]="maxDate"
                   class="box_input text-2xl text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                 <div *ngIf="o['gen_dob']?.touched || o['gen_dob']?.dirty">
                   <small class="text-red-900" *ngIf="o['gen_dob']?.errors">DOB is required.</small>
@@ -270,7 +274,7 @@
             <div class="field col-12 md:col-4">
               <label for="fin_yr" class="label_field"><b>Joining Year:<span
                     class="text-red-700">*</span></b></label>&nbsp;
-              <input id="fin_yr" type="date" formControlName="fin_yr" placeholder="Enter Joining Year"
+              <input id="fin_yr" type="date" formControlName="fin_yr" placeholder="Enter Joining Year" [max]="maxDate"
                 class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
               <div *ngIf="o['fin_yr']?.touched || o['fin_yr']?.dirty">
                 <small class="text-red-900" *ngIf="o['fin_yr']?.errors">Joining Year is required.</small>
@@ -307,6 +311,8 @@
               <div class="field col-12 md:col-3">
                 <label for="spouse" class="label_field"><b>Spouse Name:</b></label>&nbsp;
                 <input id="spouse" type="text" formControlName="spouse" placeholder="Enter Spouse name"
+                [(ngModel)]="spouseName" 
+                (ngModelChange)="convertToUppercase()"
                   class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
               </div>
               <div class="field col-12 md:col-3">
@@ -316,7 +322,7 @@
               </div>
               <div class="field col-12 md:col-3">
                 <label for="spou_dob" class="label_field"><b>DOB:</b></label>&nbsp;
-                <input id="spou_dob" type="date" formControlName="spou_dob" placeholder="dd/MM/yyyy"
+                <input id="spou_dob" type="date" formControlName="spou_dob" placeholder="dd/MM/yyyy" [max]="maxDate"
                   class="box_input text-2xl text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
               </div>
               <div class="field col-12 md:col-3">

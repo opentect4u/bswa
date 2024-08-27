@@ -19,7 +19,7 @@
           <div class="field col-12 md:col-4">
             <div class="flex align-items-center">
               <input type="radio" name="policyHolderType" id="non_member" value="N"
-                (click)="onPolicyHolderTypeChange('N')">
+                (click)="onPolicyHolderTypeChange('N')" checked>
               <label for="non_member" class="label_field ml-2"><b>Member of Other SAIL Association</b></label>
             </div>
           </div>
@@ -152,6 +152,8 @@
                 <label for="member" class="label_field"><b>Member Name:<span
                       class="text-red-700">*</span></b></label>&nbsp;
                 <input id="member" type="text" formControlName="member" placeholder="Enter Member name"
+                [(ngModel)]="memberName" 
+                (ngModelChange)="convertToUppercase()"
                   class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                 <div *ngIf="o['member']?.touched || o['member']?.dirty">
                   <small class="text-red-900" *ngIf="o['member']?.errors">Member Name is required.</small>
@@ -161,7 +163,8 @@
                 <label for="gurdian" class="label_field"><b>Father's / Husband Name:<span
                       class="text-red-700">*</span></b></label>&nbsp;
                 <input id="gurdian" type="text" formControlName="gurdian" placeholder="Enter Father / Husband name"
-                  class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                [(ngModel)]="gurdianName" 
+                (ngModelChange)="convertToUppercase()" class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"/>
                 <!-- [readonly]="checkedmember" /> -->
                 <div *ngIf="o['gurdian']?.touched || o['gurdian']?.dirty">
                   <small class="text-red-900" *ngIf="o['gurdian']?.errors">Gurdian Name is required.</small>
@@ -239,7 +242,7 @@
               </div>
               <div class="field col-12 md:col-4">
                 <label for="gen_dob" class="label_field"><b>DOB:<span class="text-red-700">*</span></b></label>&nbsp;
-                <input id="gen_dob" type="date" formControlName="gen_dob" placeholder="dd/MM/yyyy"
+                <input id="gen_dob" type="date" formControlName="gen_dob" placeholder="dd/MM/yyyy" [max]="maxDate"
                   class="box_input text-2xl text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                 <div *ngIf="o['gen_dob']?.touched || o['gen_dob']?.dirty">
                   <small class="text-red-900" *ngIf="o['gen_dob']?.errors">DOB is required.</small>
@@ -401,11 +404,13 @@
                     <ng-container *ngIf="checkedmember">
                       <input id="dependent_name" type="text" formControlName="dependent_name"
                         placeholder="Enter Dependent name"
+                        (input)="onDependentNameChange($event)"
                         class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                     </ng-container>
                     <ng-container *ngIf="!checkedmember">
                       <input id="dependent_name" type="text" formControlName="dependent_name"
                         placeholder="Enter Dependent name"
+                        (input)="onDependentNameChange($event)"
                         class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                     </ng-container>
                   </div>
@@ -440,11 +445,11 @@
                   <div class="field col-12 md:col-3">
                     <label for="dob" class="label_field"><b>DOB(DD/MM/YYYY):</b></label>&nbsp;
                     <ng-container *ngIf="checkedmember">
-                      <input id="dob" type="date" formControlName="dob" placeholder="Enter DOB"
+                      <input id="dob" type="date" formControlName="dob" placeholder="Enter DOB" [max]="maxDate"
                         class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                     </ng-container>
                     <ng-container *ngIf="!checkedmember">
-                      <input id="dob" type="date" formControlName="dob" placeholder="Enter DOB"
+                      <input id="dob" type="date" formControlName="dob" placeholder="Enter DOB" [max]="maxDate"
                         class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                     </ng-container>
                   </div>

@@ -134,13 +134,12 @@
     <!---27.08.2024-->
 
 
-    <h3 class="text-center"><b>Upload Document</b></h3>
+    <!-- <h3 class="text-center"><b>Upload Document</b></h3>
     <p-divider type="dashed"></p-divider>
-    
+     -->
 
-    <div class="flex flex-row">
-      <!-- Member Photograph Upload -->
-      <div class="field col-12 md:col-6">
+    <!-- <div class="flex flex-row"> -->
+      <!-- <div class="field col-12 md:col-6">
         <label for="own_img" class="size"><b>Member Photograph:<span class="text-red-700">(.JPG,.JPEG,.PNG)</span></b></label>&nbsp;
         <div class="card flex justify-content-left">
           <p-toast></p-toast>
@@ -148,18 +147,15 @@
             <ng-template pTemplate="content">
               <ul *ngIf="uploadedFiles.length">
                 <li *ngFor="let file of uploadedFiles">
-                  <!-- <div *ngIf="filePreview[file.name]" (click)="showPreview(filePreview[file.name])" style="cursor: pointer; margin-top: 10px;">
-                    <img [src]="filePreview[file.name]" alt="Image Preview" style="max-width: 100px; max-height: 100px;" />
-                  </div> -->
                 </li>
               </ul>
             </ng-template>
           </p-fileUpload>
         </div>
-      </div>
+      </div> -->
     
       <!-- Spouse Photograph Upload -->
-      <div class="field col-12 md:col-6">
+      <!-- <div class="field col-12 md:col-6">
         <label for="spou_img" class="size"><b>Document:<span class="text-red-700">(.JPG,.JPEG,.PNG)</span></b></label>&nbsp;
         <div class="card flex justify-content-right">
           <p-toast></p-toast>
@@ -167,16 +163,13 @@
             <ng-template pTemplate="content">
               <ul *ngIf="uploadedFiles.length">
                 <li *ngFor="let file of uploadedFiles">
-                  <!-- <div *ngIf="filePreview[file.name]" (click)="showPreview(filePreview[file.name])" style="cursor: pointer; margin-top: 10px;">
-                    <img [src]="filePreview[file.name]" alt="Image Preview" style="max-width: 100px; max-height: 100px;" />
-                  </div> -->
                 </li>
               </ul>
             </ng-template>
           </p-fileUpload>
         </div>
-      </div>
-    </div>
+      </div> -->
+    <!-- </div> -->
 
     <p-divider type="dashed"></p-divider>
     <h3 class="text-center"><b>Dependents Information</b></h3>
@@ -246,9 +239,9 @@
           </div>
         </div>
 
-        <div class="flex flex-row">
+        <!-- <div class="flex flex-row"> -->
           <!-- Member Photograph Upload -->
-          <div class="field col-12 md:col-6">
+          <!-- <div class="field col-12 md:col-6">
             <label for="own_imgs" class="size"><b>Member Photograph:<span class="text-red-700">(.JPG,.JPEG,.PNG)</span></b></label>&nbsp;
             <div class="card flex justify-content-left">
               <p-toast></p-toast>
@@ -256,19 +249,15 @@
                 <ng-template pTemplate="content">
                   <ul *ngIf="uploadedFiles.length">
                     <li *ngFor="let files of uploadedFiles">
-                      <!-- <div *ngIf="filePreview[file.name]" (click)="showPreview(filePreview[file.name])" style="cursor: pointer; margin-top: 10px;">
-                        <img [src]="filePreview[file.name]" alt="Image Preview" style="max-width: 100px; max-height: 100px;" />
-                      </div> -->
-                      <!-- {{ files.name }} - {{ files.size }} bytes -->
                     </li>
                   </ul>
                 </ng-template>
               </p-fileUpload>
             </div>
-          </div>
+          </div> -->
         
           <!-- Spouse Photograph Upload -->
-          <div class="field col-12 md:col-6">
+          <!-- <div class="field col-12 md:col-6">
             <label for="spou_imgs" class="size"><b>Document:<span class="text-red-700">(.JPG,.JPEG,.PNG)</span></b></label>&nbsp;
             <div class="card flex justify-content-right">
               <p-toast></p-toast>
@@ -276,17 +265,13 @@
                 <ng-template pTemplate="content">
                   <ul *ngIf="uploadedFiles.length">
                     <li *ngFor="let files of uploadedFiles">
-                      <!-- <div *ngIf="filePreview[file.name]" (click)="showPreview(filePreview[file.name])" style="cursor: pointer; margin-top: 10px;">
-                        <img [src]="filePreview[file.name]" alt="Image Preview" style="max-width: 100px; max-height: 100px;" />
-                      </div> -->
-                      <!-- {{ files.name }} - {{ files.size }} bytes -->
                     </li>
                   </ul>
                 </ng-template>
               </p-fileUpload>
             </div>
-          </div>
-        </div>
+          </div> -->
+        <!-- </div> -->
       </ng-container>
 
     </div>
@@ -316,7 +301,7 @@
       <div class="field col-12 md:col-12">
         <label for="pre_amont" class="label_field"><b>Premium Amount:</b></label>&nbsp;
         <input id="pre_amont" type="text" formControlName="pre_amont" placeholder="Enter Premium Amount"
-          class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+          class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" readonly/>
       </div>
     </div>
 

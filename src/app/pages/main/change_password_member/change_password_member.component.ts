@@ -46,7 +46,7 @@ private messageService: MessageService) { }
       console.log(data,'...')
       // this.userData = data;
       // this.userData = this.userData.msg;
-      console.log(this.userData,'lili');
+      // console.log(this.userData,'lili');
       this.router.navigate(['/auth/member_login'])
     },error => {
       console.error(error);

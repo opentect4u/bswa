@@ -79,10 +79,10 @@ export class Child_group_policyComponent implements OnInit {
     }
     this.dataServe.global_service(0, '/get_member_policy', `member_id=${dt.member_id}`).subscribe((data:any) => {
       this.responsedata = data
-      console.log(this.responsedata);
+      // console.log(this.responsedata);
       this.responsedata = this.responsedata.suc > 0 ? this.responsedata.msg : []
       this.formNo = this.responsedata[0].form_no
-      console.log(this.responsedata[0].subscription_1)
+      // console.log(this.responsedata[0].subscription_1)
       this.form.patchValue({
         member_type: this.responsedata[0].mem_type == 'G' ? 'General Membership' : this.responsedata[0].mem_type == 'L' ? 'Life Membership' : 'Associate Membership',
         member: this.responsedata[0].memb_name,
@@ -116,10 +116,10 @@ export class Child_group_policyComponent implements OnInit {
   // })
 
   this.dataServe.global_service(0,'/get_member_policy_dependent', `member_id=${dt.member_id}`).subscribe(data => {
-    console.log(data);
+    // console.log(data);
     this.userData = data;
     this.userData = this.userData.suc > 0 ? this.userData.msg : [];
-    console.log(this.userData, 'mistu');
+    // console.log(this.userData, 'mistu');
     let i = 1
     for (let dt of this.userData) {
       this.onadd(dt.sl_no,dt.dependent_name,dt.relation_name,dt.dob,'','');
@@ -168,7 +168,7 @@ final_submit(){
   }
   this.dataServe.global_service(1, '/save_child_group_policy_form', dt).subscribe(
     data => {
-      console.log(data);
+      // console.log(data);
       this.groupSaveData = data;
       if (this.groupSaveData.suc > 0) {
         // this.formNo = this.groupSaveData.form_no;

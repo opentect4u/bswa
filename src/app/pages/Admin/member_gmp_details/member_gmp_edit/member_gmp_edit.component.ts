@@ -16,7 +16,7 @@ import { environment } from 'src/environments/environment';
 })
 export class Member_gmp_editComponent implements OnInit {
   @Output() fileSelected = new EventEmitter();
-  uploadedFiles: any[] = [];
+  uploadedFiles: any = null;
   form_no: any;
   member_id: any;
   form!: FormGroup;
@@ -35,6 +35,9 @@ export class Member_gmp_editComponent implements OnInit {
   spouseFile: any = []
   ownsFiles: any = []
   spousesFile: any = []
+  // api_url = environment.api_url
+  // spouseFileName: any = null;
+  // memFileName: any = null;
 
   constructor(
     private router: Router,
@@ -66,9 +69,9 @@ export class Member_gmp_editComponent implements OnInit {
       memb_oprn: ['', Validators.required],
       type_diseases: [''],
       name_diseases: [''],
-      grp_name: [''],
+      grp_name: [{value: '',  disabled: true}],
       pre_amont: [''],
-      sup_top_up: [''],
+      sup_top_up: [{value: '',  disabled: true}],
       sup_pre_amont: [''],
       sup_tot_amont: [''],
       policy_holder_type: [''],
@@ -288,6 +291,8 @@ toggleAdditionalOptions(checked:any) {
                 })
               );
             }
+            // this.spouseFileName = this.memberData?.doc_img ? `${this.api_url} + '/' + 'uploads' + '/' + ${this.memberData?.doc_img}` : null;
+            // this.memFileName = this.memberData?.memb_img ? `${this.api_url} + '/' + 'uploads' + '/' + ${this.memberData?.memb_img}` : null;
           }
           console.log(this.userData, 'lili');
         },
@@ -303,7 +308,7 @@ toggleAdditionalOptions(checked:any) {
   }
 
   save_gmp(){
-    // var sup_top_flag = this.o['sup_top_up'].value != '' ? this.sup_top_list.filter((dt: any) => dt.value == this.o['sup_top_up'].value) : ''
+    var sup_top_flag = this.o['sup_top_up'].value != '' ? this.sup_top_list.filter((dt: any) => dt.value == this.o['sup_top_up'].value) : ''
     var dt = {
         flag: 'GP',
         form_no: this.form_no,
