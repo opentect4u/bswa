@@ -1,0 +1,26 @@
+<div class="payment-container">
+  <div class="payment-box">
+    <h3 class="pay"><i class="pi pi-credit-card"></i>    PAYMENT INFO</h3>
+    <div class="request-info">
+      <!-- <p class="icon"></p> -->
+      <p class="requestor-name"><i class="fas fa-user-circle"></i><b>{{memb_name}}</b></p>
+      <!-- <p class="description"><b>MIN NO</b> - 123456</p> -->
+      <p class="description"><b>FORM NO</b> - {{form_no}}</p>
+      <p class="description"><b>MEMBER ID</b> - {{member_id}}</p>
+    </div>
+
+    <div class="transfer-options">
+      <div class="option pay-with-arto">
+        <label for="arto">
+          <p class="total">Total Payment</p>
+          <p class="amount"> ₹   {{amount}} </p>
+        </label>
+      </div>
+      </div>
+      <div class="flex flex-row mt-4">
+        <button pButton pRipple type="button" label="PAY NOW" class="p-button-raised sub_btn"></button>
+      </div>
+  </div>
+  
+</div>
+

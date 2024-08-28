@@ -1,0 +1,120 @@
+.payment-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(to bottom, #f9fafa, #72b68d);
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: left;
+  }
+  
+  .logo {
+    height: 60px;
+  }
+  
+  .payment-box {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 400px;
+    max-width: 100%;
+    text-align: center;
+    height: 500px;
+    margin-top: 4vw;
+    box-shadow: 6px 6px 6px 4px rgba(100, 106, 100, 0.5),
+    6px 6px 6px 4px rgba(100, 106, 100, 0.5),
+    6px 6px 6px 4px rgba(100, 106, 100, 0.5),
+    6px 6px 6px 4px rgba(100, 106, 100, 0.5);
+  }
+  
+  .request-info .requestor-name {
+    font-size: 28px;
+    color: #0e0d0d;
+    /* margin-right: 8px; */
+  }
+
+  .requestor-name i {
+    margin-right: 8px; /* Adjust the space as needed */
+  }
+  
+  .amount {
+    font-size: 36px;
+    font-weight: bold;
+    /* color: rgb(255, 255, 255); */
+  }
+
+  .total {
+    font-size: 20px;
+    font-weight: bold;
+    /* color: rgb(255, 255, 255); */
+  }
+  
+  .description {
+    font-size: 14px;
+    color: #252222;
+    margin-bottom: 20px;
+  }
+  
+  .transfer-options {
+    text-align: center;
+    margin: 42px 20px;
+  }
+  
+  .transfer-options p {
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  .option {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    padding: 13px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+    background-color: #7ca575;
+    box-shadow: 6px 6px 6px rgba(112, 106, 106, 0.5);
+  }
+  
+  .option input {
+    margin-right: 10px;
+  }
+  
+  .option label {
+    flex-grow: 1;
+  }
+  
+  .option label p {
+    margin: 0;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    font-size: 26px;
+    margin-top: 16px;
+  }
+
+
+  .pay{
+    /* color: rgb(21, 21, 238); */
+    color: #125dd6;
+    /* align-items: center; */
+    /* margin-right: 12vw; */
+    /* margin-top: 70px; */
+    /* margin-left: 12px; */
+  }
+
+  .sub_btn{
+    box-shadow: 4px 4px 4px rgba(214, 211, 211, 0.5);
+    margin-left: 8vw;
+    background-color: #3c5f63;
+  }
+  

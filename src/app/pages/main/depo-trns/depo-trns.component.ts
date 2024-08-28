@@ -29,11 +29,12 @@ export class DepoTrnsComponent implements OnInit {
   responsedata_subs: any;
   selectedValue2: string = 'C'
   memberType: any = {'G': 'General Membership', 'L': 'Life Membership', 'AI': 'Associate Membership'}
+  // subs_amt: any;
   constructor(private router: Router,private formBuilder: FormBuilder, private dataServe: DataService) { }
 
   ngOnInit() {
     this.entryForm = this.formBuilder.group({
-      subs_amt: [''],
+      subs_amt: ['', Validators.required],
       form_no: [''],
       payment: [''],
       receipt_no: [''],
@@ -60,6 +61,8 @@ export class DepoTrnsComponent implements OnInit {
     this.dataServe.global_service(1,'/get_mem_subs_dtls',dt).subscribe((data: any) => {
       // console.log(data,'kiki')
       this.responseData = data;
+      console.log(this.responseData,'res');
+      
       if(this.responseData.suc > 0){
         this.userData = this.responseData.msg[0];
         if(this.responseData.msg.length > 0){
@@ -122,58 +125,79 @@ export class DepoTrnsComponent implements OnInit {
       })
   }
 
-  save(){
-    var dt = {
-      memb_id: localStorage.getItem('member_id'),
-      sub_fee: this.responsedata_subs[0].subscription_1,
-      sub_amt: this.f['subs_amt'].value,
-      user: localStorage.getItem('user_name'),
-      last_subs: this.f['subs_upto'].value,
-      pay_mode: this.f['payment'].value,
-      receipt_no: this.f['receipt_no'].value,
-      chq_no: this.f['cheque_no'].value,
-      chq_dt: this.f['cheque_dt'].value,
-      chq_bank: '75',
-      memb_name: this.f['mem_name'].value,
-      memb_type: this.f['mem_type'].value,
-      form_no: this.f['form_no'].value,
-      approval_status: 'U',
-      cal_upto: this.userData?.calc_upto,
-      cal_amt: this.userData?.calc_amt,
-      phone_no: this.userData?.phone_no,
-      member: this.userData?.memb_name,
-      // trans_id: this.userData?.trans_id
-    }
-    this.dataServe.global_service(1,'/mem_sub_tnx_save_online',dt).subscribe(data => {
-      // console.log(data,'kiki')
-      this.responseData = data;
-      if(this.responseData.suc > 0){
-        // this.userData = this.responseData.msg[0];
-        Swal.fire(
-          'Success',
-          'Subscription deposit submited successfully',
-          'success'
-        ).then((result) => {
-          if (result.isConfirmed) {
-            // this.entryForm.reset()
-            this.router.navigate(['/main/money_receipt_member',localStorage.getItem('member_id'),this.responseData?.trn_id])
-          }
-        });
-      }else{
-        Swal.fire(
-          'Error',
-          this.responseData.msg,
-            'error'
-        )
-      }
-    },error => {
-      console.error(error);
-      Swal.fire(
-        'Error',
-        error,
-          'error'
-      )
-    })
+  // save(){
+  //   var dt = {
+  //     memb_id: localStorage.getItem('member_id'),
+  //     sub_fee: this.responsedata_subs[0].subscription_1,
+  //     sub_amt: this.f['subs_amt'].value,
+  //     user: localStorage.getItem('user_name'),
+  //     last_subs: this.f['subs_upto'].value,
+  //     pay_mode: this.f['payment'].value,
+  //     receipt_no: this.f['receipt_no'].value,
+  //     chq_no: this.f['cheque_no'].value,
+  //     chq_dt: this.f['cheque_dt'].value,
+  //     chq_bank: '75',
+  //     memb_name: this.f['mem_name'].value,
+  //     memb_type: this.f['mem_type'].value,
+  //     form_no: this.f['form_no'].value,
+  //     approval_status: 'U',
+  //     cal_upto: this.userData?.calc_upto,
+  //     cal_amt: this.userData?.calc_amt,
+  //     phone_no: this.userData?.phone_no,
+  //     member: this.userData?.memb_name,
+      
+  //   }
+  //   this.dataServe.global_service(1,'/mem_sub_tnx_save_online',dt).subscribe(data => {
+  
+  //     this.responseData = data;
+  //     if(this.responseData.suc > 0){
+        
+  //       Swal.fire(
+  //         'Success',
+  //         'Subscription deposit submited successfully',
+  //         'success'
+  //       ).then((result) => {
+  //         if (result.isConfirmed) {
+            
+  //           this.router.navigate(['/main/money_receipt_member',localStorage.getItem('member_id'),this.responseData?.trn_id])
+  //         }
+  //       });
+  //     }else{
+  //       Swal.fire(
+  //         'Error',
+  //         this.responseData.msg,
+  //           'error'
+  //       )
+  //     }
+  //   },error => {
+  //     console.error(error);
+  //     Swal.fire(
+  //       'Error',
+  //       error,
+  //         'error'
+  //     )
+  //   })
+  // }
+
+  save() {
+    // var memberName = encodeURIComponent(this.userData?.memb_name || '');
+    // var subscriptionAmount = encodeURIComponent(this.entryForm.get('subs_amt')?.value || '');
+    // var form_no = encodeURIComponent(this.userData?.form_no || ''); 
+    // var member_id = encodeURIComponent(this.userData?.member_id || '');
+
+    var memberName = this.userData?.memb_name;
+    var subscriptionAmount = this.entryForm.get('subs_amt')?.value;
+    var form_no = this.userData?.form_no; 
+    var member_id = this.userData?.member_id;
+
+
+    // console.log(subscriptionAmount,'amt');
+    
+
+    
+    this.router.navigate(['/auth/payment_preview_page'], { 
+      queryParams: { form_no: form_no, member_id: member_id, memb_name: memberName, amount: subscriptionAmount }
+    });
   }
 
 }

@@ -25,6 +25,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./superadmin_login/superadmin_login.module').then((m) => m.Superadmin_loginModule),
       },
+      {
+        path: 'payment_preview_page',
+        loadChildren: () =>
+          import('./payment_preview_page/payment_preview_page.module').then((m) => m.Payment_preview_pageModule),
+      },
     ],
   }
 ];

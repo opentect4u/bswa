@@ -5,16 +5,16 @@
       <b>Subscription Deposit</b>
     </h3>
 
-    <p-divider type="dashed"></p-divider>
-    <h4 class="color">*Scan the QR code to make payment through UPI. If payment is successful put the UPI
+    <!-- <p-divider type="dashed"></p-divider> -->
+    <!-- <h4 class="color">*Scan the QR code to make payment through UPI. If payment is successful put the UPI
       transaction ID and phone no,
-      through which the payment is made and then click on Save.</h4>
+      through which the payment is made and then click on Save.</h4> -->
   </div>
 
   <form [formGroup]='entryForm'>
     <p-divider type="dashed"></p-divider>
 
-    <h4 class="text-center" style="color: black;">User Details</h4>
+    <h3 class="text-center" style="color: black;">User Details</h3>
     <p>
       <label class="font-semibold text-lg">Member Name: </label>
       <label>{{userData?.memb_name}}</label>
@@ -37,7 +37,7 @@
     </p>
     <p-divider type="dashed"></p-divider>
 
-    <h4 class="text-center" style="color: black;">Subscription Details</h4>
+    <h3 class="text-center" style="color: black;">Subscription Details</h3>
     <div class="formgrid grid mt-1">
       <div class="field col-12 md:col-4">
         <label for="subs_amt" style="color: black"><b>Subscription Fee</b></label>
@@ -53,27 +53,14 @@
     </div>
     <p-divider type="dashed"></p-divider>
 
-    <h4 class="text-center" style="color: black;">Payment</h4>
+    <!-- <h4 class="text-center" style="color: black;">Payment</h4> -->
     <!-- <div class="flex flex-row">
-      <div class="field col-12 md:col-12">
-        <label for="payment" class="label_field" style="color: black;"><b>Payment Mode:</b></label>&nbsp;
-        <select id="payment" formControlName="payment" [(ngModel)]="selectedValue2"
-          class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
-          style="appearance: auto; height: 3vw; border-radius: 7px">
-          <option value="N" select>Select Payment Mode</option>
-          <option value="C">Cash</option>
-          <option value="Q">Cheque</option>
-          <option value="O">Online Transaction</option>
-        </select>
-      </div>
-    </div> -->
-    <div class="flex flex-row">
       <div class="field col-12 md:col-12 text-center">
         <img src="/assets/images/BOKAROWELFARE.jpg" width="30%" height="auto" alt="">
       </div>
-    </div>
+    </div> -->
 
-    <div class="flex flex-row">
+    <!-- <div class="flex flex-row">
       <div class="field col-6 md:col-6">
         <label for="receipt_no" style="color: black"><b>UPI TRansaction ID<span
               class="text-red-700">*</span></b></label>
@@ -91,12 +78,12 @@
           <small class="text-red-900" *ngIf="f['phone_no']?.errors">Phone No is required.</small>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- <input type="hidden" name="trans_id" value="userData?trans_id"> -->
 
     <div class="flex flex-row">
-      <button pButton pRipple type="button" label="Save" class="p-button-raised sub_btn" (click)="save()"></button>
+      <button pButton pRipple type="button" label="Continue" class="p-button-raised sub_btn" (click)="save()"></button>
     </div>
   </form>
 </p-card>
