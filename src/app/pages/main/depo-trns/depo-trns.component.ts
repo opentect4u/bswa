@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn,
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/service/data.service';
 import Swal from 'sweetalert2';
+import * as CryptoJS from 'crypto-js';
 
 interface UserInfo {
   form_no: string;
@@ -180,23 +181,26 @@ export class DepoTrnsComponent implements OnInit {
   // }
 
   save() {
-    // var memberName = encodeURIComponent(this.userData?.memb_name || '');
-    // var subscriptionAmount = encodeURIComponent(this.entryForm.get('subs_amt')?.value || '');
-    // var form_no = encodeURIComponent(this.userData?.form_no || ''); 
-    // var member_id = encodeURIComponent(this.userData?.member_id || '');
-
     var memberName = this.userData?.memb_name;
     var subscriptionAmount = this.entryForm.get('subs_amt')?.value;
     var form_no = this.userData?.form_no; 
     var member_id = this.userData?.member_id;
 
 
-    // console.log(subscriptionAmount,'amt');
+    const secretKey = 'B#O!*K8A0R3O97!2&0#2$4S9T4E3E$L7g8i2';
+
+    var custDt = { form_no: form_no, member_id: member_id, memb_name: memberName, amount: subscriptionAmount }
+
+    const encDt = CryptoJS.AES.encrypt(JSON.stringify(custDt),secretKey ).toString();
+    // const decryptedSubscriptionAmount = CryptoJS.AES.decrypt(encDt, secretKey).toString(CryptoJS.enc.Utf8);
+
+    console.log(encDt,'amt');
+    // console.log(decryptedSubscriptionAmount,'amt');
     
 
     
     this.router.navigate(['/auth/payment_preview_page'], { 
-      queryParams: { form_no: form_no, member_id: member_id, memb_name: memberName, amount: subscriptionAmount }
+      queryParams: { enc_dt: encDt }
     });
   }
 
