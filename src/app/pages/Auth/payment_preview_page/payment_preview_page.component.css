@@ -6,6 +6,7 @@
     height: 100vh;
     padding: 20px;
     box-sizing: border-box;
+    justify-content: center;
   }
   
   .header {
@@ -27,12 +28,13 @@
     width: 400px;
     max-width: 100%;
     text-align: center;
-    height: 500px;
-    margin-top: 4vw;
-    box-shadow: 6px 6px 6px 4px rgba(100, 106, 100, 0.5),
+    height: auto;
+    /* margin-top: 4vw; */
+    /* box-shadow: 6px 6px 6px 4px rgba(100, 106, 100, 0.5),
     6px 6px 6px 4px rgba(100, 106, 100, 0.5),
     6px 6px 6px 4px rgba(100, 106, 100, 0.5),
-    6px 6px 6px 4px rgba(100, 106, 100, 0.5);
+    6px 6px 6px 4px rgba(100, 106, 100, 0.5); */
+    box-shadow:  6px 7px 18px 1px #646a6480;
   }
   
   .request-info .requestor-name {
@@ -83,7 +85,7 @@
     cursor: pointer;
     position: relative;
     background-color: #7ca575;
-    box-shadow: 6px 6px 6px rgba(112, 106, 106, 0.5);
+    box-shadow: 5px 6px 14px #706a6a80; 
   }
   
   .option input {
@@ -114,7 +116,7 @@
 
   .sub_btn{
     box-shadow: 4px 4px 4px rgba(214, 211, 211, 0.5);
-    margin-left: 3.5vw;
+    /* margin-left: 3.5vw; */
     background-color: #3c5f63;
     width: 70%;
   }
