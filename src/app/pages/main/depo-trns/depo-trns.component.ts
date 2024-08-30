@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/service/data.service';
 import Swal from 'sweetalert2';
 import * as CryptoJS from 'crypto-js';
+import { environment } from 'src/environments/environment';
 
 interface UserInfo {
   form_no: string;
@@ -24,6 +25,7 @@ interface UserInfo {
   styleUrls: ['./depo-trns.component.css']
 })
 export class DepoTrnsComponent implements OnInit {
+  secretKey = environment.secretKey
   responseData: any
   userData: UserInfo | any;
   entryForm!: FormGroup
@@ -186,18 +188,14 @@ export class DepoTrnsComponent implements OnInit {
     var form_no = this.userData?.form_no; 
     var member_id = this.userData?.member_id;
 
-
-    const secretKey = 'B#O!*K8A0R3O97!2&0#2$4S9T4E3E$L7g8i2';
-
     var custDt = { form_no: form_no, member_id: member_id, memb_name: memberName, amount: subscriptionAmount }
 
-    const encDt = CryptoJS.AES.encrypt(JSON.stringify(custDt),secretKey ).toString();
+    const encDt = CryptoJS.AES.encrypt(JSON.stringify(custDt),this.secretKey ).toString();
     // const decryptedSubscriptionAmount = CryptoJS.AES.decrypt(encDt, secretKey).toString(CryptoJS.enc.Utf8);
 
     console.log(encDt,'amt');
     // console.log(decryptedSubscriptionAmount,'amt');
     
-
     
     this.router.navigate(['/auth/payment_preview_page'], { 
       queryParams: { enc_dt: encDt }
