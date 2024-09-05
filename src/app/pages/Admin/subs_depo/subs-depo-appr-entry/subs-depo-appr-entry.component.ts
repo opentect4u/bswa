@@ -23,7 +23,7 @@ interface MembDtls{
   phone_no: string;
   email_id: string;
   subscription_upto: string;
-  calc_amt: string;
+  calc_amt: any;
   calc_upto: string;
 }
 
@@ -130,7 +130,9 @@ export class SubsDepoApprEntryComponent implements OnInit {
         ).then((result) => {
           if (result.isConfirmed) {
             // this.router.navigate(['/admin/subs_depo_approve'])
-            this.router.navigate(['/home/money_receipt_member', this.trnsData?.mem_dt.member_id,this.trn_id])
+            // this.router.navigate(['/home/money_receipt_member', this.trnsData?.mem_dt.member_id,this.trn_id])
+            this.router.navigate(['/admin/money_receipt', this.trnsData?.mem_dt.member_id,this.trn_id])
+
           }
         });
       }else{

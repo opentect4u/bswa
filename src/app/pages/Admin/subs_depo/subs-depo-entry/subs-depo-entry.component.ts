@@ -14,7 +14,7 @@ interface UserInfo {
   phone_no: string;
   email_id: string;
   subscription_upto: string;
-  calc_amt: string;
+  calc_amt: any;
   calc_upto: string;
 }
 
@@ -88,17 +88,30 @@ export class SubsDepoEntryComponent implements OnInit {
   
   }
 
-  calculateSubsFee() : ValidatorFn{
-    return (control: AbstractControl) : ValidationErrors | null => {
-      const value = control.value
-      // console.log(value, 'lalalala');
-      
-      let sub_fee = this.responsedata_subs[0].subscription_1
-      if(value % sub_fee !== 0){
-        return {notDivisibleByTwo: {value: value}}
+  calculateSubsFee(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+  
+      // Check if the value is a number and greater than zero
+      if (typeof value !== 'number' || isNaN(value) || value <= 0) {
+        return { invalidAmount: { value: value } };
       }
-      return null
-    }
+  
+      // Example subscription fee for validation
+      let sub_fee = this.responsedata_subs[0]?.subscription_1;
+  
+      // Check if sub_fee is valid
+      if (typeof sub_fee !== 'number' || isNaN(sub_fee) || sub_fee === 0) {
+        return { invalidSubscriptionFee: { sub_fee: sub_fee } };
+      }
+  
+      // Check divisibility
+      if (value % sub_fee !== 0) {
+        return { notDivisibleBySubFee: { value: value, sub_fee: sub_fee } };
+      }
+  
+      return null;
+    };
   }
 
   submit_search(){
@@ -167,14 +180,17 @@ export class SubsDepoEntryComponent implements OnInit {
       var nowDate = new Date()
       var cal_upto = new Date(this.userData!.calc_upto)
       var cal_month = nowDate.getMonth() - cal_upto.getMonth()
+      console.log(cal_month,'month');
       
-      this.entryForm.patchValue({
+      
+      this.entryForm.patchValue({        
         subs_amt: (cal_month > 0 ? cal_month : 1) * this.responsedata_subs[0].subscription_1 + parseInt(this.userData!.calc_amt)
       })
+      console.log(this.entryForm.value.subs_amt);
       this.entryForm.get('subs_amt')?.setValidators([Validators.required, this.calculateSubsFee()])
       this.entryForm.get('subs_amt')?.updateValueAndValidity();
-      // console.log(this.responsedata_subs[0].subscription_1, 'qwqwqw')
       })
+      // console.log(subs_amt, 'qwqwqw')
   }
 
   save(){

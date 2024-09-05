@@ -17,3 +17,8 @@
     color: #fff;
     background-color: #61d38d;
   }
+
+  .deletelink{
+    color: #dc3545;
+    cursor: pointer;
+  }

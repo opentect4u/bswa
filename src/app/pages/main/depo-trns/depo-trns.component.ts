@@ -15,7 +15,7 @@ interface UserInfo {
   phone_no: string;
   email_id: string;
   subscription_upto: string;
-  calc_amt: string;
+  calc_amt: any;
   calc_upto: string;
 }
 
@@ -37,7 +37,7 @@ export class DepoTrnsComponent implements OnInit {
 
   ngOnInit() {
     this.entryForm = this.formBuilder.group({
-      subs_amt: ['', Validators.required],
+      subs_amt: [''],
       form_no: [''],
       payment: [''],
       receipt_no: [''],
@@ -101,13 +101,24 @@ export class DepoTrnsComponent implements OnInit {
     return (control: AbstractControl) : ValidationErrors | null => {
       const value = control.value
       // console.log(value, 'lalalala');
+
+        // Check if the value is a number and greater than zero
+        if (typeof value !== 'number' || isNaN(value) || value <= 0) {
+          return { invalidAmount: { value: value } };
+        }
+    
       
       let sub_fee = this.responsedata_subs[0].subscription_1
+
+      if (typeof sub_fee !== 'number' || isNaN(sub_fee) || sub_fee === 0) {
+        return { invalidSubscriptionFee: { sub_fee: sub_fee } };
+      }
+
       if(value % sub_fee !== 0){
-        return {notDivisibleByTwo: {value: value}}
+        return {notDivisibleBySubFee: {value: value}}
       }
       return null
-    }
+    };
   }
 
   subscription_fee(memb_type: any){
@@ -120,7 +131,8 @@ export class DepoTrnsComponent implements OnInit {
       var cal_month = nowDate.getMonth() - cal_upto.getMonth()
       
       this.entryForm.patchValue({
-        subs_amt: cal_month * this.responsedata_subs[0].subscription_1 + parseInt(this.userData!.calc_amt)
+        // subs_amt: cal_month * this.responsedata_subs[0].subscription_1 + parseInt(this.userData!.calc_amt)
+        subs_amt: (cal_month > 0 ? cal_month : 1) * this.responsedata_subs[0].subscription_1 + parseInt(this.userData!.calc_amt)
       })
       this.entryForm.get('subs_amt')?.setValidators([Validators.required, this.calculateSubsFee()])
       this.entryForm.get('subs_amt')?.updateValueAndValidity();

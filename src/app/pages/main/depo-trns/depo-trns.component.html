@@ -31,22 +31,37 @@
       <label class="font-semibold text-lg">Subscription Upto: </label>
       <label>{{userData?.subscription_upto | date: 'MM-yyyy'}}</label>
     </p>
-    <p>
+    <!-- <p>
       <label class="font-semibold text-lg">Opening: </label>
       <label>{{userData?.calc_amt}}</label>
+    </p> -->
+    <p *ngIf="userData?.calc_amt > 0">
+      <label><b>Opening: </b></label>
+      <label>{{ userData?.calc_amt }}</label>
     </p>
     <p-divider type="dashed"></p-divider>
 
     <h3 class="text-center" style="color: black;">Subscription Details</h3>
     <div class="formgrid grid mt-1">
-      <div class="field col-12 md:col-4">
+      <div class="field col-12 md:col-6">
         <label for="subs_amt" style="color: black"><b>Subscription Fee</b></label>
-        <input id="subs_amt" type="text" formControlName="subs_amt" placeholder="Enter subscription fee...."
-          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
-        <div *ngIf="f['subs_amt']?.dirty || f['subs_amt']?.touched || f['subs_amt']?.hasError('notDivisibleByTwo')"
-          class="error-message">
-          <small class="text-red-700" *ngIf="f['subs_amt']?.errors">
+        <input 
+          id="subs_amt" 
+          type="number" 
+          formControlName="subs_amt" 
+          placeholder="Enter subscription fee...."
+          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" 
+        />
+        
+        <div *ngIf="f['subs_amt'].dirty || f['subs_amt'].touched || f['subs_amt'].errors" class="error-message">
+          <small class="text-red-700" *ngIf="f['subs_amt'].hasError('invalidAmount')">
+            Please enter a subscription fee greater than zero.
+          </small>
+          <small class="text-red-700" *ngIf="f['subs_amt'].hasError('notDivisibleBySubFee')">
             Please enter a valid Subscription fee it is required.
+          </small>
+          <small class="text-red-700" *ngIf="f['subs_amt'].hasError('invalidSubscriptionFee')">
+            Invalid subscription fee.
           </small>
         </div>
       </div>
@@ -83,7 +98,7 @@
     <!-- <input type="hidden" name="trans_id" value="userData?trans_id"> -->
 
     <div class="flex flex-row">
-      <button pButton pRipple type="button" label="Continue" class="p-button-raised sub_btn" (click)="save()"></button>
+      <button pButton pRipple type="button" label="Continue" class="p-button-raised sub_btn" (click)="save()" [disabled]="f['subs_amt'].invalid"></button>
     </div>
   </form>
 </p-card>

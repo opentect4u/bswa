@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { TableModule } from 'primeng/table';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
+import { TooltipModule } from 'primeng/tooltip';
 
 const routes:Routes=[
   {path:'',component:SubsDepoApproveComponent}
@@ -16,6 +17,7 @@ const routes:Routes=[
     TableModule,
     CardModule,
     ButtonModule,
+    TooltipModule,
     RouterModule.forChild(routes)
   ],
   declarations: [SubsDepoApproveComponent]
