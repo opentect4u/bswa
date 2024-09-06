@@ -20,6 +20,8 @@ export class Payment_preview_pageComponent implements OnInit {
   form_no : any
   amount : any
   member_id: any
+  payUrl: any
+  respData: any
 
   constructor(
     private router: Router,
@@ -43,8 +45,32 @@ export class Payment_preview_pageComponent implements OnInit {
         this.memb_name = custDt.memb_name;
         this.form_no = custDt.form_no;
         this.amount = custDt.amount;
+
+        this.dataServe.global_service(1,'/generate_pay_url',{encData: enc_dt}).subscribe(data => {
+          console.log(data,'kiki')
+          this.respData = data
+          if(this.respData.suc > 0){
+            this.payUrl = this.respData.pay_url
+          }else{
+            // SHOW ERROR MESSAGE
+            this.payUrl = ''
+          }
+          // this.show_spinner=true;
+        },error => {
+          console.error(error);
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'An error occurred while saving data' });
+        })
       }
     });
+  }
+
+  pay_now(){
+    if(this.payUrl != ''){
+      window.location.href=this.payUrl
+      // window.open(this.payUrl)
+    }else{
+      // SHOW A ALERT
+    }
   }
 
 }

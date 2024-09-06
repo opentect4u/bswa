@@ -124,11 +124,11 @@ export class DepoTrnsComponent implements OnInit {
   subscription_fee(memb_type: any){
     this.dataServe.global_service(0, '/master/subscription_fee_dynamic', `memb_type=${memb_type}`).subscribe((data:any) => {
       this.responsedata_subs = data
-      // console.log(this.responsedata_subs,'ooo');
+      console.log(this.responsedata_subs,'ooo');
       this.responsedata_subs = this.responsedata_subs.suc > 0 ? this.responsedata_subs.msg : []
       var nowDate = new Date()
       var cal_upto = new Date(this.userData!.calc_upto)
-      var cal_month = nowDate.getMonth() - cal_upto.getMonth()
+      var cal_month = cal_upto.getFullYear() > nowDate.getFullYear() ? 0 : (nowDate.getMonth() - cal_upto.getMonth())
       
       this.entryForm.patchValue({
         // subs_amt: cal_month * this.responsedata_subs[0].subscription_1 + parseInt(this.userData!.calc_amt)
@@ -200,7 +200,7 @@ export class DepoTrnsComponent implements OnInit {
     var form_no = this.userData?.form_no; 
     var member_id = this.userData?.member_id;
 
-    var custDt = { form_no: form_no, member_id: member_id, memb_name: memberName, amount: subscriptionAmount }
+    var custDt = { form_no: form_no, member_id: member_id, memb_name: memberName, amount: subscriptionAmount, phone_no: this.userData.phone_no, email: this.userData.email_id, approve_status: 'A', calc_upto: this.userData?.calc_upto, subs_type: this.responsedata_subs.length > 0 ? this.responsedata_subs[0].subs_type : 'M', sub_fee: this.responsedata_subs[0].subscription_1, redirect_path: '/main/depo_subs' }
 
     const encDt = CryptoJS.AES.encrypt(JSON.stringify(custDt),this.secretKey ).toString();
     // const decryptedSubscriptionAmount = CryptoJS.AES.decrypt(encDt, secretKey).toString(CryptoJS.enc.Utf8);
