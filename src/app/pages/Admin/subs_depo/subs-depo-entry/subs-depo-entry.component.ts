@@ -179,7 +179,7 @@ export class SubsDepoEntryComponent implements OnInit {
       this.responsedata_subs = this.responsedata_subs.suc > 0 ? this.responsedata_subs.msg : []
       var nowDate = new Date()
       var cal_upto = new Date(this.userData!.calc_upto)
-      var cal_month = nowDate.getMonth() - cal_upto.getMonth()
+      var cal_month = cal_upto.getFullYear() > nowDate.getFullYear() ? 0 : (nowDate.getMonth() - cal_upto.getMonth())
       console.log(cal_month,'month');
       
       
