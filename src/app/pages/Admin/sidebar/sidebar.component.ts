@@ -113,6 +113,11 @@ export class SidebarComponent implements OnInit {
             routerLink: ['member_trans_report'],
           },
           {
+            label: 'Approve Transaction',
+            icon: 'pi pi-money-bill',
+            routerLink: ['approve_money_receipt_transaction'],
+          },
+          {
             label: 'GMP Member Transaction Details',
             icon: 'pi pi-credit-card',
             routerLink: ['gmp_memb_trans_report'],
