@@ -424,6 +424,20 @@ const routes: Routes = [
             '../Admin/show_gmp_trans_report/show_gmp_trans_report.module'
           ).then((m) => m.Show_gmp_trans_reportModule),
       },
+      {
+        path: 'approve_money_receipt_transaction',
+        loadChildren: () =>
+          import(
+            '../Admin/approve_money_receipt_transaction/approve_money_receipt_transaction.module'
+          ).then((m) => m.Approve_money_receipt_transactionModule),
+      },
+      {
+        path: 'show_approve_transaction_report/:from_dt/:to_dt/:member_id',
+        loadChildren: () =>
+          import(
+            '../Admin/show_approve_transaction_report/show_approve_transaction_report.module'
+          ).then((m) => m.Show_approve_transaction_reportModule),
+      },
     ],
   },
 ];

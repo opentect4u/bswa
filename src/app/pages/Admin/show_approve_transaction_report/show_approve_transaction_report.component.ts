@@ -7,45 +7,42 @@ import { DatePipe } from '@angular/common';
 import * as XLSX from 'xlsx';
 
 @Component({
-  selector: 'app-show_clear_report',
-  templateUrl: './show_clear_report.component.html',
-  styleUrls: ['./show_clear_report.component.css'],
+  selector: 'app-show_approve_transaction_report',
+  templateUrl: './show_approve_transaction_report.component.html',
+  styleUrls: ['./show_approve_transaction_report.component.css'],
   providers: [DatePipe],
 })
-export class Show_clear_reportComponent implements OnInit {
+export class Show_approve_transaction_reportComponent implements OnInit {
   mem_type: any;
   WindowObject: any;
   divToPrint: any;
   userData: any = [];
-  member_type: any;
-  period: any;
+  member_id: any;
+  from_dt: any;
+  to_dt: any;
   total = 0
 
-  constructor(
-    private router: Router,
+  constructor(private router: Router,
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private dataServe: DataService,
-    private datePipe: DatePipe
-  ) { }
+    private datePipe: DatePipe) { }
 
   ngOnInit() {
     const encodedFormNo = this.route.snapshot.params['form_no'];
     // this.form_no = ato b(decodeURIComponent(encodedFormNo));
-    this.member_type = this.route.snapshot.params['member_type'];
-    this.period = this.route.snapshot.params['period'];
+    this.member_id = this.route.snapshot.params['member_id'];
+    this.from_dt = this.route.snapshot.params['from_dt'];
+    this.to_dt = this.route.snapshot.params['to_dt'];
     this.show_data();
   }
 
   show_data(){
-    this.dataServe.global_service(0,'/clearupto_list_report',`period=${this.period}&member_type=${this.member_type}`).subscribe(data => {
+    this.dataServe.global_service(0,'/get_pg_approve_dtls',`from_dt=${this.from_dt}&to_dt=${this.to_dt}&member_id=${this.member_id}`).subscribe(data => {
       console.log(data,'kiki')
       this.userData = data;
       this.userData = this.userData.msg;
-      // console.log(this.userData,'ppooo');
-      for (let customer of this.userData){
-        this.total += (+customer.default_amt);
-      }
+      console.log(this.userData,'ppooo');
     },error => {
       console.error(error);
     })
@@ -101,15 +98,30 @@ export class Show_clear_reportComponent implements OnInit {
   }
 
   download(){
-    const dataWithSlNo = this.userData.map((customer: { member_id: any; mem_type: string; memb_name: any; cleared_upto: any; default_amt: any;}, index: number) => {
+    const dataWithSlNo = this.userData.map((customer: { entry_dt: string | number | Date; udf4: any; udf3: any; pay_trans_id: any; mid: any;
+      trns_amt: any; trns_status: any; mer_order_no: any; udf1: string; udf5: any; udf7: any; udf9: any; cust_ref_no: any;
+      pay_mode: any; txnDate: string | number | Date; surcharge: any; totalAmount: any; txnNote: any
+    }, index: number) => {
       return {
-        'SL No': index + 1,
-        'Member ID': customer.member_id,
-        'Member Type': customer.mem_type == 'G' ? 'General Membership' : customer.mem_type == 'L' ? 'Life Membership' : customer.mem_type == 'AI' ? 'Associate Membership' : '',
-        'Member Name': customer.memb_name,
-        'Cleared Upto': customer.cleared_upto,
-        'Amount': customer.default_amt,
-        // Add or remove columns as needed
+      'SL No' : index+1,
+      'Entry Date' : this.datePipe.transform(customer.entry_dt, 'dd/MM/yyyy'),
+      'Member ID' : customer.udf4,
+      'Member Name' : customer.udf3,
+      'Pay transaction ID' : customer.pay_trans_id,
+      'MID' : customer.mid,
+      'Transaction Amount' : customer.trns_amt,
+      'Transaction Status' : customer.trns_status,
+      'Order No' : customer.mer_order_no,
+      'Phone No' : customer.udf1,
+      'Approval Status' : customer.udf5 == 'A' ? 'Approve' : 'N/A',
+      'Subscription upto' : this.datePipe.transform(customer.udf7, 'dd/MM/yyyy'),
+       'Amount' : customer.udf9,
+      'Customer Refference No' : customer.cust_ref_no == '' ? 'N/A' : 'customer.cust_ref_no',
+      'Pay Mode' : customer.pay_mode,
+      'Transaction Date' : this.datePipe.transform(customer.txnDate, 'dd/MM/yyyy'),
+      'Service Charge' : customer.surcharge,
+      'Total Amount' : customer.totalAmount,
+      'Remarks' : customer.txnNote
       };
     }); 
     const ws = XLSX.utils.json_to_sheet(dataWithSlNo);
@@ -117,7 +129,7 @@ export class Show_clear_reportComponent implements OnInit {
     XLSX.utils.book_append_sheet(wb,ws, 'placeholder');
 
 
-    XLSX.writeFile(wb, 'Subscription cleared List.xlsx')
+    XLSX.writeFile(wb, 'PG Approved Transaction List.xlsx')
   }
 
 }
