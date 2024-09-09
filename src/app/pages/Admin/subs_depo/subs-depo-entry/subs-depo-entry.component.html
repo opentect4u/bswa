@@ -100,7 +100,7 @@
             <option value="N" select>Select Payment Mode</option>
             <option value="C">Cash</option>
             <option value="Q">Cheque</option>
-            <!-- <option value="O">Online Transaction</option> -->
+            <option value="O">Online Transaction</option>
           </select>
         </div>
       </div>
@@ -108,7 +108,7 @@
       <!-- <div class="flex flex-row"
         *ngIf="entryForm.controls['payment'].value != 'Q' && entryForm.controls['payment'].value != 'O'"> -->
         <div class="flex flex-row"
-        *ngIf="entryForm.controls['payment'].value != 'Q'">
+        *ngIf="entryForm.controls['payment'].value != 'Q' && entryForm.controls['payment'].value != 'O'">
         <div class="field col-12 md:col-12">
           <label for="receipt_no" style="color: black"><b>Receipt No<span class="text-red-700">*</span></b></label>
           <input id="receipt_no" type="text" formControlName="receipt_no" placeholder="Enter Receipt No...."

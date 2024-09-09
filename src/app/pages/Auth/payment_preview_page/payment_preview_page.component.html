@@ -6,7 +6,9 @@
       <p class="requestor-name"><i class="fas fa-user-circle"></i><b>{{memb_name}}</b></p>
       <!-- <p class="description"><b>MIN NO</b> - 123456</p> -->
       <p class="description"><b>FORM NO</b> - {{form_no}}</p>
-      <p class="description"><b>MEMBER ID</b> - {{member_id}}</p>
+      <ng-container *ngIf="member_id != ''">
+        <p class="description"><b>MEMBER ID</b> - {{member_id}}</p>
+      </ng-container>
     </div>
 
     <div class="transfer-options">

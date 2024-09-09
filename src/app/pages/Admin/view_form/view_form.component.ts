@@ -11,6 +11,7 @@ import { ValidatorsService } from 'src/app/service/validators.service';
 
 // import { allowedValuesValidator } from './validators/allowed-values.validator';
 import Swal from 'sweetalert2';
+import * as CryptoJS from 'crypto-js';
 
 interface trnData {
   form_no: string;
@@ -39,6 +40,7 @@ interface trnData {
 
 })
 export class View_formComponent implements OnInit {
+  secretKey = environment.secretKey
   api_base_url = environment.api_url;
   selectedValues: any[] = [];
   WindowObject: any
@@ -228,7 +230,7 @@ export class View_formComponent implements OnInit {
               this.phone_no = this.responsedata[0].phone_no;
               this.blood_grp = this.responsedata[0].blood_grp;
               this.dob = this.datePipe.transform(this.responsedata[0].dob, 'dd-MM-yyyy');
-              this.email_id = this.responsedata[0].email_id;
+              this.email_id = this.responsedata[0].email_id ? this.responsedata[0].email_id : '';
               this.min_no = this.responsedata[0].min_no;
               this.resolution_no = this.responsedata[0].resolution_no;
               this.resolution_dt = this.responsedata[0].resolution_dt;
@@ -402,10 +404,16 @@ export class View_formComponent implements OnInit {
     }
 
     cash_accept(){
+      var payEncDataGen = ''
+      if(this.f['payment'].value == 'O'){
+        var payData = {form_no: atob(decodeURIComponent(this.encodedFormNo)), member_id: '', memb_name: this.memb_name, amount: this.f['totalAmount'].value, phone_no: this.phone_no, email: this.email_id, approve_status: 'U', calc_upto: '', subs_type: '', sub_fee: this.f['totalAmount'].value, redirect_path: '/'}
+        payEncDataGen = CryptoJS.AES.encrypt(JSON.stringify(payData),this.secretKey ).toString();
+      }
       var dt = {
         formNo: atob(decodeURIComponent(this.encodedFormNo)),
         member: this.memb_name,
         phone_no: this.phone_no,
+        email_id: this.email_id,
         memb_type: this.mem_type,
         form_dt: this.f['form_dt'] ? this.f['form_dt'].value : null,
         resolution_no: this.f['resolution_no'] ? this.f['resolution_no'].value : null,
@@ -423,6 +431,7 @@ export class View_formComponent implements OnInit {
         cheque_dt: this.f['cheque_dt'] ? this.f['cheque_dt'].value : null,
         cheque_no: this.f['cheque_no'] ? this.f['cheque_no'].value : null,
         bank_name: this.f['bank_name'] ? this.f['bank_name'].value : null,
+        payEncDataGen: payEncDataGen,
         // admissionFee_life:  this.f['admissionFee_life'] ? this.f['admissionFee_life'].value : null,
         // donationFee_life:  this.f['donationFee_life'] ? this.f['donationFee_life'].value : null,
         // subscriptionFee_2:  this.f['subscriptionFee_2'] ? this.f['subscriptionFee_2'].value : null,
@@ -464,10 +473,16 @@ export class View_formComponent implements OnInit {
   }
 
     cash_accept_life(){
+      var payEncDataLife = ''
+      if(this.f['payment'].value == 'O'){
+        var payData = {form_no: atob(decodeURIComponent(this.encodedFormNo)), member_id: '', memb_name: this.memb_name, amount: this.f['totalAmount_life'].value, phone_no: this.phone_no, email: this.email_id, approve_status: 'U', calc_upto: '', subs_type: '', sub_fee: this.f['totalAmount_life'].value, redirect_path: '/'}
+        payEncDataLife = CryptoJS.AES.encrypt(JSON.stringify(payData),this.secretKey ).toString();
+      }
       var dt = {
         formNo: atob(decodeURIComponent(this.encodedFormNo)),
         member: this.memb_name,
         phone_no: this.phone_no,
+        email_id: this.email_id,
         form_dt: this.f['form_dt'] ? this.f['form_dt'].value : null,
         resolution_no: this.f['resolution_no'] ? this.f['resolution_no'].value : null,
         resolution_dt: this.f['resolution_dt'] ? this.f['resolution_dt'].value : null,
@@ -484,6 +499,7 @@ export class View_formComponent implements OnInit {
         cheque_dt: this.f['cheque_dt'] ? this.f['cheque_dt'].value : null,
         cheque_no: this.f['cheque_no'] ? this.f['cheque_no'].value : null,
         bank_name: this.f['bank_name'] ? this.f['bank_name'].value : null,
+        payEncDataLife: payEncDataLife,
       }
 
       this.dataServe.global_service(1, '/payment_accept_life',dt ).subscribe((data: any) => {
@@ -519,10 +535,16 @@ export class View_formComponent implements OnInit {
     }
 
     cash_accept_associate(){
+      var payEncData = ''
+      if(this.f['payment'].value == 'O'){
+        var payData = {form_no: atob(decodeURIComponent(this.encodedFormNo)), member_id: '', memb_name: this.memb_name, amount: this.f['totalAmount_associate'].value, phone_no: this.phone_no, email: this.email_id, approve_status: 'U', calc_upto: '', subs_type: '', sub_fee: this.f['totalAmount_associate'].value, redirect_path: '/'}
+        payEncData = CryptoJS.AES.encrypt(JSON.stringify(payData),this.secretKey ).toString();
+      }
       var dt = {
         formNo: atob(decodeURIComponent(this.encodedFormNo)),
         member: this.memb_name,
         phone_no: this.phone_no,
+        email_id: this.email_id,
         form_dt: this.f['form_dt'] ? this.f['form_dt'].value : null,
         resolution_no: this.f['resolution_no'] ? this.f['resolution_no'].value : null,
         resolution_dt: this.f['resolution_dt'] ? this.f['resolution_dt'].value : null,
@@ -539,6 +561,7 @@ export class View_formComponent implements OnInit {
         cheque_dt: this.f['cheque_dt'] ? this.f['cheque_dt'].value : null,
         cheque_no: this.f['cheque_no'] ? this.f['cheque_no'].value : null,
         bank_name: this.f['bank_name'] ? this.f['bank_name'].value : null,
+        pay_enc_data: payEncData,
       }
 
       this.dataServe.global_service(1, '/payment_accept_associate',dt ).subscribe((data: any) => {
