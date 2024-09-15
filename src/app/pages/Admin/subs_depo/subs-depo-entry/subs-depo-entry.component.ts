@@ -4,6 +4,9 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn,
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/service/data.service';
 import Swal from 'sweetalert2';
+import { environment } from 'src/environments/environment';
+import * as CryptoJS from 'crypto-js';
+
 
 interface UserInfo {
   form_no: string;
@@ -24,6 +27,7 @@ interface UserInfo {
   styleUrls: ['./subs-depo-entry.component.css']
 })
 export class SubsDepoEntryComponent implements OnInit {
+  secretKey = environment.secretKey
   responseData: any
   userData: UserInfo | undefined;
   form!: FormGroup;
@@ -194,6 +198,13 @@ export class SubsDepoEntryComponent implements OnInit {
   }
 
   save(){
+    var encDt = ''
+    if(this.f['payment'].value == 'O'){
+      // var payData = {form_no: '', member_id: this.m['mem_id'].value, memb_name: this.f['mem_name'].value, amount: this.f['totalAmount'].value, phone_no: this.phone_no, email: this.email_id, approve_status: 'U', calc_upto: '', subs_type: '', sub_fee: this.f['totalAmount'].value, redirect_path: '/'}
+      // payEncDataGen = CryptoJS.AES.encrypt(JSON.stringify(payData),this.secretKey ).toString();
+      var custDt = { form_no: this.f['form_no'].value, member_id: this.m['mem_id'].value, memb_name: this.f['mem_name'].value, amount: this.f['subs_amt'].value, phone_no: this.userData?.phone_no, email: '', approve_status: 'U', calc_upto: this.userData?.calc_upto, subs_type: this.responsedata_subs.length > 0 ? this.responsedata_subs[0].subs_type : 'M', sub_fee: this.responsedata_subs[0].subscription_1, redirect_path: '/admin/subs_depo_entry' }
+      encDt = CryptoJS.AES.encrypt(JSON.stringify(custDt),this.secretKey ).toString();
+    }
     var dt = {
       memb_id: this.m['mem_id'].value,
       form_dt: this.f['form_dt'] ? this.f['form_dt'].value : null,
@@ -213,7 +224,8 @@ export class SubsDepoEntryComponent implements OnInit {
       cal_upto: this.userData?.calc_upto,
       cal_amt: this.userData?.calc_amt,
       phone_no: this.userData?.phone_no,
-      member: this.userData?.memb_name 
+      member: this.userData?.memb_name ,
+      pay_enc_data: encDt,
     }
     this.dataServe.global_service(1,'/mem_sub_tnx_save',dt).subscribe(data => {
       // console.log(data,'kiki')

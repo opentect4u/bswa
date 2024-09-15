@@ -81,6 +81,11 @@ export class SidebarComponent implements OnInit {
             icon: 'pi pi-verified',
             routerLink: ['subs_depo_approve'],
           },
+          // {
+          //   label: 'Approve Deposit Receipt',
+          //   icon: 'pi pi-verified',
+          //   routerLink: ['approve_trn_receipt'],
+          // },
         ],
       },
       {
