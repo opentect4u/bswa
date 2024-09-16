@@ -451,7 +451,10 @@ export class View_formComponent implements OnInit {
           ).then((result) => {
             if (result.isConfirmed) {
               // this.router.navigate(['/admin/subs_depo_approve'])
+              if(dt.payment != 'O')
               this.router.navigate(['/admin/accept_money_receipt', dt.formNo,this.cash_data.trn_id])
+              else
+              this.router.navigate(['/admin/admin_approve']);
             }
           });
         }else{
@@ -514,7 +517,10 @@ export class View_formComponent implements OnInit {
           ).then((result) => {
             if (result.isConfirmed) {
               // this.router.navigate(['/admin/subs_depo_approve'])
+              if(dt.payment != 'O')
               this.router.navigate(['/admin/accept_money_receipt', dt.formNo,this.cash_data_life.trn_id])
+              else
+              this.router.navigate(['/admin/admin_approve'])
             }
           });
         }else{
@@ -576,7 +582,10 @@ export class View_formComponent implements OnInit {
           ).then((result) => {
             if (result.isConfirmed) {
               // this.router.navigate(['/admin/subs_depo_approve'])
+              if(dt.payment != 'O')
               this.router.navigate(['/admin/accept_money_receipt', dt.formNo,this.cash_data_life.trn_id])
+              else
+              this.router.navigate(['/admin/admin_approve'])
             }
           });
         }else{
