@@ -241,7 +241,13 @@ export class SubsDepoEntryComponent implements OnInit {
             this.showDepoEntry = false;
             // this.form.reset()
             // this.entryForm.reset()
+            if(dt.pay_mode != 'O')
             this.router.navigate(['/admin/money_receipt',this.m['mem_id'].value, this.responseData.trn_id])
+            else{
+              this.form.reset()
+              this.entryForm.reset()
+              this.router.navigate(['/admin/subs_depo_entry'])
+            }
           }
         });
       }else{

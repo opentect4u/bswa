@@ -440,8 +440,11 @@ export class Group_policy_view_formComponent implements OnInit {
         subs_type: '',
         sub_fee: this.f['pre_amt'] ? this.f['pre_amt'].value : null,
         redirect_path: '/',
-        soc_flag: 'T'
+        soc_flag: 'T',
+        trn_id: this.trn_id
       };
+      console.log(this.trn_id, payData, '+++++++++///////////////');
+      
       payEncData = CryptoJS.AES.encrypt(
         JSON.stringify(payData),
         this.secretKey

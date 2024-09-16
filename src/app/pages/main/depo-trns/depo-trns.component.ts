@@ -107,8 +107,22 @@ export class DepoTrnsComponent implements OnInit {
           return { invalidAmount: { value: value } };
         }
     
+      let sub_fee = 0
+      switch (this.responsedata_subs[0].memb_type) {
+        case 'G':
+          sub_fee = this.responsedata_subs[0].subscription_1
+          break;
+        case 'AI':
+          sub_fee = this.responsedata_subs[0].subscription_2
+          break;
+        case 'L':
+          sub_fee = this.responsedata_subs[0].subscription_1
+          break;
       
-      let sub_fee = this.responsedata_subs[0].subscription_1
+        default:
+          break;
+      }
+      // let sub_fee = this.responsedata_subs[0].subscription_1
 
       if (typeof sub_fee !== 'number' || isNaN(sub_fee) || sub_fee === 0) {
         return { invalidSubscriptionFee: { sub_fee: sub_fee } };
@@ -126,13 +140,33 @@ export class DepoTrnsComponent implements OnInit {
       this.responsedata_subs = data
       console.log(this.responsedata_subs,'ooo');
       this.responsedata_subs = this.responsedata_subs.suc > 0 ? this.responsedata_subs.msg : []
+      
       var nowDate = new Date()
       var cal_upto = new Date(this.userData!.calc_upto)
-      var cal_month = cal_upto.getFullYear() > nowDate.getFullYear() ? 0 : (nowDate.getMonth() - cal_upto.getMonth())
+      var calAmt = 0
+
+      switch (this.responsedata_subs[0].memb_type) {
+        case 'G':
+          var cal_month = cal_upto.getFullYear() > nowDate.getFullYear() ? 0 : (nowDate.getMonth() - cal_upto.getMonth())
+          calAmt = (cal_month > 0 ? cal_month : 1) * this.responsedata_subs[0].subscription_1 + parseInt(this.userData!.calc_amt)
+          break;
+        case 'AI':
+          calAmt = this.responsedata_subs[0].subscription_2
+          break;
+        case 'L':
+          var cal_year = cal_upto.getFullYear() >= nowDate.getFullYear() ? 0 : (nowDate.getFullYear() - cal_upto.getFullYear())
+          calAmt = (cal_year > 0 ? cal_year : 1) * this.responsedata_subs[0].subscription_1 + parseInt(this.userData!.calc_amt)
+          break;
+        default:
+          var cal_month = cal_upto.getFullYear() > nowDate.getFullYear() ? 0 : (nowDate.getMonth() - cal_upto.getMonth())
+          calAmt = (cal_month > 0 ? cal_month : 1) * this.responsedata_subs[0].subscription_1 + parseInt(this.userData!.calc_amt)
+          break;
+      }
+      
       
       this.entryForm.patchValue({
         // subs_amt: cal_month * this.responsedata_subs[0].subscription_1 + parseInt(this.userData!.calc_amt)
-        subs_amt: (cal_month > 0 ? cal_month : 1) * this.responsedata_subs[0].subscription_1 + parseInt(this.userData!.calc_amt)
+        subs_amt: calAmt
       })
       this.entryForm.get('subs_amt')?.setValidators([Validators.required, this.calculateSubsFee()])
       this.entryForm.get('subs_amt')?.updateValueAndValidity();

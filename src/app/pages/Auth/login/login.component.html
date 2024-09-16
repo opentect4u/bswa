@@ -25,7 +25,7 @@
           Password is required
         </i>  
         </small> -->
-        <button class="p-button-icon p-button-outlined p-inputgroup-addon"
+        <button type="button" class="p-button-icon p-button-outlined p-inputgroup-addon"
           (click)="togglePasswordVisibility(passwordInput)">
           <i class="pi"
             [ngClass]="{'pi-eye': passwordInput.type === 'password', 'pi-eye-slash': passwordInput.type !== 'password'}"></i>
