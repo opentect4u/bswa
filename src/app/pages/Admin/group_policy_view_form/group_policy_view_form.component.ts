@@ -282,12 +282,16 @@ export class Group_policy_view_formComponent implements OnInit {
             : this.preinfo!['prm_flag3'] == 'Y'
             ? this.preinfo!['premium_amt3']
             : '0';
+    //     this.pre_amt_value = 
+    // (this.preinfo!['prm_flag2'] == 'Y' ? parseFloat(this.preinfo!['premium_amt2'] || '0') : 0) + 
+    // (this.preinfo!['prm_flag3'] == 'Y' ? parseFloat(this.preinfo!['premium_amt3'] || '0') : 0);
+
         this.tot_pre_amt =
           parseInt(this.preinfo!.premium_amt) + parseInt(this.pre_amt_value);
         this.form.patchValue({
           // pre_amt : this.tot_pre_amt
         });
-        console.log(this.preinfo, 'pre');
+        console.log(this.tot_pre_amt, 'pre');
       });
   }
 

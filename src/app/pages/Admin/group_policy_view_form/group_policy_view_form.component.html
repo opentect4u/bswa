@@ -190,14 +190,14 @@
     <div class="flex flex-row">
       <div class="field col-12 md:col-12">
         <span style="color: rgb(55, 55, 230);"><b> {{preinfo?.prm_flag2 == 'Y' ? 'Super Top up Amount 12 lacs' :
-            (preinfo?.prm_flag3 == 'Y' ? 'Super Top up Amount 24 lacs' : 'None') }}</b></span>
+            (preinfo?.prm_flag3 == 'Y' ? 'Super Top up Amount 24 lacs' : 'None') }} ({{pre_amt_value}})</b></span>
       </div>
     </div>
 
     <div class="flex flex-row">
       <div class="field col-12 md:col-12">
-        <label for="pre_amont" class="label_field"><b>Premium Amount:</b></label>&nbsp;
-        <span style="color: rgb(55, 55, 230);"><b> {{pre_amt_value}}</b></span>
+        <label for="pre_amont" class="label_field"><b>Totral Premium Amount:</b></label>&nbsp;
+        <span style="color: rgb(55, 55, 230);"><b> {{tot_pre_amt}}</b></span>
       </div>
     </div>
 

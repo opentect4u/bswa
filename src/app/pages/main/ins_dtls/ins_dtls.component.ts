@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { DataService } from 'src/app/service/data.service';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+
+import * as CryptoJS from 'crypto-js';
 
 interface UserInfo {
   form_no: string;
@@ -85,6 +88,16 @@ interface MedicalInfo {
   treatment_dtls: string;
 }
 
+interface PremiumInfo {
+  "form_no": string,
+  "premium_amt": string,
+  "premium_amt2": string,
+  "prm_flag2": string,
+  "premium_amt3": string,
+  "prm_flag3": string,
+  "family_type": string,
+}
+
 @Component({
   selector: 'app-ins_dtls',
   templateUrl: './ins_dtls.component.html',
@@ -92,19 +105,54 @@ interface MedicalInfo {
   providers: [DatePipe]
 })
 export class Ins_dtlsComponent implements OnInit {
+  secretKey = environment.secretKey;
   mem_id:any
   mem_type:any
   insData: any  = {};
   userData: UserInfo | any;
   dependentsData: any = [];
+  preinfo: PremiumInfo | undefined;
+  responsedata:any
+  pre_amt_flag: any;
+  pre_amt_value: any;
+  tot_pre_amt: number = 0;
   // userMedicalData: MedicalInfo | any ;
 
-  constructor(private dataServe: DataService) { }
+  constructor(private router: Router, private dataServe: DataService) { }
 
   ngOnInit() {
   // this.form_no = localStorage.getItem('form_no')
   const mem_id = localStorage.getItem('member_id')
    this.getInsuranceDetails(mem_id);
+  }
+
+  getPremiumInfo(form_no:any) {
+    this.dataServe
+      .global_service(0, '/premium_dtls', `form_no=${form_no}`)
+      .subscribe((data: any) => {
+        this.responsedata = data;
+        console.log(this.responsedata, '666');
+        this.responsedata =
+          this.responsedata.suc > 0
+            ? this.responsedata.msg.length > 0
+              ? this.responsedata.msg[0]
+              : {}
+            : {};
+        this.preinfo = this.responsedata;
+        this.pre_amt_flag =
+          this.preinfo!['prm_flag2'] != 'Y' && this.preinfo!['prm_flag3'] != 'Y'
+            ? 'No'
+            : 'Yes';
+        this.pre_amt_value =
+          this.preinfo!['prm_flag2'] == 'Y'
+            ? this.preinfo!['premium_amt2']
+            : this.preinfo!['prm_flag3'] == 'Y'
+            ? this.preinfo!['premium_amt3']
+            : '0';
+        this.tot_pre_amt =
+          parseInt(this.preinfo!.premium_amt) + parseInt(this.pre_amt_value);
+        console.log(this.preinfo, 'pre');
+      });
   }
 
   // getInsuranceDetails(){
@@ -132,6 +180,8 @@ export class Ins_dtlsComponent implements OnInit {
 
           this.userData = this.insData.length > 0 ? this.insData : [];
           console.log(this.userData,'medical');
+
+          this.getPremiumInfo(this.userData[0].form_no)
           
         } else {
           // Swal.fire(
@@ -151,5 +201,46 @@ export class Ins_dtlsComponent implements OnInit {
       });
   }
   
+  generatePay(){
+    var payData = {
+      form_no: this.userData[0].form_no,
+      member_id: '',
+      memb_name: this.userData[0]?.memb_name,
+      // amount: this.pre_amt_value,
+      amount: this.tot_pre_amt,
+      phone_no: this.userData[0]?.phone,
+      email: '',
+      approve_status: 'U',
+      calc_upto: '',
+      subs_type: '',
+      // sub_fee: this.tot_pre_amt,
+      sub_fee: this.pre_amt_value,
+      redirect_path: '/',
+      soc_flag: 'T',
+      trn_id: ''
+    };
+
+    var payEncData = CryptoJS.AES.encrypt(
+      JSON.stringify(payData),
+      this.secretKey
+    ).toString();
+
+    //sayantika
+    var dt = {
+      formNo: this.userData[0].form_no,
+      status: 'A',
+      user: localStorage.getItem('user_name'),
+      pre_amt: this.tot_pre_amt,
+      member: this.userData[0]?.memb_name,
+      phone_no: this.userData[0]?.phone,
+      trn_id: '',
+      payEncDataGen: payEncData,
+    };
+    //
+
+    this.router.navigate(['/auth/payment_preview_page'], { 
+      queryParams: { enc_dt: payEncData }
+    });
+  }
 
 }

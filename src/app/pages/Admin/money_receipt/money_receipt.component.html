@@ -11,9 +11,9 @@
         <th class="text-center" colspan="7">
           <img src="../../../../assets/images/bokaro.jpg" width="20%" height="20%">
           <div class="print_top_head mt-3">
-            <h2>BOKARO STEEL PEOPLE WELFARE ASSOCIATION</h2>
+            <h2>{{trnData?.mem_type == 'G' || trnData?.mem_type == 'L' || trnData?.mem_type == 'AI' ?' BOKARO STEEL PEOPLE WELFARE ASSOCIATION' : 'BOSEC WELFARE TRUST' }}</h2>
             <h4>13, Camac Street, Kolkata 700017</h4>
-            <h4>Registration No : 31/Cal of 1979</h4>
+            <h4>{{trnData?.mem_type == 'G' || trnData?.mem_type == 'L' || trnData?.mem_type == 'AI' ? 'Registration No : 31/Cal of 1979' :  'Registration No :  S017807' }}</h4>
             <h4 class="color">Money Receipt</h4>
           </div>
         </th>

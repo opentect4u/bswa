@@ -141,9 +141,8 @@
     </tr>
   </table>
 </ng-container>
-</p-card>
 
-<p-card *ngIf="userData.length > 0">
+<!-- <p-card *ngIf="userData.length > 0"> -->
   <ng-container *ngIf="userData[0]?.form_type != 'GP'">
   <h1 class="text-center label_field title">You are enlisted under <span
       class="heading badge {{ userData[0]?.form_type !='GP' ? 'badge-pending' :''}}">{{userData[0]?.form_type !=
@@ -281,4 +280,40 @@
     </tr>
   </table>
 </ng-container>
+<!-- </p-card> -->
+
+<!-- <p-card *ngIf="userData.length > 0"> -->
+  <ng-container *ngIf="userData[0]?.form_type == 'GP'">
+  <table class="table_space">
+    <tr>
+      <th colspan="5" class="text-center" style="background-color: aliceblue;"><label for="member_type"
+          class="label_field color"><b>PREMIUM DETAILS</b></label></th>
+    </tr>
+    <tr>
+      <th colspan="5"><label for="mem_name" class="label_field"><b>Group Name :</b><span class="label_field heading">
+            {{preinfo?.family_type}}</span></label>
+      </th>
+    </tr>
+    <tr>
+      <th colspan="5"><label for="addr" class="label_field"><b>Premium Amount:</b><span class="label_field heading"> {{preinfo?.premium_amt}}</span></label>
+      </th>
+    </tr>
+    <tr>
+      <th colspan="5"><label for="member_type" class="label_field"><b>Do you want to avail a Super Top Up on this policy?:</b><span class="label_field heading"> {{pre_amt_flag}}</span></label></th>
+    </tr>
+    <tr>
+      <th colspan="5"><label for="gurd_name" class="label_field"><span class="label_field heading"> {{preinfo?.prm_flag2 == 'Y' ? 'Super Top up Amount 12 lacs' :
+        (preinfo?.prm_flag3 == 'Y' ? 'Super Top up Amount 24 lacs' : 'None')}} ({{pre_amt_value}})</span></label>
+      </th>
+    </tr>
+    <tr>
+      <th colspan="5"><label for="member_type" class="label_field"><b>Total Premium Amount:</b><span class="label_field heading"> {{tot_pre_amt}}</span></label></th>
+    </tr>
+  </table>
+  <div class="flex flex-row mt-3">
+    <button pButton pRipple type="button" label="Pay Now" class="p-button-raised sub_btn" (click)="generatePay()"></button>
+  </div>
+  <!-- <button class="btn-success" (click)="generatePay()">Pay Now</button> -->
+</ng-container>
+<!-- </p-card> -->
 </p-card>
