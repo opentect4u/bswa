@@ -636,11 +636,16 @@ getPremiumAmt(event:any){
     // })
     this.additionalOptions = true;
   } else {
+    
     // this.form.patchValue({
     //   sup_top_up: '',
     //   sup_pre_amont: ''
     // })
     this.additionalOptions = false;
+     this.form.patchValue({
+      sup_top_up: '',
+      sup_pre_amont: ''
+    })
   }
 }
 
