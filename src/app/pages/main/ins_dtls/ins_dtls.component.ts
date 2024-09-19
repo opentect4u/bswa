@@ -215,7 +215,7 @@ export class Ins_dtlsComponent implements OnInit {
       subs_type: '',
       // sub_fee: this.tot_pre_amt,
       sub_fee: this.pre_amt_value,
-      redirect_path: '/',
+      redirect_path: '/main/ins_dtls',
       soc_flag: 'T',
       trn_id: ''
     };
@@ -226,16 +226,16 @@ export class Ins_dtlsComponent implements OnInit {
     ).toString();
 
     //sayantika
-    var dt = {
-      formNo: this.userData[0].form_no,
-      status: 'A',
-      user: localStorage.getItem('user_name'),
-      pre_amt: this.tot_pre_amt,
-      member: this.userData[0]?.memb_name,
-      phone_no: this.userData[0]?.phone,
-      trn_id: '',
-      payEncDataGen: payEncData,
-    };
+    // var dt = {
+    //   formNo: this.userData[0].form_no,
+    //   status: 'A',
+    //   user: localStorage.getItem('user_name'),
+    //   pre_amt: this.tot_pre_amt,
+    //   member: this.userData[0]?.memb_name,
+    //   phone_no: this.userData[0]?.phone,
+    //   trn_id: '',
+    //   payEncDataGen: payEncData,
+    // };
     //
 
     this.router.navigate(['/auth/payment_preview_page'], { 
