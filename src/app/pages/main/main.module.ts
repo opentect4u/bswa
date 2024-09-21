@@ -77,6 +77,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'money_receipt_member/:trn_id',
+        loadChildren: () =>
+          import('../main/money_receipt_member/money_receipt_member.module').then(
+            (m) => m.Money_receipt_memberModule
+          ),
+      },
+      {
         path: 'ins_dtls',
         loadChildren: () =>
           import('./ins_dtls/ins_dtls.module').then(

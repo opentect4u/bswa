@@ -30,12 +30,16 @@ export class TrnHistoryViewComponent implements OnInit {
   }
 
   getTransactionDetails(form_no:any, trn_id:any){
-    this.dataServe.global_service(1, '/user_tnx_details',{form_no, trn_id})
-          .subscribe((data: any) => {
-            this.trnResData = data;
-            this.trnResData = this.trnResData.suc > 0 ? this.trnResData.msg : [];
-            this.trnData = this.trnResData.length > 0 ? this.trnResData[0] : {}
-          });
+    this.dataServe
+      .global_service(1, '/user_tnx_details', {
+        form_no: '',
+        trn_id,
+      })
+      .subscribe((data: any) => {
+        this.trnResData = data;
+        this.trnResData = this.trnResData.suc > 0 ? this.trnResData.msg : [];
+        this.trnData = this.trnResData.length > 0 ? this.trnResData[0] : {};
+      });
   }
 
   printDiv() {
