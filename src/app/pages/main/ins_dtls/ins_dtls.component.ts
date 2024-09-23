@@ -204,13 +204,13 @@ export class Ins_dtlsComponent implements OnInit {
   generatePay(){
     var payData = {
       form_no: this.userData[0].form_no,
-      member_id: '',
+      member_id: this.userData[0]?.member_id,
       memb_name: this.userData[0]?.memb_name,
       // amount: this.pre_amt_value,
       amount: this.tot_pre_amt,
       phone_no: this.userData[0]?.phone,
       email: '',
-      approve_status: 'U',
+      approve_status: 'A',
       calc_upto: '',
       subs_type: '',
       // sub_fee: this.tot_pre_amt,

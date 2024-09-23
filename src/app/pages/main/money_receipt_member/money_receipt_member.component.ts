@@ -34,8 +34,8 @@ export class Money_receipt_memberComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.member_id = this.route.snapshot.params['member_id']
-    this.trn_id = this.route.snapshot.params['trn_id']
+    this.member_id = this.route.snapshot.params['member_id'] ? this.route.snapshot.params['member_id'] : 0
+    this.trn_id = this.route.snapshot.params['trn_id'] ? this.route.snapshot.params['trn_id'] : 0
     this.getTransactionDetails(this.member_id, this.trn_id)
   }
 
