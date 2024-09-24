@@ -138,15 +138,15 @@ get f() {
     this.member_id = atob(decodeURIComponent(encodedMemId));
     this.phone_no = atob(decodeURIComponent(encodedPhNo));
     console.log(this.member_id,'ooo');
-    this.getMemberInfo(this.member_id);
+    this.getMemberInfo(this.member_id,this.form_no);
     this.getSpouseInfo();
     this.getRejectTransactionInfo();
     this.getTransactionInfo();
   }
 
-  getMemberInfo(memb_id:any) {
+  getMemberInfo(memb_id:any,form_no:any) {
     this.dataServe
-      .global_service(0, '/get_member_policy_print_super', `member_id=${memb_id}`)
+      .global_service(0, '/get_member_policy_print_super', `member_id=${memb_id}&&form_no=${form_no}`)
       .subscribe((data: any) => {
         this.responsedata = data;
         console.log(this.responsedata, '666');

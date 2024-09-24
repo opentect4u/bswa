@@ -161,7 +161,7 @@ export class Policy_view_formComponent implements OnInit {
     this.phone_no = atob(decodeURIComponent(encodedPhNo));
     // this.memb_name = this.route.snapshot.params['memb_name']
     console.log(this.member_id,'ooo');
-    // this.getMemberInfo(this.member_id);
+    this.getMemberInfo(this.member_id,this.form_no);
     this.getGenInsInfo();
     this.getSpouseInfo();
     this.getTnxDetails();
@@ -204,15 +204,15 @@ export class Policy_view_formComponent implements OnInit {
       }); 
   }
 
-  getMemberInfo(memb_id:any) {
+  getMemberInfo(memb_id:any,form_no:any) {
     this.dataServe
-      .global_service(0, '/get_member_policy_print_super', `member_id=${memb_id}`)
+      .global_service(0, '/get_member_policy_print_super', `member_id=${memb_id}&&form_no=${form_no}`)
       .subscribe((data: any) => {
         this.responsedata = data;
         console.log(this.responsedata, '666');
         this.responsedata =
           this.responsedata.suc > 0
-            ? this.responsedata.msg.length > 0
+            ? this.responsedata.msg && this.responsedata.msg.length > 0
               ? this.responsedata.msg[0]
               : {}
             : {};
@@ -241,7 +241,7 @@ export class Policy_view_formComponent implements OnInit {
               : {}
             : {};
         
-    this.getMemberInfo(this.genInsData.member_id ? this.genInsData.member_id : '');
+    // this.getMemberInfo(this.genInsData.member_id ? this.genInsData.member_id : '');
     
       });
   }
@@ -291,12 +291,12 @@ export class Policy_view_formComponent implements OnInit {
         this.resdata = this.resdata.suc > 0 ? this.resdata.msg : []
         // console.log(this.resdata[0].subscription_1)
         this.form.patchValue({
-          resolution_no: this.resdata[0].resolution_no,
-          resolution_dt: this.datePipe.transform(this.resdata[0].resolution_dt, 'yyyy-MM-dd'),
-          status:this.resdata[0].form_status,
-          pre_amt: this.resdata[0].premium_amt,
+          resolution_no: this.resdata[0]?.resolution_no,
+          resolution_dt: this.datePipe.transform(this.resdata[0]?.resolution_dt, 'yyyy-MM-dd'),
+          status:this.resdata[0]?.form_status,
+          pre_amt: this.resdata[0]?.premium_amt,
         })
-        this.selectedValue = this.resdata[0].form_status;
+        this.selectedValue = this.resdata[0]?.form_status;
       })
   }
 
