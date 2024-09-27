@@ -304,16 +304,19 @@
         </div>
 
         <div class="flex flex-row">
-          <div class="field col-12 md:col-4">
+          <div class="field col-12 md:col-5">
             <label for="spou_police_st" class="size"><b>Police Station:</b></label>&nbsp;
             <input id="spou_police_st" type="text" formControlName="spou_police_st" placeholder="Enter Police Station"
               class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
           </div>
-          <div class="field col-12 md:col-4">
+          <div class="field col-12 md:col-5">
             <label for="spou_city" class="size"><b>City / Town / District:</b></label>&nbsp;
             <input id="spou_city" type="text" formControlName="spou_city" placeholder="Enter City / Town / District"
               class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
           </div>
+          <!-- <div class="field col-12 md:col-2 top">
+          <button pButton pRipple type="button" label="Delete" class="p-button-raised p-button-danger" (click)="delete_depend()"></button>
+          </div> -->
         </div>
       </div>
 
@@ -322,17 +325,17 @@
 
       <div formArrayName="depenFields">
         <div class="flex flex-row mt-5" *ngFor="let group of depenFields.controls; let i = index" [formGroupName]="i">
-          <div class="field col-12 md:col-3">
+          <div class="field col-12 md:col-4">
             <label for="dependent_name" class="size"><b>Dependent Name:</b></label>
             <input id="dependent_name" type="text" formControlName="dependent_name" placeholder="Enter Dependent name"
               class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
           </div>
-          <div class="field col-12 md:col-3">
+          <div class="field col-12 md:col-4">
             <label for="phone_no" class="size"><b>Phone No:</b></label>&nbsp;
             <input id="phone_no" type="text" formControlName="phone_no" maxlength="10" placeholder="Enter Phone No"
               class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
           </div>
-          <div class="field col-12 md:col-3">
+          <div class="field col-12 md:col-4">
             <label for="relation" class="size"><b>Relationship:</b></label>
             <select id="relation" formControlName="relation"
               class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
@@ -562,17 +565,17 @@
 
       <div formArrayName="depenFields">
         <div class="flex flex-row mt-5" *ngFor="let group of depenFields.controls; let i = index" [formGroupName]="i">
-          <div class="field col-12 md:col-3">
+          <div class="field col-12 md:col-4">
             <label for="dependent_name" class="size"><b>Dependent Name:</b></label>
             <input id="dependent_name" type="text" formControlName="dependent_name" placeholder="Enter Dependent name"
               class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
           </div>
-          <div class="field col-12 md:col-3">
+          <div class="field col-12 md:col-4">
             <label for="dob_dep" class="size"><b>DOB:</b></label>&nbsp;
             <input id="dob_dep" type="date" formControlName="dob_dep" placeholder="Enter DOB"
               class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
           </div>
-          <div class="field col-12 md:col-3">
+          <div class="field col-12 md:col-4">
             <label for="relation" class="size"><b>Relationship:</b></label>
             <select id="relation" formControlName="relation"
               class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"

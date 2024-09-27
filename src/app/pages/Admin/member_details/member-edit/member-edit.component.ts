@@ -202,6 +202,19 @@ export class MemberEditComponent implements OnInit {
       });
   }
 
+  isValidDate(dateString: string): boolean {
+    // Check if the date is '0000-00-00 00:00:00' or a similar invalid string
+    if (dateString === '0000-00-00 00:00:00' || dateString === '0000-00-00') {
+        return false;
+    }
+
+    // Parse the date
+    const date = new Date(dateString);
+
+    // Check if the date is valid
+    return !isNaN(date.getTime());
+}
+
   getMemberDetails() {
     this.dataServe
       .global_service(1, '/member_dtls', { flag: true, form_no: this.form_no })
@@ -242,22 +255,22 @@ export class MemberEditComponent implements OnInit {
               police_st: this.memberData?.ps,
               mem_id: this.memberData?.member_id,
               spouse_fr: {
-                sl_no: this.memberData?.spou_dt[0].sl_no > 0 ? this.memberData?.spou_dt[0].sl_no : 0,
-                spou_name: this.memberData?.spou_dt[0].dependent_name,
-                spou_gurd_name: this.memberData?.spou_dt[0].gurdian_name,
-                spou_blood_grp: this.memberData?.spou_dt[0].blood_grp,
-                spou_dob: this.memberData?.spou_dt[0].dob != '0000-00-00'
-                  ? this.datePipe.transform(
-                      this.memberData?.spou_dt[0].dob,
-                      'yyyy-MM-dd'
-                    )
-                  : '',
+                sl_no: this.memberData?.spou_dt.length > 0 ? this.memberData?.spou_dt[0]!.sl_no : 0,
+                spou_name: this.memberData?.spou_dt.length > 0 ? this.memberData?.spou_dt[0].dependent_name : '',
+                spou_gurd_name: this.memberData?.spou_dt.length > 0 ? this.memberData?.spou_dt[0].gurdian_name : '',
+                spou_blood_grp: this.memberData?.spou_dt.length > 0 ? this.memberData?.spou_dt[0].blood_grp : '',
+                spou_dob: this.memberData?.spou_dt.length > 0 
+    ? this.isValidDate(this.memberData?.spou_dt[0].dob) 
+        ? this.datePipe.transform(this.memberData?.spou_dt[0].dob, 'yyyy-MM-dd') 
+        : '0000-00-00'
+    : '0000-00-00',
+
                 // spou_phone: this.memberData?.spou_dt,
-                spou_mobile_no: this.memberData?.spou_dt[0].phone_no,
-                spou_min_no: this.memberData?.spou_dt[0].min_no,
-                spou_mem_addr: this.memberData?.spou_dt[0].memb_address,
-                spou_police_st: this.memberData?.spou_dt[0].ps,
-                spou_city: this.memberData?.spou_dt[0].city_town_dist,
+                spou_mobile_no: this.memberData?.spou_dt.length > 0 ? this.memberData?.spou_dt[0].phone_no : '',
+                spou_min_no: this.memberData?.spou_dt.length > 0 ? this.memberData?.spou_dt[0].min_no : '',
+                spou_mem_addr: this.memberData?.spou_dt.length > 0 ? this.memberData?.spou_dt[0].memb_address : '',
+                spou_police_st: this.memberData?.spou_dt.length > 0 ? this.memberData?.spou_dt[0].ps : '',
+                spou_city: this.memberData?.spou_dt.length > 0 ? this.memberData?.spou_dt[0].city_town_dist : '',
               },
               intro_fr: {
                 intro_member_id: this.memberData?.spou_dt[0]?.intro_member_id,
@@ -443,4 +456,6 @@ export class MemberEditComponent implements OnInit {
       });
     // console.log(this.form.value)
   }
+
+
 }
