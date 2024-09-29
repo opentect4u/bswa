@@ -5,7 +5,7 @@
 :root {
   /* --sidemenu-width-open: 240px; */
   --sidemenu-width-open: 280px;
-  --sidemenu-width-minimize: 70px;
+  --sidemenu-width-minimize: 60px;
   --sidemenu-font: 14px;
   --sidemenu-font-sub: 12px;
   --font: Arial;
@@ -104,6 +104,44 @@ body {
   font-size: 14px;
 }
 
+.sidemenu-minimize .p-panelmenu-panel a.p-panelmenu-header-link .p-menuitem-text{display:none;}
+
+.sidemenu-minimize .p-panelmenu {width: 100% !important;}
+.sidemenu-open .p-panelmenu {width: 100% !important;}
+
+input[type="text"].form-control, input[type="date"].form-control, input[type="number"].form-control {border: #d5d3d3 solid 1px;
+  height: 42px;
+  font-size: 14px;
+  background: #fff;
+  padding: 13px;
+  width: 100%;
+  border-radius: 5px;}
+
+  select.form-control{border: #d5d3d3 solid 1px;
+  height: 42px;
+  font-size: 14px;
+  background: #fff;
+  padding: 13px;
+  width: 100%;
+  border-radius: 5px;}
+
+  textarea.form-control{border: #d5d3d3 solid 1px;
+    height: 42px;
+    font-size: 14px;
+    background: #fff;
+    padding: 13px;
+    width: 100%;
+    border-radius: 5px; height: 80px;}
+    
+
+h3.title_h3 {padding:0;}
+
+.fieldGroup_Flex{display: flex;}
+
+.subscrip_dtl p{font-size: 14px !important; margin-bottom: 0; margin-top: 6px;}
+.subscrip_dtl p .font-semibold{font-size: 14px !important;}
+
+
 /* .sidebar[_ngcontent-syc-c140] a[_ngcontent-syc-c140]:hover:not(.active) {
   background-color: #555;
   color: #fff;
@@ -196,6 +234,26 @@ body {
   padding: 5px 2px;
   border: solid 1px #ddd;
   border-radius: 5px;
+}
+
+@media only screen and (max-width: 850px) {
+  .memberDtl .label_field, .memberDtl .size{font-size: 13px;}
+  h3.title_h3 {
+    font-size: 15px;
+    margin-bottom: 0;}
+}
+
+
+@media only screen and (max-width: 767px) {
+.fieldGroup_Flex{display: block;}
+.fieldGroup_Flex .field{margin-bottom: 0;}
+
+.p-card .p-card-body {padding:8px !important;}
+.p-fileupload .p-fileupload-buttonbar {padding: 10px !important;}
+.p-button {padding: 5px !important; font-size: 13px !important;}
+
+
+
 }
 
 @media screen and (max-width: 420px) {

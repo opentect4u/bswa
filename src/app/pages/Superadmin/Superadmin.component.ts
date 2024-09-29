@@ -29,6 +29,8 @@ export class SuperadminComponent implements OnInit {
     }
   }
 
+  
+
   ngOnInit() {
     // this.spinner.showValue = false;
   }

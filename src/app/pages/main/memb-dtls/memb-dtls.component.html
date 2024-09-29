@@ -34,23 +34,22 @@
   }
 </style>
 <p-card id="divToPrint">
-  <h3 class="text-center"><b>Member Details</b></h3>
-  <p-divider type="dashed"></p-divider>
+  <h3 class="title_h3"><b>Member Details</b></h3>
+  <!-- <p-divider type="dashed"></p-divider> -->
 
-  <form [formGroup]="form">
+  <form [formGroup]="form" class="memberDtl">
     <div *ngIf="this.memberData?.mem_type != 'AI'">
-      <div class="flex flex-row">
+      <div class="fieldGroup_Flex">
         <div class="field col-12 md:col-4">
           <label for="member_type" class="label_field"><b>Member Type:</b></label>&nbsp;
           <input id="member_type" type="text" formControlName="member_type" placeholder="Enter Blood Group"
-            class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            class="form-control" />
         </div>
         <div class="field col-12 md:col-4">
           <label for="member_opt" class="label_field"><b>Member Operation:<span
                 class="text-red-700">*</span></b></label>&nbsp;
           <select id="member_opt" formControlName="member_opt"
-            class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
-            style="appearance: auto; height: 3vw; border-radius: 7px">
+            class="form-control">
             <option value="">Select Operation</option>
             <option value="S">Self</option>
             <option value="J">Joint</option>
@@ -62,8 +61,7 @@
         <div class="field col-12 md:col-4">
           <label for="unit_nm" class="label_field"><b>Unit Name:<span class="text-red-700">*</span></b></label>&nbsp;
           <select id="unit_nm" formControlName="unit_nm"
-            class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
-            style="appearance: auto; height: 3vw; border-radius: 7px">
+            class="form-control">
             <option value="">Select Unit Name</option>
             <option *ngFor="let option of responsedata" [value]="option.unit_id">{{ option.unit_name }}</option>
           </select>
@@ -73,11 +71,11 @@
         </div>
       </div>
 
-      <div class="flex flex-row">
+      <div class="fieldGroup_Flex">
         <div class="field col-12 md:col-4">
           <label for="member" class="label_field"><b>Member Name:<span class="text-red-700">*</span></b></label>&nbsp;
           <input id="member" type="text" formControlName="member" placeholder="Enter Member name"
-            class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            class="form-control" />
           <div *ngIf="f['member']?.touched || f['member']?.dirty">
             <small class="text-red-900" *ngIf="f['member']?.errors">Member Name is required.</small>
           </div>
@@ -86,7 +84,7 @@
           <label for="gurdian" class="label_field"><b>Father's / Husband Name:<span
                 class="text-red-700">*</span></b></label>&nbsp;
           <input id="gurdian" type="text" formControlName="gurdian" placeholder="Enter Father / Husband name"
-            class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            class="form-control" />
           <div *ngIf="f['gurdian']?.touched || f['gurdian']?.dirty">
             <small class="text-red-900" *ngIf="f['gurdian']?.errors">Gurdian Name is required.</small>
           </div>
@@ -94,8 +92,7 @@
         <div class="field col-12 md:col-4">
           <label for="gen" class="label_field"><b>Gender:<span class="text-red-700">*</span></b></label>&nbsp;
           <select id="gen" formControlName="gen"
-            class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
-            style="appearance: auto; height: 3vw; border-radius: 7px">
+            class="form-control">
             <option value="">Select Gender</option>
             <option value="M">Male</option>
             <option value="F">Female</option>
@@ -106,12 +103,11 @@
         </div>
       </div>
 
-      <div class="flex flex-row">
+      <div class="fieldGroup_Flex">
         <div class="field col-12 md:col-4">
           <label for="marital_status" class="label_field"><b>Marital Status:</b></label>&nbsp;
           <select id="marital_status" formControlName="marital_status"
-            class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
-            style="appearance: auto; height: 3vw; border-radius: 7px">
+            class="form-control">
             <option value="">Select Marital Status</option>
             <option value="M">Married</option>
             <option value="U">Unmarried</option>
@@ -122,7 +118,7 @@
         <div class="field col-12 md:col-4">
           <label for="gen_dob" class="label_field"><b>DOB:<span class="text-red-700">*</span></b></label>&nbsp;
           <input id="gen_dob" type="date" formControlName="gen_dob" placeholder="dd/MM/yyyy"
-            class="box_input text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            class="form-control" />
           <div *ngIf="f['gen_dob']?.touched || f['gen_dob']?.dirty">
             <small class="text-red-900" *ngIf="f['gen_dob']?.errors">DOB is required.</small>
           </div>
@@ -131,24 +127,24 @@
           <label for="phone" class="label_field"><b>Whatsapp Phone No:<span
                 class="text-red-700">*</span></b></label>&nbsp;
           <input id="phone" type="text" formControlName="phone" maxlength="10" placeholder="Enter Phone No"
-            class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            class="form-control" />
           <div *ngIf="f['phone']?.touched || f['phone']?.dirty">
             <small class="text-red-900" *ngIf="f['phone']?.errors">Phone No is required.</small>
           </div>
         </div>
       </div>
 
-      <div class="flex flex-row">
+      <div class="fieldGroup_Flex">
         <div class="field col-12 md:col-4">
           <label for="email_id" class="label_field"><b>Email ID:</b></label>&nbsp;
           <input id="email_id" type="text" formControlName="email_id" placeholder="Enter Email ID"
-            class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            class="form-control" />
         </div>
         <div class="field col-12 md:col-4">
           <label for="blood" class="label_field"><b>Blood Group:<span class="text-red-700">*</span></b></label>&nbsp;
           <select id="blood" formControlName="blood"
-            class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
-            style="appearance: auto; height: 3vw; border-radius: 7px">
+            class="form-control"
+            >
             <option value="">Select Blood Group</option>
             <option value="A+">A+</option>
             <option value="A-">A-</option>
@@ -166,8 +162,8 @@
         <div class="field col-12 md:col-4">
           <label for="caste" class="label_field"><b>Caste:</b></label>&nbsp;
           <select id="caste" formControlName="caste"
-            class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
-            style="appearance: auto; height: 3vw; border-radius: 7px">
+            class="form-control"
+            >
             <option value="">Select Caste</option>
             <option value="G">General</option>
             <option value="S">SC</option>
@@ -177,11 +173,11 @@
         </div>
       </div>
 
-      <div class="flex flex-row">
+      <div class="fieldGroup_Flex">
         <div class="field col-12 md:col-4">
           <label for="staff" class="label_field"><b>Staff No:<span class="text-red-700">*</span></b></label>&nbsp;
           <input id="staff" type="text" formControlName="staff" placeholder="Enter Staff No"
-            class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            class="form-control" />
           <div *ngIf="f['staff']?.touched || f['staff']?.dirty">
             <small class="text-red-900" *ngIf="f['staff']?.errors">Staff No is required.</small>
           </div>
@@ -189,7 +185,7 @@
         <div class="field col-12 md:col-4">
           <label for="personal" class="label_field"><b>Personal No:<span class="text-red-700">*</span></b></label>&nbsp;
           <input id="personal" type="text" formControlName="personal" placeholder="Enter Personal No"
-            class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            class="form-control" />
           <div *ngIf="f['personal']?.touched || f['personal']?.dirty">
             <small class="text-red-900" *ngIf="f['personal']?.errors">Personal No is required.</small>
           </div>
@@ -197,35 +193,35 @@
         <div class="field col-12 md:col-4">
           <label for="min" class="label_field"><b>MIN No:</b></label>&nbsp;
           <input id="min" type="text" formControlName="min" placeholder="Enter MIN No"
-            class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            class="form-control" />
         </div>
       </div>
 
       <p-divider type="dashed"></p-divider>
-      <h3 class="text-center"><b>Residential Information</b></h3>
-      <p-divider type="dashed"></p-divider>
+      <h3 class="title_h3"><b>Residential Information</b></h3>
+      <!-- <p-divider type="dashed"></p-divider> -->
 
-      <div class="flex flex-row">
+      <div class="fieldGroup_Flex">
         <div class="field col-12">
           <label for="mem" class="label_field"><b>Member Address:<span class="text-red-700">*</span></b></label>&nbsp;
           <textarea id="mem" formControlName="mem" type="text" rows="4"
-            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
+            class="form-control"></textarea>
           <div *ngIf="f['mem']?.touched || f['mem']?.dirty">
             <small class="text-red-900" *ngIf="f['mem']?.errors">Member Adress is required.</small>
           </div>
         </div>
       </div>
 
-      <div class="flex flex-row">
+      <div class="fieldGroup_Flex">
         <div class="field col-12 md:col-4">
           <label for="city" class="label_field"><b>City / Town / District:</b></label>&nbsp;
           <input id="city" type="text" formControlName="city" placeholder="Enter City/Town/District"
-            class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            class="form-control" />
         </div>
         <div class="field col-12 md:col-4">
           <label for="pin" class="label_field"><b>PIN No:<span class="text-red-700">*</span></b></label>&nbsp;
           <input id="pin" type="number" formControlName="pin" placeholder="Enter PIN No"
-            class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            class="form-control" />
           <div *ngIf="f['pin']?.touched || f['pin']?.dirty">
             <small class="text-red-900" *ngIf="f['pin']?.errors">PIN No is required.</small>
           </div>
@@ -233,31 +229,31 @@
         <div class="field col-12 md:col-4">
           <label for="police_st" class="label_field"><b>Police Station:</b></label>&nbsp;
           <input id="police_st" type="text" formControlName="police_st" placeholder="Enter Police Station"
-            class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            class="form-control" />
         </div>
       </div>
 
-      <h3 class="text-center"><b>Spouse Details</b></h3>
-      <p-divider type="dashed"></p-divider>
+      <h3 class="title_h3"><b>Spouse Details</b></h3>
+      <!-- <p-divider type="dashed"></p-divider> -->
 
       <div formGroupName="spouse_fr">
-        <div class="flex flex-row">
+        <div class="fieldGroup_Flex">
           <div class="field col-12 md:col-4">
             <label for="spou_name" class="size"><b>Spouse Name:</b></label>&nbsp;
             <input id="spou_name" type="text" formControlName="spou_name" placeholder="Enter Spouse name"
-              class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+              class="form-control" />
           </div>
           <div class="field col-12 md:col-4">
             <label for="spou_gurd_name" class="size"><b>Father / Husband Name:</b></label>&nbsp;
             <input id="spou_gurd_name" type="text" formControlName="spou_gurd_name"
               placeholder="Enter Father / Husband Name"
-              class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+              class="form-control" />
           </div>
           <div class="field col-12 md:col-4">
             <label for="spou_blood_grp" class="size"><b>Blood Group:</b></label>&nbsp;
             <select id="spou_blood_grp" formControlName="spou_blood_grp"
-              class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
-              style="appearance: auto; height: 3vw; border-radius: 7px">
+              class="form-control"
+              >
               <option value="">Select Blood Group</option>
               <option value="A+">A+</option>
               <option value="A-">A-</option>
@@ -271,48 +267,50 @@
           </div>
         </div>
 
-        <div class="flex flex-row">
+        <div class="fieldGroup_Flex">
           <div class="field col-12 md:col-4">
             <label for="spou_dob" class="size"><b>DOB:</b></label>&nbsp;
             <input id="spou_dob" type="date" formControlName="spou_dob" placeholder="dd/MM/yyyy"
-              class="box_input text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+              class="form-control" />
           </div>
 
           <div class="field col-12 md:col-4">
             <label for="spou_mobile_no" class="size"><b>Mobile No:</b></label>&nbsp;
             <input id="spou_mobile_no" type="text" formControlName="spou_mobile_no" maxlength="10"
               placeholder="Enter Mobile No"
-              class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+              class="form-control" />
           </div>
           <div class="field col-12 md:col-4">
             <label for="spou_min_no" class="size"><b>MIN No:</b></label>&nbsp;
             <input id="spou_min_no" type="text" formControlName="spou_min_no" placeholder="Enter MIN No"
-              class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+              class="form-control" />
           </div>
         </div>
 
         <p-divider type="dashed"></p-divider>
-        <h3 class="text-center"><b>Residential Information</b></h3>
-        <p-divider type="dashed"></p-divider>
+        <h3 class="title_h3"><b>Residential Information</b></h3>
+        <!-- <p-divider type="dashed"></p-divider> -->
 
-        <div class="flex flex-row">
+        <div class="fieldGroup_Flex">
           <div class="field col-12">
             <label for="spou_mem_addr" class="size"><b>Member Address:</b></label>&nbsp;
             <textarea id="spou_mem_addr" formControlName="spou_mem_addr" type="text" rows="4"
-              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
+              class="form-control"></textarea>
           </div>
         </div>
 
-        <div class="flex flex-row">
-          <div class="field col-12 md:col-5">
+
+        <div class="fieldGroup_Flex">
+          <div class="field col-12 md:col-4">
+
             <label for="spou_police_st" class="size"><b>Police Station:</b></label>&nbsp;
             <input id="spou_police_st" type="text" formControlName="spou_police_st" placeholder="Enter Police Station"
-              class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+              class="form-control" />
           </div>
           <div class="field col-12 md:col-5">
             <label for="spou_city" class="size"><b>City / Town / District:</b></label>&nbsp;
             <input id="spou_city" type="text" formControlName="spou_city" placeholder="Enter City / Town / District"
-              class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+              class="form-control" />
           </div>
           <!-- <div class="field col-12 md:col-2 top">
           <button pButton pRipple type="button" label="Delete" class="p-button-raised p-button-danger" (click)="delete_depend()"></button>
@@ -320,37 +318,38 @@
         </div>
       </div>
 
-      <h3 class="text-center"><b>Dependent Details</b></h3>
-      <p-divider type="dashed"></p-divider>
+      <h3 class="title_h3"><b>Dependent Details</b></h3>
+      <!-- <p-divider type="dashed"></p-divider> -->
 
       <div formArrayName="depenFields">
-        <div class="flex flex-row mt-5" *ngFor="let group of depenFields.controls; let i = index" [formGroupName]="i">
-          <div class="field col-12 md:col-4">
+
+        <div class="fieldGroup_Flex mt-5" *ngFor="let group of depenFields.controls; let i = index" [formGroupName]="i">
+          <div class="field col-12 md:col-3">
+
             <label for="dependent_name" class="size"><b>Dependent Name:</b></label>
             <input id="dependent_name" type="text" formControlName="dependent_name" placeholder="Enter Dependent name"
-              class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+              class="form-control" />
           </div>
           <div class="field col-12 md:col-4">
             <label for="phone_no" class="size"><b>Phone No:</b></label>&nbsp;
             <input id="phone_no" type="text" formControlName="phone_no" maxlength="10" placeholder="Enter Phone No"
-              class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+              class="form-control" />
           </div>
           <div class="field col-12 md:col-4">
             <label for="relation" class="size"><b>Relationship:</b></label>
             <select id="relation" formControlName="relation"
-              class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
-              style="appearance: auto; height: 3vw; border-radius: 7px">
+              class="form-control">
               <option value="null">Select Relationship</option>
               <option *ngFor="let option of responsedata_rel" [value]="option.id">
                 {{ option.relation_name }}
               </option>
             </select>
           </div>
-          <div *ngIf="i === 0" class="field col-12 md:col-3">
+          <!-- <div *ngIf="i === 0" class="field col-12 md:col-3">
             <p-button class="custom-tooltip" pTooltip="Add Dependent" tooltipPosition="bottom" icon="pi pi-plus"
               styleClass="p-button-rounded p-button-text p-button-raised" (click)="onadd()"
               [style]="{ 'background-color': 'rgb(177 209 161)', 'border-color': 'rgb(116 207 78)', color: '#ffff', 'margin-top': '1.3vw' }"></p-button>
-          </div>
+          </div> -->
 
           <div *ngIf="i > 0" class="field col-12 md:col-3">
             <p-button class="custom-tooltip" pTooltip="Delete Dependent" tooltipPosition="bottom" icon="pi pi-minus"
@@ -360,10 +359,10 @@
         </div>
       </div>
 
-      <h3 class="text-center"><b>Image Upload</b></h3>
-      <p-divider type="dashed"></p-divider>
+      <h3 class="title_h3"><b>Image Upload</b></h3>
+      <!-- <p-divider type="dashed"></p-divider> -->
 
-      <div class="flex flex-row">
+      <div class="fieldGroup_Flex">
         <div class="field col-12 md:col-6">
           <label for="own_img" class="size"><b>Member Photograph:<span
                 class="text-red-700">(.JPG,.JPEG,.PNG)</span></b></label>&nbsp;
@@ -401,16 +400,16 @@
     </div>
 
     <div *ngIf="this.memberData?.mem_type == 'AI'">
-      <div class="flex flex-row">
+      <div class="fieldGroup_Flex">
         <div class="field col-12 md:col-4">
           <label for="member_type" class="label_field"><b>Member Type:</b></label>&nbsp;
           <input id="member_type" type="text" formControlName="member_type" placeholder="Enter Blood Group"
-            class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            class="form-control" />
         </div>
         <div class="field col-12 md:col-4">
           <label for="member" class="label_field"><b>Member Name:<span class="text-red-700">*</span></b></label>&nbsp;
           <input id="member" type="text" formControlName="member" placeholder="Enter Member name"
-            class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            class="form-control" />
           <div *ngIf="f['member']?.touched || f['member']?.dirty">
             <small class="text-red-900" *ngIf="f['member']?.errors">Member Name is required.</small>
           </div>
@@ -419,19 +418,19 @@
           <label for="gurdian" class="label_field"><b>Father's / Husband Name:<span
                 class="text-red-700">*</span></b></label>&nbsp;
           <input id="gurdian" type="text" formControlName="gurdian" placeholder="Enter Father / Husband name"
-            class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            class="form-control" />
           <div *ngIf="f['gurdian']?.touched || f['gurdian']?.dirty">
             <small class="text-red-900" *ngIf="f['gurdian']?.errors">Gurdian Name is required.</small>
           </div>
         </div>
       </div>
 
-      <div class="flex flex-row">
+      <div class="fieldGroup_Flex">
         <div class="field col-12 md:col-4">
           <label for="gen" class="label_field"><b>Gender:<span class="text-red-700">*</span></b></label>&nbsp;
           <select id="gen" formControlName="gen"
-            class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
-            style="appearance: auto; height: 3vw; border-radius: 7px">
+            class="form-control"
+            >
             <option value="">Select Gender</option>
             <option value="M">Male</option>
             <option value="F">Female</option>
@@ -443,8 +442,8 @@
         <div class="field col-12 md:col-4">
           <label for="marital_status" class="label_field"><b>Marital Status:</b></label>&nbsp;
           <select id="marital_status" formControlName="marital_status"
-            class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
-            style="appearance: auto; height: 3vw; border-radius: 7px">
+            class="form-control"
+            >
             <option value="">Select Marital Status</option>
             <option value="M">Married</option>
             <option value="U">Unmarried</option>
@@ -455,19 +454,19 @@
         <div class="field col-12 md:col-4">
           <label for="gen_dob" class="label_field"><b>DOB:<span class="text-red-700">*</span></b></label>&nbsp;
           <input id="gen_dob" type="date" formControlName="gen_dob" placeholder="dd/MM/yyyy"
-            class="box_input text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            class="form-control" />
           <div *ngIf="f['gen_dob']?.touched || f['gen_dob']?.dirty">
             <small class="text-red-900" *ngIf="f['gen_dob']?.errors">DOB is required.</small>
           </div>
         </div>
       </div>
 
-      <div class="flex flex-row">
+      <div class="fieldGroup_Flex">
         <div class="field col-12 md:col-4">
           <label for="phone" class="label_field"><b>Whatsapp Phone No:<span
                 class="text-red-700">*</span></b></label>&nbsp;
           <input id="phone" type="text" formControlName="phone" maxlength="10" placeholder="Enter Phone No"
-            class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            class="form-control" />
           <div *ngIf="f['phone']?.touched || f['phone']?.dirty">
             <small class="text-red-900" *ngIf="f['phone']?.errors">Phone No is required.</small>
           </div>
@@ -475,13 +474,13 @@
         <div class="field col-12 md:col-4">
           <label for="email_id" class="label_field"><b>Email ID:</b></label>&nbsp;
           <input id="email_id" type="text" formControlName="email_id" placeholder="Enter Email ID"
-            class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            class="form-control" />
         </div>
         <div class="field col-12 md:col-4">
           <label for="caste" class="label_field"><b>Caste:</b></label>&nbsp;
           <select id="caste" formControlName="caste"
-            class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
-            style="appearance: auto; height: 3vw; border-radius: 7px">
+            class="form-control"
+            >
             <option value="">Select Caste</option>
             <option value="G">General</option>
             <option value="S">SC</option>
@@ -492,31 +491,31 @@
       </div>
 
       <p-divider type="dashed"></p-divider>
-      <h3 class="text-center"><b>Residential Information</b></h3>
-      <p-divider type="dashed"></p-divider>
+      <h3 class="title_h3"><b>Residential Information</b></h3>
+      <!-- <p-divider type="dashed"></p-divider> -->
 
 
-      <div class="flex flex-row">
+      <div class="fieldGroup_Flex">
         <div class="field col-12">
           <label for="mem" class="label_field"><b>Member Address:<span class="text-red-700">*</span></b></label>&nbsp;
           <textarea id="mem" formControlName="mem" type="text" rows="4"
-            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
+            class="form-control"></textarea>
           <div *ngIf="f['mem']?.touched || f['mem']?.dirty">
             <small class="text-red-900" *ngIf="f['mem']?.errors">Member Adress is required.</small>
           </div>
         </div>
       </div>
 
-      <div class="flex flex-row">
+      <div class="fieldGroup_Flex">
         <div class="field col-12 md:col-4">
           <label for="city" class="label_field"><b>City / Town / District:</b></label>&nbsp;
           <input id="city" type="text" formControlName="city" placeholder="Enter City/Town/District"
-            class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            class="form-control" />
         </div>
         <div class="field col-12 md:col-4">
           <label for="pin" class="label_field"><b>PIN No:<span class="text-red-700">*</span></b></label>&nbsp;
           <input id="pin" type="number" formControlName="pin" placeholder="Enter PIN No"
-            class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            class="form-control" />
           <div *ngIf="f['pin']?.touched || f['pin']?.dirty">
             <small class="text-red-900" *ngIf="f['pin']?.errors">PIN No is required.</small>
           </div>
@@ -524,33 +523,33 @@
         <div class="field col-12 md:col-4">
           <label for="police_st" class="label_field"><b>Police Station:</b></label>&nbsp;
           <input id="police_st" type="text" formControlName="police_st" placeholder="Enter Police Station"
-            class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            class="form-control" />
         </div>
       </div>
 
-      <h3 class="text-center"><b>Introducer Details</b></h3>
-      <p-divider type="dashed"></p-divider>
+      <h3 class="title_h3"><b>Introducer Details</b></h3>
+      <!-- <p-divider type="dashed"></p-divider> -->
 
       <div formGroupName="intro_fr">
-        <div class="flex flex-row">
+        <div class="fieldGroup_Flex">
           <div class="field col-12 md:col-4">
             <label for="intro_member_id" class="label_field"><b>Member ID:</b></label>&nbsp;
             <input id="intro_member_id" type="text" formControlName="intro_member_id" placeholder="Enter Member ID"
-              class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              class="form-control"
               readonly />
           </div>
           <div class="field col-12 md:col-4">
             <label for="intro_name" class="label_field"><b>Introducer Name:<span
                   class="text-red-700">*</span></b></label>&nbsp;
             <input id="intro_name" type="text" formControlName="intro_name" placeholder="Enter Introducer Name"
-              class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              class="form-control"
               readonly />
           </div>
           <div class="field col-12 md:col-4">
             <label for="relation_intro" class="label_field"><b>Relation:</b></label>&nbsp;
             <select id="relation_intro" formControlName="relation_intro"
-              class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
-              style="appearance: auto; height: 3vw; border-radius: 7px">
+              class="form-control"
+              >
               <option value="null">Select Relationship</option>
               <option *ngFor="let option of responsedata_rel" [value]="option.id">
                 {{ option.relation_name }}
@@ -560,26 +559,27 @@
         </div>
       </div>
 
-      <h3 class="text-center"><b>Dependent Details</b></h3>
-      <p-divider type="dashed"></p-divider>
+      <h3 class="title_h3"><b>Dependent Details</b></h3>
+      <!-- <p-divider type="dashed"></p-divider> -->
 
       <div formArrayName="depenFields">
-        <div class="flex flex-row mt-5" *ngFor="let group of depenFields.controls; let i = index" [formGroupName]="i">
-          <div class="field col-12 md:col-4">
+
+        <div class="fieldGroup_Flex mt-5" *ngFor="let group of depenFields.controls; let i = index" [formGroupName]="i">
+          <div class="field col-12 md:col-3">
+
             <label for="dependent_name" class="size"><b>Dependent Name:</b></label>
             <input id="dependent_name" type="text" formControlName="dependent_name" placeholder="Enter Dependent name"
-              class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+              class="form-control" />
           </div>
           <div class="field col-12 md:col-4">
             <label for="dob_dep" class="size"><b>DOB:</b></label>&nbsp;
             <input id="dob_dep" type="date" formControlName="dob_dep" placeholder="Enter DOB"
-              class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+              class="form-control" />
           </div>
           <div class="field col-12 md:col-4">
             <label for="relation" class="size"><b>Relationship:</b></label>
             <select id="relation" formControlName="relation"
-              class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
-              style="appearance: auto; height: 3vw; border-radius: 7px">
+              class="form-control">
               <option value="null">Select Relationship</option>
               <option *ngFor="let option of responsedata_rel" [value]="option.id">
                 {{ option.relation_name }}
@@ -600,10 +600,10 @@
         </div>
       </div>
 
-      <h3 class="text-center"><b>Image Upload</b></h3>
-      <p-divider type="dashed"></p-divider>
+      <h3 class="title_h3"><b>Image Upload</b></h3>
+      <!-- <p-divider type="dashed"></p-divider> -->
 
-      <div class="flex flex-row">
+      <div class="fieldGroup_Flex">
         <div class="field col-12 md:col-6">
           <label for="own_img" class="size"><b>Member Photograph:<span
                 class="text-red-700">(.JPG,.JPEG,.PNG)</span></b></label>&nbsp;

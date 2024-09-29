@@ -1,6 +1,6 @@
 <p-card>
   <div class="row align-items-center">
-    <h3 class="flex align-items-center">
+    <h3 class="title_h3">
       <i class="pi pi-hourglass menu-icon"></i>&nbsp;
       <b>Subscription Deposit</b>
     </h3>
@@ -11,10 +11,10 @@
       through which the payment is made and then click on Save.</h4> -->
   </div>
 
-  <form [formGroup]='entryForm'>
+  <form [formGroup]='entryForm' class="subscrip_dtl">
     <p-divider type="dashed"></p-divider>
 
-    <h3 class="text-center" style="color: black;">User Details</h3>
+    <h3 class="title_h3">User Details</h3>
     <p>
       <label class="font-semibold text-lg">Member Name: </label>
       <label>{{userData?.memb_name}}</label>
@@ -41,7 +41,7 @@
     </p>
     <p-divider type="dashed"></p-divider>
 
-    <h3 class="text-center" style="color: black;">Subscription Details</h3>
+    <h3 class="title_h3">Subscription Details</h3>
     <div class="formgrid grid mt-1">
       <div class="field col-12 md:col-6">
         <label for="subs_amt" style="color: black"><b>Subscription Fee</b></label>
@@ -50,7 +50,7 @@
           type="number" 
           formControlName="subs_amt" 
           placeholder="Enter subscription fee...."
-          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" 
+          class="form-control" 
         />
         
         <div *ngIf="f['subs_amt'].dirty || f['subs_amt'].touched || f['subs_amt'].errors" class="error-message">

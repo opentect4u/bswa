@@ -54,6 +54,8 @@ export class HeaderComponent implements OnInit {
     if (this.memberName != '') {
       this.labelAdmin = this.memberName[0];
     }
+
+    this.onMenuToggle();
   }
 
   onMenuToggle() {
@@ -78,6 +80,8 @@ export class HeaderComponent implements OnInit {
     }
     this.event.emit({sidemenuOpen: this.sidemenuOpen, classSidemenu: this.classSidemenu, classContent: this.classContent})
   }
+
+  
 
   onSignOut() {
     // alert('Logout')

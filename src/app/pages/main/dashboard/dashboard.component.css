@@ -118,3 +118,19 @@ img {
 a{
   text-decoration:none
 }
+
+
+
+@media only screen and (max-width: 767px) {
+  .icon_box_main_sub ul.iconSec li{width: 50%;}
+  
+  }
+
+
+  @media only screen and (max-width: 450px) {
+    .icon_box_main_sub ul.iconSec li{width: 100%;}
+    
+    }
+
+
+

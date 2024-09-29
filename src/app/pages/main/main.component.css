@@ -31,13 +31,31 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   z-index: 10;
 }
+
+
+
+
+
+/* .sidemenu {
+	width: 250px; height: 100vh; position: fixed; top: 0; 
+  left: -255px; 
+	background:rgba(255,255,255,.9); color: #fff; transition: all .3s; box-shadow: 3px 3px 3px rgba(51, 51, 51, 0.5);
+	text-align: left; z-index: 9999;
+}
+
+
+.sidemenu.sidemenu-minimize {
+  left: 0;
+} */
+
 .content {
   /* background-color: var(--content-background); */
   font-family: Arial;
   float: left;
   height: calc(100vh - 50px);
   padding: 10px;
-  overflow: auto;
+  /* overflow: auto; */
+  width: 100%;
 }
 .content-normal {
   /* background-color: #e6e2e2; */

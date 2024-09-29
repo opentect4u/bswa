@@ -1,0 +1,63 @@
+
+
+@media only screen and (max-width: 767px) {
+.header_top {padding: 10px 0;}
+.header_top_sub{display: block;}
+.header_top_left{width: 100%; display: block; text-align: center;}
+.header_top_left img{max-width: 120px; margin-bottom: 10px;}
+.header_top_right{width: 100%;display: block; text-align: center;}
+
+.header_top_right ul.nav_sec li a, .header_top_right ul.nav_sec li:last-child a {
+    font-size: 13px;
+    padding: 5px 10px;}
+.welcome_text .textArea_sec p {
+    font-size: 13px;
+    line-height: 28px;}
+.welcome_text .textArea_sec h2 {font-size: 22px; margin-bottom: 10px;}
+
+
+.banner_sec {min-height: inherit;}
+
+.boxSection .box_sm {margin-bottom: 15px; min-height: inherit;}
+.boxSection .box_sm p {font-size: 13px; margin-bottom: 8px;}
+
+.boxSection .box_sm h2 {font-size: 16px; margin-bottom: 12px;}
+
+.boxSection_Bot {margin-top: 12px;}
+
+.boxSection_Bot .col-sm-6{margin-bottom: 20px; padding: 0;}
+.boxSection .col-sm-4{padding: 0;}
+
+.body_content_sec {padding-bottom: 15px;}
+.welcome_text {margin-bottom: 10px;}
+.footer_sec p {font-size: 12px; line-height: 20px;}
+.footer_sec {font-size: 12px;}
+
+
+
+}
+@media only screen and (max-width: 550px) {
+.header_top_right{display: none;}
+.btnResponsive{display: block; font-size: 25px; color: #000;}
+.closeBtnRes{display: block;
+    font-size: 19px;
+    color: #EC4C4C;
+    position: absolute;
+    right: 15px;
+    top: 10px;}
+    .closeBtnRes:hover{display: block;
+        font-size: 19px;
+        color: #EC4C4C;}
+
+.header_top_left{display: flex; align-items: center;}
+.logo_sec {
+    margin: 0 auto 0 0;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+.banner_sec .titleSec p {font-size: 14px;}
+.header_top_right ul.nav_sec li {margin: 0px 4px;}
+
+
+}
