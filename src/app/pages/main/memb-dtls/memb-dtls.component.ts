@@ -511,4 +511,46 @@ save() {
   //         });
   // }
 
+  delete_depend() {
+    var member_id= localStorage.getItem('member_id')
+     var user = localStorage.getItem('user_name')
+    console.log(member_id, 'ppppp');
+    Swal.fire({
+      title: 'Are you sure you want to delete?',
+      text: "If Yes, then click on Yes, delete it.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        
+        this.dataServe.global_service(1, '/delete_depend',{member_id, user})
+            .subscribe((data: any) => {
+        // this.dataServe.global_service(1, `deleteTransaction/${trn_id}/${form_no}`).subscribe(
+        //   (response) => {
+            console.log('API response:', data);
+            Swal.fire({
+              title: 'Deleted!',
+              text: 'Spouse details deleted successfully.',
+              icon: 'success',
+            }).then(() => {
+              // Refresh the page after deletion
+              window.location.reload();
+            });
+          },
+          (error) => {
+            console.error('Error during API call:', error);
+            Swal.fire({
+              title: 'Error!',
+              text: 'There was an issue deleting the transaction.',
+              icon: 'error',
+            });
+          }
+        );
+      }
+    });
+  }
+
 }

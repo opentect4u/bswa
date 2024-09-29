@@ -65,3 +65,7 @@ p-button.p-element, .print_btn {
     padding: 5px;
     font-size: 12px;
   }
+
+  .top{
+    margin-top: 24px;
+  }
