@@ -371,7 +371,7 @@ getMemberDetails() {
           //   );
           // }
 
-          this.spouseFileName = this.memberData?.spou_dt[0].memb_pic ? `${this.api_url}/${this.memberData?.spou_dt[0].memb_pic}` : null
+          this.spouseFileName = this.memberData?.spou_dt[0]?.memb_pic ? `${this.api_url}/${this.memberData?.spou_dt[0].memb_pic}` : null
           this.memFileName = this.memberData?.memb_pic ? `${this.api_url}/${this.memberData?.memb_pic}` : null
         }
         console.log(this.userData, 'lili');
@@ -424,26 +424,7 @@ onadd() {
   // console.log(this.depenFields.controls, 'ADD');
 }
 
-onminus(index: number) {
-  Swal.fire({
-    title: 'Are you sure?',
-    text: "You won't be able to revert this!",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, delete it!',
-  }).then((result) => {
-    if (result.isConfirmed) {
-      this.depenFields.removeAt(index);
-      Swal.fire({
-        title: 'Deleted!',
-        text: 'Row has been deleted.',
-        icon: 'success',
-      });
-    }
-  });
-}
+
 
 onUpload(event: any, flag: any) {
   const file = event.files[0];
@@ -511,10 +492,11 @@ save() {
   //         });
   // }
 
-  delete_depend() {
+  delete_spouse() {
     var member_id= localStorage.getItem('member_id')
      var user = localStorage.getItem('user_name')
-    console.log(member_id, 'ppppp');
+     var sl_no = this.memberData?.spou_dt[0].sl_no
+    console.log(member_id,sl_no,user, 'ppppp');
     Swal.fire({
       title: 'Are you sure you want to delete?',
       text: "If Yes, then click on Yes, delete it.",
@@ -526,7 +508,7 @@ save() {
     }).then((result) => {
       if (result.isConfirmed) {
         
-        this.dataServe.global_service(1, '/delete_depend',{member_id, user})
+        this.dataServe.global_service(1, '/delete_depend',{member_id, user, sl_no})
             .subscribe((data: any) => {
         // this.dataServe.global_service(1, `deleteTransaction/${trn_id}/${form_no}`).subscribe(
         //   (response) => {
@@ -549,6 +531,60 @@ save() {
             });
           }
         );
+      }
+    });
+  }
+
+
+  onminus(index: number) {
+    var member_id= localStorage.getItem('member_id')
+     var user = localStorage.getItem('user_name')
+     var sl_no = this.depenFields.value[index].sl_no
+    //  console.log(member_id,user,sl_no,'delete');
+    //  console.log(this.depenFields.value[index], '----');
+     
+     
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if(sl_no > 0){
+          this.dataServe.global_service(1, '/delete_depend',{member_id, user, sl_no})
+          .subscribe((data: any) => {
+          console.log('API response:', data);
+          Swal.fire({
+            title: 'Deleted!',
+            text: 'Spouse details deleted successfully.',
+            icon: 'success',
+          }).then(() => {
+            this.depenFields.removeAt(index);
+            // window.location.reload();
+          });
+        },
+        (error) => {
+          console.error('Error during API call:', error);
+          Swal.fire({
+            title: 'Error!',
+            text: 'There was an issue deleting the transaction.',
+            icon: 'error',
+          });
+        }
+      );
+        }else{
+          this.depenFields.removeAt(index);
+          Swal.fire({
+            title: 'Deleted!',
+            text: 'Row has been deleted.',
+            icon: 'success',
+          });
+        }
+        
       }
     });
   }

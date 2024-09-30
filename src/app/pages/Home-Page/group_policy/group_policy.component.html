@@ -50,7 +50,7 @@
                   <input id="form_dt" type="date" formControlName="form_dt" placeholder="dd/MM/yyyy" [max]="maxDate"
                     class="box_input text-2xl text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                   <div *ngIf="o['form_dt']?.touched || o['form_dt']?.dirty">
-                    <small class="text-red-900" *ngIf="o['form_dt']?.errors">Date is required.</small>
+                    <small class="text-red-900" *ngIf="o['form_dt']?.errors?.['required']">Date is required.</small>
                   </div>
                 </ng-container>
                 <ng-container *ngIf="!checkedmember">
@@ -240,14 +240,43 @@
                   </div>
                 </ng-container>
               </div>
-              <div class="field col-12 md:col-4">
+              <!-- <div class="field col-12 md:col-4">
                 <label for="gen_dob" class="label_field"><b>DOB:<span class="text-red-700">*</span></b></label>&nbsp;
                 <input id="gen_dob" type="date" formControlName="gen_dob" placeholder="dd/MM/yyyy" [max]="maxDate"
                   class="box_input text-2xl text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                 <div *ngIf="o['gen_dob']?.touched || o['gen_dob']?.dirty">
                   <small class="text-red-900" *ngIf="o['gen_dob']?.errors">DOB is required.</small>
                 </div>
+              </div> -->
+
+             <!-- 29.09.2024 -->
+
+             <div class="field col-12 md:col-4">
+              <label for="gen_dob" class="label_field">
+                <b>DOB:<span class="text-red-700">*</span></b>
+              </label>&nbsp;
+              <input 
+                id="gen_dob" 
+                type="date" 
+                formControlName="gen_dob" 
+                placeholder="dd/MM/yyyy" 
+                [max]="maxDate"
+                class="box_input text-2xl text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" 
+              />
+              <div *ngIf="o['gen_dob']?.touched || o['gen_dob']?.dirty">
+                <small class="text-red-900" *ngIf="o['gen_dob']?.errors?.['required']">DOB is required.</small>
               </div>
+              <div>
+                <!-- <small class="text-red-900" *ngIf="o['gen_dob']?.touched || o['gen_dob']?.dirty">
+                  DOB is required.
+                </small> -->
+                <small class="text-red-900" *ngIf="o['gen_dob']?.errors?.['ageInvalid']">
+                  Age cannot be more than 65.
+                </small>
+                
+              </div>
+            </div>
+            
             </div>
 
             <div class="flex flex-row">

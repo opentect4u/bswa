@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import { MessageService } from 'primeng/api';
 import { DatePipe } from '@angular/common';
 import { RadioButtonModule } from 'primeng/radiobutton';
-
+import { ageValidator } from './group_policy.module';
 interface MemberStatus {
   name: string;
   code: string;
@@ -60,7 +60,7 @@ export class Group_policyComponent implements OnInit {
   gurdianName: string = '';
   memberName: string = '';
   dependentName: string = '';
-
+  // ageInvalid: true | undefined
   // selectedValue: string = 'N';
   // selectedValue_1: string = 'N';
   // selectedValue_2: string = 'N';
@@ -100,7 +100,7 @@ export class Group_policyComponent implements OnInit {
       gurdian: ['', Validators.required],
       gen: ['', Validators.required],
       marital_status: ['', Validators.required],
-      gen_dob: ['', Validators.required],
+      gen_dob: ['', [Validators.required, ageValidator(65)]],
       type_diseases: ['', Validators.required],
       name_diseases: ['', Validators.required],
       own_file: [''],
