@@ -590,11 +590,27 @@ final_submit(){
       if (this.groupSaveData.suc > 0) {
         this.formNo = this.groupSaveData.form_no;
         this.checkedmember = this.groupSaveData.policy_holder_type == 'true' ? 'M' : 'N';
-        Swal.fire(
-          'Success! Your form is submitted successfully.',
-          `We have been informed! <br> Generated Form No is ${this.formNo}`,
-          'success'
-        ).then((result) => {
+        Swal.fire({
+          title: 'We have been informed',
+          html: `<br> Your Generated Form No is <b>${this.formNo}</b> <br><br>
+           <input type="checkbox" id="confirmCheckbox"> 
+         <label for="confirmCheckbox">I checked and agreed the terms and condition and want to pay.</label>`,
+         icon: 'success',
+         showCancelButton: true,
+         confirmButtonText: 'Submit',
+         preConfirm: () => {
+           // Get the checkbox status
+           const isChecked = (document.getElementById('confirmCheckbox') as HTMLInputElement).checked;
+       
+           // If not checked, return an error message
+           if (!isChecked) {
+             Swal.showValidationMessage('You need to confirm the information');
+             return false;
+           }
+       
+           return true;
+          }
+        }).then((result) => {
           if (result.isConfirmed) {
             this.router.navigate(['/home/print_group_policy', encodeURIComponent(btoa(this.formNo)),this.checkedmember]);
           }
@@ -707,7 +723,7 @@ onUpload(event: any, flag: any) {
     }
 
     if (file.size > maxFileSize) {
-      this.showError('File size exceeds the limit of 2MB.');
+      this.showError('File size exceeds the limit of 1MB.');
       return;
     }
     

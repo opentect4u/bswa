@@ -35,3 +35,9 @@ p-card.p-element{
     display: flex;
     justify-content: center;
   }
+
+  .float {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-right: 9vw;
+  }

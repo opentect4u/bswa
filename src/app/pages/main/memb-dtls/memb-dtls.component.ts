@@ -174,7 +174,8 @@ export class MembDtlsComponent implements OnInit {
     private dataServe: DataService,
     private validatorsService: ValidatorsService,
     private route: ActivatedRoute,
-    private datePipe: DatePipe) { }
+    private datePipe: DatePipe,
+    private messageService: MessageService) { }
 
   ngOnInit() {
     this.form_no = localStorage.getItem('form_no')
@@ -428,11 +429,22 @@ onadd() {
 
 onUpload(event: any, flag: any) {
   const file = event.files[0];
+  const maxFileSize = 1 * 1024 * 1024; // 1MB
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
   if (file) {
     if(flag == 'O') this.memFile = file
 
     if(flag == 'S') this.spouseFile = file
     // this.fileSelected.emit({ file, flag });
+  }
+  if (!allowedTypes.includes(file.type)) {
+    this.showError('Invalid file type. Only JPG, JPEG, and PNG are allowed.');
+    return;
+  }
+
+  if (file.size > maxFileSize) {
+    this.showError('File size exceeds the limit of 1MB.');
+    return;
   }
 
   // for (let file of event.files) {
@@ -444,6 +456,10 @@ onUpload(event: any, flag: any) {
   //   summary: 'File Uploaded',
   //   detail: '',
   // });
+}
+
+showError(message: string) {
+  this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
 }
 
 onRemove(event: any, flag: any) {

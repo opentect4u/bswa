@@ -58,6 +58,9 @@
   
     /* border-color: black; */
   }
+  .size {
+    font-size: 12px;
+  }
   
   /* .p-inputtext{
     border-radius: 1px;

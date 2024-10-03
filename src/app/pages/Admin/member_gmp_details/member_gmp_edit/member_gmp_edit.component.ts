@@ -370,7 +370,7 @@ toggleAdditionalOptions(checked:any) {
         }
     
         if (file.size > maxFileSize) {
-          this.showError('File size exceeds the limit of 2MB.');
+          this.showError('File size exceeds the limit of 1MB.');
           return;
         }
         

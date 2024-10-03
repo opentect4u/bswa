@@ -55,6 +55,7 @@ export class General_membership_formComponent implements OnInit {
   spouseFile!: File;
   mem_type: any;
   maxDate!: string;
+  isFileTooLarge: boolean = false;
   // form_no: any;
 
   constructor(
@@ -197,7 +198,7 @@ export class General_membership_formComponent implements OnInit {
   // }
 
   onFileSelected(fileData: any) {
-    const { file, flag } = fileData;
+    const { file, flag } = fileData; 
     switch (flag) {
       case 'O':
         this.ownFile = file;

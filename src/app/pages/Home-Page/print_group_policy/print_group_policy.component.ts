@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, AfterViewInit  } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from 'src/app/service/data.service';
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { environment } from 'src/environments/environment';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import * as CryptoJS from 'crypto-js';
 
 interface MemberStatus {
   name: string;
@@ -56,7 +59,10 @@ interface PremiumInfo {
   styleUrls: ['./print_group_policy.component.css'],
   providers: [DatePipe],
 })
-export class Print_group_policyComponent implements OnInit {
+export class Print_group_policyComponent implements OnInit  {
+  secretKey = environment.secretKey
+  @ViewChild('pdfContent', { static: false }) pdfContent!: ElementRef;
+
   form_no: any;
   member_id:any;
   WindowObject: any;
@@ -118,12 +124,19 @@ export class Print_group_policyComponent implements OnInit {
     private dataServe: DataService,
     private datePipe: DatePipe
   ) { }
+  // ngAfterViewInit(): void {
+  //   throw new Error('Method not implemented.');
+  // }
 
   ngOnInit() {
     const encodedFormNo = this.route.snapshot.params['form_no'];
+    // console.log(encodedFormNo);
+    
     this.member_id = localStorage.getItem('user_name')
     console.log(this.member_id,'ooo'); 
     this.form_no = atob(decodeURIComponent(encodedFormNo));
+    // console.log(this.form_no,'ggg');
+    
     this.checkedmember = this.route.snapshot.params['checkedmember'];
     this.getGenInsInfo()
   }
@@ -206,7 +219,9 @@ export class Print_group_policyComponent implements OnInit {
       this.preinfo!['premium_amt2'] : this.preinfo!['prm_flag3'] == 'Y' ? 
       this.preinfo!['premium_amt3'] : '0';
       console.log(this.preinfo,'pre');
-      this.tot_amt_value = (this.preinfo?.premium_amt)  + (this.pre_amt_value) ;
+      this.tot_amt_value = (Number(this.preinfo?.premium_amt) || 0) + (Number(this.pre_amt_value) || 0);
+      // console.log(this.tot_amt_value,this.preinfo?.premium_amt,this.pre_amt_value,'yyy');
+      
     });
   }
   // getPremiumAmt(event:any){
@@ -277,6 +292,163 @@ export class Print_group_policyComponent implements OnInit {
     setTimeout(() => {
       this.WindowObject.close();
     }, 1000);
+  }
+
+  downloadPDF() {
+    if (!this.pdfContent) {
+      console.error('pdfContent is not available.');
+      return;
+    }
+
+    const DATA = this.pdfContent.nativeElement;
+    const imageUrl = this.api_base_url + '/' + 'uploads' + '/' + this.stpinfo?.memb_img;
+    const docUrl = this.api_base_url + '/' + 'uploads' + '/' + this.stpinfo?.doc_img;
+    // const depUrl = this.api_base_url + '/' + 'uploads' + '/' + this.spouseInfo?.dep_doc;
+    // const docsUrl = this.api_base_url + '/' + 'uploads' + '/' + this.spouseInfo?.dep_img;
+    console.log(imageUrl,docUrl,'po');
+    
+    html2canvas(DATA).then((canvas) => {
+      const fileWidth = 210; 
+      const fileHeight = (canvas.height * fileWidth) / canvas.width;
+      const FILEURI = canvas.toDataURL(imageUrl,docUrl);
+      const PDF = new jsPDF('p', 'mm', 'a4');
+      const position = 0;
+      PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+      PDF.save('PolicyDetails.pdf');
+    });
+  }
+
+
+  // downloadPDF() {
+  //   if (!this.pdfContent) {
+  //     console.error('pdfContent is not available.');
+  //     return;
+  //   }
+  
+  //   const DATA = this.pdfContent.nativeElement;
+    
+  //   // Fetch the image as base64
+  //   const imageUrl = this.api_base_url + '/' + 'uploads' + '/' + this.stpinfo?.memb_img;
+  //   fetch(imageUrl)
+  //     .then((response) => {
+  //       // if (!response.ok) {
+  //       //   throw new Error('Network response was not ok');
+  //       // }
+  //       return response.blob();
+  //     })
+  //     .then((blob) => {
+  //       const reader = new FileReader();
+  //       reader.onloadend = () => {
+  //         const base64data = reader.result as string;
+  
+  //         // Once the image is fetched as base64, we render the content
+  //         html2canvas(DATA).then((canvas) => {
+  //           const fileWidth = 210; // A4 width in mm
+  //           const fileHeight = (canvas.height * fileWidth) / canvas.width;
+  
+  //           // Create PDF
+  //           const PDF = new jsPDF('p', 'mm', 'a4');
+  //           const position = 0;
+  
+  //           // Add the content to the PDF
+  //           const imageData = canvas.toDataURL('image/png');
+  //           PDF.addImage(imageData, 'PNG', 0, position, fileWidth, fileHeight);
+  
+  //           // Add the fetched member image (base64) to the PDF (adjust coordinates as needed)
+  //           PDF.addImage(base64data, 'PNG', 10, fileHeight + 10, 50, 50); // Adjust position and size as needed
+  
+  //           // Save the PDF
+  //           PDF.save('PolicyDetails.pdf');
+  //         });
+  //       };
+  //       reader.readAsDataURL(blob);
+  //     })
+  //     .catch((error) => {
+  //       console.error('Failed to load image:', error);
+  //     });
+  // }
+  
+
+  // downloadPDF() {
+  //   if (!this.pdfContent) {
+  //     console.error('pdfContent is not available.');
+  //     return;
+  //   }
+  
+  //   const DATA = this.pdfContent.nativeElement;
+  //   const imageUrl = this.api_base_url + '/' + 'uploads' + '/' + this.stpinfo?.memb_img;
+  //   const docUrl = this.api_base_url + '/' + 'uploads' + '/' + this.stpinfo?.doc_img;
+  
+  //   // First, load the images as base64 using fetch()
+  //   const loadImageAsBase64 = (url: string): Promise<string> => {
+  //     return fetch(url)
+  //       .then((response) => {
+  //         if (!response.ok) {
+  //           throw new Error('Failed to load image: ' + url);
+  //         }
+  //         return response.blob();
+  //       })
+  //       .then((blob) => {
+  //         return new Promise<string>((resolve) => {
+  //           const reader = new FileReader();
+  //           reader.onloadend = () => resolve(reader.result as string);
+  //           reader.readAsDataURL(blob);
+  //         });
+  //       });
+  //   };
+  
+  //   // Fetch both the images
+  //   Promise.all([loadImageAsBase64(imageUrl), loadImageAsBase64(docUrl)])
+  //     .then(([memberImageBase64, docImageBase64]) => {
+  //       html2canvas(DATA).then((canvas) => {
+  //         const fileWidth = 210; // A4 size in mm
+  //         const fileHeight = (canvas.height * fileWidth) / canvas.width;
+  
+  //         // Create PDF document
+  //         const PDF = new jsPDF('p', 'mm', 'a4');
+  //         const position = 0;
+  
+  //         // Add the captured HTML content as the first page in the PDF
+  //         const pageContent = canvas.toDataURL('image/png');
+  //         PDF.addImage(pageContent, 'PNG', 0, position, fileWidth, fileHeight);
+  
+  //         // Add the member image to the PDF on the next page or below the first content
+  //         const imgPosition = fileHeight + 10; // Position after the main content
+  //         PDF.addImage(memberImageBase64, 'PNG', 10, imgPosition, 50, 50); // Adjust size and position
+  
+  //         // Add the document image to the PDF
+  //         const docImgPosition = imgPosition + 60; // Position after member image
+  //         PDF.addImage(docImageBase64, 'PNG', 10, docImgPosition, 50, 50); // Adjust size and position
+  
+  //         // Save the PDF
+  //         PDF.save('PolicyDetails.pdf');
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error while generating PDF:', error);
+  //     });
+  // }
+  
+  
+
+  paynow(){
+    var memberName = this.stpinfo?.memb_name;
+    var subscriptionAmount = this.tot_amt_value;
+    var form_no = this.form_no; 
+    var member_id = this.genInsData?.member_id;
+
+    var custDt = { form_no: form_no, member_id: '', memb_name: memberName, amount: subscriptionAmount, phone_no: this.stpinfo?.phone, email: '',  calc_upto: '',
+      subs_type: '', sub_fee: this.tot_amt_value, redirect_path: '/',  soc_flag: 'T',
+      trn_id: '', approve_status: 'A', pay_flag: 'D' }
+
+    const encDt = CryptoJS.AES.encrypt(JSON.stringify(custDt),this.secretKey ).toString();
+
+    console.log(encDt,'amt');
+    
+    
+    this.router.navigate(['/auth/payment_preview_page'], { 
+      queryParams: { enc_dt: encDt }
+    });
   }
 
 }

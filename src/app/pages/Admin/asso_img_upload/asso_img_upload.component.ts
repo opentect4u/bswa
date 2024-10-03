@@ -41,8 +41,19 @@ export class Asso_img_uploadComponent implements OnInit {
 
   onUpload(event: any, flag: any) {
     const file = event.files[0];
+    const maxFileSize = 1 * 1024 * 1024; // 1MB
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
     if (file) {
       this.fileSelected.emit({ file, flag });
+    }
+    if (!allowedTypes.includes(file.type)) {
+      this.showError('Invalid file type. Only JPG, JPEG, and PNG are allowed.');
+      return;
+    }
+
+    if (file.size > maxFileSize) {
+      this.showError('File size exceeds the limit of 1MB.');
+      return;
     }
 
     // for (let file of event.files) {
@@ -54,6 +65,10 @@ export class Asso_img_uploadComponent implements OnInit {
     //   summary: 'File Uploaded',
     //   detail: '',
     // });
+  }
+  
+  showError(message: string) {
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
   }
 
   onRemove(event: any, flag: any) {

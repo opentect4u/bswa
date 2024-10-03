@@ -365,7 +365,7 @@
           <div class="flex flex-row">
             <!-- Member Photograph Upload -->
             <div class="field col-12 md:col-6">
-              <label for="own_img" class="size"><b>Member Photograph:<span class="text-red-700">(.JPG,.JPEG,.PNG)</span></b></label>&nbsp;
+              <label for="own_img" class="size"><b>Member Photograph:<span class="text-red-700">(.JPG,.JPEG,.PNG) (Max file upload size : 1MB)</span></b></label>&nbsp;
               <div class="card flex justify-content-left">
                 <p-toast></p-toast>
                 <p-fileUpload name="own_file" (onSelect)="onUpload($event, 'O')" (onRemove)="onRemove($event, 'O')" [customUpload]="true" [multiple]="false" accept="image/*">
@@ -384,7 +384,7 @@
           
             <!-- Spouse Photograph Upload -->
             <div class="field col-12 md:col-6">
-              <label for="spou_img" class="size"><b>Document:<span class="text-red-700">(.JPG,.JPEG,.PNG)</span></b></label>&nbsp;
+              <label for="spou_img" class="size"><b>Document:<span class="text-red-700">(.JPG,.JPEG,.PNG) (Max file upload size : 1MB)</span></b></label>&nbsp;
               <div class="card flex justify-content-right">
                 <p-toast></p-toast>
                 <p-fileUpload name="spouse_file" (onSelect)="onUpload($event, 'S')" (onRemove)="onRemove($event, 'S')" [customUpload]="true" [multiple]="false" accept="image/*">
@@ -537,7 +537,7 @@
                 <div class="flex flex-row">
                   <!-- Member Photograph Upload -->
                   <div class="field col-12 md:col-6">
-                    <label for="own_imgs" class="size"><b>Member Photograph:<span class="text-red-700">(.JPG,.JPEG,.PNG)</span></b></label>&nbsp;
+                    <label for="own_imgs" class="size"><b>Member Photograph:<span class="text-red-700">(.JPG,.JPEG,.PNG) (Max file upload size : 1MB)</span></b></label>&nbsp;
                     <div class="card flex justify-content-left">
                       <p-toast></p-toast>
                       <p-fileUpload name="own_files" (onSelect)="onUpload($event, 'OF')" (onRemove)="onRemove($event, 'O')" [customUpload]="true" [multiple]="false" accept="image/*">
@@ -557,7 +557,7 @@
                 
                   <!-- Spouse Photograph Upload -->
                   <div class="field col-12 md:col-6">
-                    <label for="spou_imgs" class="size"><b>Document:<span class="text-red-700">(.JPG,.JPEG,.PNG)</span></b></label>&nbsp;
+                    <label for="spou_imgs" class="size"><b>Document:<span class="text-red-700">(.JPG,.JPEG,.PNG) (Max file upload size : 1MB)</span></b></label>&nbsp;
                     <div class="card flex justify-content-right">
                       <p-toast></p-toast>
                       <p-fileUpload name="spouse_files" (onSelect)="onUpload($event, 'SF')" (onRemove)="onRemove($event, 'S')" [customUpload]="true" [multiple]="false" accept="image/*">

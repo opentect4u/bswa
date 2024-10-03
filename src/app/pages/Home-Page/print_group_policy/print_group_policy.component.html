@@ -1,4 +1,10 @@
-<div class="background">
+<div class="row float">
+  <p-button label="Print Here" styleClass="p-button-raised p-button-info print_btn" (click)="printDiv()"  style="margin-left: 1vw;"></p-button>
+  <p-button label="Download Here" styleClass="p-button-raised p-button-secondary print_btn" (click)="downloadPDF()"
+  style="margin-left: 1vw;"></p-button>
+  <p-button label="Pay Now" styleClass="p-button-raised p-button-success print_btn" (click)="paynow()"></p-button>
+</div>
+<div class="background mt-3" #pdfContent id="divToPrint">
   <div class="form-container">
     <style>
       table {
@@ -35,8 +41,6 @@
         color: rgb(0, 0, 0);
       }
     </style>
-
-
     <p-card id="divToPrint">
       <div class="print_Section">
         <!-- <div class="row">
@@ -80,7 +84,7 @@
                 Membership' : stpinfo?.mem_type == 'L' ? 'Life membership' : stpinfo?.mem_type == 'AI' ? 'Associate
                 Membership' : 'N/A'}}</u></span>)</h4>
             <p><strong>BOKARO STEEL PEOPLE WELFARE ASSOCIATION</strong> <br>
-              Durgapur / Burnpur <br>
+              <!-- Durgapur / Burnpur <br> -->
               Dear Sir,</p>
             <p class="body_latter">I came to understand that the Trust will take a Tailor made Medi-claim / Health
               Insurance Policy for its beneficiaries. As I am an member of the <span
@@ -411,6 +415,9 @@
               <span style="color: rgb(55, 55, 230);" class="label_field"><b> {{pre_amt_value}}</b></span>
             </div>
           </div>
+  
+  
+        </ng-container>
 
           <div class="flex flex-row">
             <div class="field col-12 md:col-12">
@@ -418,9 +425,6 @@
               <span style="color: rgb(55, 55, 230);" class="label_field"><b>{{tot_amt_value}}</b></span>
             </div>
           </div>
-  
-  
-        </ng-container>
 
         <p-divider type="dashed"></p-divider>
         <h3 class="text-center">FOR OFFICE USE ONLY </h3>
@@ -435,12 +439,7 @@
               shis / her dependents and the premium as calculated are to be
               paid in advance.</b></p>
         </div>
-
-        <div class="row mt-5 text-center">
-          <p-button label="PRINT" styleClass="p-button-rounded print_btn" (click)="printDiv()"></p-button>
-        </div>
       </div>
-
     </p-card>
   </div>
 </div>

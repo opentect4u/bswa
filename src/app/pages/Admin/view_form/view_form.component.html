@@ -362,8 +362,7 @@
         <tr>
           <th><label for="ps" class="label_field"><b>P.S. </b><span class="span_space">{{ps && ps.length > 0 ? ps :
                 'N/A'}}</span></label></th>
-          <th><label for="phone" class="label_field"><b>PHONE NO. </b><span class="span_space">{{phone_no &&
-                phone_no.length > 0 ? phone_no : 'N/A'}}</span></label>
+          <th><label for="phone" class="label_field"><b>PHONE NO. </b><span class="span_space">{{phone_no}}</span></label>
           </th>
           <th><label for="blood_grp" class="label_field"><b>BLOOD GROUP :</b><span class="span_space">{{blood_grp &&
                 blood_grp.length > 0 ? blood_grp : 'N/A'}}</span></label></th>
@@ -715,9 +714,11 @@
             <!-- <h4 class="letter" style="color: black;">Amount to be deposited <span
               class="span_space">{{subscription_2}}(Yearly) And
               {{subscription_1}}(Monthly)</span></h4> -->
-            <h4 class="letter" style="color: black;">Mebership Subscription Fee <span
-                class="span_space">{{subscription_2}}(Yearly) And
-                {{subscription_1}}(Monthly)</span></h4>
+            <h4 class="letter" style="color: black;">Mebership Subscription Fee :
+              <!-- <span class="span_space">{{subscription_2}}(Yearly) And
+                {{subscription_1}}(Monthly)</span></h4> -->
+                <span class="span_space">To be Proposed By Member  And
+                  {{subscription_1}}(Monthly)</span></h4>
             <h4 class="letter" style="color: black;">1) Admission Fee : <span class="span_space">{{adm_fee}}</span></h4>
             <h4 class="letter" style="color: black;">2) Donation/ subscription : <span
                 class="span_space">{{donation}}</span></h4>
@@ -977,7 +978,7 @@
           <input id="subscriptionFee_2" type="text" formControlName="subscriptionFee_2"
             placeholder="Enter subscription fee...."
             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-            readonly />
+             />
         </div>
       </div>
 
