@@ -596,7 +596,7 @@ final_submit(){
            <input type="checkbox" id="confirmCheckbox"> 
          <label for="confirmCheckbox">I checked and agreed the terms and condition and want to pay.</label>`,
          icon: 'success',
-         showCancelButton: true,
+         showCancelButton: false,
          confirmButtonText: 'Submit',
          preConfirm: () => {
            // Get the checkbox status
