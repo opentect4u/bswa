@@ -184,7 +184,7 @@ export class MembDtlsComponent implements OnInit {
 
   this.form = this.fb.group({
     form_no: [this.form_no],
-    member_type: [{ value: '', disabled: true }],
+    member_type: [{ value: '', disabled: true } ],
     member_opt: ['', Validators.required],
     unit_nm: ['', Validators.required],
     member: ['', Validators.required],
@@ -309,12 +309,21 @@ getMemberDetails() {
               spou_name: this.memberData?.spou_dt && this.memberData.spou_dt.length > 0 ? this.memberData?.spou_dt[0].dependent_name : '',
               spou_gurd_name: this.memberData?.spou_dt && this.memberData.spou_dt.length > 0 ? this.memberData?.spou_dt[0].gurdian_name : '',
               spou_blood_grp: this.memberData?.spou_dt && this.memberData.spou_dt.length > 0 ? this.memberData?.spou_dt[0].blood_grp : '',
-              spou_dob: this.memberData?.spou_dt && this.memberData.spou_dt.length > 0 && this.memberData?.spou_dt[0].dob != '0000-00-00'
-                ? this.datePipe.transform(
-                    this.memberData?.spou_dt[0].dob,
-                    'yyyy-MM-dd'
-                  )
-                : '',
+              // spou_dob: this.memberData?.spou_dt && this.memberData.spou_dt.length > 0 && this.memberData?.spou_dt[0].dob != '0000-00-00'
+              //   ? this.datePipe.transform(
+              //       this.memberData?.spou_dt[0].dob,
+              //       'yyyy-MM-dd'
+              //     )
+              //   : '',
+              spou_dob: 
+  this.memberData?.spou_dt && 
+  this.memberData.spou_dt.length > 0 && 
+  this.memberData?.spou_dt[0].dob && 
+  this.memberData?.spou_dt[0].dob !== '0000-00-00' && 
+  this.memberData?.spou_dt[0].dob !== '0000-00-00 00:00:00'
+    ? this.datePipe.transform(this.memberData.spou_dt[0].dob, 'yyyy-MM-dd')
+    : '',
+
               // spou_phone: this.memberData?.spou_dt,
               spou_mobile_no: this.memberData?.spou_dt && this.memberData.spou_dt.length > 0 
               ? this.memberData?.spou_dt[0].phone_no : '',
