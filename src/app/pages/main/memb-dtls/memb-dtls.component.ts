@@ -184,7 +184,7 @@ export class MembDtlsComponent implements OnInit {
 
   this.form = this.fb.group({
     form_no: [this.form_no],
-    member_type: [{ value: 'Genaral Membership', disabled: true }],
+    member_type: [{ value: '', disabled: true }],
     member_opt: ['', Validators.required],
     unit_nm: ['', Validators.required],
     member: ['', Validators.required],
