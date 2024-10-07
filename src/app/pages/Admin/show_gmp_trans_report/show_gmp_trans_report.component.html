@@ -1,3 +1,4 @@
+<ng-container>
 <p-card>
   <div class="wrapper">
     <div class="col-lg-12 container contant-wraper">
@@ -5,8 +6,9 @@
       <div id="divToPrint">
 
         <div style="text-align:center;" class="print_top_head">
-          <h2>BOKARO STEEL PEOPLE WELFARE ASSOCIATION</h2>
+          <h2>BOSEC WELFARE TRUST</h2>
           <h4>13, Camac Street, Kolkata 700017</h4>
+          <h5>Registration No : ESTD 2010</h5>
           <h4>GMP Member Transaction Report On <b>{{from_dt | date: 'dd/MM/yyyy'}}</b> to <b>{{to_dt | date:
               'dd/MM/yyyy'}}</b></h4>
         </div>
@@ -32,6 +34,8 @@
                 <th id="table_color">SL No</th>
                 <th id="table_color">Member ID</th>
                 <th id="table_color">Member Name</th>
+                <th id="table_color">DOB</th>
+                <th id="table_color">Gender</th>
                 <th id="table_color">Unit Name</th>
                 <th id="table_color">Transaction ID</th>
                 <th id="table_color">Transaction Date</th>
@@ -48,15 +52,17 @@
                 <td class="text-center">{{i+1}}</td>
                 <td class="text-center">{{customer.member_id}}</td>
                 <td class="text-center">{{customer.memb_name}}</td>
+                <td class="text-center">{{customer.dob | date: 'dd/MM/YYYY'}}</td>
+                <td class="text-center">{{customer.sex == 'M' ? 'Male' : customer.sex == 'F' ? 'Female' : 'N/A'}}</td>
                 <td class="text-center">{{customer.unit_name}}</td>
                 <td class="text-center">{{customer.trn_id}}</td>
                 <td class="text-center">{{customer.trn_dt | date: 'dd/MM/YYYY'}}</td>
-                <td class="text-center">{{customer.dept_name}}</td>
+                <td class="text-center">{{customer.dept_name != '' ? customer.dept_name : 'N/A'}}</td>
                 <td class="text-center">{{customer.premium_dt | date: 'dd/MM/YYYY'}}</td>
                 <td class="text-center">{{customer.family_type}}</td>
                 <td class="text-center">{{customer.premium_amt}}</td>
-                <td class="text-center">{{customer.prm_flag2 == 'Y' ? 'Super Top up Amount 12 lacs' : customer.prm_flag3 == 'Y' ? 'Super Top up Amount 24 lacs' : ''}}</td>
-                <td class="text-center">{{customer.prm_flag2 == 'Y' ? customer.premium_amt2 : customer.prm_flag3 == 'Y' ? customer.premium_amt3 : ''}}</td>
+                <td class="text-center">{{customer.prm_flag2 == 'Y' ? 'Super Top up Amount 12 lacs' : customer.prm_flag3 == 'Y' ? 'Super Top up Amount 24 lacs' : 'N/A'}}</td>
+                <td class="text-center">{{customer.prm_flag2 == 'Y' ? customer.premium_amt2 : customer.prm_flag3 == 'Y' ? customer.premium_amt3 : 'N/A'}}</td>
 
                 <!-- <td class="text-center">{{customer.trans_mode=='O' ? 'New Member' : 'Renewal'}}</td> -->
               </tr>
@@ -77,18 +83,21 @@
 
             <ng-template pTemplate="emptymessage">
               <tr>
-                <td colspan="12" class="text-center text-red-900">No data available</td>
+                <td colspan="14" class="text-center text-red-900">No data available</td>
               </tr>
             </ng-template>
           </p-table>
         </div>
 
       </div>
-      <p-button label="PRINT" styleClass="p-button-rounded print_btn" (click)="printDiv()"
+      <div class="box">
+        <p-button label="PRINT" styleClass="p-button-rounded print_btn" (click)="printDiv()"
         style="margin-left: 1vw;"></p-button>
         <p-button label="Download" styleClass="p-button-rounded print_btn" (click)="download()"
         style="margin-left: 1vw;"></p-button>
+      </div>
     </div>
   </div>
 
 </p-card>
+</ng-container>

@@ -405,18 +405,27 @@ export class Group_policyComponent implements OnInit {
     console.log(data);
     this.userData = data;
     this.userData = this.userData.suc > 0 ? this.userData.msg : [];
-    console.log(this.userData, 'mistu');
-    let i = 1
-    for (let dt of this.userData) {
-      this.onadd(dt.sl_no,dt.dependent_name,dt.relation_name,dt.dob,'','', dt.relation);
-      i++;
-    // this.form.patchValue({
-    //        sl_no: this.userData[0].sl_no,
-    //        dependent_name: this.userData[0].dependent_name,
-    //        relation: this.userData[0].relation_name,
-    //        dob: this.userData[0].dob
-    //       })
-        }
+    // var sl_no_dt = this.userData[0].sl_no
+    console.log(this.userData,'mistu');
+    // let i = 1
+    // for (let dt of this.userData) {
+    //   this.onadd(dt.sl_no,dt.dependent_name,dt.relation_name,dt.dob,'','', dt.relation);
+    //   i++;
+    //     }
+    if (this.userData.length > 0) {
+      // Safely retrieve sl_no from the first item
+      let firstSlNo = this.userData[0].sl_no;
+      console.log('First SL No:', firstSlNo);
+
+      let i = 1;
+      // Loop through userData to add entries
+      for (let dt of this.userData) {
+          this.onadd(dt.sl_no, dt.dependent_name, dt.relation_name, dt.dob, '', '', dt.relation);
+          i++;
+      }
+  } else {
+      console.warn('No data found for this member.');
+  }
 });
 
 }
@@ -450,26 +459,7 @@ const formattedDob = isValidDate ? this.datePipe.transform(dob, 'yyyy-MM-dd') : 
   // console.log(this.depenFields.controls, 'ADD');
 }
 
-onminus(index: number) {
-  Swal.fire({
-    title: 'Are you sure?',
-    text: "You won't be able to revert this!",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, delete it!',
-  }).then((result) => {
-    if (result.isConfirmed) {
-      this.depenFields_1.removeAt(index);
-      Swal.fire({
-        title: 'Deleted!',
-        text: 'Row has been deleted.',
-        icon: 'success',
-      });
-    }
-  });
-}
+
 
 // final_submit(){
 //   var sup_top_flag = this.o['sup_top_up'].value != '' ? this.sup_top_list.filter((dt: any) => dt.value == this.o['sup_top_up'].value) : ''
@@ -612,7 +602,10 @@ final_submit(){
           }
         }).then((result) => {
           if (result.isConfirmed) {
-            this.router.navigate(['/home/print_group_policy', encodeURIComponent(btoa(this.formNo)),this.checkedmember]);
+            this.router.navigate(['/home/print_group_policy', encodeURIComponent(btoa(this.formNo)),this.checkedmember])
+            .then(() => {
+              window.scrollTo(0, 0);
+            });
           }
         });
       } else {
@@ -770,6 +763,118 @@ onDependentNameChange(event: Event) {
   const input = event.target as HTMLInputElement;
   const value = input.value.toUpperCase();
   this.form.get('dependent_name')?.setValue(value, { emitEvent: false });
+}
+
+// delete_dendent() {
+//   var member_id= this.o['member_id'] ? this.o['member_id'].value : null
+//    var user = this.responsedata[0].memb_name
+//    var sl_no = this.userData?.sl_no
+//   console.log(member_id,sl_no,user, 'ppppp');
+//   Swal.fire({
+//     title: 'Are you sure you want to delete?',
+//     text: "If Yes, then click on Yes, delete it.",
+//     icon: 'warning',
+//     showCancelButton: true,
+//     confirmButtonColor: '#3085d6',
+//     cancelButtonColor: '#d33',
+//     confirmButtonText: 'Yes, delete it!',
+//   }).then((result) => {
+//     if (result.isConfirmed) {
+      
+//       this.dataServe.global_service(1, '/delete_depends_gmp',{member_id, user, sl_no})
+//           .subscribe((data: any) => {
+//       // this.dataServe.global_service(1, `deleteTransaction/${trn_id}/${form_no}`).subscribe(
+//       //   (response) => {
+//           console.log('API response:', data);
+//           Swal.fire({
+//             title: 'Deleted!',
+//             text: 'Dependent details deleted successfully.',
+//             icon: 'success',
+//           }).then(() => {
+//             // Refresh the page after deletion
+//             window.location.reload();
+//           });
+//         },
+//         (error) => {
+//           console.error('Error during API call:', error);
+//           Swal.fire({
+//             title: 'Error!',
+//             text: 'There was an issue deleting the transaction.',
+//             icon: 'error',
+//           });
+//         }
+//       );
+//     }
+//   });
+// }
+
+// onminus(index: number) {
+//   Swal.fire({
+//     title: 'Are you sure?',
+//     text: "You won't be able to revert this!",
+//     icon: 'warning',
+//     showCancelButton: true,
+//     confirmButtonColor: '#3085d6',
+//     cancelButtonColor: '#d33',
+//     confirmButtonText: 'Yes, delete it!',
+//   }).then((result) => {
+//     if (result.isConfirmed) {
+//       this.depenFields_1.removeAt(index);
+//       Swal.fire({
+//         title: 'Deleted!',
+//         text: 'Row has been deleted.',
+//         icon: 'success',
+//       });
+//     }
+//   });
+// }
+
+onminus(index: number) {
+  var member_id= this.o['member_id'] ? this.o['member_id'].value : null
+  var user = this.responsedata[0].memb_name
+  var sl_no = this.userData[0].sl_no
+ console.log(member_id,sl_no,user, this.depenFields_1.value, 'ppppp');
+  Swal.fire({
+    title: 'Are you sure you want to delete?',
+    text: "If Yes, then click on Yes, delete it.",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.depenFields_1.removeAt(index);
+      Swal.fire({
+        title: 'Deleted!',
+        text: 'Row has been deleted.',
+        icon: 'success',
+      });
+      // this.dataServe.global_service(1, '/delete_depends_gmp',{member_id, user, sl_no})
+      //     .subscribe((data: any) => {
+      // // this.dataServe.global_service(1, `deleteTransaction/${trn_id}/${form_no}`).subscribe(
+      // //   (response) => {
+      //     console.log('API response:', data);
+      //     Swal.fire({
+      //       title: 'Deleted!',
+      //       text: 'Dependent details deleted successfully.',
+      //       icon: 'success',
+      //     }).then(() => {
+      //       // Refresh the page after deletion
+      //       window.location.reload();
+      //     });
+      //   },
+      //   (error) => {
+      //     console.error('Error during API call:', error);
+      //     Swal.fire({
+      //       title: 'Error!',
+      //       text: 'There was an issue deleting the transaction.',
+      //       icon: 'error',
+      //     });
+      //   }
+      // );
+    }
+  });
 }
 
 }

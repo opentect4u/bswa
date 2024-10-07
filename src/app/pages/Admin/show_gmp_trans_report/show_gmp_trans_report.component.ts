@@ -103,11 +103,13 @@ export class Show_gmp_trans_reportComponent implements OnInit {
   }
 
   download(){
-    const dataWithSlNo = this.userData.map((customer: { member_id: any;  memb_name: any; unit_name: any; trn_id: any; trn_dt:  string | number | Date; dept_name: any; premium_dt:  string | number | Date; family_type: any; premium_amt: any; prm_flag2: any; prm_flag3: any; premium_amt2: any; premium_amt3: any;}, index: number) => {
+    const dataWithSlNo = this.userData.map((customer: { member_id: any;  memb_name: any; dob: string | number | Date; sex: any; unit_name: any; trn_id: any; trn_dt:  string | number | Date; dept_name: any; premium_dt:  string | number | Date; family_type: any; premium_amt: any; prm_flag2: any; prm_flag3: any; premium_amt2: any; premium_amt3: any;}, index: number) => {
       return {
         'SL No': index + 1,
         'Member ID': customer.member_id,
         'Member Name': customer.memb_name,
+        'DOB': this.datePipe.transform(customer.dob, 'dd/MM/yyyy'),
+        'Gender': customer.sex,
         'Association': customer.unit_name,
         'Transaction ID': customer.trn_id,
         'Transaction Date': this.datePipe.transform(customer.trn_dt, 'dd/MM/yyyy'),

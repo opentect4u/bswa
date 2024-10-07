@@ -9,7 +9,16 @@
     <table width="100%" class="text-left">
       <tr>
         <th class="text-center" colspan="7">
-          <img src="../../../../assets/images/bokaro.jpg" width="20%" height="20%">
+          <h2>
+            <img *ngIf="trnData?.mem_type == 'G' || trnData?.mem_type == 'L' || trnData?.mem_type == 'AI'; else defaultImage" 
+                 src="../../../../assets/images/bokaro.jpg" 
+                 width="20%" height="20%">
+            
+            <ng-template #defaultImage>
+              <img src="../../../../assets/images/logo.jpg" width="20%" height="20%">
+            </ng-template>
+          </h2>
+          
           <div class="print_top_head mt-3">
             <h2>{{trnData?.mem_type == 'G' || trnData?.mem_type == 'L' || trnData?.mem_type == 'AI' ?' BOKARO STEEL PEOPLE WELFARE ASSOCIATION' : 'BOSEC WELFARE TRUST' }}</h2>
             <h4>13, Camac Street, Kolkata 700017</h4>

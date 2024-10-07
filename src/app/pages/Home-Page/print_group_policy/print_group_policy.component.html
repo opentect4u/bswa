@@ -325,10 +325,10 @@
                         <td align="left" valign="middle"><span>{{dt.disease_flag == 'Y' ? 'Yes' : dt.disease_flag == 'N' ? 'No' : ''}}</span></td>
                         <td align="left" valign="middle"><span>{{dt.disease_type}}</span></td>
                         <td align="left" valign="middle">
-                          <img *ngIf="dt.dep_doc" [src]="api_base_url + '/uploads/' + dt.dep_doc" height="50" width="50" alt="Dependent Image" />
+                          <img *ngIf="dt.dep_img" [src]="api_base_url + '/uploads/' + dt.dep_img" height="50" width="50" alt="Dependent Image" />
                         </td>
                         <td align="left" valign="middle">
-                          <img *ngIf="dt.dep_img" [src]="api_base_url + '/uploads/' + dt.dep_img" height="50" width="50" alt="Dependent Image" />
+                          <img *ngIf="dt.dep_doc" [src]="api_base_url + '/uploads/' + dt.dep_doc" height="50" width="50" alt="Dependent Image" />
                         </td>
                       </tr>
 
