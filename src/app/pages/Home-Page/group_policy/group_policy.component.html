@@ -413,8 +413,11 @@
             <p-divider type="dashed"></p-divider>
             <!-- <ng-container *ngIf="this.responsedata[0].memb_oprn=='J'"> -->
             <h3 class="text-center"><b>Dependents Information</b></h3>
+            <div class="mt-4">
+            <h4 class="text-center"><span class="text-red-700">(*If you do not add your Dependent in this policy, please remove them by click on <b>Delete</b> button then choose your group name. Example:- If you want to choose group name Only Self then first delete your dependent details else select another group name then there is no need to delete dependent details.)</span></h4>
+            </div>
 
-            <div formArrayName="depenFields_1">
+            <div formArrayName="depenFields_1" class="mt-5">
 
               <ng-container *ngFor="let group of depenFields_1.controls; let i = index" [formGroupName]="i">
                 <div class="flex flex-row mt-5">
