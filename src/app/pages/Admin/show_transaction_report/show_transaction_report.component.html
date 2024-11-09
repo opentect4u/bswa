@@ -61,10 +61,10 @@
                 <td class="text-center">{{customer.onetime_amt}}</td>
                 <td class="text-center">{{customer.premium_amt}}</td>
                 <td class="text-center">{{calculateTotalAmount(customer)}}</td>
-                <td class="text-center">{{customer.pay_mode=='C' ? 'Cash' : customer.pay_mode=='Q' ? 'Cheque' :
-                  'Online Transaction'}}</td>
-                <td class="text-center">{{customer.receipt_no}}</td>
-                <td class="text-center">{{customer.chq_no}}</td>
+                <td class="text-center">{{customer.pay_mode=='C' ? 'Cash' : customer.pay_mode=='Q' ? 'Cheque' : customer.pay_mode=='O' ?
+                  'Online Transaction' : 'N/A'}}</td>
+                <td class="text-center">{{customer.receipt_no == '' ? 'N/A' : customer.receipt_no}}</td>
+                <td class="text-center">{{customer.chq_no == '' ? 'N/A' : customer.chq_no}}</td>
                 <td class="text-center">
                   {{ customer.chq_dt ? (customer.chq_dt | date: 'dd/MM/yyyy') : '0000/00/00' }}
                 </td>

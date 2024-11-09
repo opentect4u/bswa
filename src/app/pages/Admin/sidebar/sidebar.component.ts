@@ -117,11 +117,11 @@ export class SidebarComponent implements OnInit {
             icon: 'pi pi-money-bill',
             routerLink: ['member_trans_report'],
           },
-          {
-            label: 'Approve Transaction',
-            icon: 'pi pi-money-bill',
-            routerLink: ['approve_money_receipt_transaction'],
-          },
+          // {
+          //   label: 'Approve Transaction',
+          //   icon: 'pi pi-money-bill',
+          //   routerLink: ['approve_money_receipt_transaction'],
+          // },
           {
             label: 'GMP Member Transaction Details',
             icon: 'pi pi-credit-card',
@@ -132,16 +132,16 @@ export class SidebarComponent implements OnInit {
             icon: 'pi pi-undo',
             routerLink: ['subscription_cleared_upto'],
           },
-          {
-            label: 'STP Insurance',
-            icon: 'pi pi-shield',
-            routerLink: ['stp_ins_report'],
-          },
-          {
-            label: 'Group Insurance',
-            icon: 'pi pi-list',
-            routerLink: ['gmp_ins_report'],
-          },
+          // {
+          //   label: 'STP Insurance',
+          //   icon: 'pi pi-shield',
+          //   routerLink: ['stp_ins_report'],
+          // },
+          // {
+          //   label: 'Group Insurance',
+          //   icon: 'pi pi-list',
+          //   routerLink: ['gmp_ins_report'],
+          // },
         ],
       },
     ];
