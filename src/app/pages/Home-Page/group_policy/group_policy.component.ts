@@ -109,7 +109,7 @@ export class Group_policyComponent implements OnInit {
       grp_name: [''],
       pre_amont: [''],
       sup_top_up: [''],
-      sup_pre_amont: [''],
+      sup_pre_amont: ['', Validators.required],
       sup_tot_amont: [''],
       policy_holder_type: [''],
       unit: [''],
@@ -120,6 +120,7 @@ export class Group_policyComponent implements OnInit {
       // dob: [''],
       depenFields_1: this.fb.array([]),
       form_dt: ['', Validators.required],
+      // sup_pre_amont: ['', Validators.required],
     });
 
     // this.getData_dependents();
@@ -629,7 +630,7 @@ getPremiumAmt(event:any){
   var dropVal = event.target.value
   var filter_res_dt = this.responsedata.length > 0 ? (this.responsedata[0].pre_dt.filter((dt:any) => dt.family_type_id == dropVal)) : []
   if(filter_res_dt.length > 0){
-    var sup_top_dt = [{name: 'Super Top up Amount 12 lacs', value: filter_res_dt[0].premium2, flag: 'p2'}, {name: 'Super Top up Amount 24 lacs', value: filter_res_dt[0].premium3, flag: 'p3'}]
+    var sup_top_dt = [{name: 'Super Top up Amount 6 lacs', value: filter_res_dt[0].premium2, flag: 'p2'}, {name: 'Super Top up Amount 12 lacs', value: filter_res_dt[0].premium3, flag: 'p3'}]
     this.sup_top_list = sup_top_dt
     this.form.patchValue({pre_amont: filter_res_dt[0].premium1})
   }
@@ -639,23 +640,15 @@ getPremiumAmt(event:any){
  toggleAdditionalOptions(checked:any) {
 
   if (checked == 'Y') {
-    // this.form.patchValue({
-    //   sup_top_up: this.sup_top_list[0]?.value,
-    //   sup_pre_amont: this.sup_top_list[0]?.value
-    // })
     this.additionalOptions = true;
-  } else {
-    
-    // this.form.patchValue({
-    //   sup_top_up: '',
-    //   sup_pre_amont: ''
-    // })
-    this.additionalOptions = false;
-     this.form.patchValue({
-      sup_top_up: '',
-      sup_pre_amont: ''
-    })
-  }
+  } 
+  // else {
+  //   this.additionalOptions = false;
+  //    this.form.patchValue({
+  //     sup_top_up: '',
+  //     sup_pre_amont: ''
+  //   })
+  // }
 }
 
 onFileSelected(fileData: any) {

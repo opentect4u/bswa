@@ -1,7 +1,7 @@
 <div class="row float">
   <p-button label="Print Here" styleClass="p-button-raised p-button-info print_btn" (click)="printDiv()"  style="margin-left: 1vw;"></p-button>
-  <p-button label="Download Here" styleClass="p-button-raised p-button-secondary print_btn" (click)="downloadPDF()"
-  style="margin-left: 1vw;"></p-button>
+  <!-- <p-button label="Download Here" styleClass="p-button-raised p-button-secondary print_btn" (click)="downloadPDF()"
+  style="margin-left: 1vw;"></p-button> -->
   <p-button label="Pay Now" styleClass="p-button-raised p-button-success print_btn" (click)="paynow()"></p-button>
 </div>
 <div class="background mt-3" #pdfContent id="divToPrint">
@@ -404,8 +404,8 @@
           <div class="flex flex-row">
             <div class="field col-12 md:col-12">
               <span style="color: rgb(55, 55, 230);" class="label_field"><b> {{preinfo?.prm_flag2 == 'Y' ? 'Super Top up
-                  Amount 12 lacs' :
-                  (preinfo?.prm_flag3 == 'Y' ? 'Super Top up Amount 24 lacs' : 'None') }}</b></span>
+                  Amount 6 lacs' :
+                  (preinfo?.prm_flag3 == 'Y' ? 'Super Top up Amount 12 lacs' : 'None') }}</b></span>
             </div>
           </div>
   

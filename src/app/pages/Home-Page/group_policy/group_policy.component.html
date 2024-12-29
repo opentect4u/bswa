@@ -621,23 +621,23 @@
                 <label for="pre_amont" class="label_field"><b>Do you want to avail a Super Top Up on this
                     policy?</b></label>&nbsp;
               </div>
-              <div class="field col-12 md:col-3">
+              <div class="field col-12 md:col-2">
                 <div class="flex align-items-center">
                   <input type="radio" name="super_top_up" id="super_top_up_yes" value="Y"
-                    (click)="toggleAdditionalOptions('Y')">
+                   checked>
                   <label for="super_top_up_yes" class="label_field ml-2">Yes</label>
                 </div>
               </div>
-              <div class="field col-12 md:col-3">
+              <!-- <div class="field col-12 md:col-3">
                 <div class="flex align-items-center">
                   <input type="radio" name="super_top_up" id="super_top_up_no" value="N"
-                    (click)="toggleAdditionalOptions('N')" checked>
+                    (click)="toggleAdditionalOptions('N')">
                   <label for="super_top_up_no" class="label_field ml-2">No</label>
                 </div>
-              </div>
+              </div> -->
             </div>
 
-            <ng-container *ngIf="additionalOptions">
+            <!-- <ng-container *ngIf="additionalOptions"> -->
               <div class="flex flex-row">
 
                 <div class="field col-12 md:col-3" *ngFor="let option of sup_top_list; let i = index">
@@ -668,7 +668,7 @@
               </div>
 
 
-            </ng-container>
+            <!-- </ng-container> -->
 
 
 
