@@ -98,13 +98,50 @@
     <tr>
       <th colspan="2"><label for="memb_oprn" class="label_field"><b>MEMBER OPERATION:
           </b><span class="label_field heading">
-            {{userData[0]?.memb_oprn == 'S' ? 'Self' : userData[0]?.memb_oprn == 'P' ? 'Spouse' : 'N/A'}}</span></label>
+            {{userData[0]?.memb_oprn == 'S' ? 'Self' : userData[0]?.memb_oprn == 'J' ? 'Spouse' : 'N/A'}}</span></label>
       </th>
       <th colspan="3"><label for="dissease" class="label_field"><b>DISEASES SUFFER
             fROM: </b><span class="label_field heading">
             {{userData[0]?.disease_flag != 'N' ? userData[0]?.disease_type : 'N/A'}}</span></label>
       </th>
     </tr>
+    <!-- 27.02.2025 -->
+    <tr>
+      <!-- <th class="text-center" valign="middle"><h5><b>Upload Document</b></h5></th> -->
+      <th colspan="6" class="text-center" style="background-color: aliceblue;"><label for="member_type"
+        class="label_field color"><b>UPLOAD DOCUMENT</b></label></th>
+    </tr>
+<tr>
+  <td align="middle" valign="middle" class="no_pading">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tbody>
+        <tr>
+          <td class="text-center" colspan="3" style="width: 20%;">
+            <img *ngIf="userData?.memb_img; else noImage" [src]="api_base_url  + '/' + 'uploads' + '/' + userData?.memb_img"
+              height="25%" width="25%" alt="Member Photo" />
+            <ng-template #noImage>
+              <div class="no-image">
+                <i class="pi pi-camera" style="font-size: 2rem"></i>
+                <h5>No Image uploaded</h5>
+              </div>
+            </ng-template>
+          </td>
+          <td class="text-center" colspan="3" style="width: 20%;">
+            <img *ngIf="userData?.doc_img; else noImage" [src]="api_base_url + '/' + 'uploads' + '/' + userData?.doc_img"
+              height="25%" width="25%" alt="Member Photo" />
+            <ng-template #noImage>
+              <div class="no-image">
+                <i class="pi pi-camera" style="font-size: 2rem"></i>
+                <h5>No Image uploaded</h5>
+              </div>
+            </ng-template>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </td>
+</tr>
+
     <tr>
       <th colspan="5" class="text-center" style="background-color: aliceblue;"><label for="member_type"
           class="label_field color"><b>DETAILS OF DEPENDENT</b></label></th>
@@ -310,9 +347,9 @@
       <th colspan="5"><label for="member_type" class="label_field"><b>Total Premium Amount:</b><span class="label_field heading"> {{tot_pre_amt}}</span></label></th>
     </tr>
   </table>
-  <div class="flex flex-row mt-3">
+  <!-- <div class="flex flex-row mt-3">
     <button pButton pRipple type="button" label="Pay Now" class="p-button-raised sub_btn" (click)="generatePay()"></button>
-  </div>
+  </div> -->
   <!-- <button class="btn-success" (click)="generatePay()">Pay Now</button> -->
 </ng-container>
 <!-- </p-card> -->

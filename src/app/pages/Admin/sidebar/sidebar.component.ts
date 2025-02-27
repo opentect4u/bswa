@@ -51,22 +51,22 @@ export class SidebarComponent implements OnInit {
       //     },
       //   ],
       // },
-      // {
-      //   label: 'Existing Group Policy',
-      //   icon: 'pi pi-fw pi-users',
-      //   items: [
-      //     {
-      //       label: 'Accept / Reject Group Policy Form',
-      //       icon: 'pi pi-check',
-      //       routerLink: ['admin_group_premium_approve'],
-      //     },
-      //     {
-      //       label: 'Approve Group Policy Form',
-      //       icon: 'pi pi-verified',
-      //       routerLink: ['group_policy_approve_form'],
-      //     },
-      //   ],
-      // },
+      {
+        label: 'Existing Group Policy',
+        icon: 'pi pi-fw pi-users',
+        items: [
+          {
+            label: 'Approve / Reject Group Policy Form',
+            icon: 'pi pi-check',
+            routerLink: ['admin_group_premium_approve'],
+          },
+          // {
+          //   label: 'Approve Group Policy Form',
+          //   icon: 'pi pi-verified',
+          //   routerLink: ['group_policy_approve_form'],
+          // },
+        ],
+      },
       {
         label: 'Subscription Deposit',
         icon: 'pi pi-fw pi-users',

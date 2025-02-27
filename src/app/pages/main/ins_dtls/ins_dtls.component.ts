@@ -116,6 +116,8 @@ export class Ins_dtlsComponent implements OnInit {
   pre_amt_flag: any;
   pre_amt_value: any;
   tot_pre_amt: number = 0;
+  api_base_url = environment.api_url;
+
   // userMedicalData: MedicalInfo | any ;
 
   constructor(private router: Router, private dataServe: DataService) { }
