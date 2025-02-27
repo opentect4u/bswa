@@ -45,6 +45,8 @@ interface UserInfo {
   amount: string;
   particulars: string;
   treatment_dtls: string;
+  memb_img: string,
+  doc_img: string,
 }
 
 interface DepInfo {
@@ -203,46 +205,54 @@ export class Ins_dtlsComponent implements OnInit {
       });
   }
   
-  generatePay(){
-    var payData = {
-      form_no: this.userData[0].form_no,
-      member_id: this.userData[0]?.member_id,
-      memb_name: this.userData[0]?.memb_name,
-      // amount: this.pre_amt_value,
-      amount: this.tot_pre_amt,
-      phone_no: this.userData[0]?.phone,
-      email: '',
-      approve_status: 'A',
-      calc_upto: '',
-      subs_type: '',
-      // sub_fee: this.tot_pre_amt,
-      sub_fee: this.pre_amt_value,
-      redirect_path: '/main/ins_dtls',
-      soc_flag: 'T',
-      trn_id: ''
-    };
+  // generatePay(){
+  //   var payData = {
+  //     form_no: this.userData[0].form_no,
+  //     member_id: this.userData[0]?.member_id,
+  //     memb_name: this.userData[0]?.memb_name,
+  //     // amount: this.pre_amt_value,
+  //     amount: this.tot_pre_amt,
+  //     phone_no: this.userData[0]?.phone,
+  //     email: '',
+  //     approve_status: 'A',
+  //     calc_upto: '',
+  //     subs_type: '',
+  //     // sub_fee: this.tot_pre_amt,
+  //     sub_fee: this.pre_amt_value,
+  //     redirect_path: '/main/ins_dtls',
+  //     soc_flag: 'T',
+  //     trn_id: ''
+  //   };
 
-    var payEncData = CryptoJS.AES.encrypt(
-      JSON.stringify(payData),
-      this.secretKey
-    ).toString();
+  //   var payEncData = CryptoJS.AES.encrypt(
+  //     JSON.stringify(payData),
+  //     this.secretKey
+  //   ).toString();
 
-    //sayantika
-    // var dt = {
-    //   formNo: this.userData[0].form_no,
-    //   status: 'A',
-    //   user: localStorage.getItem('user_name'),
-    //   pre_amt: this.tot_pre_amt,
-    //   member: this.userData[0]?.memb_name,
-    //   phone_no: this.userData[0]?.phone,
-    //   trn_id: '',
-    //   payEncDataGen: payEncData,
-    // };
-    //
+  //   //sayantika
+  //   // var dt = {
+  //   //   formNo: this.userData[0].form_no,
+  //   //   status: 'A',
+  //   //   user: localStorage.getItem('user_name'),
+  //   //   pre_amt: this.tot_pre_amt,
+  //   //   member: this.userData[0]?.memb_name,
+  //   //   phone_no: this.userData[0]?.phone,
+  //   //   trn_id: '',
+  //   //   payEncDataGen: payEncData,
+  //   // };
+  //   //
 
-    this.router.navigate(['/auth/payment_preview_page'], { 
-      queryParams: { enc_dt: payEncData }
-    });
+  //   this.router.navigate(['/auth/payment_preview_page'], { 
+  //     queryParams: { enc_dt: payEncData }
+  //   });
+  // }
+
+  getImageUrl(imagePath: string | undefined): string {
+    return imagePath ? `${this.api_base_url}/uploads/${imagePath}` : 'assets/default-image.png';
   }
-
+  
+  handleImageError(event: any) {
+    event.target.src = 'assets/default-image.png'; // Fallback image if loading fails
+  }
+  
 }

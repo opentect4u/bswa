@@ -80,21 +80,21 @@ export class Admin_group_premium_approveComponent implements OnInit {
       .subscribe(data => {
         console.log(data, 'Response Data');
         this.userData = data;
+        
         if (this.userData.suc > 0) {
-          this.tbFilterData = this.userData.msg; // Assign correct data
-          this.calculateCounts(); // Call calculateCounts() after updating tbFilterData
+          this.tbFilterData = this.userData.msg || []; 
+          this.filterTableData(this.tr_status);
+          // this.calculateCounts(); 
         } else {
           this.tbFilterData = [];
-          this.calculateCounts(); // Ensure counts reset when no data is found
         }
-  
+        this.calculateCounts(); 
         this.cdr.detectChanges(); // Force UI update if needed
       }, error => {
         console.error(error);
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'An error occurred while fetching data' });
       });
   }
-  
 
   // submit_search_gmp(){
   //   var dt = {
@@ -137,13 +137,19 @@ export class Admin_group_premium_approveComponent implements OnInit {
   }
 
   calculateCounts() {
+    if (!this.userData?.msg || !Array.isArray(this.userData.msg)) {
+      console.warn('No valid data found in userData.msg');
+      this.pendingCount = this.rejectCount = this.approvedCount = 0;
+      return;
+    }
   
-    this.pendingCount = this.tbFilterData.filter(item => item?.form_status === 'P').length;
-    this.rejectCount = this.tbFilterData.filter(item => item?.form_status === 'R').length;
-    this.approvedCount = this.tbFilterData.filter(item => item?.form_status === 'A').length;
-
+    this.pendingCount = this.userData.msg.filter((item: { form_status?: string }) => item?.form_status === 'P').length;
+    this.rejectCount = this.userData.msg.filter((item: { form_status?: string }) => item?.form_status === 'R').length;
+    this.approvedCount = this.userData.msg.filter((item: { form_status?: string }) => item?.form_status === 'A').length;
+  
     console.log(`Pending: ${this.pendingCount}, Rejected: ${this.rejectCount}, Approved: ${this.approvedCount}`);
   }
+  
 
   preview(formNo:any, memb_id: any) { //route to the particular restaurant on clicking on the edit option
     // alert(v);
@@ -159,40 +165,27 @@ export class Admin_group_premium_approveComponent implements OnInit {
   // filterTableData(flag:any){
   //   this.tbFilterData = this.userData.length > 0 ? this.userData.filter((dt:any) => flag == 'R' ? dt.form_status == 'R' : this.userData.filter((dt:any) => flag == 'Y' ? dt.form_status == 'P' : dt.form_status == flag) : []
   // }
-
-  // filterTableData(flag: any) {
-  //   if (this.userData.length > 0) {
-  //     this.tbFilterData = this.userData.filter((dt: any) => {
-  //       if (flag === 'R') {
-  //         return dt.form_status === 'R'; // Show only rejected
-  //       } else if (flag === 'Y') {
-  //         return dt.form_status === 'P'; // Show only approved
-  //       } else {
-  //         return dt.form_status === 'A' ;
-  //       }
-  //     });
-  //   } else {
-  //     this.tbFilterData = [];
-  //   }
-  // }
   
+
   filterTableData(flag: any) {
-    if (this.userData.length > 0) {
-      this.tbFilterData = this.userData.filter((dt: any) => {
+    if (this.userData.msg && this.userData.msg.length > 0) {
+      this.tbFilterData = this.userData.msg.filter((dt: any) => {
         if (flag === 'Y') {
           return dt.form_status === 'P'; 
         } else if (flag === 'R') {
           return dt.form_status === 'R'; 
-        } else if (flag === 'A') {
-          return dt.form_status === 'A'; 
         } else {
-          return true; // Return all if no match
+          return dt.form_status === 'A'; 
+        // } else {
+        //   return true;
         }
       });
     } else {
       this.tbFilterData = [];
     }
   }
+  
+  
   
   
 }
