@@ -90,6 +90,13 @@ const routes: Routes = [
             (m) => m.Ins_dtlsModule
           ),
       },
+      {
+        path: 'change_password_member',
+        loadChildren: () =>
+          import('../main/change_password_member/change_password_member.module').then(
+            (m) => m.Change_password_memberModule
+          ),
+      },
     ],
   },
 ];

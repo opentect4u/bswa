@@ -30,8 +30,8 @@
             <ng-template pTemplate="header">
               <tr>
                 <th id="table_color">SL No</th>
-                <!-- <th id="table_color">Transaction ID</th> -->
-                <!-- <th id="table_color">Transaction Date</th> -->
+                <th id="table_color">Transaction ID</th>
+                <th id="table_color">Transaction Date</th>
                 <th id="table_color">Member ID</th>
                 <th id="table_color">Member Name</th>
                 <th id="table_color">Admission Fee</th>
@@ -50,9 +50,9 @@
             <ng-template pTemplate="body" let-customer let-i="rowIndex">
               <tr>
                 <td class="text-center">{{i+1}}</td>
-                <!-- <td class="text-center"><b>{{customer.trn_id}}</b></td> -->
-                <!-- <td class="text-center"><b>{{customer.trn_dt ? (customer.trn_dt | date: 'dd/MM/yyyy') :
-                    '0000/00/00'}}</b></td> -->
+                <td class="text-center"><b>{{customer.trn_id}}</b></td>
+                <td class="text-center"><b>{{customer.trn_dt ? (customer.trn_dt | date: 'dd/MM/yyyy') :
+                    '0000/00/00'}}</b></td>
                 <td class="text-center">{{customer.member_id}}</td>
                 <td class="text-center">{{customer.memb_name}}</td>
                 <td class="text-center">{{customer.adm_fee}}</td>
@@ -75,7 +75,7 @@
 
             <ng-template pTemplate="footer">
               <tr>
-                <td colspan="3" class="text-center">Total</td>
+                <td colspan="5" class="text-center">Total</td>
                 <td class="text-center">{{totalAdmissionFee }}</td>
                 <td class="text-center">{{totalDonationnFee}}</td>
                 <td class="text-center">{{totalSumamount}}</td>
@@ -88,17 +88,19 @@
 
             <ng-template pTemplate="emptymessage">
               <tr>
-                <td colspan="13" class="text-center text-red-900">No data available</td>
+                <td colspan="15" class="text-center text-red-900">No data available</td>
               </tr>
             </ng-template>
           </p-table>
         </div>
 
       </div>
-      <p-button label="PRINT" styleClass="p-button-rounded print_btn" (click)="printDiv()"
-        style="margin-left: 1vw;"></p-button>
-        <p-button label="Download" styleClass="p-button-rounded print_btn" (click)="download()"
-        style="margin-left: 1vw;"></p-button>
+      <!-- <p-button label="PRINT" styleClass="p-button-rounded print_btn" (click)="printDiv()"
+        style="margin-left: 1vw;"></p-button> -->
+        <button mat-raised-button color="primary" style="margin-left: 1vw" (click)="printDiv()">Print</button>
+        <button mat-raised-button color="primary" style="margin-left: 1vw" (click)="download()">Download</button>
+        <!-- <p-button label="Download" styleClass="p-button-rounded print_btn" (click)="download()"
+        style="margin-left: 1vw;"></p-button> -->
     </div>
   </div>
 

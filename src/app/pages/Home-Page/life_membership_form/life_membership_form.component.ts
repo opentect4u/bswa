@@ -54,6 +54,8 @@ export class Life_membership_formComponent implements OnInit {
   spouseFile!: File;
   mem_type: any;
   maxDate!: string;
+  staffExists: boolean = false;
+  mobileExists: boolean = false;
 
   constructor(private router: Router, private fb: FormBuilder,private route: ActivatedRoute, private dataServe: DataService,private validatorsService: ValidatorsService) { }
 
@@ -173,6 +175,72 @@ export class Life_membership_formComponent implements OnInit {
   get ff() {
     return this.form_4.controls;
   }
+
+    onStaffNoChange(event: Event): void {
+      const staffInput = event.target as HTMLInputElement;
+      const staffNo = staffInput.value.trim();
+  
+      if (!staffNo) {
+          this.staffExists = false;
+          return;
+      }
+  
+      this.dataServe.global_service(1, '/check_staff_no', { staff_no: staffNo })
+          .subscribe((response: any) => {
+              if (response.suc === 1 && response.exists) {
+                  this.staffExists = true;
+                  Swal.fire({
+                    title: 'Warning',
+                    text: 'This Staff No already exists.',
+                    icon: 'warning',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    // Clear the input field on "OK" click
+                    staffInput.value = '';
+                    this.staffExists = false;
+                    this.form.get('staff')?.setValue('');  // Optional: Clear FormControl
+                });
+              } else {
+                  this.staffExists = false;
+              }
+          }, (error) => {
+              console.error('Error fetching staff data:', error);
+              this.staffExists = false;
+          });
+  }
+
+  onMobileChange(event: Event): void {
+    const mobileInput = event.target as HTMLInputElement;
+    const mobileNo = mobileInput.value.trim();
+
+    if (!mobileNo) {
+        this.mobileExists = false;
+        return;
+    }
+
+    this.dataServe.global_service(1, '/check_mobile_no', { phone_no: mobileNo })
+    .subscribe((response: any) => {
+        if (response.suc === 1 && response.exists) {
+            this.mobileExists = true;
+            Swal.fire({
+                title: 'Warning',
+                text: 'This Mobile No already exists.',
+                icon: 'warning',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                // Clear the input field on "OK" click
+                mobileInput.value = '';
+                this.mobileExists = false;
+                this.form.get('mobile')?.setValue('');  // Optional: Clear FormControl
+            });
+        } else {
+            this.mobileExists = false;
+        }
+    }, (error) => {
+        console.error('Error fetching mobile number data:', error);
+        this.mobileExists = false;
+    });
+}
 
   onFileSelected(fileData: any) {
     const { file, flag } = fileData;

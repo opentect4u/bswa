@@ -133,6 +133,13 @@ export class Group_policyComponent implements OnInit {
    this.relationship();
    this.onadd(); 
    this.get_non_dtls();
+   
+   this.form.get('gen_dob')?.valueChanges.subscribe((dobValue) => {
+    const selectedValue = this.form.get('memb_oprn')?.value;
+    if (selectedValue) {
+      this.filterDataBasedOnDOBAndOperation(selectedValue, dobValue);
+    }
+  });
   }
 
   get totalAmount(): number {
@@ -204,33 +211,43 @@ export class Group_policyComponent implements OnInit {
   //   }
   // }
 
-  onPolicyAddDependent(event: Event): void {
-    const selectedValue = (event.target as HTMLSelectElement).value;
+  filterDataBasedOnDOBAndOperation(selectedValue: string, dobValue: string): void {
+    const dobControl = this.form.get('gen_dob');
   
-    // this.get_non_dtls().subscribe((data: any) => {
-      this.dataServe
-      .global_service(0, '/get_non_premium_dtls', null)
-      .subscribe((data: any) => {
+    if (!dobControl || !dobControl.value) {
+      Swal.fire('Error', 'Please enter Date of Birth first.', 'error');
+      return;
+    }
+  
+    const dob = new Date(dobValue);
+    const today = new Date();
+    const age = today.getFullYear() - dob.getFullYear();
+  
+    this.dataServe.global_service(0, '/get_non_premium_dtls', null).subscribe((data: any) => {
       this.responsedata = data.suc > 0 ? data.msg : [];
       this.responsedata[0]['pre_dt'] = this.responsedata;
   
-      // Filter the data based on the selected value
       if (selectedValue === 'J') {
         this.responsedata[0].pre_dt = this.responsedata[0].pre_dt.filter(
-          (group: any) => group.family_catg == 'J'
+          (group: any) =>
+            group.family_catg === 'J' &&
+            (age > 50 ? group.age_group === 'Above50' : group.age_group === 'Below50')
         );
-        this.onadd();
-      } else {
+      } else if (selectedValue === 'S') {
         this.responsedata[0].pre_dt = this.responsedata[0].pre_dt.filter(
-          (group: any) => group.family_catg == 'S'
+          (group: any) =>
+            group.family_catg === 'S' &&
+            (age > 50 ? group.age_group === 'Above50' : group.age_group === 'Below50')
         );
+      }
   
+      if (this.responsedata[0].pre_dt.length === 0) {
         Swal.fire(
           'Warning',
-          'There is no access to add More Dependent',
+          'No eligible dependents found based on the selected operation and age.',
           'warning'
         ).then((result) => {
-          (event.target as HTMLSelectElement).value = 'S';
+          this.form.get('memb_oprn')?.setValue('S'); // Reset selection
           if (result.isConfirmed) {
             this.depenFields_1.clear();
           }
@@ -238,6 +255,98 @@ export class Group_policyComponent implements OnInit {
       }
     });
   }
+
+  onPolicyAddDependent(event: Event): void {
+    const selectedValue = (event.target as HTMLSelectElement).value;
+    const dobValue = this.form.get('gen_dob')?.value;
+  
+    this.filterDataBasedOnDOBAndOperation(selectedValue, dobValue);
+  }
+  
+  
+
+  // onPolicyAddDependent(event: Event): void {
+  //   const selectedValue = (event.target as HTMLSelectElement).value;
+  //   const dobControl = this.form.get('gen_dob');
+
+  //   if (!dobControl || !dobControl.value) {
+  //     Swal.fire('Error', 'Please enter Date of Birth first.', 'error');
+  //     return;
+  //   }
+
+  //   const dob = new Date(dobControl.value);
+  //   const today = new Date();
+  //   const age = today.getFullYear() - dob.getFullYear();
+  //   console.log(age,'ageee');
+    
+  
+  //   // this.get_non_dtls().subscribe((data: any) => {
+  //     this.dataServe.global_service(0, '/get_non_premium_dtls', null).subscribe((data: any) => {
+  //     this.responsedata = data.suc > 0 ? data.msg : [];
+  //     this.responsedata[0]['pre_dt'] = this.responsedata;
+  
+  //     // Filter the data based on the selected value
+  //     // if (selectedValue === 'J') {
+  //     //   this.responsedata[0].pre_dt = this.responsedata[0].pre_dt.filter(
+  //     //     (group: any) => group.family_catg == 'J'
+  //     //   );
+  //     //   this.onadd();
+  //     // } else {
+  //     //   this.responsedata[0].pre_dt = this.responsedata[0].pre_dt.filter(
+  //     //     (group: any) => group.family_catg == 'S'
+  //     //   );
+  
+  //     //   Swal.fire(
+  //     //     'Warning',
+  //     //     'There is no access to add More Dependent',
+  //     //     'warning'
+  //     //   ).then((result) => {
+  //     //     (event.target as HTMLSelectElement).value = 'S';
+  //     //     if (result.isConfirmed) {
+  //     //       this.depenFields_1.clear();
+  //     //     }
+  //     //   });
+  //     // }
+
+  //     if (selectedValue === 'J') {
+  //       if (age > 50) {
+  //         this.responsedata[0].pre_dt = this.responsedata[0].pre_dt.filter(
+  //           (group: any) => group.family_catg == 'J' && group.age_group == 'Above50'
+  //         );
+  //       } else {
+  //         this.responsedata[0].pre_dt = this.responsedata[0].pre_dt.filter(
+  //           (group: any) => group.family_catg == 'J' && group.age_group == 'Below50'
+  //         );
+  //       }
+  //       this.onadd();
+  //     } else if (selectedValue === 'S') {
+  //       if (age > 50) {
+  //         this.responsedata[0].pre_dt = this.responsedata[0].pre_dt.filter(
+  //           (group: any) => group.family_catg == 'S' && group.age_group == 'Above50'
+  //         );
+  //       } else {
+  //         this.responsedata[0].pre_dt = this.responsedata[0].pre_dt.filter(
+  //           (group: any) => group.family_catg == 'S' && group.age_group == 'Below50'
+  //         );
+  //       }
+  //     }
+  
+  //     // Handle case when no data is found
+  //     if (this.responsedata[0].pre_dt.length === 0) {
+  //       Swal.fire(
+  //         'Warning',
+  //         'No eligible dependents found based on the selected operation and age.',
+  //         'warning'
+  //       ).then((result) => {
+  //         (event.target as HTMLSelectElement).value = 'S'; // Reset selection
+  //         if (result.isConfirmed) {
+  //           this.depenFields_1.clear();
+  //         }
+  //       });
+  //     }
+  
+  //   });
+  // }
   
 
   
@@ -629,6 +738,8 @@ getPremiumAmt(event:any){
   console.log(event.target.value);
   var dropVal = event.target.value
   var filter_res_dt = this.responsedata.length > 0 ? (this.responsedata[0].pre_dt.filter((dt:any) => dt.family_type_id == dropVal)) : []
+  console.log(filter_res_dt,'dt.family_type_id');
+  
   if(filter_res_dt.length > 0){
     var sup_top_dt = [{name: 'Super Top up Amount 6 lacs', value: filter_res_dt[0].premium2, flag: 'p2'}, {name: 'Super Top up Amount 12 lacs', value: filter_res_dt[0].premium3, flag: 'p3'}]
     this.sup_top_list = sup_top_dt

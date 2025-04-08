@@ -17,6 +17,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TooltipModule } from 'primeng/tooltip';
+import { MatButtonModule } from '@angular/material/button';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 const routes:Routes=[
   {path:'',component:Change_password_memberComponent}
@@ -40,6 +42,8 @@ const routes:Routes=[
     FileUploadModule,
     ReactiveFormsModule,
     TooltipModule,
+    MatButtonModule,
+    FontAwesomeModule,
     RouterModule.forChild(routes)
   ],
   declarations: [Change_password_memberComponent]

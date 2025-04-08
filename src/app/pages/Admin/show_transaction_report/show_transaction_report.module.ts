@@ -19,6 +19,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TooltipModule } from 'primeng/tooltip';
 import { CheckboxModule } from 'primeng/checkbox';
 import { DatePipe } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
 
 const routes:Routes=[
   {path:'',component:Show_transaction_reportComponent}
@@ -44,6 +45,7 @@ const routes:Routes=[
     TooltipModule,
     CheckboxModule,
     DatePipe,
+    MatButtonModule,
     RouterModule.forChild(routes)
   ],
   declarations: [Show_transaction_reportComponent]

@@ -48,6 +48,7 @@ export class Associate_membership_formComponent implements OnInit {
   spouseFile!: File;
   mem_type: any;
   maxDate!: string;
+  mobileExists: boolean = false;
 
   constructor(private router: Router, private fb: FormBuilder,private route: ActivatedRoute, private dataServe: DataService,private validatorsService: ValidatorsService) { }
 
@@ -132,6 +133,39 @@ export class Associate_membership_formComponent implements OnInit {
 
   get ff() {
     return this.form_4.controls;
+  }
+
+    onMobileChange(event: Event): void {
+      const mobileInput = event.target as HTMLInputElement;
+      const mobileNo = mobileInput.value.trim();
+  
+      if (!mobileNo) {
+          this.mobileExists = false;
+          return;
+      }
+  
+      this.dataServe.global_service(1, '/check_mobile_no', { phone_no: mobileNo })
+      .subscribe((response: any) => {
+          if (response.suc === 1 && response.exists) {
+              this.mobileExists = true;
+              Swal.fire({
+                  title: 'Warning',
+                  text: 'This Mobile No already exists.',
+                  icon: 'warning',
+                  confirmButtonText: 'OK'
+              }).then(() => {
+                  // Clear the input field on "OK" click
+                  mobileInput.value = '';
+                  this.mobileExists = false;
+                  this.form.get('mobile')?.setValue('');  // Optional: Clear FormControl
+              });
+          } else {
+              this.mobileExists = false;
+          }
+      }, (error) => {
+          console.error('Error fetching mobile number data:', error);
+          this.mobileExists = false;
+      });
   }
 
   onFileSelected(fileData: any) {

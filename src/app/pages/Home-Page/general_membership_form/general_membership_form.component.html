@@ -126,9 +126,12 @@
               <label for="phone" class="label_field"><b>Whatsapp Phone No:<span
                     class="text-red-700">*</span></b></label>&nbsp;
               <input id="phone" type="text" formControlName="phone" maxlength="10" placeholder="Enter Phone No"
-                class="box_input text-2xl text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                class="box_input text-2xl text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" (change)="onMobileChange($event)"/>
               <div *ngIf="f['phone']?.touched || f['phone']?.dirty">
                 <small class="text-red-900" *ngIf="f['phone']?.errors">Phone No is required.</small>
+              </div>
+              <div *ngIf="mobileExists">
+                <small class="text-red-900">Phone No already exists.</small>
               </div>
             </div>
           </div>
@@ -177,9 +180,12 @@
             <div class="field col-12 md:col-4">
               <label for="staff" class="label_field"><b>Staff No:<span class="text-red-700">*</span></b></label>&nbsp;
               <input id="staff" type="text" formControlName="staff" placeholder="Enter Staff No"
-                class="box_input text-2xl text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                class="box_input text-2xl text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" (change)="onStaffNoChange($event)"/>
               <div *ngIf="f['staff']?.touched || f['staff']?.dirty">
                 <small class="text-red-900" *ngIf="f['staff']?.errors">Staff No is required.</small>
+              </div>
+              <div *ngIf="staffExists">
+                <small class="text-red-900">Staff No already exists.</small>
               </div>
             </div>
             <div class="field col-12 md:col-4">

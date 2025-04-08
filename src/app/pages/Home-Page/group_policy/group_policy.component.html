@@ -261,7 +261,7 @@
                 formControlName="gen_dob" 
                 placeholder="dd/MM/yyyy" 
                 [max]="maxDate"
-                class="box_input text-2xl text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" 
+                class="box_input text-2xl text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"  
               />
               <div *ngIf="o['gen_dob']?.touched || o['gen_dob']?.dirty">
                 <small class="text-red-900" *ngIf="o['gen_dob']?.errors?.['required']">DOB is required.</small>
@@ -596,12 +596,12 @@
                   class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                   style="appearance: auto; height: 3vw; border-radius: 7px" (change)="getPremiumAmt($event)">
                   <option value="">Select Group Name</option>
-                  <ng-container *ngIf="responsedata.length > 0">
+                  <!-- <ng-container *ngIf="responsedata.length > 0">
                     <option *ngFor="let option of responsedata[0].pre_dt" [value]="option.family_type_id">{{
                       option.family_type
                       }}
                     </option>
-                  </ng-container>
+                  </ng-container> -->
                 </select>
               </div>
             </div>
