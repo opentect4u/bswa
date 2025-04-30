@@ -30,10 +30,11 @@ export class TrnHistoryViewComponent implements OnInit {
   }
 
   getTransactionDetails(form_no:any, trn_id:any){
-    const sanitizedFormNo = form_no?.replace(/^'+|'+$/g, ''); 
+    // const sanitizedFormNo = form_no?.replace(/^'+|'+$/g, ''); 
+    form_no = `'${form_no}'`,
     this.dataServe
       .global_service(1, '/user_tnx_details', {
-        form_no,
+        // form_no,
         trn_id,
         // form_no: sanitizedFormNo || '', 
         // trn_id: trn_id || 0
