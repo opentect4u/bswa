@@ -49,7 +49,10 @@ export class TrnHistoryComponent implements OnInit {
   }
 
   getTransactionDetails(form_no:any){
-    form_no = this.presentIns ? `'${form_no}','${this.memberInsDtls.form_no}'` : `'${form_no}'`
+    // form_no = this.presentIns ? `'${form_no}','${this.memberInsDtls.form_no}'` : `'${form_no}'`
+    form_no = this.presentIns 
+    ? `${form_no},${this.memberInsDtls.form_no}`  // Don't add extra quotes here
+    : form_no;
     
     this.dataServe.global_service(1, '/user_tnx_details',{form_no})
           .subscribe((data: any) => {

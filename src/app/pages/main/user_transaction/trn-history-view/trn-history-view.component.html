@@ -19,11 +19,11 @@
         <td class="break" colspan="7"></td>
       </tr>
       <tr class="mt-3">
-        <th>ID</th>
+        <th>Transaction ID</th>
         <td class="text-left">:</td>
         <td>{{trn_id}}</td>
         <td class="ceperate"></td>
-        <th>Date</th>
+        <th>Transaction Date</th>
         <td>:</td>
         <td>{{trnData?.trn_dt | date: 'dd/MM/yyyy'}}</td>
       </tr>
@@ -32,16 +32,34 @@
         <td>:</td>
         <td>{{trnData?.sub_amt}}</td>
         <td class="ceperate"></td>
-        <th>One time Amount</th>
+        <th>Total Amount</th>
         <td>:</td>
-        <td>{{trnData?.onetime_amt}}</td>
+        <td>{{trnData?.tot_amt}}</td>
+      </tr>
+      <tr>
+        <th>Previous Subscription</th>
+        <td>:</td>
+        <td>{{trnData?.prev_upto | date: 'dd/MM/yyyy'}}</td>
+        <td class="ceperate"></td>
+          <th>Subscription Upto</th>
+        <td>:</td>
+        <td>{{trnData?.curr_upto | date: 'dd/MM/yyyy'}}</td>
+      </tr>
+      <tr>
+        <th>Paymode</th>
+        <td>:</td>
+        <td>{{payMode[trnData?.pay_mode]}}</td>
+        <td class="ceperate"></td>
+        <th>Total Month Paid</th>
+        <td>:</td>
+        <td>{{trnData?.months_paid}} months ({{trnData?.prev_next_month_name}} - {{trnData?.curr_month_name}}) </td>
       </tr>
       <tr>
         <th>Admission Fee</th>
         <td>:</td>
         <td>{{trnData?.adm_fee}}</td>
         <td class="ceperate"></td>
-        <th>Donation</th>
+        <th>Donation Fee</th>
         <td>:</td>
         <td>{{trnData?.donation}}</td>
       </tr>
@@ -50,19 +68,9 @@
         <td>:</td>
         <td>{{trnData?.premium_amt}}</td>
         <td class="ceperate"></td>
-        <th>Total Amount</th>
+         <th>One time Amount</th>
         <td>:</td>
-        <td>{{trnData?.tot_amt}}</td>
-      </tr>
-      <tr>
-        <th>Paymode</th>
-        <td>:</td>
-        <td>{{payMode[trnData?.pay_mode]}}</td>
-      </tr>
-      <tr *ngIf="trnData?.pay_mode != 'Q'">
-        <th>Receipt Number</th>
-        <td>:</td>
-        <td>{{trnData?.receipt_no}}</td>
+        <td>{{trnData?.onetime_amt}}</td>
       </tr>
       <ng-container *ngIf="trnData?.pay_mode == 'Q'">
         <tr>
@@ -81,6 +89,12 @@
         </tr> -->
       </ng-container>
       <tr>
+        <ng-container *ngIf="trnData?.pay_mode != 'Q'">
+          <th>Receipt Number</th>
+          <td>:</td>
+          <td>{{trnData?.receipt_no}}</td>
+        </ng-container>
+        <td class="ceperate"></td>
         <th>Status</th>
         <td>:</td>
         <td>{{trnData?.approval_status == 'U' ? 'Unapproved' : 'Approved'}}</td>

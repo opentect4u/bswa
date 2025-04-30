@@ -30,17 +30,50 @@ export class TrnHistoryViewComponent implements OnInit {
   }
 
   getTransactionDetails(form_no:any, trn_id:any){
+    const sanitizedFormNo = form_no?.replace(/^'+|'+$/g, ''); 
     this.dataServe
       .global_service(1, '/user_tnx_details', {
-        form_no: '',
+        form_no,
         trn_id,
+        // form_no: sanitizedFormNo || '', 
+        // trn_id: trn_id || 0
       })
       .subscribe((data: any) => {
         this.trnResData = data;
         this.trnResData = this.trnResData.suc > 0 ? this.trnResData.msg : [];
         this.trnData = this.trnResData.length > 0 ? this.trnResData[0] : {};
       });
+      // .subscribe((data: any) => {
+      //   console.log("API response:", data); 
+      //   if (data?.suc > 0 && Array.isArray(data.msg)) {
+      //     this.trnResData = data.msg;
+      //     this.trnData = this.trnResData.length > 0 ? this.trnResData[0] : {};
+      //   } else {
+      //     this.trnResData = [];
+      //     this.trnData = {};
+      //   }
+      // });
   }
+
+  // getTransactionDetails(form_no: any, trn_id: any) {
+  //   const sanitizedFormNo = form_no?.replace(/^'+|'+$/g, '');  // Remove quotes
+  //   console.log("Sanitized form_no:", sanitizedFormNo);
+  //   this.dataServe
+  //     .global_service(1, '/user_tnx_details', {
+  //       form_no: sanitizedFormNo || '', 
+  //       trn_id: trn_id || 0
+  //     })
+  //     .subscribe((data: any) => {
+  //       console.log("Response from API:", data);  // Log response to check data
+  //       if (data?.suc > 0 && Array.isArray(data.msg)) {
+  //         this.trnResData = data.msg;
+  //         this.trnData = this.trnResData.length > 0 ? this.trnResData[0] : {};
+  //       } else {
+  //         this.trnResData = [];
+  //         this.trnData = {};
+  //       }
+  //     });
+  // }
 
   printDiv() {
     this.divToPrint = document.getElementById('divToPrint');
