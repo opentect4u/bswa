@@ -21,10 +21,39 @@
     </div>
   </form>
 
+  <div class="card mt-4 p-3 text-center surface-100 border-round">
+    <div class="grid">
+      <div class="col-12 md:col-3">
+        <div class="p-3 bg-yellow-100 border-round">
+          <h4 class="text-yellow-700">Pending</h4>
+          <h2 class="text-yellow-900">{{ pendingCount }}</h2>
+        </div>
+      </div>
+      <div class="col-12 md:col-3">
+        <div class="p-3 bg-red-100 border-round">
+          <h4 class="text-red-700">Rejected</h4>
+          <h2 class="text-red-900">{{ rejectCount }}</h2>
+        </div>
+      </div>
+      <div class="col-12 md:col-3">
+        <div class="p-3 bg-green-100 border-round">
+          <h4 class="text-green-700">Accept</h4>
+          <h2 class="text-green-900">{{ acceptount }}</h2>
+        </div>
+      </div>
+      <div class="col-12 md:col-3">
+        <div class="p-3 bg-green-100 border-round">
+          <h4 class="text-green-700">Approved</h4>
+          <h2 class="text-green-900">{{ approvedCount }}</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <div class="card mt-4">
     <p-table [value]="tbFilterData" #dt2 dataKey="id" [rows]="10" [showCurrentPageReport]="true"
-      [rowsPerPageOptions]="[10, 25, 50]" [paginator]="false"
+      [rowsPerPageOptions]="rowsPerPageOptions" [paginator]="true"
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
       [globalFilterFields]="['memb_type']" [tableStyle]="{
         'min-width': '55rem',
@@ -35,7 +64,7 @@
           <div class="flex align-items-center">
             <input type="radio" name="tb_filter" [(ngModel)]="tr_status" (click)="filterTableData('Y')" id="tb_pen"
               value="Y">
-            <label for="tb_pen" class="ml-2"><b>Accept / Payment Done</b></label>
+            <label for="tb_pen" class="ml-2"><b>Pending</b></label>
           </div>
 
           <div class="flex align-items-center">
@@ -43,10 +72,23 @@
               value="R">
             <label for="tb_rej" class="ml-2"><b>Rejected</b></label>
           </div>
+
+          <div class="flex align-items-center">
+            <input type="radio" name="tb_filter" [(ngModel)]="tr_status" (click)="filterTableData('T')" id="tb_acc"
+              value="T">
+            <label for="tb_acc" class="ml-2"><b>Accept</b></label>
+          </div>
+
+          <div class="flex align-items-center">
+            <input type="radio" name="tb_filter" [(ngModel)]="tr_status" (click)="filterTableData('A')" id="tb_app"
+              value="A">
+            <label for="tb_app" class="ml-2"><b>Approved</b></label>
+          </div>
         </div>
       </ng-template>
-      <ng-template pTemplate="header">
+      <ng-template pTemplate="header" >
         <tr>
+          <th id="table_color">Sl No</th>
           <th id="table_color">Form No</th>
           <th id="table_color">Form Date</th>
           <th id="table_color">Member Name</th>
@@ -54,8 +96,9 @@
           <th id="table_color">View</th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-customer>
+      <ng-template pTemplate="body" let-customer let-i="rowIndex">
         <tr>
+          <td class="text-center"><b>{{ i+1 }}</b></td>
           <td class="text-center"><b>{{ customer.form_no }}</b></td>
           <td class="text-center"><b>{{ customer.form_dt | date: 'dd/MM/yyyy' }}</b></td>
           <td class="text-center"><b>{{ customer.memb_name }}</b></td>

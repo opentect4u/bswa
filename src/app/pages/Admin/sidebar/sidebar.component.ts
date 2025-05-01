@@ -127,11 +127,11 @@ export class SidebarComponent implements OnInit {
             icon: 'pi pi-credit-card',
             routerLink: ['gmp_memb_trans_report'],
           },
-          {
-            label: 'Subscription Cleared Upto',
-            icon: 'pi pi-undo',
-            routerLink: ['subscription_cleared_upto'],
-          },
+          // {
+          //   label: 'Subscription Cleared Upto',
+          //   icon: 'pi pi-undo',
+          //   routerLink: ['subscription_cleared_upto'],
+          // },
           // {
           //   label: 'STP Insurance',
           //   icon: 'pi pi-shield',

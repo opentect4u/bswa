@@ -135,44 +135,44 @@ export class DepoTrnsComponent implements OnInit {
     };
   }
 
-  subscription_fee(memb_type: any){
-    this.dataServe.global_service(0, '/master/subscription_fee_dynamic', `memb_type=${memb_type}`).subscribe((data:any) => {
-      this.responsedata_subs = data
-      console.log(this.responsedata_subs,'ooo');
-      this.responsedata_subs = this.responsedata_subs.suc > 0 ? this.responsedata_subs.msg : []
+  // subscription_fee(memb_type: any){
+  //   this.dataServe.global_service(0, '/master/subscription_fee_dynamic', `memb_type=${memb_type}`).subscribe((data:any) => {
+  //     this.responsedata_subs = data
+  //     console.log(this.responsedata_subs,'ooo');
+  //     this.responsedata_subs = this.responsedata_subs.suc > 0 ? this.responsedata_subs.msg : []
       
-      var nowDate = new Date()
-      var cal_upto = new Date(this.userData!.calc_upto)
-      var calAmt = 0
+  //     var nowDate = new Date()
+  //     var cal_upto = new Date(this.userData!.calc_upto)
+  //     var calAmt = 0
 
-      switch (this.responsedata_subs[0].memb_type) {
-        case 'G':
-          var cal_month = cal_upto.getFullYear() > nowDate.getFullYear() ? 0 : (nowDate.getMonth() - cal_upto.getMonth())
-          calAmt = (cal_month > 0 ? cal_month : 1) * this.responsedata_subs[0].subscription_1 + parseInt(this.userData!.calc_amt)
-          break;
-        case 'AI':
-          calAmt = this.responsedata_subs[0].subscription_2
-          break;
-        case 'L':
-          var cal_year = cal_upto.getFullYear() >= nowDate.getFullYear() ? 0 : (nowDate.getFullYear() - cal_upto.getFullYear())
-          calAmt = (cal_year > 0 ? cal_year : 1) * this.responsedata_subs[0].subscription_1 + parseInt(this.userData!.calc_amt)
-          break;
-        default:
-          var cal_month = cal_upto.getFullYear() > nowDate.getFullYear() ? 0 : (nowDate.getMonth() - cal_upto.getMonth())
-          calAmt = (cal_month > 0 ? cal_month : 1) * this.responsedata_subs[0].subscription_1 + parseInt(this.userData!.calc_amt)
-          break;
-      }
+  //     switch (this.responsedata_subs[0].memb_type) {
+  //       case 'G':
+  //         var cal_month = cal_upto.getFullYear() > nowDate.getFullYear() ? 0 : (nowDate.getMonth() - cal_upto.getMonth())
+  //         calAmt = (cal_month > 0 ? cal_month : 1) * this.responsedata_subs[0].subscription_1 + parseInt(this.userData!.calc_amt)
+  //         break;
+  //       case 'AI':
+  //         calAmt = this.responsedata_subs[0].subscription_2
+  //         break;
+  //       case 'L':
+  //         var cal_year = cal_upto.getFullYear() >= nowDate.getFullYear() ? 0 : (nowDate.getFullYear() - cal_upto.getFullYear())
+  //         calAmt = (cal_year > 0 ? cal_year : 1) * this.responsedata_subs[0].subscription_1 + parseInt(this.userData!.calc_amt)
+  //         break;
+  //       default:
+  //         var cal_month = cal_upto.getFullYear() > nowDate.getFullYear() ? 0 : (nowDate.getMonth() - cal_upto.getMonth())
+  //         calAmt = (cal_month > 0 ? cal_month : 1) * this.responsedata_subs[0].subscription_1 + parseInt(this.userData!.calc_amt)
+  //         break;
+  //     }
       
       
-      this.entryForm.patchValue({
-        // subs_amt: cal_month * this.responsedata_subs[0].subscription_1 + parseInt(this.userData!.calc_amt)
-        subs_amt: calAmt
-      })
-      this.entryForm.get('subs_amt')?.setValidators([Validators.required, this.calculateSubsFee()])
-      this.entryForm.get('subs_amt')?.updateValueAndValidity();
-      // console.log(this.responsedata_subs[0].subscription_1, 'qwqwqw')
-      })
-  }
+  //     this.entryForm.patchValue({
+  //       // subs_amt: cal_month * this.responsedata_subs[0].subscription_1 + parseInt(this.userData!.calc_amt)
+  //       subs_amt: calAmt
+  //     })
+  //     this.entryForm.get('subs_amt')?.setValidators([Validators.required, this.calculateSubsFee()])
+  //     this.entryForm.get('subs_amt')?.updateValueAndValidity();
+  //     // console.log(this.responsedata_subs[0].subscription_1, 'qwqwqw')
+  //     })
+  // }
 
   // save(){
   //   var dt = {
@@ -228,6 +228,51 @@ export class DepoTrnsComponent implements OnInit {
   //   })
   // }
 
+  subscription_fee(memb_type: any) {
+    this.dataServe.global_service(0, '/master/subscription_fee_dynamic', `memb_type=${memb_type}`).subscribe((data: any) => {
+      this.responsedata_subs = data;
+      this.responsedata_subs = this.responsedata_subs.suc > 0 ? this.responsedata_subs.msg : [];
+  
+      const nowDate = new Date();
+      const cal_upto = new Date(this.userData!.calc_upto);
+      let calAmt = 0;
+      let monthsDue = 0;
+      let yearsDue = 0;
+  
+      const sub = this.responsedata_subs[0];
+      const monthlyFee = sub.subscription_1;
+      const annualFee = sub.subscription_1; // assuming annual for 'L'
+      const previousDue = parseInt(this.userData!.calc_amt) || 0;
+  
+      if (nowDate <= cal_upto) {
+        // Subscription still valid
+        calAmt = previousDue;
+      } else {
+        switch (sub.memb_type) {
+          case 'G':
+          case 'default':
+            monthsDue = (nowDate.getFullYear() - cal_upto.getFullYear()) * 12 + (nowDate.getMonth() - cal_upto.getMonth());
+            calAmt = monthsDue * monthlyFee + previousDue;
+            break;
+          case 'AI':
+            calAmt = sub.subscription_2 + previousDue;
+            break;
+          case 'L':
+            yearsDue = nowDate.getFullYear() - cal_upto.getFullYear();
+            calAmt = yearsDue * annualFee + previousDue;
+            break;
+        }
+      }
+  
+      this.entryForm.patchValue({
+        subs_amt: calAmt
+      });
+      this.entryForm.get('subs_amt')?.setValidators([Validators.required, this.calculateSubsFee()]);
+      this.entryForm.get('subs_amt')?.updateValueAndValidity();
+    });
+  }
+
+  
   save() {
     var memberName = this.userData?.memb_name;
     var subscriptionAmount = this.entryForm.get('subs_amt')?.value;

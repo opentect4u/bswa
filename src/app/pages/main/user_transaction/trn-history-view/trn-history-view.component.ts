@@ -34,7 +34,7 @@ export class TrnHistoryViewComponent implements OnInit {
     form_no = `'${form_no}'`,
     this.dataServe
       .global_service(1, '/user_tnx_details', {
-        // form_no,
+        form_no,
         trn_id,
         // form_no: sanitizedFormNo || '', 
         // trn_id: trn_id || 0

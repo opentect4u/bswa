@@ -46,7 +46,7 @@
 
   <div class="card mt-4">
     <p-table [value]="tbFilterData" #dt2 dataKey="id" [rows]="10" [showCurrentPageReport]="true"
-      [rowsPerPageOptions]="[10, 25, 50]" [paginator]="false"
+      [rowsPerPageOptions]="rowsPerPageOptions" [paginator]="true"
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
       [globalFilterFields]="['memb_type']" [tableStyle]="{
         'min-width': '55rem',
@@ -57,7 +57,7 @@
           <div class="flex align-items-center">
             <input type="radio" name="tb_filter" [(ngModel)]="tr_status" (click)="filterTableData('Y')" id="tb_pen"
               value="Y">
-            <label for="tb_pen" class="ml-2"><b>Accept / Payment Done</b></label>
+            <label for="tb_pen" class="ml-2"><b>Pending</b></label>
           </div>
 
           <div class="flex align-items-center">

@@ -19,6 +19,8 @@ export class Admin_group_premium_approveComponent implements OnInit {
   pendingCount: number = 0;
   rejectCount: number = 0;
   approvedCount: number = 0;
+  rowsPerPageOptions: number[] = [];
+
 
   constructor(private router: Router, private dataServe: DataService, private formBuilder: FormBuilder, private messageService: MessageService, private route: ActivatedRoute,private datePipe: DatePipe,private cdr: ChangeDetectorRef) { }
 
@@ -84,11 +86,12 @@ export class Admin_group_premium_approveComponent implements OnInit {
         if (this.userData.suc > 0) {
           this.tbFilterData = this.userData.msg || []; 
           this.filterTableData(this.tr_status);
+        this.calculateCounts();
           // this.calculateCounts(); 
         } else {
           this.tbFilterData = [];
         }
-        this.calculateCounts(); 
+        this.updateRowsPerPageOptions();
         this.cdr.detectChanges(); // Force UI update if needed
       }, error => {
         console.error(error);
@@ -183,9 +186,28 @@ export class Admin_group_premium_approveComponent implements OnInit {
     } else {
       this.tbFilterData = [];
     }
+    this.updateRowsPerPageOptions();
+
   }
   
   
+  updateRowsPerPageOptions() {
+    const totalRows = this.tbFilterData.length;
+    const options: number[] = [];
   
+    if (totalRows > 0) {
+      for (let i = 10; i < totalRows; i += 50) {
+        options.push(i);
+      }
+  
+      if (!options.includes(totalRows)) {
+        options.push(totalRows);
+      }
+  
+      this.rowsPerPageOptions = [...new Set(options)];
+    } else {
+      this.rowsPerPageOptions = [10];
+    }
+  }
   
 }

@@ -52,7 +52,12 @@
         <td class="ceperate"></td>
         <th>Total Month Paid</th>
         <td>:</td>
-        <td>{{trnData?.months_paid}} months ({{trnData?.prev_next_month_name}} - {{trnData?.curr_month_name}}) </td>
+        <td>
+          {{ trnData?.months_paid }}  month{{ trnData?.months_paid > 1 ? 's' : '' }} ({{ trnData?.paid_month_range }})
+        </td>
+        
+        <!-- <td>:</td>
+        <td>{{trnData?.months_paid}} months ({{trnData?.prev_next_month_name}} - {{trnData?.curr_month_name}}) </td> -->
       </tr>
       <tr>
         <th>Admission Fee</th>
