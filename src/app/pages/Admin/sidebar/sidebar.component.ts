@@ -88,6 +88,11 @@ export class SidebarComponent implements OnInit {
           // },
         ],
       },
+        {
+        label: 'Upload Children Policy',
+        icon: 'pi pi-users',
+        routerLink: ['upload_child_policy'],
+      },
       {
         label: 'Member Details',
         icon: 'pi pi-users',

@@ -438,7 +438,13 @@ const routes: Routes = [
             '../Admin/show_approve_transaction_report/show_approve_transaction_report.module'
           ).then((m) => m.Show_approve_transaction_reportModule),
       },
-     
+     {
+        path: 'upload_child_policy',
+        loadChildren: () =>
+          import(
+            '../Admin/upload_child_policy/upload_child_policy.module'
+          ).then((m) => m.Upload_child_policyModule),
+      },
     ],
   },
 ];

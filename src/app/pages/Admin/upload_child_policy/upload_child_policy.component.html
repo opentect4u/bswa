@@ -1,0 +1,43 @@
+<div class="upload-section mat-elevation-z2">
+  <h2 class="section-title">📁 Upload Children Policy File</h2>
+
+  <div class="upload-controls">
+   <div class="file-upload-wrapper">
+  <button mat-raised-button color="accent" class="upload-btn">
+    <mat-icon>upload_file</mat-icon>
+    Choose File
+    <input type="file" (change)="onFileChange($event)"
+           accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+  </button>
+  <span *ngIf="selectedFileName" class="file-name">{{ selectedFileName }}</span>
+</div>
+
+    <button mat-raised-button color="primary"
+            (click)="submitData()"
+            [disabled]="!uploadedData.length"
+            class="submit-button">
+      Submit
+    </button>
+  </div>
+</div>
+
+<!-- <div *ngIf="uploadedData.length > 0" class="table-section mat-elevation-z4">
+  <h3 class="table-title">📊 Uploaded Data Preview</h3>
+
+  <table mat-table [dataSource]="uploadedData" class="custom-mat-table" *ngIf="displayedColumns.length">
+
+    <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+      <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
+      <td mat-cell *matCellDef="let row">{{ row[column] }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+<div *ngIf="uploadedData.length > 0" class="mt-3">
+ <button mat-raised-button color="primary"
+            class="submit-button">
+      Proceed
+    </button>
+    </div> -->

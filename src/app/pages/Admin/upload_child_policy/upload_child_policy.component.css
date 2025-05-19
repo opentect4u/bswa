@@ -1,0 +1,82 @@
+.upload-section {
+  background-color: #f7f9fc;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.section-title {
+  margin: 0;
+  color: #2c3e50;
+  font-weight: bold;
+}
+
+.upload-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.submit-button {
+  min-width: 100px;
+}
+
+.table-section {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.table-title {
+  margin-bottom: 15px;
+  font-weight: 600;
+  color: #34495e;
+}
+
+.custom-mat-table {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 8px;
+}
+
+.mat-header-cell {
+  background-color: #1976d2;
+  color: white;
+  font-weight: bold;
+}
+
+.mat-cell, .mat-header-cell {
+  padding: 12px 16px;
+  font-size: 14px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.file-upload-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.upload-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.upload-btn input[type="file"] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.file-name {
+  font-style: italic;
+  color: #2c3e50;
+}
