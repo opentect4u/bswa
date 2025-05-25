@@ -36,6 +36,7 @@ export class Member_child_policy_dtlsComponent implements OnInit {
   responseData: any
   userData: UserInfo | any;
   dependents: any[] = [];
+  responsedata_subs= [];
 
   constructor(private router: Router,
     private fb: FormBuilder,
@@ -134,7 +135,8 @@ getDependentsForMember(memb_id: string) {
      var premiumAmount = this.userData.premium_amount;
      var form_no = this.userData.form_no; 
      var member_id = this.userData.member_id;
-     console.log(memberName,premiumAmount,form_no,member_id,'lo');
+     var phone_no = this.userData.phone_no;
+    //  console.log(memberName,premiumAmount,form_no,member_id,'lo');
      
  
      var custDt = { 
@@ -142,8 +144,16 @@ getDependentsForMember(memb_id: string) {
       member_id: member_id, 
       memb_name: memberName, 
       amount: premiumAmount, 
-      redirect_path: '/main/child_policy'
+      phone_no: phone_no,
+      approve_status: 'A',
+      redirect_path: '/main/child_policy',
+      trn_id: '0',        // add default
+      soc_flag: 'F',  
+
+
     }
+    // console.log(custDt,'hy');
+    
  
      const encDt = CryptoJS.AES.encrypt(JSON.stringify(custDt),this.secretKey ).toString();
     //  const decryptedSubscriptionAmount = CryptoJS.AES.decrypt(encDt, secretKey).toString(CryptoJS.enc.Utf8);
