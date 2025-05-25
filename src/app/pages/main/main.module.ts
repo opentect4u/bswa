@@ -97,6 +97,27 @@ const routes: Routes = [
             (m) => m.Change_password_memberModule
           ),
       },
+       {
+        path: 'child_policy',
+        loadChildren: () =>
+          import('./member_child_policy_dtls/member_child_policy_dtls.module').then(
+            (m) => m.Member_child_policy_dtlsModule
+          ),
+      },
+       {
+        path: 'trn_history_child',
+        loadChildren: () =>
+          import('./user_transaction/trn_history_child/trn_history_child.module').then(
+            (m) => m.Trn_history_childModule
+          ),
+      },
+      {
+        path: 'trn_history_child_view/:trn_id',
+        loadChildren: () =>
+          import('./user_transaction/trn_history_child_view/trn_history_child_view.module').then(
+            (m) => m.Trn_history_child_viewModule
+          ),
+      },
     ],
   },
 ];

@@ -2,42 +2,92 @@
   <h2 class="section-title">📁 Upload Children Policy File</h2>
 
   <div class="upload-controls">
-   <div class="file-upload-wrapper">
-  <button mat-raised-button color="accent" class="upload-btn">
-    <mat-icon>upload_file</mat-icon>
-    Choose File
-    <input type="file" (change)="onFileChange($event)"
-           accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
-  </button>
-  <span *ngIf="selectedFileName" class="file-name">{{ selectedFileName }}</span>
-</div>
+    <div class="file-upload-wrapper">
+      <input 
+        #fileInput 
+        type="file" 
+        (change)="onFileChange($event)"
+        accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+        style="display: none" 
+      />
 
-    <button mat-raised-button color="primary"
-            (click)="submitData()"
-            [disabled]="!uploadedData.length"
-            class="submit-button">
-      Submit
+      <button mat-raised-button color="accent" class="upload-btn" (click)="fileInput.click()">
+        <mat-icon>upload_file</mat-icon>
+        Choose File
+      </button>
+
+      <span *ngIf="selectedFileName" class="file-name">{{ selectedFileName }}</span>
+    </div>
+
+    <button 
+      mat-raised-button 
+      color="primary"
+      (click)="uploadFile()"
+      [disabled]="!uploadedData.length"
+      class="submit-button">
+      Upload
     </button>
+
+    <div *ngIf="progress > 0">
+      <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+    </div>
   </div>
 </div>
 
-<!-- <div *ngIf="uploadedData.length > 0" class="table-section mat-elevation-z4">
-  <h3 class="table-title">📊 Uploaded Data Preview</h3>
+<!-- 🆕 Table card with spacing -->
+<mat-card class="table-card" *ngIf="displayedData.length > 0">
+  <mat-card-title>📊 Uploaded Children Policy Data</mat-card-title>
+ <span class="required-star">*(Kindly check all the data and then click the Proceed button to upload the data)</span>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th class="center">Member No</th>
+          <th class="center">User Type</th>
+          <th class="center">Name</th>
+          <th class="center">Dependent</th>
+          <th class="center">DOB</th>
+          <th class="center">Gender</th>
+          <th class="center">Status</th>
+          <th class="center">Age</th>
+          <th class="center">Effective Date</th>
+          <th class="center">Policy</th>
+          <th class="center">Premium</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of displayedData">
+          <td>{{ row.memberNo }}</td>
+          <td>{{ row.userType == 'M' ? 'Member' : 'Dependent' }}</td>
+          <td>{{ row.name }}</td>
+          <td>{{ row.dependname }}</td>
+          <td>{{ row.dob }}</td>
+          <td>{{ row.gender }}</td>
+          <td>{{ row.status }}</td>
+          <td>{{ row.age }}</td>
+          <td>{{ row.effectiveDate }}</td>
+          <td>{{ row.policyAmount }}</td>
+          <td>{{ row.premium }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-  <table mat-table [dataSource]="uploadedData" class="custom-mat-table" *ngIf="displayedColumns.length">
+  <!-- Loading Spinner shown during submission -->
+  <div class="text-center" *ngIf="uploading">
+    <mat-progress-spinner mode="indeterminate" diameter="40"></mat-progress-spinner>
+  </div>
 
-    <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
-      <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
-      <td mat-cell *matCellDef="let row">{{ row[column] }}</td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-</div>
-<div *ngIf="uploadedData.length > 0" class="mt-3">
- <button mat-raised-button color="primary"
-            class="submit-button">
+  <!-- Proceed Button -->
+  <div>
+    <button 
+      mat-raised-button 
+      color="primary"
+      class="mt-3"
+      [disabled]="uploading"
+      (click)="submitData()">
       Proceed
     </button>
-    </div> -->
+  </div>
+</mat-card>
+

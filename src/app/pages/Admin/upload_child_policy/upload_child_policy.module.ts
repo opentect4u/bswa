@@ -10,7 +10,9 @@ import { DividerModule } from 'primeng/divider';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 const routes:Routes=[
@@ -29,6 +31,9 @@ const routes:Routes=[
     MatTableModule,
     MatButtonModule,
     MatIconModule,
+    MatProgressBarModule,
+    MatCardModule,
+    MatProgressSpinnerModule,
     RouterModule.forChild(routes)
 
   ],

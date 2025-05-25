@@ -80,3 +80,31 @@
   font-style: italic;
   color: #2c3e50;
 }
+
+.table-card {
+  margin-top: 30px;
+  padding: 16px;
+}
+
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-container th, .table-container td {
+  border: 1px solid #ccc;
+  padding: 2px;
+  /* text-align: left; */
+}
+
+.table-container th {
+  background-color: #f0f0f0;
+}
+mat-card.table-card {
+  padding: 16px;
+  margin-top: 20px;
+}
+.required-star {
+  color: red;
+  font-weight: bold; /* optional */
+}

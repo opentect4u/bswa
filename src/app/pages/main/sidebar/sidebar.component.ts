@@ -33,9 +33,19 @@ export class SidebarComponent implements OnInit {
       routerLink: ['ins_dtls'],
     },
     {
+      label: 'Children Policy',
+      icon: 'pi pi-address-book',
+      routerLink: ['child_policy'],
+    },
+    {
       label: 'Transaction History',
       icon: 'pi pi-indian-rupee',
       routerLink: ['trn_history'],
+    },
+     {
+      label: 'Transaction History for Children Policy',
+      icon: 'pi pi-history',
+      routerLink: ['trn_history_child'],
     },
     {
       label: 'Deposit Subscription',
