@@ -104,20 +104,20 @@ const routes: Routes = [
             (m) => m.Member_child_policy_dtlsModule
           ),
       },
-       {
-        path: 'trn_history_child',
-        loadChildren: () =>
-          import('./user_transaction/trn_history_child/trn_history_child.module').then(
-            (m) => m.Trn_history_childModule
-          ),
-      },
-      {
-        path: 'trn_history_child_view/:trn_id',
-        loadChildren: () =>
-          import('./user_transaction/trn_history_child_view/trn_history_child_view.module').then(
-            (m) => m.Trn_history_child_viewModule
-          ),
-      },
+      //  {
+      //   path: 'trn_history_child',
+      //   loadChildren: () =>
+      //     import('./user_transaction/trn_history_child/trn_history_child.module').then(
+      //       (m) => m.Trn_history_childModule
+      //     ),
+      // },
+      // {
+      //   path: 'trn_history_child_view/:trn_id',
+      //   loadChildren: () =>
+      //     import('./user_transaction/trn_history_child_view/trn_history_child_view.module').then(
+      //       (m) => m.Trn_history_child_viewModule
+      //     ),
+      // },
     ],
   },
 ];

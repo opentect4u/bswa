@@ -145,12 +145,15 @@ getDependentsForMember(memb_id: string) {
       memb_name: memberName, 
       amount: premiumAmount, 
       phone_no: phone_no,
-      approve_status: 'A',
-      redirect_path: '/main/child_policy',
-      trn_id: '0',        // add default
-      soc_flag: 'F',  
-
-
+      email: '',
+      calc_upto: '',
+      subs_type: '',
+      sub_fee: '', 
+      soc_flag: 'T',
+      trn_id: '', 
+      approve_status: 'A', 
+      pay_flag: 'C',
+      redirect_path: '/main/child_policy'
     }
     // console.log(custDt,'hy');
     
