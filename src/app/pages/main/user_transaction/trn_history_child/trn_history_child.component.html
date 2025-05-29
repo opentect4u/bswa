@@ -19,7 +19,7 @@
           <th id="table_color">#</th>
           <th id="table_color">Transaction Date</th>
           <th id="table_color">Transaction ID</th>
-          <th id="table_color">total Amount</th>
+          <th id="table_color">Total Amount</th>
           <th id="table_color">Pay Mode</th>
           <th id="table_color">Status</th>
           <th id="table_color">View</th>
@@ -31,22 +31,25 @@
             <b>{{ i+1 }}</b>
           </td>
           <td class="text-center">
-            <b>{{ trn.txnDate | date: 'dd/MM/yyyy' }}</b>
+            <b>{{ trn.trn_dt | date: 'dd/MM/yyyy' }}</b>
           </td>
           <td class="text-center">
-            <b>{{ trn.pay_trns_id }}</b>
+            <b>{{ trn.trn_id }}</b>
           </td>
           <td class="text-center">
-            <b>{{ trn.totalAmount }}</b>
+            <b>{{ trn.tot_amt }}</b>
           </td>
           <td class="text-center">
-            <b>Online</b>
+            <b>{{ trn.pay_mode == 'O' ? 'Online' : '' }}</b>
           </td>
           <td class="text-center">
-           <b>{{ trn.paymentStatus }}</b>
+            <b><span
+                class="badge {{ trn.approval_status=='A' ?  'badge-settlement' : '' }}">
+                {{ trn.approval_status =='A' ? 'Approved' : '' }}
+              </span></b>
           </td>
           <td class="text-center">
-            <b><a pTooltip="View" tooltipPosition="bottom" (click)="preview(trn.pay_trns_id)"><i
+            <b><a pTooltip="View" tooltipPosition="bottom" (click)="preview(trn.trn_id )"  style="cursor: pointer;"><i
                   class="pi pi-eye editLink"></i></a></b>
           </td>
         </tr>

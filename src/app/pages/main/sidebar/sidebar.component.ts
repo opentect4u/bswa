@@ -42,11 +42,11 @@ export class SidebarComponent implements OnInit {
       icon: 'pi pi-indian-rupee',
       routerLink: ['trn_history'],
     },
-    //  {
-    //   label: 'Transaction History for Children Policy',
-    //   icon: 'pi pi-history',
-    //   routerLink: ['trn_history_child'],
-    // },
+     {
+      label: 'Transaction History for Children Policy',
+      icon: 'pi pi-history',
+      routerLink: ['trn_history_child'],
+    },
     {
       label: 'Deposit Subscription',
       icon: 'pi pi-calendar',
