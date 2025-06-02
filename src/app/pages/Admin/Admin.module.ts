@@ -249,13 +249,13 @@ const routes: Routes = [
             '../Admin/view_group_approve_form/view_group_approve_form.module'
           ).then((m) => m.View_group_approve_formModule),
       },
-      {
-        path: 'subs_depo_entry',
-        loadChildren: () =>
-          import(
-            '../Admin/subs_depo/subs-depo-entry/subs-depo-entry.module'
-          ).then((m) => m.SubsDepoEntryModule),
-      },
+      // {
+      //   path: 'subs_depo_entry',
+      //   loadChildren: () =>
+      //     import(
+      //       '../Admin/subs_depo/subs-depo-entry/subs-depo-entry.module'
+      //     ).then((m) => m.SubsDepoEntryModule),
+      // },
       {
         path: 'subs_depo_approve',
         loadChildren: () =>
