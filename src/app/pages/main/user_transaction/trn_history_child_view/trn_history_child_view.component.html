@@ -8,13 +8,23 @@
     <table width="100%" class="text-left">
       <tr>
         <th class="text-center" colspan="7">
-          <div class="print_top_head">
-            <h2>BOKARO STEEL PEOPLE WELFARE ASSOCIATION</h2>
-            <h4>13, Camac Street, Kolkata 700017</h4>
-            <h4>Transaction Details Of Children Policy</h4>
+          <div class="">
+            <p>BOSEC WELFARE TRUST</p>
+            <p>13, Camac Street, Kolkata 700017</p>
+            <p>Transaction Details Of Children Policy</p>
           </div>
         </th>
       </tr>
+      <tr>
+  <!-- <th class="text-center" colspan="7" style="padding: 4px;">
+    <div style="margin: 0; padding: 0; line-height: 1.2;">
+      <p style="margin: 0;">BOSEC WELFARE TRUST</p>
+      <p style="margin: 0;">13, Camac Street, Kolkata 700017</p>
+      <p style="margin: 0;">Transaction Details Of Children Policy</p>
+    </div>
+  </th>
+</tr> -->
+
       <tr>
         <td class="break" colspan="7"></td>
       </tr>
@@ -34,25 +44,25 @@
         <td class="ceperate"></td>
         <th>Transaction Date</th>
         <td>:</td>
-        <td>{{trnData?.txnDate | date: 'dd/MM/yyyy'}}</td>
+        <td>{{trnData?.trn_dt | date: 'dd/MM/yyyy'}}</td>
       </tr>
       <tr>
         <th>Premium Amount</th>
         <td>:</td>
-        <td>{{trnData?.totalAmount}}</td>
+        <td>{{trnData?.premium_amt}}</td>
         <td class="ceperate"></td>
         <th>Total Amount</th>
         <td>:</td>
-        <td>{{trnData?.totalAmount}}</td>
+        <td>{{trnData?.tot_amt}}</td>
       </tr>
       <tr>
         <th>Paymode</th>
         <td>:</td>
-        <td>Online</td>
+        <td>{{trnData?.pay_mode == 'O' ? 'Online' : ''}}</td>
         <td class="ceperate"></td>
         <th>Status</th>
         <td>:</td>
-        <td>{{trnData?.paymentStatus}}</td>
+        <td>{{trnData?.approval_status == 'A' ? 'Approved' : ''}}</td>
       </tr>
     </table>
   </div>
