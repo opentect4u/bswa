@@ -67,27 +67,27 @@ export class SidebarComponent implements OnInit {
           // },
         ],
       },
-      {
-        label: 'Subscription Deposit',
-        icon: 'pi pi-fw pi-users',
-        items: [
-          {
-            label: 'Entry Deposit',
-            icon: 'pi pi-check',
-            routerLink: ['subs_depo_entry'],
-          },
-          {
-            label: 'Approve Deposit',
-            icon: 'pi pi-verified',
-            routerLink: ['subs_depo_approve'],
-          },
+      // {
+      //   label: 'Subscription Deposit',
+      //   icon: 'pi pi-fw pi-users',
+      //   items: [
+      //     {
+      //       label: 'Entry Deposit',
+      //       icon: 'pi pi-check',
+      //       routerLink: ['subs_depo_entry'],
+      //     },
+      //     {
+      //       label: 'Approve Deposit',
+      //       icon: 'pi pi-verified',
+      //       routerLink: ['subs_depo_approve'],
+      //     },
           // {
           //   label: 'Approve Deposit Receipt',
           //   icon: 'pi pi-verified',
           //   routerLink: ['approve_trn_receipt'],
           // },
-        ],
-      },
+      //   ],
+      // },
         {
         label: 'Upload Children Policy',
         icon: 'pi pi-users',
