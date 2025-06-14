@@ -56,8 +56,11 @@ export class Super_top_up_policy_registerComponent implements OnInit {
   { label: 'SELF', value: 'S' },
   { label: 'SPOUSE', value: 'P' }
   ];
+  addClickCount = 0;
 
-  filteredStatusOptions = [{ label: 'SELF', value: 'S' }];
+
+  filteredStatusOptions: any[] = []; // to avoid undefined error
+
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -103,28 +106,26 @@ export class Super_top_up_policy_registerComponent implements OnInit {
       this.onadd();
       this.unit()
       this.relationship()
-      // this.onMemberOperationChange()
+      // this.selectedValue3 = 'N'; 
+      this.onMemberOperationChange();
   }
   ngAfterViewInit(): void {
     this.selectedValue3='N'
   }
 
-onMemberOperationChange(event: any) {
-  const value = event.target.value; // don't rely on selectedValue3
+onMemberOperationChange(event?: any) {
+  let value = event?.target?.value ?? this.selectedValue3;
 
-  // Set the correct filtered options
+  this.selectedValue3 = value;
+
   if (value === 'S') {
     this.filteredStatusOptions = this.statusOptions.filter(opt => opt.value === 'S');
   } else if (value === 'J') {
-    this.filteredStatusOptions = [...this.statusOptions]; // Show both
+    this.filteredStatusOptions = [...this.statusOptions];
   } else {
-    this.filteredStatusOptions = []; // Clear if no valid selection
+    this.filteredStatusOptions = [];
   }
 
-  // Update ngModel (optional if still needed)
-  this.selectedValue3 = value;
-
-  // Reset the Status dropdown selection
   this.form.get('ind_type')?.setValue('');
 }
 
@@ -259,26 +260,62 @@ onMemberOperationChange(event: any) {
   // }
 
 
-  onadd(sl_no:any = '',ind_type:any = '',fin_year:any = '',particulars:any = '',amount:any = '',treatment_dtls:any = '') {
-    // this.phoneNumbers.push('');
-    const fieldGroup = this.fb.group(
-      {
-        sl_no: [sl_no],
-        ind_type: [ind_type],
-        fin_year: [fin_year],
-        particulars: [particulars],
-        amount: [amount],
-        treatment_dtls: [treatment_dtls],
-      },
-      {
-        validators: this.validatorsService.conditionalRequiredValidator(
-          'ind_type',
-          ['fin_year','particulars','amount','treatment_dtls']
-        ),
-      }
-    );
-    this.depenFields_2.push(fieldGroup);
+  // onadd(sl_no:any = '',ind_type:any = '',fin_year:any = '',particulars:any = '',amount:any = '',treatment_dtls:any = '') {
+  //   // this.phoneNumbers.push('');
+  //   const fieldGroup = this.fb.group(
+  //     {
+  //       sl_no: [sl_no],
+  //       ind_type: [ind_type],
+  //       fin_year: [fin_year],
+  //       particulars: [particulars],
+  //       amount: [amount],
+  //       treatment_dtls: [treatment_dtls],
+  //     },
+  //     {
+  //       validators: this.validatorsService.conditionalRequiredValidator(
+  //         'ind_type',
+  //         ['fin_year','particulars','amount','treatment_dtls']
+  //       ),
+  //     }
+  //   );
+  //   this.depenFields_2.push(fieldGroup);
+  // }
+
+onadd(sl_no: any = '', ind_type: any = '', fin_year: any = '', particulars: any = '', amount: any = '', treatment_dtls: any = '') {
+  const operation = this.form.get('memb_opr')?.value; // get selected member operation
+
+  // Limit checks
+  if (operation === 'S' && this.addClickCount >= 2) {
+    alert('You can only add dependents 2 times for Single operation.');
+    return;
   }
+
+  if (operation === 'J' && this.addClickCount >= 4) {
+    alert('You can only add dependents 4 times for Double operation.');
+    return;
+  }
+
+  // Create and add a new FormGroup
+  const fieldGroup = this.fb.group(
+    {
+      sl_no: [sl_no],
+      ind_type: [ind_type],
+      fin_year: [fin_year],
+      particulars: [particulars],
+      amount: [amount],
+      treatment_dtls: [treatment_dtls],
+    },
+    {
+      validators: this.validatorsService.conditionalRequiredValidator(
+        'ind_type',
+        ['fin_year', 'particulars', 'amount', 'treatment_dtls']
+      ),
+    }
+  );
+
+  this.depenFields_2.push(fieldGroup);
+  this.addClickCount++;
+}
 
   onminus(index: number) {
     Swal.fire({

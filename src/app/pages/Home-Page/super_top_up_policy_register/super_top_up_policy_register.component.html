@@ -71,7 +71,7 @@
             <div class="field col-12 md:col-4">
               <label for="memb_opr" class="label_field"><b>Member Operation:</b></label>&nbsp;
                 <select id="memb_opr" formControlName="memb_opr" [(ngModel)]="selectedValue3"
-                  class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                  (change)="onMemberOperationChange($event)" class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                   style="appearance: auto; height: 3vw; border-radius: 7px">
                   <option value="N">Select Operation</option>
                   <option value="S">Single</option>
@@ -175,16 +175,14 @@
                 </div>
                 <div class="field col-12 md:col-3">
                   <label for="ind_type" class="label_field"><b>Status: </b></label>
-                  <select id="ind_type" formControlName="ind_type"
-                    class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
-                    style="appearance: auto; height: 3vw; border-radius: 7px" (change)="changedate($event,i)">
-                    <!-- <option value="">Select Status</option>
-                    <option value="S">SELF</option>
-                    <option value="P">SPOUSE</option> -->
-                     <option value="">Select Status</option>
-                     <option *ngFor="let option of filteredStatusOptions" [value]="option.value">
-                     {{ option.label }}
-                     </option>
+                 <select id="ind_type" formControlName="ind_type"
+                  (change)="changedate($event, i)"
+                  class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                  style="appearance: auto; height: 3vw; border-radius: 7px">
+                  <option value="">Select Status</option>
+                  <option *ngFor="let option of filteredStatusOptions" [value]="option.value">
+                    {{ option.label }}
+                  </option>
                   </select>
                 </div>
                 <div class="field col-12 md:col-3">
