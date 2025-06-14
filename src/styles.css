@@ -307,3 +307,24 @@ h3.title_h3 {padding:0;}
   box-sizing: border-box;
   color: white;
 } */
+
+/* Center the whole modal content */
+.custom-swal-popup {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+
+/* Center the icon block */
+.custom-swal-icon {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin: 10px auto !important;
+  height: 50px !important; /* Adjust if needed */
+}
+
+/* Optional: vertically center icon if needed */
+.swal2-icon {
+  margin: 10px auto !important;
+}

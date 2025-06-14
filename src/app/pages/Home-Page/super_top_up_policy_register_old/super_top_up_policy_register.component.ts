@@ -35,15 +35,18 @@ export class Super_top_up_policy_registerComponent implements OnInit {
   finYearData:any
   member_dt: any;
   member_id: any;
+  // member_id: any;
+  // member_id: any;
   checkedmember: any  = false
   responsedata_unit: any;
   responsedata_rel: any;
   policy_holder_type: any
+  // member_type='N'
 
   selectedValue: string = 'N' ;
   selectedValue2: string = 'N';
   selectedValue3: string = 'N';
-  selectedValue_4: string = 'NP';
+  selectedValue_4: string = 'N';
   userData: any;
   maxDate!: string;
 
@@ -52,12 +55,10 @@ export class Super_top_up_policy_registerComponent implements OnInit {
 
   spouseName: string = '';
   memberName: string = '';
- statusOptions = [
-  { label: 'SELF', value: 'S' },
-  { label: 'SPOUSE', value: 'P' }
-  ];
+  // UserData: any;
 
-  filteredStatusOptions = [{ label: 'SELF', value: 'S' }];
+  // isDisabled: boolean = true
+
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -96,38 +97,24 @@ export class Super_top_up_policy_registerComponent implements OnInit {
       spou_mem: [''],
       depenFields_2: this.fb.array([]),
       form_dt: ['', Validators.required],
-      policy_holder_type: ['', Validators.required]
+      policy_holder_type: ['']
     });
     this.get_fin_year()
     if(this.depenFields_2.controls.length == 0)
       this.onadd();
+    // this.onInputChange();
+      // this.changedate();
       this.unit()
       this.relationship()
-      // this.onMemberOperationChange()
   }
   ngAfterViewInit(): void {
+    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    //Add 'implements AfterViewInit' to the class.
     this.selectedValue3='N'
+    
   }
 
-onMemberOperationChange(event: any) {
-  const value = event.target.value; // don't rely on selectedValue3
-
-  // Set the correct filtered options
-  if (value === 'S') {
-    this.filteredStatusOptions = this.statusOptions.filter(opt => opt.value === 'S');
-  } else if (value === 'J') {
-    this.filteredStatusOptions = [...this.statusOptions]; // Show both
-  } else {
-    this.filteredStatusOptions = []; // Clear if no valid selection
-  }
-
-  // Update ngModel (optional if still needed)
-  this.selectedValue3 = value;
-
-  // Reset the Status dropdown selection
-  this.form.get('ind_type')?.setValue('');
-}
-
+ 
 
   get depenFields_2(): FormArray {
     return this.form.get('depenFields_2') as FormArray;
@@ -140,21 +127,38 @@ onMemberOperationChange(event: any) {
 
   submit(){
       var dt = {
+        // mem_type: 'AI',
+        // member_id: this.o['member_id'] ? this.o['member_id'].value : null,
         min_no: this.o['min_no'] ? this.o['min_no'].value : null,
       };
+    
+  
       this.dataServe.global_service(0, '/get_member_policy_super', `min_no=${dt.min_no}`).subscribe((data:any) => {
         this.responsedata = data
         console.log(this.responsedata);
+       
+        // this.form.reset()
+
         if(this.responsedata.suc == 3){
           Swal.fire(
             'Warning',
-            'This MIN NO already exists in STP Policy',
+            'This Member ID already exists in STP Policy',
             'warning'
           ).then((result) => {
             if (result.isConfirmed) {
               this.form.reset()
             }
           });
+        }else if(this.responsedata.suc == 2){
+            Swal.fire(
+              'Warning',
+              'Member ID already exists in GMP Policy',
+              'warning'
+            ).then((result) => {
+              if (result.isConfirmed) {
+                this.form.reset()
+              }
+            });
           } else if (this.responsedata.suc > 0 && this.responsedata.suc < 2){
             this.responsedata = this.responsedata.suc > 0 ? this.responsedata.msg : []
             this.formNo = this.responsedata[0]?.form_no
@@ -170,12 +174,27 @@ onMemberOperationChange(event: any) {
               min_no: this.responsedata[0].min_no,
               gen_dob: this.responsedata[0].dob !== '0000-00-00 00:00:00' ? this.datePipe.transform(this.responsedata[0].dob, 'yyyy-MM-dd') : '',
               mobile: this.responsedata[0].phone_no,
+              // topup_year: this.responsedata[0].gurdian_name,
               mem: this.responsedata[0].memb_address,
               spouse: this.responsedata[0]!.spou_dt[0].dependent_name,
             spouse_min_no: this.responsedata[0]!.spou_dt[0].spou_min,
             spou_dob: this.responsedata[0]!.spou_dt[0].spou_db !== '0000-00-00 00:00:00' ? this.datePipe.transform(this.responsedata[0]!.spou_dt[0].spou_db, 'yyyy-MM-dd') : '',
             spou_mobile: this.responsedata[0]!.spou_dt[0].spou_phone,
             spou_mem: this.responsedata[0]!.spou_dt[0].spou_address,
+            })
+          }else {
+            this.form.patchValue({
+              member_type: this.responsedata[0].mem_type,
+              unit_name: this.responsedata[0].unit_id,
+              personal_no: this.responsedata[0].pers_no,
+              memb_opr: this.responsedata[0].memb_oprn,
+              member: this.responsedata[0].memb_name,
+              min_no: this.responsedata[0].min_no,
+              gen_dob: this.responsedata[0].dob !== '0000-00-00 00:00:00' ? this.datePipe.transform(this.responsedata[0].dob, 'yyyy-MM-dd') : '',
+              mobile: this.responsedata[0].phone_no,
+              // topup_year: this.responsedata[0].gurdian_name,
+              mem: this.responsedata[0].memb_address,
+            
             })
           }
         }else {
@@ -189,6 +208,9 @@ onMemberOperationChange(event: any) {
             }
           });
         }
+        // }
+      
+      
       });
   }
 
@@ -233,30 +255,30 @@ onMemberOperationChange(event: any) {
     }
   }
 
-  // onPolicyHolderTypeChange(isMember: any) {
+  onPolicyHolderTypeChange(isMember: any) {
   
-  //   this.form.reset()
+    this.form.reset()
     
-  //   // this.depenFields_2.clear()
+    // this.depenFields_2.clear()
     
-  //   if(isMember === 'M'){
-  //     this.checkedmember = true;
-  //     this.unit()
-  //     this.relationship()
-  //   }else{
+    if(isMember === 'M'){
+      this.checkedmember = true;
+      this.unit()
+      this.relationship()
+    }else{
       
-  //     this.checkedmember = false;
+      this.checkedmember = false;
       
-  //     // this.onadd()
-  //     // this.get_non_dtls()
-  //     this.unit()
-  //     this.relationship()
-  //   }
-  //   this.selectedValue = 'N';
-  //   this.selectedValue2 = 'N';
-  //   this.selectedValue3 = 'N';
-  //   this.selectedValue_4 = 'NP';
-  // }
+      // this.onadd()
+      // this.get_non_dtls()
+      this.unit()
+      this.relationship()
+    }
+    this.selectedValue = 'N';
+    this.selectedValue2 = 'N';
+    this.selectedValue3 = 'N';
+    // this.selectedValue_4 = 'N';
+  }
 
 
   onadd(sl_no:any = '',ind_type:any = '',fin_year:any = '',particulars:any = '',amount:any = '',treatment_dtls:any = '') {

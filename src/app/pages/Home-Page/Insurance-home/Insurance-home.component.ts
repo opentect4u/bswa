@@ -14,18 +14,38 @@ export class InsuranceHomeComponent implements OnInit {
   ngOnInit() {
   }
 
-  super_policy(){
-    Swal.fire(
-      'Warning',
-      'This Policy Only for General & Life Membership',
-      'warning'
-    ).then((result) => {
-      if (result.isConfirmed) {
-        this.router.navigate(['/home/super_topup_register'])
-      }
-    });
+  // super_policy(){
+  //   Swal.fire(
+  //     'Warning',
+  //     'This Policy Only for Sail retirees  and their Spouses',
+  //     'warning',
+  //   ).then((result) => {
+  //     if (result.isConfirmed) {
+  //       this.router.navigate(['/home/super_topup_register'])
+  //     }
+  //   });
     
-  }
+  // }
+
+super_policy() {
+  Swal.fire({
+    title: 'Warning',
+    text: 'This policy is only for Sail Retirees and their Spouses',
+    icon: 'warning',
+    customClass: {
+      popup: 'custom-swal-popup',
+      icon: 'custom-swal-icon'
+    },
+    confirmButtonText: 'OK'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.router.navigate(['/home/super_topup_register']);
+    }
+  });
+}
+
+
+
 
   group_policy(){
     this.router.navigate(['/home/group_policy'])

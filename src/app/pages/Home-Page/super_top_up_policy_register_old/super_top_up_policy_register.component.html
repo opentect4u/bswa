@@ -5,30 +5,54 @@
         <h3 class="text-center"><b>Member Information For Super Topup Policy</b></h3>
         <p-divider type="dashed"></p-divider>
 
+        <div class="flex flex-row">
+          <div class="field col-12 md:col-4">
+            <label for="pre_amont" class="label_field"><b>Policy Holder Type</b></label>&nbsp;
+          </div>
+          <div class="field col-12 md:col-4">
+            <div class="flex align-items-center">
+              <input type="radio" name="policyHolderType" id="member" value="M" (click)="onPolicyHolderTypeChange('M')">
+              <label for="member" class="label_field ml-2"><b>BSPWA Member</b></label>
+            </div>
+          </div>  
+          <div class="field col-12 md:col-4">
+            <div class="flex align-items-center">
+              <input type="radio" name="policyHolderType" id="non_member" value="N"
+                (click)="onPolicyHolderTypeChange('N')" checked>
+              <label for="non_member" class="label_field ml-2"><b>Member of Other SAIL Association</b></label>
+            </div>
+          </div>
+        </div>
+
         <form [formGroup]="form">
           <div class="flex flex-row">
-            <div class="field col-12 md:col-4">
+            <div class="field col-12 md:col-5">
               <label for="form_dt" class="label_field"><b>Date:<span class="text-red-700">*</span></b></label>&nbsp;
+              <ng-container *ngIf="checkedmember">
                 <input id="form_dt" type="date" formControlName="form_dt" placeholder="dd/MM/yyyy" [max]="maxDate"
                   class="box_input text-2xl text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                 <div *ngIf="o['form_dt']?.touched || o['form_dt']?.dirty">
                   <small class="text-red-900" *ngIf="o['form_dt']?.errors">Date is required.</small>
                 </div>
-            </div>
-             <div class="field col-12 md:col-4">
-              <label for="policyHolderType" class="label_field"><b>Policy Holder Type:<span class="text-red-700">*</span></b></label>&nbsp;
-              <select id="policy_holder_type" formControlName="policy_holder_type" [(ngModel)]="selectedValue_4"
-                  class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
-                  style="appearance: auto; height: 3vw; border-radius: 7px">
-                  <option value="NP">Select Policy Holder Type</option>
-                  <option value="M">BSPWA Member</option>
-                  <option value="N">Member of Other SAIL Association</option>
-                </select>
-                <div *ngIf="o['policy_holder_type']?.touched || o['policy_holder_type']?.dirty">
-                  <small class="text-red-900" *ngIf="o['policy_holder_type']?.errors">Policy Holder Type is required.</small>
+              </ng-container>
+              <ng-container *ngIf="!checkedmember">
+                <input id="form_dt" type="date" formControlName="form_dt" placeholder="dd/MM/yyyy" [max]="maxDate"
+                  class="box_input text-2xl text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                <div *ngIf="o['form_dt']?.touched || o['form_dt']?.dirty">
+                  <small class="text-red-900" *ngIf="o['form_dt']?.errors">Date is required.</small>
                 </div>
+              </ng-container>
             </div>
-            <div class="field col-12 md:col-4">
+            <!-- <div class="field col-12 md:col-5">
+              <label for="member_id" class="label_field"><b>Member ID:<span
+                    class="text-red-700">*</span></b></label>&nbsp;
+              <input id="member_id" type="text" formControlName="member_id" placeholder="Enter Member ID"
+                class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+              <div *ngIf="o['member_id']?.touched || o['member_id']?.dirty">
+                <small class="text-red-900" *ngIf="o['member_id']?.errors">Member ID is required.</small>
+              </div>
+            </div> -->
+            <div class="field col-12 md:col-5">
               <label for="min_no" class="label_field"><b>MIN NO:<span
                     class="text-red-700">*</span></b></label>&nbsp;
               <input id="min_no" type="text" formControlName="min_no" placeholder="Enter MIN NO"
@@ -37,11 +61,40 @@
                 <small class="text-red-900" *ngIf="o['min_no']?.errors">MIN NO is required.</small>
               </div>
             </div>
+            <div class="field col-12 md:col-2 sub_btn" *ngIf="checkedmember">
+              <p-button label="Submit" (click)="submit()"></p-button>
+            </div>
+
           </div>
+
+          <!-- <div class="flex flex-row">
+        <div class="field col-12 md:col-12">
+          <label for="unit" class="label_field"><b>Unit Name:</b></label>&nbsp;
+          <ng-container *ngIf="checkedmember">
+            <input id="unit" type="text" formControlName="unit" placeholder="Enter Unit Name"
+              class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              readonly />
+          </ng-container>
+          <ng-container *ngIf="!checkedmember">
+            <select id="unit" formControlName="unit"
+              class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+              style="appearance: auto; height: 3vw; border-radius: 7px">
+              <option value="">Select Unit Name</option>
+              <option *ngFor="let option of responsedata_unit" [value]="option.unit_id">{{ option.unit_name }}
+              </option>
+            </select>
+          </ng-container>
+
+        </div>
+      </div> -->
 
           <div class="flex flex-row">
             <div class="field col-12 md:col-4">
               <label for="member_type" class="label_field"><b>Member Type:</b></label>&nbsp;
+              <ng-container *ngIf="checkedmember">
+                <!-- <input id="member_type" type="text" formControlName="member_type" placeholder="Enter Member Type"
+                  class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                  readonly /> -->
                 <select id="member_type" formControlName="member_type" [(ngModel)]="selectedValue"
                   class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                   style="appearance: auto; height: 3vw; border-radius: 7px">
@@ -49,9 +102,30 @@
                   <option value="G">General Membership</option>
                   <option value="L">Life Membership</option>
                 </select>
+                <!-- <div *ngIf="o['member_type']?.touched || o['member_type']?.dirty">
+                  <small class="text-red-900" *ngIf="o['member_type']?.errors">Member Type is required.</small>
+                </div> -->
+              </ng-container>
+              <ng-container *ngIf="!checkedmember">
+                <select id="member_type" formControlName="member_type" [(ngModel)]="selectedValue"
+                  class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                  style="appearance: auto; height: 3vw; border-radius: 7px">
+                  <option value="N">Select Member Type</option>
+                  <option value="G">General Membership</option>
+                  <option value="L">Life Membership</option>
+                </select>
+                <!-- <div *ngIf="o['member_type']?.touched || o['member_type']?.dirty">
+                  <small class="text-red-900" *ngIf="o['member_type']?.errors">Member Type is required.</small>
+                </div> -->
+              </ng-container>
+
             </div>
             <div class="field col-12 md:col-4">
               <label for="unit_name" class="label_field"><b>Unit Name:</b></label>&nbsp;
+              <ng-container *ngIf="checkedmember">
+                <!-- <input id="unit_name" type="text" formControlName="unit_name" placeholder="Enter Unit Name"
+                  class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                  readonly /> -->
                 <select id="unit_name" formControlName="unit_name" [(ngModel)]="selectedValue2"
                   class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                   style="appearance: auto; height: 3vw; border-radius: 7px">
@@ -59,71 +133,182 @@
                   <option *ngFor="let option of responsedata_unit" [value]="option.unit_id">{{ option.unit_name }}
                   </option>
                 </select>
+                <!-- <div *ngIf="o['unit_name']?.touched || o['unit_name']?.dirty">
+                  <small class="text-red-900" *ngIf="o['unit_name']?.errors">Unit Name is required.</small>
+                </div> -->
+              </ng-container>
+              <ng-container *ngIf="!checkedmember">
+                <select id="unit_name" formControlName="unit_name" [(ngModel)]="selectedValue2"
+                  class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                  style="appearance: auto; height: 3vw; border-radius: 7px">
+                  <option value="N">Select Unit Name</option>
+                  <option *ngFor="let option of responsedata_unit" [value]="option.unit_id">{{ option.unit_name }}
+                  </option>
+                </select>
+                <!-- <div *ngIf="o['unit_name']?.touched || o['unit_name']?.dirty">
+                  <small class="text-red-900" *ngIf="o['unit_name']?.errors">Unit Name is required.</small>
+                </div> -->
+              </ng-container>
             </div>
             <div class="field col-12 md:col-4">
               <label for="personal_no" class="label_field"><b>Personnel No:</b></label>&nbsp;
+              <ng-container *ngIf="checkedmember">
                 <input id="personal_no" type="text" formControlName="personal_no" placeholder="Enter Personal No"
                   class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                <!-- <div *ngIf="o['personal_no']?.touched || o['personal_no']?.dirty">
+                  <small class="text-red-900" *ngIf="o['personal_no']?.errors">Personal No is required.</small>
+                </div> -->
+              </ng-container>
+              <ng-container *ngIf="!checkedmember">
+                <input id="personal_no" type="text" formControlName="personal_no" placeholder="Enter Personal No"
+                  class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                <!-- <div *ngIf="o['personal_no']?.touched || o['personal_no']?.dirty">
+                  <small class="text-red-900" *ngIf="o['personal_no']?.errors">Personal No is required.</small>
+                </div> -->
+              </ng-container>
             </div>
           </div>
 
           <div class="flex flex-row">
             <div class="field col-12 md:col-4">
               <label for="memb_opr" class="label_field"><b>Member Operation:</b></label>&nbsp;
+              <ng-container *ngIf="checkedmember">
+                <!-- <input id="memb_opr" type="text" formControlName="memb_opr" placeholder="Enter Member Operation"
+                  class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                  readonly /> -->
                 <select id="memb_opr" formControlName="memb_opr" [(ngModel)]="selectedValue3"
                   class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                   style="appearance: auto; height: 3vw; border-radius: 7px">
                   <option value="N">Select Operation</option>
-                  <option value="S">Single</option>
-                  <option value="J">Double</option>
+                  <option value="S">Self</option>
+                  <option value="J">Spouse</option>
                 </select>
+                <!-- <div *ngIf="o['memb_opr']?.touched || o['memb_opr']?.dirty">
+                  <small class="text-red-900" *ngIf="o['memb_opr']?.errors">Operation is required.</small>
+                </div> -->
+              </ng-container>
+              <ng-container *ngIf="!checkedmember">
+                <select id="memb_opr" formControlName="memb_opr" [(ngModel)]="selectedValue3"
+                  class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                  style="appearance: auto; height: 3vw; border-radius: 7px">
+                  <option value="N">Select Operation</option>
+                  <option value="S">Self</option>
+                  <option value="J">Spouse</option>
+                </select>
+                <!-- <div *ngIf="o['memb_opr']?.touched || o['memb_opr']?.dirty">
+                  <small class="text-red-900" *ngIf="o['memb_opr']?.errors">Operation is required.</small>
+                </div> -->
+              </ng-container>
             </div>
             <div class="field col-12 md:col-4">
               <label for="member" class="label_field"><b>Member Name:</b></label>&nbsp;
+              <ng-container *ngIf="checkedmember">
                 <input id="member" type="text" formControlName="member" placeholder="Enter Member name"
                 [(ngModel)]="memberName" 
                 (ngModelChange)="convertToUppercase()"
                   class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                <!-- <div *ngIf="o['member']?.touched || o['member']?.dirty">
+                  <small class="text-red-900" *ngIf="o['member']?.errors">Member Name is required.</small>
+                </div> -->
+              </ng-container>
+              <ng-container *ngIf="!checkedmember">
+                <input id="member" type="text" formControlName="member" placeholder="Enter Member name"
+                [(ngModel)]="memberName" 
+                (ngModelChange)="convertToUppercase()"
+                  class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                <!-- <div *ngIf="o['member']?.touched || o['member']?.dirty">
+                  <small class="text-red-900" *ngIf="o['member']?.errors">Member Name is required.</small>
+                </div> -->
+              </ng-container>
             </div>
             <div class="field col-12 md:col-4">
               <label for="member_id" class="label_field"><b>Member ID:</b></label>&nbsp;
+              <ng-container *ngIf="checkedmember">
                 <input id="member_id" type="text" formControlName="member_id" placeholder="Enter Member ID"
                   class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                <!-- <div *ngIf="o['member_id']?.touched || o['member_id']?.dirty">
+                  <small class="text-red-900" *ngIf="o['member_id']?.errors">Member ID is required.</small>
+                </div> -->
+              </ng-container>
+              <ng-container *ngIf="!checkedmember">
+                <input id="member_id" type="text" formControlName="member_id" placeholder="Enter Member ID"
+                  class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                <!-- <div *ngIf="o['member_id']?.touched || o['member_id']?.dirty">
+                  <small class="text-red-900" *ngIf="o['member_id']?.errors">Member ID is required.</small>
+                </div> -->
+              </ng-container>
             </div>
           </div>
 
           <div class="flex flex-row">
             <div class="field col-12 md:col-4">
               <label for="gen_dob" class="label_field"><b>DOB:</b></label>&nbsp;
+              <ng-container *ngIf="checkedmember">
                 <input id="gen_dob" type="date" formControlName="gen_dob" placeholder="dd/MM/yyyy" [max]="maxDate"
                   class="box_input text-2xl text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                <!-- <div *ngIf="o['gen_dob']?.touched || o['gen_dob']?.dirty">
+                  <small class="text-red-900" *ngIf="o['gen_dob']?.errors">DOB is required.</small>
+                </div> -->
+              </ng-container>
+              <ng-container *ngIf="!checkedmember">
+                <input id="gen_dob" type="date" formControlName="gen_dob" placeholder="dd/MM/yyyy" [max]="maxDate"
+                  class="box_input text-2xl text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                <!-- <div *ngIf="o['gen_dob']?.touched || o['gen_dob']?.dirty">
+                  <small class="text-red-900" *ngIf="o['gen_dob']?.errors">DOB is required.</small>
+                </div> -->
+              </ng-container>
             </div>
             <div class="field col-12 md:col-4">
               <label for="mobile" class="label_field"><b>Mobile No:</b></label>&nbsp;
+              <ng-container *ngIf="checkedmember">
                 <input id="mobile" type="text" formControlName="mobile" placeholder="Enter Mobile No"
                   class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                <!-- <div *ngIf="o['mobile']?.touched || o['mobile']?.dirty">
+                  <small class="text-red-900" *ngIf="o['mobile']?.errors">Mobile No is required.</small>
+                </div> -->
+              </ng-container>
+              <ng-container *ngIf="!checkedmember">
+                <input id="mobile" type="text" formControlName="mobile" maxlength="10" placeholder="Enter Mobile No"
+                  class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                <!-- <div *ngIf="o['mobile']?.touched || o['mobile']?.dirty">
+                  <small class="text-red-900" *ngIf="o['mobile']?.errors">Mobile No is required.</small>
+                </div> -->
+              </ng-container>
             </div>
             <div class="field col-12 md:col-4">
               <label for="fin_yr" class="label_field"><b>Joining Year:</b></label>&nbsp;
               <input id="fin_yr" type="date" formControlName="fin_yr" placeholder="Enter Joining Year" [max]="maxDate"
                 class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+              <!-- <div *ngIf="o['fin_yr']?.touched || o['fin_yr']?.dirty">
+                <small class="text-red-900" *ngIf="o['fin_yr']?.errors">Joining Year is required.</small>
+              </div> -->
             </div>
           </div>
 
           <div class="flex flex-row">
             <div class="field col-12">
               <label for="mem" class="label_field"><b>Member Address:</b></label>&nbsp;
+              <ng-container *ngIf="checkedmember">
                 <textarea id="mem" formControlName="mem" type="text" rows="4" placeholder="Enter Member address..."
                   class="text-base text-2xl text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
+                <!-- <div *ngIf="o['mem']?.touched || o['mem']?.dirty">
+                  <small class="text-red-900" *ngIf="o['mem']?.errors">Member Address is required.</small>
+                </div> -->
+              </ng-container>
+              <ng-container *ngIf="!checkedmember">
+                <textarea id="mem" formControlName="mem" type="text" rows="4" placeholder="Enter Member address..."
+                  class="text-base text-2xl text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
+                <!-- <div *ngIf="o['mem']?.touched || o['mem']?.dirty">
+                  <small class="text-red-900" *ngIf="o['mem']?.errors">Member Address is required.</small>
+                </div> -->
+              </ng-container>
             </div>
           </div>
 
-          <ng-container *ngIf="selectedValue3 === 'J'">
           <p-divider type="dashed"></p-divider>
           <h3 class="text-center"><b>Spouse Information</b></h3>
-          </ng-container>
 
-          <ng-container *ngIf="selectedValue3 === 'J'">
+          <ng-container>
             <div class="flex flex-row">
               <div class="field col-12 md:col-3">
                 <label for="spouse" class="label_field"><b>Spouse Name:</b></label>&nbsp;
@@ -152,9 +337,9 @@
 
             <div class="flex flex-row">
               <div class="field col-12">
-                <label for="spou_mem" class="label_field"><b>Spouse Address:</b></label>&nbsp;
+                <label for="spou_mem" class="label_field"><b>Member Address:</b></label>&nbsp;
                 <textarea id="spou_mem" formControlName="spou_mem" type="text" rows="4"
-                  placeholder="Enter Spouse address..."
+                  placeholder="Enter Member address..."
                   class="text-base text-2xl text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
 
               </div>
@@ -178,13 +363,9 @@
                   <select id="ind_type" formControlName="ind_type"
                     class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                     style="appearance: auto; height: 3vw; border-radius: 7px" (change)="changedate($event,i)">
-                    <!-- <option value="">Select Status</option>
+                    <option value="">Select Status</option>
                     <option value="S">SELF</option>
-                    <option value="P">SPOUSE</option> -->
-                     <option value="">Select Status</option>
-                     <option *ngFor="let option of filteredStatusOptions" [value]="option.value">
-                     {{ option.label }}
-                     </option>
+                    <option value="P">SPOUSE</option>
                   </select>
                 </div>
                 <div class="field col-12 md:col-3">
