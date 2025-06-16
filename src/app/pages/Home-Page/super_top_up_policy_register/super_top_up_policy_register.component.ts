@@ -19,7 +19,7 @@ interface MemberStatus {
   providers: [DatePipe,MessageService],
 })
 export class Super_top_up_policy_registerComponent implements OnInit {
-  memb_opr: string = 'J';
+  memb_opr: string = 'D';
   value!: string;
   date!: Date;
   mem_status!: MemberStatus[];
@@ -37,6 +37,7 @@ export class Super_top_up_policy_registerComponent implements OnInit {
   member_id: any;
   checkedmember: any  = false
   responsedata_unit: any;
+  premium_stp: any;
   responsedata_rel: any;
   policy_holder_type: any
 
@@ -57,6 +58,8 @@ export class Super_top_up_policy_registerComponent implements OnInit {
   { label: 'SPOUSE', value: 'P' }
   ];
   addClickCount = 0;
+  showPremiumSection = true;
+
 
 
   filteredStatusOptions: any[] = []; // to avoid undefined error
@@ -99,7 +102,10 @@ export class Super_top_up_policy_registerComponent implements OnInit {
       spou_mem: [''],
       depenFields_2: this.fb.array([]),
       form_dt: ['', Validators.required],
-      policy_holder_type: ['', Validators.required]
+      policy_holder_type: ['', Validators.required],
+      premium_type: [''], 
+      premium_amt: [''],
+      total_amt: ['']
     });
     this.get_fin_year()
     if(this.depenFields_2.controls.length == 0)
@@ -115,18 +121,44 @@ export class Super_top_up_policy_registerComponent implements OnInit {
 
 onMemberOperationChange(event?: any) {
   let value = event?.target?.value ?? this.selectedValue3;
-
   this.selectedValue3 = value;
 
+    // Reset fields
+  this.form.get('ind_type')?.setValue('');
+  this.form.get('premium_type')?.setValue('');
+  this.form.get('premium_amt')?.setValue('');
+  this.form.get('total_amt')?.setValue('');
+
+  // Show premium section if Single or Double is selected
+  this.showPremiumSection = value === 'S' || value === 'D';
+
+  // Filter status options and fetch premium
   if (value === 'S') {
     this.filteredStatusOptions = this.statusOptions.filter(opt => opt.value === 'S');
-  } else if (value === 'J') {
+    this.getPremiumDetails();
+  } else if (value === 'D') {
     this.filteredStatusOptions = [...this.statusOptions];
+    this.getPremiumDetails();
   } else {
     this.filteredStatusOptions = [];
   }
+}
 
-  this.form.get('ind_type')?.setValue('');
+getPremiumDetails() {
+  const memberOperation = this.selectedValue3;
+
+  this.dataServe
+    .global_service(1, '/get_stp_premium_dtls', { type: memberOperation }) // POST
+    .subscribe((data: any) => {
+      if (data?.suc > 0 && data.msg.length > 0) {
+        const premiumData = data.msg[0];
+        this.form.patchValue({
+          premium_type: premiumData.premium_type == 'S' ? 'Single' : 'Double',
+          premium_amt: premiumData.premium_amt,
+          total_amt: premiumData.premium_amt
+        });
+      }
+    });
 }
 
 
@@ -139,59 +171,59 @@ onMemberOperationChange(event?: any) {
   }
 
 
-  submit(){
-      var dt = {
-        min_no: this.o['min_no'] ? this.o['min_no'].value : null,
-      };
-      this.dataServe.global_service(0, '/get_member_policy_super', `min_no=${dt.min_no}`).subscribe((data:any) => {
-        this.responsedata = data
-        console.log(this.responsedata);
-        if(this.responsedata.suc == 3){
-          Swal.fire(
-            'Warning',
-            'This MIN NO already exists in STP Policy',
-            'warning'
-          ).then((result) => {
-            if (result.isConfirmed) {
-              this.form.reset()
-            }
-          });
-          } else if (this.responsedata.suc > 0 && this.responsedata.suc < 2){
-            this.responsedata = this.responsedata.suc > 0 ? this.responsedata.msg : []
-            this.formNo = this.responsedata[0]?.form_no
-            console.log(this.responsedata[0].subscription_1)
+  // submit(){
+  //     var dt = {
+  //       min_no: this.o['min_no'] ? this.o['min_no'].value : null,
+  //     };
+  //     this.dataServe.global_service(0, '/get_member_policy_super', `min_no=${dt.min_no}`).subscribe((data:any) => {
+  //       this.responsedata = data
+  //       console.log(this.responsedata);
+  //       if(this.responsedata.suc == 3){
+  //         Swal.fire(
+  //           'Warning',
+  //           'This MIN NO already exists in STP Policy',
+  //           'warning'
+  //         ).then((result) => {
+  //           if (result.isConfirmed) {
+  //             this.form.reset()
+  //           }
+  //         });
+  //         } else if (this.responsedata.suc > 0 && this.responsedata.suc < 2){
+  //           this.responsedata = this.responsedata.suc > 0 ? this.responsedata.msg : []
+  //           this.formNo = this.responsedata[0]?.form_no
+  //           console.log(this.responsedata[0].subscription_1)
   
-          if(this.responsedata[0].spou_dt && this.responsedata[0].spou_dt.length > 0){
-            this.form.patchValue({
-              member_type: this.responsedata[0].mem_type,
-              unit_name: this.responsedata[0].unit_id,
-              personal_no: this.responsedata[0].pers_no,
-              memb_opr: this.responsedata[0].memb_oprn,
-              member: this.responsedata[0].memb_name,
-              min_no: this.responsedata[0].min_no,
-              gen_dob: this.responsedata[0].dob !== '0000-00-00 00:00:00' ? this.datePipe.transform(this.responsedata[0].dob, 'yyyy-MM-dd') : '',
-              mobile: this.responsedata[0].phone_no,
-              mem: this.responsedata[0].memb_address,
-              spouse: this.responsedata[0]!.spou_dt[0].dependent_name,
-            spouse_min_no: this.responsedata[0]!.spou_dt[0].spou_min,
-            spou_dob: this.responsedata[0]!.spou_dt[0].spou_db !== '0000-00-00 00:00:00' ? this.datePipe.transform(this.responsedata[0]!.spou_dt[0].spou_db, 'yyyy-MM-dd') : '',
-            spou_mobile: this.responsedata[0]!.spou_dt[0].spou_phone,
-            spou_mem: this.responsedata[0]!.spou_dt[0].spou_address,
-            })
-          }
-        }else {
-          Swal.fire(
-            'Error',
-            'Member Details Not Found',
-            'error'
-          ).then((result) => {
-            if (result.isConfirmed) {
-              this.form.reset()
-            }
-          });
-        }
-      });
-  }
+  //         if(this.responsedata[0].spou_dt && this.responsedata[0].spou_dt.length > 0){
+  //           this.form.patchValue({
+  //             member_type: this.responsedata[0].mem_type,
+  //             unit_name: this.responsedata[0].unit_id,
+  //             personal_no: this.responsedata[0].pers_no,
+  //             memb_opr: this.responsedata[0].memb_oprn,
+  //             member: this.responsedata[0].memb_name,
+  //             min_no: this.responsedata[0].min_no,
+  //             gen_dob: this.responsedata[0].dob !== '0000-00-00 00:00:00' ? this.datePipe.transform(this.responsedata[0].dob, 'yyyy-MM-dd') : '',
+  //             mobile: this.responsedata[0].phone_no,
+  //             mem: this.responsedata[0].memb_address,
+  //             spouse: this.responsedata[0]!.spou_dt[0].dependent_name,
+  //           spouse_min_no: this.responsedata[0]!.spou_dt[0].spou_min,
+  //           spou_dob: this.responsedata[0]!.spou_dt[0].spou_db !== '0000-00-00 00:00:00' ? this.datePipe.transform(this.responsedata[0]!.spou_dt[0].spou_db, 'yyyy-MM-dd') : '',
+  //           spou_mobile: this.responsedata[0]!.spou_dt[0].spou_phone,
+  //           spou_mem: this.responsedata[0]!.spou_dt[0].spou_address,
+  //           })
+  //         }
+  //       }else {
+  //         Swal.fire(
+  //           'Error',
+  //           'Member Details Not Found',
+  //           'error'
+  //         ).then((result) => {
+  //           if (result.isConfirmed) {
+  //             this.form.reset()
+  //           }
+  //         });
+  //       }
+  //     });
+  // }
 
   unit() {
     this.dataServe
@@ -290,7 +322,7 @@ onadd(sl_no: any = '', ind_type: any = '', fin_year: any = '', particulars: any 
     return;
   }
 
-  if (operation === 'J' && this.addClickCount >= 4) {
+  if (operation === 'D' && this.addClickCount >= 4) {
     alert('You can only add dependents 4 times for Double operation.');
     return;
   }
@@ -341,27 +373,28 @@ onadd(sl_no: any = '', ind_type: any = '', fin_year: any = '', particulars: any 
   final_submit(){
     var dt = {
         flag: 'STP',
-        checkedmember: this.checkedmember,
-        unit: this.o['unit_name']? this.o['unit_name'].value : null,
-        // policy_holder_type: this.o['policy_holder_type']? this.o['policy_holder_type'].value : 'N',
-        member_id: this.o['member_id'] ? this.o['member_id'].value : null,
         form_dt: this.o['form_dt'] ? this.o['form_dt'].value : null,
-        member: this.o['member'] ? this.o['member'].value : null,
-        fin_yr: this.o['fin_yr'] ? this.o['fin_yr'].value : null,
-        member_type: this.o['member_type'] ? this.o['member_type'].value : null,
-        personal_no: this.o['personal_no'] ? this.o['personal_no'].value : null,
+        policy_holder_type: this.o['policy_holder_type']? this.o['policy_holder_type'].value : 'N',
         min_no: this.o['min_no'] ? this.o['min_no'].value : null,
-        gen_dob: this.o['gen_dob'] ? this.o['gen_dob'].value : null,
+        member_type: this.o['member_type'] ? this.o['member_type'].value : null,
+        unit: this.o['unit_name']? this.o['unit_name'].value : null,
+        personal_no: this.o['personal_no'] ? this.o['personal_no'].value : null,
         memb_oprn: this.o['memb_opr'] ? this.o['memb_opr'].value : null,
-        mem: this.o['mem'] ? this.o['mem'].value : null,
+        member: this.o['member'] ? this.o['member'].value : null,
+        member_id: this.o['member_id'] ? this.o['member_id'].value : null,
+        gen_dob: this.o['gen_dob'] ? this.o['gen_dob'].value : null,
         phone_no: this.o['mobile'] ? this.o['mobile'].value : null,
+        fin_yr: this.o['fin_yr'] ? this.o['fin_yr'].value : null,
+        mem: this.o['mem'] ? this.o['mem'].value : null,
         spouse: this.o['spouse'] ? this.o['spouse'].value : null,
         spouse_min_no: this.o['spouse_min_no'] ? this.o['spouse_min_no'].value : null,
         spou_dob: this.o['spou_dob'] ? this.o['spou_dob'].value : null,
         spou_mobile: this.o['spou_mobile'] ? this.o['spou_mobile'].value : null,
         spou_mem: this.o['spou_mem'] ? this.o['spou_mem'].value : null,
         dependent_dt: this.depenFields_2.value,
-
+        premium_type: this.o['premium_type'] ?.value === 'Single' ? 'S' : 'D',
+        premium_amt: this.o['premium_amt'] ? this.o['premium_amt'].value : null,
+        total_amt: this.o['total_amt'] ? this.o['total_amt'].value : null,
         // form_no: this.formNo
     }
     this.dataServe.global_service(1, '/save_super_policy_form', dt).subscribe(
@@ -372,7 +405,8 @@ onadd(sl_no: any = '', ind_type: any = '', fin_year: any = '', particulars: any 
         
         if (this.groupSaveData && this.groupSaveData.suc > 0) {
           this.formNo = this.groupSaveData.form_no;
-          this.checkedmember = this.groupSaveData.policy_holder_type == 'true' ? 'M' : 'N';
+          this.checkedmember = this.groupSaveData.policy_holder_type;
+          // this.checkedmember = this.groupSaveData.policy_holder_type == 'true' ? 'M' : 'N';
           // this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data saved successfully' });
           // this.router.navigate(['/main/dashboard']);
           Swal.fire(

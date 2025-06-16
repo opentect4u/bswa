@@ -65,26 +65,25 @@
               year
               subject to premium and other term. The details of the undersigned are as under:
             </h4> -->
-            <p>To <br> The Secreatry <br>
-              <b>BOSEC WELFARE TRUST</b> <br>
+            <p><b>To <br>The Secreatry <br>
+              BOSEC WELFARE TRUST <br>
               13, CAMAC STREET, <br>
-              KOLKATA 700017
-            </p>
-            <h4>(Through: <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.mem_type == 'G' ? 'General Membership' :
+              KOLKATA 700017</b></p>
+            <h4><b>(Through: <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.mem_type == 'G' ? 'General Membership' :
                   stpinfo?.mem_type == 'L' ? 'Life
-                  membership' : ''}}</u></span>)</h4>
-            <p>Dear Sir,</p>
-            <p>This is to inform you that the under signed is the member of <span class="perple"><u>{{stpinfo?.mem_type
+                  membership' : ''}}</u></span>)</b></h4>
+            <p><b>Dear Sir,</b></p>
+            <p><b>This is to inform you that the under signed is the member of <span class="perple"><u>{{stpinfo?.mem_type
                   == 'G' ? 'General
                   Membership' : stpinfo?.mem_type == 'L' ? 'Life
-                  membership' : ''}}</u></span> having membership no.
-              <span class="perple"><u>{{stpinfo?.member_id}}</u></span> and
-              Superannuated from <span class="perple"><u>{{stpinfo?.unit_name}}</u></span>. My SAIL
+                  membership' : ''}}</u></span> of <span class="perple"><u>{{stpinfo?.policy_holder_type === 'M' ? 'BSPWA Member' : 'Member Of Other Sail Association'}}</u></span> having membership no.
+              <span class="perple"><u>{{stpinfo?.member_id}}</u></span> and MIN No. <span class="perple"><u>{{stpinfo?.min_no}}</u></span> and
+              Superannuated from <span class="perple"><u>{{stpinfo?.unit_name}}</u></span> on <span class="perple"><u>{{stpinfo?.form_dt | date: 'dd-MM-yyyy'}}</u></span>. My SAIL
               PERSONNEL NO. is <span class="perple"><u>{{stpinfo?.personel_no}}</u></span>.
               I am interested to join in the scheme of super top up policy with the UNITED INDIA INSURANCE CO LTD for
               the
               year
-              subject to premium and other term. The details of the undersigned are as under:
+              subject to premium and other term. The details of the undersigned are as under:</b>
             </p>
           </div>
         </div>
@@ -98,9 +97,9 @@
               <th>
                 <b>NAME</b><span class="span_space"></span>
               </th>
-              <th>
+              <!-- <th>
                 <b>MIN NO</b><span class="span_space"></span>
-              </th>
+              </th> -->
               <th>
                 <b>DOB</b><span class="span_space"></span>
               </th>
@@ -110,14 +109,17 @@
               <th>
                 <b>ADDRESS</b><span class="span_space"></span>
               </th>
+              <!-- <th>
+                <b>JOINING YEAR</b><span class="span_space"></span>
+              </th> -->
             </tr>
 
             <tr>
               <th><span>SELF</span></th>
               <th><span>{{stpinfo?.memb_name!='null' ? stpinfo?.memb_name : 'N/A'}}</span>
               </th>
-              <th><span>{{stpinfo?.min_no!='null'
-                  ? stpinfo?.min_no : 'N/A'}}</span></th>
+              <!-- <th><span>{{stpinfo?.min_no!='null'
+                  ? stpinfo?.min_no : 'N/A'}}</span></th> -->
               <th><span> {{stpinfo?.dob &&
                   stpinfo?.dob !== '0000-00-00' ? (stpinfo?.dob | date: 'MM/dd/yyyy') :
                   'N/A'}}</span></th>
@@ -126,14 +128,15 @@
               <th><span>{{stpinfo?.mem_address!='null' ? stpinfo?.mem_address :
                   'N/A'}}</span>
               </th>
+              <!-- <th><span>{{stpinfo?.fin_yr | date: 'dd-MM-yyyy' }}</span></th> -->
             </tr>
             <tr>
               <th><span>SPOUSE</span></th>
               <th><span>{{
                   stpinfo?.dependent_name!= 'null' ? stpinfo?.dependent_name : 'N/A'}}</span></th>
-              <th><span>{{stpinfo?.spou_min_no!='null' ? stpinfo?.spou_min_no :
+              <!-- <th><span>{{stpinfo?.spou_min_no!='null' ? stpinfo?.spou_min_no :
                   'N/A'}}</span>
-              </th>
+              </th> -->
               <th>
                 <span>
                   {{stpinfo?.spou_dob && stpinfo?.spou_dob !== '0000-00-00' ? (stpinfo?.spou_dob | date: 'MM/dd/yyyy') :
@@ -145,14 +148,15 @@
               </th>
               <th><span>{{stpinfo?.spou_address!='null' ? stpinfo?.spou_address :
                   'N/A'}}</span></th>
+              <!-- <th><span>{{stpinfo?.fin_yr | date: 'dd-MM-yyyy' }}</span></th> -->
             </tr>
           </table>
         </div>
 
-        <div class="row mt-4">
+        <div class="row mt-2">
           <h4><br><br>
-            <u>I am giving below the total usage of amount under SAIL MEDICLAIM POLICY FOR THE YEAR under IPD are as
-              below:</u>
+            <u><b>I am giving below the total usage of amount under SAIL MEDICLAIM POLICY FOR THE YEAR under IPD are as
+              below:</b></u>
           </h4>
         </div>
 
@@ -191,6 +195,33 @@
           </table>
         </div>
 
+         <div class="row mt-2">
+          <h4><br><br>
+            <u><b>Premium details are given below:</b></u>
+          </h4>
+        </div>
+
+         <div class="row">
+          <table class="table_space_cus">
+            <tr class="table_head_cus">
+              <th>
+                <b>PREMIUM TYPE</b>
+              </th>
+              <th>
+                <b>PREMIUM AMOUNT</b><span class="label_field"></span>
+              </th>
+              <th>
+                <b>TOTAL AMOUNT</b><span class="label_field"></span>
+              </th>
+            </tr>
+            <tr>
+              <th><span>{{stpinfo?.premium_type == 'S' ? 'SINGLE' : 'DOUBLE'}}</span></th>
+              <th><span>{{stpinfo?.premium_amt}}</span></th>
+              <th><span>{{stpinfo?.premium_amt}}</span></th>
+            </tr>
+          </table>
+        </div>
+
         <div class="row mt-3">
           <!-- <h4 class="letter_style" style="color: black">
             (Year means 11th July to 10th July of next year)
@@ -209,22 +240,22 @@
           <h4 class="letter_style" style="color: black;margin-left: 62vw;">
             Signature with date
           </h4> -->
-          <p>
+          <p><b>
             (Year means 11th July to 10th July of next year)
             I do hereby declare that all the information are correct. For any misinformation I will be liable for the
             loss
             suffered by you and will be liable to pay including penalty if any. As and when premium is declared we will
             deposit the same as per the procedure. I have read out the terms and agreed.
-          </p>
-          <p>
+          </b></p>
+          <p><b>
             Thanking You, <br>
-            Yours faithfully,
+            Yours faithfully,</b>
             <br> <br> <br>
             <b>Signature with date</b>
           </p>
         </div>
 
-        <div class="row mt-5">
+        <div class="row mt-2">
           <p><b>Insurance is coverage rendered to the individual/members during
               any
               uncertain loss; it's not made for making profit or any type of speculation/gambling. Likewise, in Health
@@ -247,26 +278,26 @@
               scope
               of this Super Top up Policy.</b></p>
 
-          <p>What is a super top up Health policy?</p>
+          <p><b>What is a super top up Health policy?</b></p>
 
-          <p><b>✔</b> Super top up policy is designed that an insurer can claim
+          <p><b>✔ Super top up policy is designed that an insurer can claim
             after a certain amount for reimbursement of IPD Hospitalization. This certain amount is called as threshold
-            amount
+            amount</b>
           </p>
 
-          <p><b>✔</b> When a single member (either self or spouse) is joining
+          <p><b>✔ When a single member (either self or spouse) is joining
             the
             scheme, his threshold amount has been kept as 4 lacs. The amount has been fixed considering the SAIL
             MEDICLAIM
             POLICY. This threshold amount is applicable at the time of application (for example a person has already
             consumed
             certain amount at the time of joining in the scheme will not be taken into a/c) - The premium for 2021-22
-            (11/7/2021 to 10/7/2022) is Rs. 2400/- including service tax</p>
+            (11/7/2021 to 10/7/2022) is Rs. 2400/- including service tax</b></p>
 
-          <p><b>✔</b> In case of Self & spouse, i.e. both the threshold amount
+          <p><b>✔ In case of Self & spouse, i.e. both the threshold amount
             has
             been kept at Rs. 8 lacs considering the SAIL MEDICLAIM SCHEME. The premium is Rs. 4650/- for the period as
-            mentioned above.</p>
+            mentioned above.</b></p>
 
           <p><b>✔ <u>Though the policy covers the pre disease, but there is
                 restriction which has been kept by the trust for the members those require multiple hospitalization
@@ -276,7 +307,7 @@
                 this
                 cases the membership deemed to be taken as insurance for claim and not for coverage.</u></b></p>
 
-          <p>The above restriction has to be kept to keep the policy
+          <p><b>The above restriction has to be kept to keep the policy
             continuity,
             otherwise the members having terminal disease will be join the scheme and the ICR will go up to a large
             extent
@@ -284,15 +315,15 @@
 
             it will not be possible for continuance of the policy. The terms and condition of the Insurance policy is
             strictly
-            as per the terms of SAIL
+            as per the terms of SAIL</b>
 
-            <b>MEDICLAIM INSURANCE</b> and the restriction on SAIL MEDICLAIM SCHEME will also applicable in this scheme.
+            <b>MEDICLAIM INSURANCE and the restriction on SAIL MEDICLAIM SCHEME will also applicable in this scheme.</b>
           </p>
 
-          <p>Entry period strictly as per the renewal period of SAIL MEDICLAIM.
+          <p><b>Entry period strictly as per the renewal period of SAIL MEDICLAIM.
             However, when a member joining mediclaim scheme of SAIL at the time of superannuation, he can simultaneously
             can
-            join in the scheme at any time during the year.</p>
+            join in the scheme at any time during the year.</b></p>
 
         </div>
 
@@ -319,6 +350,8 @@
 
         <div class="row mt-5 text-center">
           <p-button label="PRINT" styleClass="p-button-rounded print_btn" (click)="printDiv()"></p-button>
+          <!-- <p-button styleClass="p-button-rounded print_btn ml-2" (onClick)="downloadReport()" label="Download PDF">
+</p-button> -->
         </div>
       </div>
 

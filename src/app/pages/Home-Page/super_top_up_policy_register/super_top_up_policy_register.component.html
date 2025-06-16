@@ -16,7 +16,7 @@
                 </div>
             </div>
              <div class="field col-12 md:col-4">
-              <label for="policyHolderType" class="label_field"><b>Policy Holder Type:<span class="text-red-700">*</span></b></label>&nbsp;
+              <label for="policy_holder_type" class="label_field"><b>Policy Holder Type:<span class="text-red-700">*</span></b></label>&nbsp;
               <select id="policy_holder_type" formControlName="policy_holder_type" [(ngModel)]="selectedValue_4"
                   class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                   style="appearance: auto; height: 3vw; border-radius: 7px">
@@ -75,7 +75,7 @@
                   style="appearance: auto; height: 3vw; border-radius: 7px">
                   <option value="N">Select Operation</option>
                   <option value="S">Single</option>
-                  <option value="J">Double</option>
+                  <option value="D">Double</option>
                 </select>
             </div>
             <div class="field col-12 md:col-4">
@@ -118,12 +118,12 @@
             </div>
           </div>
 
-          <ng-container *ngIf="selectedValue3 === 'J'">
+          <ng-container *ngIf="selectedValue3 === 'D'">
           <p-divider type="dashed"></p-divider>
           <h3 class="text-center"><b>Spouse Information</b></h3>
           </ng-container>
 
-          <ng-container *ngIf="selectedValue3 === 'J'">
+          <ng-container *ngIf="selectedValue3 === 'D'">
             <div class="flex flex-row">
               <div class="field col-12 md:col-3">
                 <label for="spouse" class="label_field"><b>Spouse Name:</b></label>&nbsp;
@@ -161,8 +161,8 @@
             </div>
           </ng-container>
 
-          <h3 class="text-center"><b>Medical details</b></h3>
           <p-divider type="dashed"></p-divider>
+          <h3 class="text-center"><b>Medical details</b></h3>
 
           <div formArrayName="depenFields_2">
 
@@ -228,13 +228,31 @@
                 </div>
               </div>
             </ng-container>
+          </div>
 
+          <p-divider type="dashed"></p-divider>
+          <h3 class="text-center"><b>Premium Details</b></h3>
+
+            <div class="flex flex-row mt-3">
+            <div class="field col-12 md:col-4">
+              <label for="premium_type" class="label_field"><b>Premium Type:</b></label>&nbsp;
+                <input id="premium_type" type="text" formControlName="premium_type" placeholder="Enter Premium Type"
+                  class="box_input text-2xl text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" readonly/>
+            </div>
+             <div class="field col-12 md:col-4">
+             <label for="premium_amt" class="label_field"><b>Premium Amount:</b></label>&nbsp;
+                <input id="premium_amt" type="text" formControlName="premium_amt" placeholder="Enter Premium Amount"
+                  class="box_input text-2xl text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" readonly/>
+            </div>
+            <div class="field col-12 md:col-4">
+              <label for="total_amt" class="label_field"><b>Total Premium Amount:</b></label>&nbsp;
+              <input id="total_amt" type="text" formControlName="total_amt" placeholder="Enter Total Premium Amount" class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" readonly/>
+            </div>
           </div>
 
         </form>
-
-        <button pButton pRipple type="button" label="Submit" class="p-button-raised final" (click)="final_submit()"
-          [disabled]="!form.valid"></button>
+           <button mat-raised-button color="primary"label="Submit" class="p-button-raised final" (click)="final_submit()"
+          [disabled]="!form.valid">Submit</button>
       </ng-container>
     </p-card>
   </div>

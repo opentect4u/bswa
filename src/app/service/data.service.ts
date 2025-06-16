@@ -34,4 +34,30 @@ export class DataService {
       });
     }
   }
+
+  //  global_service(flag: any, api_path: any, data: any, options: any = {}) {
+  //   var token = localStorage.getItem('token') || '';
+  //   console.log(token,"token");
+    
+  //   let headers = new HttpHeaders();
+  //   if (token != '') {
+  //     headers = headers.set('authorization', token);
+  //   }
+
+  //   // FLAG : 1 -> POST || 0 -> GET
+  //   if (flag > 0) {
+  //     // EX: data = {id: this.id, dt: this.dt};
+  //     return this.http.post(environment.api_url + api_path, data, {
+  //       headers: headers,
+  //       ...options,
+  //     });
+  //   } else {
+  //     // EX: data = 'id=' + this.id + '&dt=' + this.dt
+  //     var api_dt = data ? '?' + data : '';
+  //     return this.http.get(environment.api_url + api_path + api_dt, {
+  //       headers: headers,
+  //       ...options,
+  //     });
+  //   }
+  // }
 }

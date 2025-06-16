@@ -27,6 +27,11 @@ interface MembershipInfo {
   spou_phone: string,
   spou_address: string,
   unit_name: string,
+  form_dt: string,
+  policy_holder_type: string,
+  fin_yr: string,
+  premium_type: string,
+  premium_amt: string
 }
 
 interface SpouseDepenInfo {
@@ -123,6 +128,7 @@ export class Print_stp_formComponent implements OnInit {
               : {}
             : {};
         this.stpinfo = this.responsedata;
+        console.log(this.stpinfo,'stpinfo');
       });
   }
 
@@ -175,7 +181,7 @@ export class Print_stp_formComponent implements OnInit {
     //   '@media print { .table_space { margin-left: 14px; } .letter{ margin-left: 19px; margin: 6PX; padding: 0; } .letter_style{ margin-left: 22px; margin: 17PX; padding: 0; } p-button.p-element, .print_btn { /* align-items: center;  */ /* position: fixed; */ /* right: 30px; */ bottom: 15px; /* margin-left: 30vw; */ } </style>'
     // );
     this.WindowObject.document.writeln('@media print { .center { text-align: center;}' +
-      'body{font-family:Arial, Tahoma, Verdana;font-size: 14px;color: #6f7479;}' +'.wrapper{box-shadow: none !important; max-width: 1100px; width: 100%; margin: 0 auto; font-family:Arial, Tahoma, Verdana;}' +'.contant-wraper{box-shadow: none !important;}'+
+      'body{font-family:Arial, Tahoma, Verdana;font-size: 14px;color:rgb(34, 123, 211);}' +'.wrapper{box-shadow: none !important; max-width: 1100px; width: 100%; margin: 0 auto; font-family:Arial, Tahoma, Verdana;}' +'.contant-wraper{box-shadow: none !important;}'+
       '.table_head_cus tr td{background: #D9D9D9;}' +'tr.table_head_cus td{background: #333; color:#fff; text-align: left; font-size: 14px;}' +
       'tr.table_head_cus th{background: #333; color:#fff; text-align: left; font-size: 14px;}'+
       '.print_Section table tbody tr td{border-bottom:#ccc solid 1px; padding:10px;text-align: left;}' +'.print_Section table tbody tr th{border-bottom:#ccc solid 1px; padding:10px;text-align: left;}' +
@@ -213,5 +219,30 @@ export class Print_stp_formComponent implements OnInit {
       this.WindowObject.close();
     }, 1000);
   }
+
+// downloadFile(data: Blob, filename: string) {
+//   const blob = new Blob([data], { type: 'application/pdf' });  // explicitly set type
+//   const url = window.URL.createObjectURL(blob);
+//   const a = document.createElement('a');
+//   a.href = url;
+//   a.download = filename;
+//   a.click();
+//   window.URL.revokeObjectURL(url);
+// }
+
+
+// downloadReport() {
+//   const form_no = this.form_no;
+//   const query = `form_no=${form_no}`;
+//   this.dataServe.global_service(0, '/download_super_mediclaim_pdf', query, { responseType: 'blob' }).subscribe(
+//     (response: any) => {
+//       this.downloadFile(response, `STP_${this.form_no}.pdf`);
+//     },
+//     (error) => {
+//       console.error('Download error', error);
+//     }
+//   );
+// }
+
 
 }

@@ -18,6 +18,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
+
 
 const routes:Routes=[
   {path:'',component:Super_top_up_policy_registerComponent}
@@ -41,6 +43,7 @@ const routes:Routes=[
     FileUploadModule,
     ReactiveFormsModule,
     // FormsModule,
+    MatButtonModule,
     RouterModule.forChild(routes)
   ],
   declarations: [Super_top_up_policy_registerComponent]
