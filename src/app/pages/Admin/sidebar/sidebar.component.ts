@@ -35,22 +35,22 @@ export class SidebarComponent implements OnInit {
           },
         ],
       },
-      // {
-      //   label: 'Super Topup Policy',
-      //   icon: 'pi pi-fw pi-bookmark',
-      //   items: [
-      //     {
-      //       label: 'Accept / Reject Super Topup Policy Forms',
-      //       icon: 'pi pi-search',
-      //       routerLink: ['admin_premium_approve'],
-      //     },
-      //     {
-      //       label: 'Approve Super Topup Policy Form',
-      //       icon: 'pi pi-check-circle',
-      //       routerLink: ['super_policy_approve'],
-      //     },
-      //   ],
-      // },
+      {
+        label: 'Super Topup Policy',
+        icon: 'pi pi-fw pi-bookmark',
+        items: [
+          {
+            label: 'Accept / Reject Super Topup Policy Forms',
+            icon: 'pi pi-search',
+            routerLink: ['admin_premium_approve'],
+          },
+          // {
+          //   label: 'Approve Super Topup Policy Form',
+          //   icon: 'pi pi-check-circle',
+          //   routerLink: ['super_policy_approve'],
+          // },
+        ],
+      },
       {
         label: 'Existing Group Policy',
         icon: 'pi pi-fw pi-users',

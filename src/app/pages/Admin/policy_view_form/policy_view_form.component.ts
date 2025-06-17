@@ -28,6 +28,10 @@ interface MembershipInfo {
   spou_phone: string,
   spou_address: string,
   unit_name: string,
+  policy_holder_type: string,
+  form_dt: string,
+  premium_type: string,
+  premium_amt: string
 }
 
 interface SpouseDepenInfo {

@@ -38,88 +38,91 @@
 <p-card id="divToPrint">
   <div class="row">
     <div class="col-12">
-      <h4 class="letter" style="color: black">TO</h4>
-      <h4 class="letter" style="color: black">The Secreatry</h4>
-      <h3 class="letter" style="color: black">
+      <h5 class="letter" style="color: black">TO</h5>
+      <h5 class="letter" style="color: black">The Secreatry</h5>
+      <h5 class="letter" style="color: black">
         BOSEC WELFARE TRUST
-      </h3>
-      <h4 class="letter" style="color: black">13 CAMAC STREET,</h4>
-      <h4 class="letter" style="color: black">KOLKATA 700017</h4>
-      <h4 class="letter" style="color: black">(Through: <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.mem_type ==
+      </h5>
+      <h5 class="letter" style="color: black">13 CAMAC STREET,</h5>
+      <h5 class="letter" style="color: black">KOLKATA 700017</h5>
+      <h5 class="letter mt-3" style="color: black">(Through: <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.mem_type ==
             'G' ? 'General Membership' :
             stpinfo?.mem_type == 'L' ? 'Life
-            membership' : ''}}</u></span>)</h4>
-      <h4 class="letter" style="color: black">Dear Sir,</h4>
-      <h4 class="size" style="color: black">
+            membership' : ''}}</u></span>)</h5>
+      <h5 class="letter" style="color: black">Dear Sir,</h5>
+      <h5 class="size mt-3" style="color: black">
         This is to inform you that the under signed is the member of <span
           style="color: rgb(55, 55, 230);"><u>{{stpinfo?.mem_type == 'G' ? 'General
             Membership' : stpinfo?.mem_type == 'L' ? 'Life
-            membership' : ''}}</u></span> having membership no.
-        <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.member_id}}</u></span> and
-        Superannuated from <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.unit_name}}</u></span>. My SAIL
+            membership' : 'Member Of Other Sail Association'}}</u></span> of <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.policy_holder_type == 'M' ? 'BSPWA Member' : ''}}</u></span> having membership no.
+        <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.member_id}}</u></span> and MIN No <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.min_no}}</u></span> and
+        Superannuated from <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.unit_name}}</u></span> on <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.form_dt | date: 'dd-MM-yyyy'}}</u></span>. My SAIL
         PERSONNEL NO. is <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.personel_no}}</u></span>.
         I am interested to join in the scheme of super top up policy with the UNITED INDIA INSURANCE CO LTD for the year
         subject to premium and other term. The details of the undersigned are as under:
-      </h4>
+      </h5>
     </div>
   </div>
 
   <div class="row">
     <table class="table_space">
-      <tr>
-        <th class="text-center" style="background-color: aliceblue">
-          <label for="status" class="label_field"><b>STATUS</b></label>
+      <tr class="table_head_cus">
+        <th class="text-center">
+          <label for="status"><b>STATUS</b></label>
         </th>
-        <th class="text-center" style="background-color: aliceblue">
-          <label for="status" class="label_field"><b>NAME</b><span class="span_space"></span></label>
+        <!-- <th class="text-center">
+          <label for="status"><b>NAME</b><span class="span_space"></span></label>
+        </th> -->
+        <th class="text-center">
+          <b>NAME</b>
         </th>
-        <th class="text-center" style="background-color: aliceblue">
-          <label for="status" class="label_field"><b>MIN NO</b><span class="span_space"></span></label>
+        <!-- <th class="text-center">
+          <b>MIN NO</b>
+        </th> -->
+        <th class="text-center">
+          <b>DOB</b>
         </th>
-        <th class="text-center" style="background-color: aliceblue">
-          <label for="status" class="label_field"><b>DOB</b><span class="span_space"></span></label>
+        <th class="text-center">
+          <b>MOBILE NO</b>
         </th>
-        <th class="text-center" style="background-color: aliceblue">
-          <label for="status" class="label_field"><b>MOBILE NO</b><span class="span_space"></span></label>
-        </th>
-        <th class="text-center" style="background-color: aliceblue">
-          <label for="status" class="label_field"><b>ADDRESS</b><span class="span_space"></span></label>
+        <th class="text-center">
+          <b>ADDRESS</b>
         </th>
       </tr>
 
       <tr>
-        <th class="text-center"><span class="label_field" style="color: rgb(55, 55, 230);">SELF</span></th>
-        <th class="text-center"><span class="label_field" style="color: rgb(55, 55, 230);">{{stpinfo?.memb_name!='null'
+        <th class="text-center"><span style="color: rgb(55, 55, 230);">SELF</span></th>
+        <th class="text-center"><span style="color: rgb(55, 55, 230);">{{stpinfo?.memb_name!='null'
             ? stpinfo?.memb_name : 'N/A'}}</span></th>
-        <th class="text-center"><span class="label_field" style="color: rgb(55, 55, 230);">{{stpinfo?.min_no!='null'
-            ? stpinfo?.min_no : 'N/A'}}</span></th>
-        <th class="text-center"><span class="label_field" style="color: rgb(55, 55, 230);"> {{stpinfo?.dob &&
+        <!-- <th class="text-center"><span class="label_field" style="color: rgb(55, 55, 230);">{{stpinfo?.min_no!='null'
+            ? stpinfo?.min_no : 'N/A'}}</span></th> -->
+        <th class="text-center"><span style="color: rgb(55, 55, 230);"> {{stpinfo?.dob &&
             stpinfo?.dob !== '0000-00-00' ? (stpinfo?.dob | date: 'MM/dd/yyyy') :
             'N/A'}}</span></th>
-        <th class="text-center"><span class="label_field" style="color: rgb(55, 55, 230);">{{
+        <th class="text-center"><span style="color: rgb(55, 55, 230);">{{
             stpinfo?.phone_no}}</span></th>
-        <th class="text-center"><span class="label_field"
+        <th class="text-center"><span
             style="color: rgb(55, 55, 230);">{{stpinfo?.mem_address!='null' ? stpinfo?.mem_address : 'N/A'}}</span>
         </th>
       </tr>
       <tr>
-        <th class="text-center"><span class="label_field" style="color: rgb(55, 55, 230);">SPOUSE</span></th>
-        <th class="text-center"><span class="label_field" style="color: rgb(55, 55, 230);">{{
+        <th class="text-center"><span style="color: rgb(55, 55, 230);">SPOUSE</span></th>
+        <th class="text-center"><span style="color: rgb(55, 55, 230);">{{
             stpinfo?.dependent_name!= 'null' ? stpinfo?.dependent_name : 'N/A'}}</span></th>
-        <th class="text-center"><span class="label_field"
+        <!-- <th class="text-center"><span
             style="color: rgb(55, 55, 230);">{{stpinfo?.spou_min_no!='null' ? stpinfo?.spou_min_no : 'N/A'}}</span>
-        </th>
+        </th> -->
         <th class="text-center">
-          <span class="label_field" style="color: rgb(55, 55, 230);">
+          <span style="color: rgb(55, 55, 230);">
             {{stpinfo?.spou_dob && stpinfo?.spou_dob !== '0000-00-00' ? (stpinfo?.spou_dob | date: 'MM/dd/yyyy') :
             'N/A'}}
           </span>
         </th>
 
-        <th class="text-center"><span class="label_field"
+        <th class="text-center"><span
             style="color: rgb(55, 55, 230);">{{stpinfo?.spou_phone}}</span>
         </th>
-        <th class="text-center"><span class="label_field"
+        <th class="text-center"><span
             style="color: rgb(55, 55, 230);">{{stpinfo?.spou_address!='null' ? stpinfo?.spou_address :
             'N/A'}}</span></th>
       </tr>
@@ -127,72 +130,97 @@
   </div>
 
   <div class="row mt-4">
-    <h4 class="letter_style" style="color: black">
+    <h4 style="color: black">
       <u>I am giving below the total usage of amount under SAIL MEDICLAIM POLICY FOR THE YEAR under IPD are as
         below:</u>
     </h4>
   </div>
 
   <div class="row">
-    <table class="table_space">
-      <tr>
-        <th class="text-center" style="background-color: aliceblue">
-          <label for="status" class="label_field"><b>Sl No</b></label>
-        </th>
-        <th class="text-center" style="background-color: aliceblue">
-          <label for="status" class="label_field"><b><u>STATUS</u></b><span class="label_field"></span></label>
-        </th>
-        <th class="text-center" style="background-color: aliceblue">
-          <label for="status" class="label_field"><b><u>YEAR</u></b><span class="label_field"></span></label>
-        </th>
-        <th class="text-center" style="background-color: aliceblue">
-          <label for="status" class="label_field"><b><u>PARTICULAR OF DISEASE</u></b><span
-              class="label_field"></span></label>
-        </th>
-        <th class="text-center" style="background-color: aliceblue">
-          <label for="status" class="label_field"><b><u>AMOUNT UTILISED</u></b><span class="label_field"></span></label>
-        </th>
-        <th colspan="2" class="text-center" style="background-color: aliceblue">
-          <label for="status" class="label_field"><b><u>MEDICAL TREATMENT TAKEN AT (HOSPITAL NAME)</u></b><span
-              class="label_field"></span></label>
-        </th>
-      </tr>
+          <table class="table_space_cus">
+            <tr class="table_head_cus">
+              <th class="text-center">
+                <b>Sl No</b>
+              </th>
+              <th class="text-center">
+                <b>STATUS</b>
+              </th>
+              <th class="text-center">
+                <b>YEAR</b>
+              </th>
+              <th class="text-center">
+                <b>PARTICULAR OF DISEASE</b>
+              </th>
+              <th class="text-center">
+                <>AMOUNT UTILISED<
+              </th>
+              <th colspan="2" class="text-center">
+                <b>MEDICAL TREATMENT TAKEN AT (HOSPITAL NAME)</b>
+              </th>
+            </tr>
       <tr *ngFor="let dt of spouseInfo; let i = index">
-        <th class="text-center" style="color: rgb(55, 55, 230);"><span class="label_field">{{dt.sl_no}}</span>
+        <th class="text-center" style="color: rgb(55, 55, 230);"><span>{{dt.sl_no}}</span>
         </th>
-        <th class="text-center"><span class="label_field" style="color: rgb(55, 55, 230);">{{dt.ind_type == 'S' ? 'SELF'
+        <th class="text-center"><span style="color: rgb(55, 55, 230);">{{dt.ind_type == 'S' ? 'SELF'
             : 'SPOUSE'}}</span></th>
-        <th class="text-center" style="width: 8vw;"><span class="label_field"
+        <th class="text-center" style="width: 8vw;"><span
             style="color: rgb(55, 55, 230);">{{dt.fin_year}}</span></th>
-        <th style="width: 38vw;"><span class="label_field" style="color: rgb(55, 55, 230);">{{dt.particulars}}</span>
+        <th style="width: 38vw;"><span style="color: rgb(55, 55, 230);">{{dt.particulars}}</span>
         </th>
-        <th><span class="label_field" style="color: rgb(55, 55, 230);">{{dt.amount}}</span></th>
-        <th><span class="label_field" style="color: rgb(55, 55, 230);">{{dt.treatment_dtls}}</span></th>
+        <th><span style="color: rgb(55, 55, 230);">{{dt.amount}}</span></th>
+        <th><span style="color: rgb(55, 55, 230);">{{dt.treatment_dtls}}</span></th>
       </tr>
     </table>
   </div>
 
+   <div class="row">
+          <h4 style="color: black"><br><br>
+            <u>Premium details are given below:</u>
+          </h4>
+        </div>
+
+         <div class="row mt-2">
+          <table class="table_space_cus">
+            <tr class="table_head_cus">
+              <th class="text-center">
+                <b>PREMIUM TYPE</b>
+              </th>
+              <th class="text-center">
+                <b>PREMIUM AMOUNT</b>
+              </th>
+              <th>
+                <b class="text-center">TOTAL AMOUNT</b>
+              </th>
+            </tr>
+            <tr>
+              <th class="text-center"><span style="color: rgb(55, 55, 230);">{{stpinfo?.premium_type == 'S' ? 'SINGLE' : 'DOUBLE'}}</span></th>
+              <th class="text-center"><span style="color: rgb(55, 55, 230);">{{stpinfo?.premium_amt}}</span></th>
+              <th class="text-center"><span style="color: rgb(55, 55, 230);">{{stpinfo?.premium_amt}}</span></th>
+            </tr>
+          </table>
+        </div>
+
   <div class="row mt-3">
-    <h4 class="letter_style" style="color: black">
+    <h5 class="letter_style" style="color: black">
       (Year means 11th July to 10th July of next year)
       I do hereby declare that all the information are correct. For any misinformation I will be liable for the loss
       suffered by you and will be liable to pay including penalty if any. As and when premium is declared we will
       deposit the same as per the procedure. I have read out the terms and agreed.
-    </h4>
-    <h4 class="letter_style" style="color: black;margin-left: 62vw;">
+    </h5>
+    <h5 class="letter_style" style="color: black;margin-left: 62vw;">
       Thanking You,
-    </h4>
-    <h4 class="letter_style" style="color: black;margin-left: 62vw;">
+    </h5>
+    <h5 class="letter_style" style="color: black;margin-left: 62vw;">
       Yours faithfully,
-    </h4><br>
+    </h5><br>
     <span class="label_field" style="color: rgb(9, 42, 233);margin-left: 62vw;"></span>
-    <h4 class="letter_style" style="color: black;margin-left: 60vw;">
+    <h5 class="letter_style" style="color: black;margin-left: 60vw;">
       Signature with date
-    </h4>
+    </h5>
   </div>
 
   <div class="row mt-5">
-    <p class="letter_style" style="color: black"><b>Insurance is coverage rendered to the individual/members during any
+    <p style="color: black"><b>Insurance is coverage rendered to the individual/members during any
         uncertain loss; it's not made for making profit or any type of speculation/gambling. Likewise, in Health
         Insurance coverage provided to the Policy holders during their Hospitaliration (treatment of which cannot be
         done from OPD/domiciliary basis). Therefore, members are requested to be judicial while taking Insurance
@@ -200,45 +228,45 @@
         required) in hospital, request for over stav or doing diagnostic tests through IPD admission (which can be
         easily done through OPD) by prudent members will be discouraged.</b></p>
 
-    <p class="letter_style" style="color: black"><b>Similarly, super top up policy is an additional benefit/coverage
+    <p style="color: black"><b>Similarly, super top up policy is an additional benefit/coverage
         designed for the members applicable only when the basic coverage got exhausted. It is basically designed to
         extend support to the members in case of hospitalization involved with huge uncertain expenses (beyond basic
         policy coverage). Chronic diseases which require certain repeated hospitalization will not come under the scope
         of this Super Top up Policy.</b></p>
 
-    <p class="letter_style" style="color: black">What is a super top up Health policy?</p>
+    <p style="color: black"><b>What is a super top up Health policy?</b></p>
 
-    <p class="letter_style" style="color: black"><b>✔</b> Super top up policy is designed that an insurer can claim
+    <p style="color: black"><b>✔ Super top up policy is designed that an insurer can claim
       after a certain amount for reimbursement of IPD Hospitalization. This certain amount is called as threshold amount
-    </p>
+    </b></p>
 
-    <p class="letter_style" style="color: black"><b>✔</b> When a single member (either self or spouse) is joining the
+    <p style="color: black"><b>✔ When a single member (either self or spouse) is joining the
       scheme, his threshold amount has been kept as 4 lacs. The amount has been fixed considering the SAIL MEDICLAIM
       POLICY. This threshold amount is applicable at the time of application (for example a person has already consumed
       certain amount at the time of joining in the scheme will not be taken into a/c) - The premium for 2021-22
-      (11/7/2021 to 10/7/2022) is Rs. 2400/- including service tax</p>
+      (11/7/2021 to 10/7/2022) is Rs. 2400/- including service tax</b></p>
 
-    <p class="letter_style" style="color: black"><b>✔</b> In case of Self & spouse, i.e. both the threshold amount has
+    <p style="color: black"><b>✔In case of Self & spouse, i.e. both the threshold amount has
       been kept at Rs. 8 lacs considering the SAIL MEDICLAIM SCHEME. The premium is Rs. 4650/- for the period as
-      mentioned above.</p>
+      mentioned above.</b></p>
 
-    <p class="letter_style" style="color: black"><b>✔ <u>Though the policy covers the pre disease, but there is
+    <p style="color: black"><b>✔ <u>Though the policy covers the pre disease, but there is
           restriction which has been kept by the trust for the members those require multiple hospitalization during the
           year is not being considered, as the concept of joining any health insurance scheme is for coverage. In this
           cases the membership deemed to be taken as insurance for claim and not for coverage.</u></b></p>
 
-    <p class="letter_style" style="color: black">The above restriction has to be kept to keep the policy continuity,
+    <p style="color: black"><b>The above restriction has to be kept to keep the policy continuity,
       otherwise the members having terminal disease will be join the scheme and the ICR will go up to a large extent and
 
       it will not be possible for continuance of the policy. The terms and condition of the Insurance policy is strictly
-      as per the terms of SAIL
+      as per the terms of SAIL</b> 
 
-      <b>MEDICLAIM INSURANCE</b> and the restriction on SAIL MEDICLAIM SCHEME will also applicable in this scheme.
-    </p>
+      <b>MEDICLAIM INSURANCE and the restriction on SAIL MEDICLAIM SCHEME will also applicable in this scheme.
+    </b></p>
 
-    <p class="letter_style" style="color: black">Entry period strictly as per the renewal period of SAIL MEDICLAIM.
+    <p style="color: black"><b>Entry period strictly as per the renewal period of SAIL MEDICLAIM.
       However, when a member joining mediclaim scheme of SAIL at the time of superannuation, he can simultaneously can
-      join in the scheme at any time during the year.</p>
+      join in the scheme at any time during the year.</b></p>
 
   </div>
 
@@ -278,7 +306,7 @@
           class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
           style="appearance: auto; height: 3vw; border-radius: 7px">
           <option value="P" select>Pending</option>
-          <option value="T">Accept</option>
+          <option value="A">Approved</option>
           <option value="R">Reject</option>
         </select>
       </div>
