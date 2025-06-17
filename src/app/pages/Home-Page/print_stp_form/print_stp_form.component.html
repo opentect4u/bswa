@@ -97,9 +97,9 @@
               <th>
                 <b>NAME</b><span class="span_space"></span>
               </th>
-              <!-- <th>
+              <th>
                 <b>MIN NO</b><span class="span_space"></span>
-              </th> -->
+              </th>
               <th>
                 <b>DOB</b><span class="span_space"></span>
               </th>
@@ -118,8 +118,8 @@
               <th><span>SELF</span></th>
               <th><span>{{stpinfo?.memb_name!='null' ? stpinfo?.memb_name : 'N/A'}}</span>
               </th>
-              <!-- <th><span>{{stpinfo?.min_no!='null'
-                  ? stpinfo?.min_no : 'N/A'}}</span></th> -->
+              <th><span>{{stpinfo?.min_no!='null'
+                  ? stpinfo?.min_no : 'N/A'}}</span></th>
               <th><span> {{stpinfo?.dob &&
                   stpinfo?.dob !== '0000-00-00' ? (stpinfo?.dob | date: 'MM/dd/yyyy') :
                   'N/A'}}</span></th>
@@ -130,13 +130,13 @@
               </th>
               <!-- <th><span>{{stpinfo?.fin_yr | date: 'dd-MM-yyyy' }}</span></th> -->
             </tr>
-            <tr>
+            <tr *ngIf="stpinfo?.memb_oprn == 'D'">
               <th><span>SPOUSE</span></th>
               <th><span>{{
                   stpinfo?.dependent_name!= 'null' ? stpinfo?.dependent_name : 'N/A'}}</span></th>
-              <!-- <th><span>{{stpinfo?.spou_min_no!='null' ? stpinfo?.spou_min_no :
+              <th><span>{{stpinfo?.spou_min_no!='null' ? stpinfo?.spou_min_no :
                   'N/A'}}</span>
-              </th> -->
+              </th>
               <th>
                 <span>
                   {{stpinfo?.spou_dob && stpinfo?.spou_dob !== '0000-00-00' ? (stpinfo?.spou_dob | date: 'MM/dd/yyyy') :

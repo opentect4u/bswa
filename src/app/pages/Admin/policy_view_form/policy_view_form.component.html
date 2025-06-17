@@ -76,9 +76,9 @@
         <th class="text-center">
           <b>NAME</b>
         </th>
-        <!-- <th class="text-center">
+        <th class="text-center">
           <b>MIN NO</b>
-        </th> -->
+        </th>
         <th class="text-center">
           <b>DOB</b>
         </th>
@@ -94,8 +94,8 @@
         <th class="text-center"><span style="color: rgb(55, 55, 230);">SELF</span></th>
         <th class="text-center"><span style="color: rgb(55, 55, 230);">{{stpinfo?.memb_name!='null'
             ? stpinfo?.memb_name : 'N/A'}}</span></th>
-        <!-- <th class="text-center"><span class="label_field" style="color: rgb(55, 55, 230);">{{stpinfo?.min_no!='null'
-            ? stpinfo?.min_no : 'N/A'}}</span></th> -->
+        <th class="text-center"><span class="label_field" style="color: rgb(55, 55, 230);">{{stpinfo?.min_no!='null'
+            ? stpinfo?.min_no : 'N/A'}}</span></th>
         <th class="text-center"><span style="color: rgb(55, 55, 230);"> {{stpinfo?.dob &&
             stpinfo?.dob !== '0000-00-00' ? (stpinfo?.dob | date: 'MM/dd/yyyy') :
             'N/A'}}</span></th>
@@ -105,13 +105,13 @@
             style="color: rgb(55, 55, 230);">{{stpinfo?.mem_address!='null' ? stpinfo?.mem_address : 'N/A'}}</span>
         </th>
       </tr>
-      <tr>
+      <tr *ngIf="stpinfo?.memb_oprn == 'D'">
         <th class="text-center"><span style="color: rgb(55, 55, 230);">SPOUSE</span></th>
         <th class="text-center"><span style="color: rgb(55, 55, 230);">{{
             stpinfo?.dependent_name!= 'null' ? stpinfo?.dependent_name : 'N/A'}}</span></th>
-        <!-- <th class="text-center"><span
+        <th class="text-center"><span
             style="color: rgb(55, 55, 230);">{{stpinfo?.spou_min_no!='null' ? stpinfo?.spou_min_no : 'N/A'}}</span>
-        </th> -->
+        </th>
         <th class="text-center">
           <span style="color: rgb(55, 55, 230);">
             {{stpinfo?.spou_dob && stpinfo?.spou_dob !== '0000-00-00' ? (stpinfo?.spou_dob | date: 'MM/dd/yyyy') :
@@ -302,10 +302,10 @@
 
       <div class="field col-12 md:col-4">
         <label for="status" class="label_field" style="color: black;"><b>Status: </b></label>&nbsp;
-        <select id="status" formControlName="status" [(ngModel)]="selectedValue"
+        <select id="status" formControlName="status"  
           class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
           style="appearance: auto; height: 3vw; border-radius: 7px">
-          <option value="P" select>Pending</option>
+          <option value="P">Pending</option>
           <option value="A">Approved</option>
           <option value="R">Reject</option>
         </select>
@@ -321,8 +321,8 @@
       </div> -->
     </div>
 
-    <div *ngIf="form.controls['status'].value === 'T'">
-      <!-- <div class="formgrid grid mt-3">
+    <!-- <div *ngIf="form.controls['status'].value === 'A'">
+      <div class="formgrid grid mt-3">
         <div class="field col-12 md:col-4">
           <label for="frm_no" style="color: black"><b>Form No</b></label>
           <input id="frm_no" type="text" value="{{form_no}}"
@@ -342,12 +342,58 @@
             <option value="O" select>Online Transaction</option>
           </select>
         </div>
-      </div> -->
+      </div>
       <div class="flex flex-row mt-3">
         <button pButton pRipple type="button" label="Accept" class="p-button-raised sub_btn" (click)="approve()"
           [disabled]="f['resolution_no'].invalid || f['resolution_dt'].invalid"></button>
       </div>
-    </div>
+    </div> -->
+
+     <div *ngIf="form.controls['status'].value === 'A'">
+          <div class="formgrid grid mt-3">
+             <div class="field col-12 md:col-4">
+              <label for="form_no" style="color: black"><b>STP Form No</b></label>
+              <input id="form_no" type="text" formControlName="form_no" readonly
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            </div>
+            <div class="field col-12 md:col-4">
+              <label for="trn_date" style="color: black"><b>Date<span class="text-red-700">*</span></b></label>
+              <input id="trn_date" type="date" formControlName="trn_date" placeholder="dd/MM/yyyy" [max]="maxDate"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+              <div *ngIf="f['trn_date']?.touched || f['trn_date']?.dirty">
+                <small class="text-red-900" *ngIf="f['trn_date']?.errors">Date is required.</small>
+              </div>
+            </div>
+            <div class="field col-12 md:col-4">
+              <label for="totalAmount" style="color: black"><b>Total Premium Amount</b></label>
+              <input id="totalAmount" type="number" formControlName="totalAmount" readonly
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            </div>
+          </div>
+    
+    
+          <p-divider type="dashed"></p-divider>
+    
+          <h4 class="text-center" style="color: black;">Payment Mode</h4>
+          <div class="flex flex-row">
+            <div class="field col-12 md:col-12">
+              <label for="payment" class="label_field" style="color: black;"><b>Payment Mode:</b></label>&nbsp;
+              <select id="payment" formControlName="payment" [(ngModel)]="selectedValue2"
+                class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                style="appearance: auto; height: 3vw; border-radius: 7px">
+                <option value="N" select>Select Payment Mode</option>
+                <!-- <option value="C">Cash</option> -->
+                <!-- <option value="Q">Cheque</option> -->
+                <option value="O">Online Transaction</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+         <div class="flex flex-row" *ngIf="form.controls['status'].value === 'A'">
+          <button pButton pRipple type="button" label="Send payment link" class="p-button-raised sub_btn" 
+            [disabled]="form.controls['payment'].value == 'O' ? f['resolution_no'].invalid || f['resolution_dt'].invalid || f['trn_date'].invalid  : ''"></button>
+        </div>
 
     <p-divider type="dashed"></p-divider>
 
