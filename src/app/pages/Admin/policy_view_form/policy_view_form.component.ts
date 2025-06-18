@@ -6,6 +6,8 @@ import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
+import * as CryptoJS from 'crypto-js';
+
 
 interface MembershipInfo {
   mem_type: string,
@@ -69,6 +71,7 @@ interface trnData {
   providers: [DatePipe],
 })
 export class Policy_view_formComponent implements OnInit {
+  // myForm!: FormGroup;
   secretKey = environment.secretKey
   api_base_url = environment.api_url;
   selectedValues: any[] = [];
@@ -124,6 +127,7 @@ export class Policy_view_formComponent implements OnInit {
   tnxData: trnData | any;
   tnxResData: any;
   maxDate!: string;
+  save_dt: any;
 
   constructor(
     private router: Router,
@@ -135,14 +139,14 @@ export class Policy_view_formComponent implements OnInit {
     this.form = this.fb.group({
       resolution_no: ['',Validators.required],
       resolution_dt: ['',Validators.required],
-      status: ['',Validators.required],
+      status: ['P',Validators.required],
       reject: ['',Validators.required],
       payment: [''],
       pre_amt: [''],
       trn_id: [''],
       trn_date: ['',Validators.required],
       totalAmount: [''],
-      form_no: ['']
+      form_no: [''],
       // frm_no: ['']
     });
   }
@@ -461,40 +465,37 @@ export class Policy_view_formComponent implements OnInit {
         member: this.stpinfo?.memb_name,
         phone_no: this.stpinfo?.phone_no,
         trn_id: this.trn_id,
-        payEncDataGen: payEncData,
+        payEncDataSuper: payEncData,
       };
-      // this.dataServe.global_service(1, '/save_trn_data_gmp', dt).subscribe(
-      //   (data) => {
-      //     this.save_dt = data;
-      //     console.log(this.save_dt, 'save_dt');
+      this.dataServe.global_service(1, '/save_trn_data_stp', dt).subscribe(
+        (data) => {
+          this.save_dt = data;
+          console.log(this.save_dt, 'save_dt');
   
-      //     if (this.save_dt.suc > 0) {
-      //       Swal.fire('Success', 'Premium deposit successfully', 'success').then(
-      //         (result) => {
-      //           if (result.isConfirmed) {
-      //             // this.showDepoEntry = false;
-      //             // this.form.reset()
-      //             // this.entryForm.reset()
-      //             if(dt.payment != 'O')
-      //             this.router.navigate([
-      //               '/admin/accept_gmp_money_receipt',
-      //               this.form_no,
-      //               this.save_dt.trn_id,
-      //             ]);
-      //             else
-      //             this.router.navigate(['/admin/admin_group_premium_approve']);
-      //           }
-      //         }
-      //       );
-      //     } else {
-      //       Swal.fire('Error', this.save_dt.msg, 'error');
-      //     }
-      //   },
-      //   (error) => {
-      //     console.error(error);
-      //     Swal.fire('Error', error, 'error');
-      //   }
-      // );
+          if (this.save_dt.suc > 0) {
+            Swal.fire('Success', 'Premium deposit successfully', 'success').then(
+              (result) => {
+                if (result.isConfirmed) {
+                  // if(dt.payment != 'O')
+                  // this.router.navigate([
+                  //   '/admin/accept_gmp_money_receipt',
+                  //   this.form_no,
+                  //   this.save_dt.trn_id,
+                  // ]);
+                  // else
+                  this.router.navigate(['/admin/admin_group_premium_approve']);
+                }
+              }
+            );
+          } else {
+            Swal.fire('Error', this.save_dt.msg, 'error');
+          }
+        },
+        (error) => {
+          console.error(error);
+          Swal.fire('Error', error, 'error');
+        }
+      );
     }
 
 }

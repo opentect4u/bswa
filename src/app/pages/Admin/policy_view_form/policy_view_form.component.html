@@ -391,7 +391,7 @@
         </div>
 
          <div class="flex flex-row" *ngIf="form.controls['status'].value === 'A'">
-          <button pButton pRipple type="button" label="Send payment link" class="p-button-raised sub_btn" 
+          <button pButton pRipple type="button" label="Send payment link" class="p-button-raised sub_btn" (click)="approve()"
             [disabled]="form.controls['payment'].value == 'O' ? f['resolution_no'].invalid || f['resolution_dt'].invalid || f['trn_date'].invalid  : ''"></button>
         </div>
 
