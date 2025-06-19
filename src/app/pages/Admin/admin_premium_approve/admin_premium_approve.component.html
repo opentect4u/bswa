@@ -92,7 +92,7 @@
               <span
                 class="badge {{ customer.form_status=='P' ? 'badge-pending' : customer.form_status=='R' ? 'badge-reject' : 'badge-Accept' }}">
                 {{ customer.form_status=='P' ? 'Pending' : customer.form_status=='R' ? 'Reject' :
-                customer.form_status=='T' ? 'Accept' : '' }}
+                customer.form_status=='A' ? 'Approved' : '' }}
               </span>
             </b>
           </td>

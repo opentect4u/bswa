@@ -7,7 +7,7 @@ import { DatePipe } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import * as CryptoJS from 'crypto-js';
-
+import { ChangeDetectorRef } from '@angular/core';
 
 interface MembershipInfo {
   mem_type: string,
@@ -34,6 +34,10 @@ interface MembershipInfo {
   form_dt: string,
   premium_type: string,
   premium_amt: string,
+  approve_at: string,
+  approve_by: string,
+  rejected_dt: string,
+  rejected_by: string,
 
 }
 
@@ -128,13 +132,17 @@ export class Policy_view_formComponent implements OnInit {
   tnxResData: any;
   maxDate!: string;
   save_dt: any;
+  // isRejectEditable: boolean = false; 
+  // fromPendingList: boolean = false;
+  // isApprovedSubmitted: boolean = false;
 
   constructor(
     private router: Router,
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private dataServe: DataService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private cdr: ChangeDetectorRef,
   ) { 
     this.form = this.fb.group({
       resolution_no: ['',Validators.required],
@@ -162,10 +170,21 @@ export class Policy_view_formComponent implements OnInit {
     const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
     const year = today.getFullYear();
     this.maxDate = `${year}-${month}-${day}`;
+  //     this.route.queryParams.subscribe(params => {
+  //   this.fromPendingList = params['fromPendingList'] === 'true';
+    
+  //   const currentStatus = this.form.get('status')?.value;
+  //   if (currentStatus === 'R' && this.fromPendingList !== true) {
+  //     this.isRejectEditable = false;
+  //   } else {
+  //     this.isRejectEditable = true;
+  //   }
+  // });
 
     const encodedFormNo = this.route.snapshot.params['form_no'];
     const encodedMemId = this.route.snapshot.params['member_id'];
     const encodedPhNo = this.route.snapshot.params['phone_no'];
+    // this.originalStatus = this.form.get('status')?.value;
     // const encodedName = ;
     // this.member_id = localStorage.getItem('user_name')
     
@@ -351,6 +370,8 @@ export class Policy_view_formComponent implements OnInit {
       this.resdata = data;
       console.log(this.resdata, '99');
       if(this.resdata.suc > 0) {
+        // this.isRejectedSubmitted = true; 
+        // this.cdr.detectChanges(); 
         Swal.fire(
           'Success',
           'Form Rejected Successfully',

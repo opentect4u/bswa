@@ -155,22 +155,24 @@ export class Admin_premium_approveComponent implements OnInit {
   //   this.tbFilterData = this.userData.length > 0 ? this.userData.filter((dt:any) => flag != 'R' ? dt.form_status != 'R' : dt.form_status == flag) : []
   // }
   filterTableData(flag: any) {
-    if (this.userData.msg && this.userData.msg.length > 0) {
-      this.tbFilterData = this.userData.msg.filter((dt: any) => {
-        if (flag === 'Y') {
-          return dt.form_status === 'P'; 
-        } else if (flag === 'R') {
-          return dt.form_status === 'R'; 
-        } else {
-          return dt.form_status === 'A'; 
-        // } else {
-        //   return true;
-        }
-      });
-    } else {
-      this.tbFilterData = [];
-    }
-    this.updateRowsPerPageOptions();
-
+  if (this.userData.msg && this.userData.msg.length > 0) {
+    console.log(this.userData.msg,'msg');
+    
+    this.tbFilterData = this.userData.msg.filter((dt: any) => {
+      if (flag === 'Y') {
+        return dt.form_status === 'P'; // Pending
+      } else if (flag === 'R') {
+        return dt.form_status === 'R'; // Rejected
+      } else if (flag === 'A') {
+        return dt.form_status === 'A'; // Approved
+      } else {
+        return true;
+      }
+    });
+  } else {
+    this.tbFilterData = [];
   }
+  this.updateRowsPerPageOptions();
+}
+
 }

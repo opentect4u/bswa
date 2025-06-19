@@ -32,10 +32,25 @@
     background-color: #ffffff;
     color: rgb(0, 0, 0);
   }
+  .view{
+    margin-left: 59vw;
+  }
 </style>
 
 
 <p-card id="divToPrint">
+  <div class="row" >
+    <div class="col-12 view" *ngIf="form.controls['status'].value === 'A'">
+      <h5>Approved Date : {{stpinfo?.approve_at | date:'dd-MM-yyyy'}}</h5>
+      <h5>Approved By : {{stpinfo?.approve_by}}</h5>
+    </div>
+  </div>
+  <div class="row" >
+    <div class="col-12 view" *ngIf="form.controls['status'].value === 'R'">
+      <h5>Rejected Date : {{stpinfo?.rejected_dt | date:'dd-MM-yyyy'}}</h5>
+      <h5>Rejected By : {{stpinfo?.rejected_by}}</h5>
+    </div>
+  </div>
   <div class="row">
     <div class="col-12">
       <h5 class="letter" style="color: black">TO</h5>
@@ -152,7 +167,7 @@
                 <b>PARTICULAR OF DISEASE</b>
               </th>
               <th class="text-center">
-                <>AMOUNT UTILISED<
+                <b>AMOUNT UTILISED</b>
               </th>
               <th colspan="2" class="text-center">
                 <b>MEDICAL TREATMENT TAKEN AT (HOSPITAL NAME)</b>
@@ -412,6 +427,6 @@
         <button pButton pRipple type="button" label="OK" class="p-button-raised sub_btn" (click)="reject_submit()"
           [disabled]="f['resolution_no'].invalid || f['resolution_dt'].invalid || f['reject'].invalid"></button>
       </div>
-    </div>
+      </div>
   </form>
 </p-card>
