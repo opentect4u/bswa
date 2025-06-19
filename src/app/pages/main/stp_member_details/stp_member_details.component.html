@@ -1,0 +1,41 @@
+<style>
+  table {
+    width: 96%;
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+  th {
+    background-color: #f2f2f2;
+    text-align: left;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  /* tr:hover {
+        background-color: #ddd;
+    } */
+  th,
+  td {
+    padding: 15px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+  }
+</style>
+<p-card id="divToPrint">
+  <h3 class="title_h3"><b>Member Details</b></h3>
+
+  <form [formGroup]="form" class="memberDtl">
+  </form>
+</p-card>

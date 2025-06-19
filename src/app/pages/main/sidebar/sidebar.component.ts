@@ -11,11 +11,14 @@ export class SidebarComponent implements OnInit {
   public sideMenuItem: any = [];
   mem_type: any;
   items!: MenuItem[]
+  flag: any;
   constructor(private router: Router,private route: ActivatedRoute) {}
 
   ngOnInit() {
     // this.mem_type = this.route.snapshot.params['mem_type'];
    this.mem_type = localStorage.getItem('mem_type')
+  //  this.flag = localStorage.getItem('flag')
+  //  console.log(this.mem_type,this.flag,'kiki');
    this.items = [
     {
       label: 'Dashboard',

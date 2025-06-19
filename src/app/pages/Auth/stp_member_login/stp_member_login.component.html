@@ -1,0 +1,37 @@
+<div class="login-container">
+  <div class="login-box">
+    <div class="image-section">
+      <img src="assets/images/image.gif" alt="Login illustration" />
+    </div>
+    <div class="form-section">
+      <img src="assets/images/banner_logo.png" alt="Login illustration" class="stp_login_img"/>
+      <h4 class="img_adjust">WELCOME TO ALL UNITS STP MEMBERS</h4>
+
+      <form [formGroup] = "loginForm" (ngSubmit) = "onSubmit()">
+        <div class="custom-input-wrapper">
+          <div class="icon-section">
+            <mat-icon>person</mat-icon>
+          </div>
+          <mat-form-field appearance="fill" class="input-field">
+            <mat-label>MIN No</mat-label>
+            <input matInput formControlName="min_no" />
+          </mat-form-field>
+        </div>
+        <div class="custom-input-wrapper">
+          <div class="icon-section">
+            <mat-icon>lock</mat-icon>
+          </div>
+          <mat-form-field appearance="fill" class="input-field">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password" />
+          </mat-form-field>
+        </div>
+        <div class="action-row">
+          <div class="button-group-inline">
+            <button mat-raised-button color="primary" [disabled]="loginForm.invalid">Login</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

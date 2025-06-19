@@ -38,7 +38,11 @@ interface MembershipInfo {
   approve_by: string,
   rejected_dt: string,
   rejected_by: string,
-
+  form_status: string,
+  remarks: string,
+  resolution_no: string,
+  trn_date: string,
+  form_no: string
 }
 
 interface SpouseDepenInfo {
@@ -75,7 +79,6 @@ interface trnData {
   providers: [DatePipe],
 })
 export class Policy_view_formComponent implements OnInit {
-  // myForm!: FormGroup;
   secretKey = environment.secretKey
   api_base_url = environment.api_url;
   selectedValues: any[] = [];
@@ -132,9 +135,6 @@ export class Policy_view_formComponent implements OnInit {
   tnxResData: any;
   maxDate!: string;
   save_dt: any;
-  // isRejectEditable: boolean = false; 
-  // fromPendingList: boolean = false;
-  // isApprovedSubmitted: boolean = false;
 
   constructor(
     private router: Router,
@@ -142,12 +142,11 @@ export class Policy_view_formComponent implements OnInit {
     private route: ActivatedRoute,
     private dataServe: DataService,
     private datePipe: DatePipe,
-    private cdr: ChangeDetectorRef,
   ) { 
     this.form = this.fb.group({
       resolution_no: ['',Validators.required],
       resolution_dt: ['',Validators.required],
-      status: ['P',Validators.required],
+      status: ['P'],
       reject: ['',Validators.required],
       payment: [''],
       pre_amt: [''],
@@ -155,7 +154,6 @@ export class Policy_view_formComponent implements OnInit {
       trn_date: ['',Validators.required],
       totalAmount: [''],
       form_no: [''],
-      // frm_no: ['']
     });
   }
 
@@ -170,29 +168,19 @@ export class Policy_view_formComponent implements OnInit {
     const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
     const year = today.getFullYear();
     this.maxDate = `${year}-${month}-${day}`;
-  //     this.route.queryParams.subscribe(params => {
-  //   this.fromPendingList = params['fromPendingList'] === 'true';
-    
-  //   const currentStatus = this.form.get('status')?.value;
-  //   if (currentStatus === 'R' && this.fromPendingList !== true) {
-  //     this.isRejectEditable = false;
-  //   } else {
-  //     this.isRejectEditable = true;
-  //   }
-  // });
 
+   this.form.get('status')?.valueChanges.subscribe(value => {
+   console.log('Selected status changed to:', value);
+   });
     const encodedFormNo = this.route.snapshot.params['form_no'];
     const encodedMemId = this.route.snapshot.params['member_id'];
     const encodedPhNo = this.route.snapshot.params['phone_no'];
-    // this.originalStatus = this.form.get('status')?.value;
-    // const encodedName = ;
-    // this.member_id = localStorage.getItem('user_name')
     
     this.form_no = atob(decodeURIComponent(encodedFormNo));
     this.member_id = atob(decodeURIComponent(encodedMemId));
     this.phone_no = atob(decodeURIComponent(encodedPhNo));
-    // this.memb_name = this.route.snapshot.params['memb_name']
     console.log(this.member_id,'ooo');
+
     this.getMemberInfo(this.member_id,this.form_no);
     this.getGenInsInfo();
     this.getSpouseInfo();
@@ -218,6 +206,7 @@ export class Policy_view_formComponent implements OnInit {
                 ? this.datePipe.transform(this.resolution_dt, 'yyyy-MM-dd')
                 : '',
             // status: this.memb_status,
+             status: this.tnxData?.form_status ?? 'P',
             payment: this.tnxData?.pay_mode,
             // cheque_no: this.tnxData?.chq_no,
             // bank_name: this.tnxData?.chq_bank,
@@ -252,7 +241,11 @@ export class Policy_view_formComponent implements OnInit {
         this.stpinfo = this.responsedata;
           this.form.patchValue({
           totalAmount: this.stpinfo?.premium_amt,
-          form_no: form_no
+          form_no: form_no,
+          resolution_no: this.resdata[0]?.resolution_no,
+          resolution_dt: this.datePipe.transform(this.resdata[0]?.resolution_dt, 'yyyy-MM-dd'),
+          status:this.resdata[0]?.form_status,
+          pre_amt: this.resdata[0]?.premium_amt,
         });
         // this.form.patchValue({
         //   // resolution_no: this.resdata[0].resolution_no,
@@ -324,16 +317,18 @@ export class Policy_view_formComponent implements OnInit {
       .global_service(0, '/get_super_transaction', `form_no=${this.form_no}`)
       .subscribe((data: any) => {
         this.resdata = data;
-        console.log(this.resdata);
+        console.log(this.resdata,'resss');
         this.resdata = this.resdata.suc > 0 ? this.resdata.msg : []
         // console.log(this.resdata[0].subscription_1)
         this.form.patchValue({
           resolution_no: this.resdata[0]?.resolution_no,
           resolution_dt: this.datePipe.transform(this.resdata[0]?.resolution_dt, 'yyyy-MM-dd'),
-          status:this.resdata[0]?.form_status,
+          status: this.resdata[0]?.form_status,
           pre_amt: this.resdata[0]?.premium_amt,
+          trn_date: this.resdata[0]?.form_dt,
         })
-        this.selectedValue = this.resdata[0]?.form_status;
+        console.log('Status after patching:', this.form.get('status')?.value);
+        // this.selectedValue = this.resdata[0]?.form_status;
       })
   }
 
@@ -354,6 +349,26 @@ export class Policy_view_formComponent implements OnInit {
       })
   }
 
+//   getRejectTransactionInfo() {
+//   // this.showRejectSection = false;
+//   this.dataServe
+//     .global_service(0, '/get_super_transaction_reject', `form_no=${this.form_no}`)
+//     .subscribe((data: any) => {
+//       this.resdata = data?.suc > 0 ? data.msg[0] : null;
+//       console.log(this.resdata);
+
+//       if (this.resdata) {
+//         this.form.patchValue({
+//           resolution_no: this.resdata.resolution_no,
+//           resolution_dt: this.resdata.resolution_dt,
+//           // status: 'R',
+//           reject: this.resdata.remarks,
+//         });
+//         // this.showRejectSection = true;
+//       }
+//     });
+// }
+
   reject_submit(){
     var dt = {
       formNo: this.form_no,
@@ -371,6 +386,7 @@ export class Policy_view_formComponent implements OnInit {
       console.log(this.resdata, '99');
       if(this.resdata.suc > 0) {
         // this.isRejectedSubmitted = true; 
+        this.form.patchValue({ status: 'P' });
         // this.cdr.detectChanges(); 
         Swal.fire(
           'Success',
@@ -378,7 +394,6 @@ export class Policy_view_formComponent implements OnInit {
           'success'
         ).then((result) => {
           if (result.isConfirmed) {
-            // this.router.navigate(['/admin/super_policy_approve'])
             this.router.navigate(['/admin/admin_premium_approve'])
           }
         });
@@ -445,31 +460,81 @@ export class Policy_view_formComponent implements OnInit {
   // }
 
 
-   approve() {
-      var payEncData = '';
-      if (this.f['payment'].value == 'O') {
-        var payData = {
-          form_no: this.form_no,
-          member_id: this.stpinfo?.member_id,
-          memb_name: this.stpinfo?.memb_name,
-          amount: this.f['totalAmount'] ? this.f['totalAmount'].value : null,
-          phone_no: this.stpinfo?.phone_no,
-          email: '',
-          approve_status: 'A',
-          calc_upto: '',
-          subs_type: '',
-          sub_fee: '',
-          redirect_path: '/',
-          soc_flag: 'T',
-          trn_id: this.trn_id
-        };
-        console.log(this.trn_id, payData, '+++++++++///////////////');
+  //  approve() {
+  //     var payEncData = '';
+  //     if (this.f['payment'].value == 'O') {
+  //       var payData = {
+  //         form_no: this.form_no,
+  //         member_id: this.stpinfo?.member_id,
+  //         memb_name: this.stpinfo?.memb_name,
+  //         amount: this.f['totalAmount'] ? this.f['totalAmount'].value : null,
+  //         phone_no: this.stpinfo?.phone_no,
+  //         email: '',
+  //         approve_status: 'A',
+  //         calc_upto: '',
+  //         subs_type: '',
+  //         sub_fee: '',
+  //         redirect_path: '/',
+  //         soc_flag: 'T',
+  //         trn_id: this.trn_id
+  //       };
+  //       console.log(this.trn_id, payData, '+++++++++///////////////');
         
-        payEncData = CryptoJS.AES.encrypt(
-          JSON.stringify(payData),
-          this.secretKey
-        ).toString();
-      }
+  //       payEncData = CryptoJS.AES.encrypt(
+  //         JSON.stringify(payData),
+  //         this.secretKey
+  //       ).toString();
+  //     }
+  //     var dt = {
+  //       formNo: this.form_no,
+  //       resolution_no: this.f['resolution_no']
+  //         ? this.f['resolution_no'].value
+  //         : null,
+  //       resolution_dt: this.f['resolution_dt']
+  //         ? this.f['resolution_dt'].value
+  //         : null,
+  //       status: this.f['status'] ? this.f['status'].value : null,
+  //       user: localStorage.getItem('user_name'),
+  //       trn_date: this.f['trn_date'] ? this.f['trn_date'].value : null,
+  //       totalAmount: this.f['totalAmount'] ? this.f['totalAmount'].value : null,
+  //       payment: this.f['payment'] ? this.f['payment'].value : null,
+  //       member: this.stpinfo?.memb_name,
+  //       phone_no: this.stpinfo?.phone_no,
+  //       trn_id: this.trn_id,
+  //       payEncDataSuper: payEncData,
+  //     };
+  //     this.dataServe.global_service(1, '/save_trn_data_stp', dt).subscribe(
+  //       (data) => {
+  //         this.save_dt = data;
+  //         console.log(this.save_dt, 'save_dt');
+  
+  //         if (this.save_dt.suc > 0) {
+  //           Swal.fire('Success', 'Premium deposit successfully', 'success').then(
+  //             (result) => {
+  //               if (result.isConfirmed) {
+  //                 // if(dt.payment != 'O')
+  //                 // this.router.navigate([
+  //                 //   '/admin/accept_gmp_money_receipt',
+  //                 //   this.form_no,
+  //                 //   this.save_dt.trn_id,
+  //                 // ]);
+  //                 // else
+  //                 this.router.navigate(['/admin/admin_group_premium_approve']);
+  //               }
+  //             }
+  //           );
+  //         } else {
+  //           Swal.fire('Error', this.save_dt.msg, 'error');
+  //         }
+  //       },
+  //       (error) => {
+  //         console.error(error);
+  //         Swal.fire('Error', error, 'error');
+  //       }
+  //     );
+  //   }
+
+   approve() {
       var dt = {
         formNo: this.form_no,
         resolution_no: this.f['resolution_no']
@@ -485,8 +550,7 @@ export class Policy_view_formComponent implements OnInit {
         payment: this.f['payment'] ? this.f['payment'].value : null,
         member: this.stpinfo?.memb_name,
         phone_no: this.stpinfo?.phone_no,
-        trn_id: this.trn_id,
-        payEncDataSuper: payEncData,
+        // trn_id: this.trn_id,
       };
       this.dataServe.global_service(1, '/save_trn_data_stp', dt).subscribe(
         (data) => {
@@ -497,13 +561,6 @@ export class Policy_view_formComponent implements OnInit {
             Swal.fire('Success', 'Premium deposit successfully', 'success').then(
               (result) => {
                 if (result.isConfirmed) {
-                  // if(dt.payment != 'O')
-                  // this.router.navigate([
-                  //   '/admin/accept_gmp_money_receipt',
-                  //   this.form_no,
-                  //   this.save_dt.trn_id,
-                  // ]);
-                  // else
                   this.router.navigate(['/admin/admin_group_premium_approve']);
                 }
               }
@@ -519,4 +576,15 @@ export class Policy_view_formComponent implements OnInit {
       );
     }
 
+  get isPending() {
+  return this.form.get('status')?.value === 'P';
+  }
+
+  // get isApproved() {
+  // return this.form.get('status')?.value === 'A';
+  // }
+
+  // get isRejected() {
+  // return this.form.get('status')?.value === 'R';
+  // }
 }

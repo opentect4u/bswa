@@ -33,24 +33,65 @@
     color: rgb(0, 0, 0);
   }
   .view{
-    margin-left: 59vw;
+    margin-left: 55vw;
   }
+ .color_app{
+  color: rgb(21, 206, 21)
+ }
+ .color_head{
+  color: rgb(24, 23, 23)
+ }
+.status-box {
+background-color: #f8f9fa;
+    border: 4px solid #dee2e6;
+    padding: 12px 16px;
+    border-radius: 6px;
+    max-width: 250px;
+    font-size: 19px;
+    box-shadow: 0 2px 4px rg;
+    margin-left: 55vw
+}
+
+.status-box h6 {
+  margin: 6px 0;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.color_rej {
+  color: #d9534f;
+  font-weight: bold;
+}
 </style>
 
 
 <p-card id="divToPrint">
-  <div class="row" >
-    <div class="col-12 view" *ngIf="form.controls['status'].value === 'A'">
-      <h5>Approved Date : {{stpinfo?.approve_at | date:'dd-MM-yyyy'}}</h5>
-      <h5>Approved By : {{stpinfo?.approve_by}}</h5>
+  <div class="row" *ngIf="stpinfo?.form_status === 'A'">
+    <div class="col-12 d-flex justify-content-end">
+      <div class="status-box">      
+      <h6>Form No : <span class="color_app">{{stpinfo?.form_no}}</span></h6>
+      <h6>Status : <span class="color_app">{{stpinfo?.form_status == 'A' ? 'Approved' : ''}}</span></h6>
+      <h6>Resolution No : <span class="color_app">{{stpinfo?.resolution_no}}</span></h6>
+      <h6>Transaction Date : <span class="color_app">{{stpinfo?.form_dt | date:'dd-MM-yyyy'}}</span></h6>
+      <h6>Premium Amount : <span class="color_app">{{stpinfo?.premium_amt}}</span></h6>
+       <h6>Approved Date : <span class="color_app">{{stpinfo?.approve_at | date:'dd-MM-yyyy'}}</span></h6>
+      <h6>Approved By : <span class="color_app">{{stpinfo?.approve_by}}</span></h6>
+      </div>
     </div>
   </div>
-  <div class="row" >
-    <div class="col-12 view" *ngIf="form.controls['status'].value === 'R'">
-      <h5>Rejected Date : {{stpinfo?.rejected_dt | date:'dd-MM-yyyy'}}</h5>
-      <h5>Rejected By : {{stpinfo?.rejected_by}}</h5>
+<div class="row" *ngIf="stpinfo?.form_status === 'R'">
+  <div class="col-12 d-flex justify-content-end">
+    <div class="status-box">
+      <h6>Status: <span class="color_rej">{{ stpinfo?.form_status == 'R' ? 'Reject' : '' }}</span></h6>
+      <h6>Resolution No: <span class="color_rej">{{ stpinfo?.resolution_no }}</span></h6>
+      <h6>Remarks: <span class="color_rej">{{ stpinfo?.remarks }}</span></h6>
+      <h6>Rejected Date: <span class="color_rej">{{ stpinfo?.rejected_dt | date:'dd-MM-yyyy' }}</span></h6>
+      <h6>Rejected By: <span class="color_rej">{{ stpinfo?.rejected_by }}</span></h6>
     </div>
   </div>
+</div>
+
+
   <div class="row">
     <div class="col-12">
       <h5 class="letter" style="color: black">TO</h5>
@@ -69,7 +110,7 @@
         This is to inform you that the under signed is the member of <span
           style="color: rgb(55, 55, 230);"><u>{{stpinfo?.mem_type == 'G' ? 'General
             Membership' : stpinfo?.mem_type == 'L' ? 'Life
-            membership' : 'Member Of Other Sail Association'}}</u></span> of <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.policy_holder_type == 'M' ? 'BSPWA Member' : ''}}</u></span> having membership no.
+            membership' : ''}}</u></span> of <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.policy_holder_type == 'M' ? 'BSPWA Member' : 'Member Of Other Sail Association'}}</u></span> having membership no.
         <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.member_id}}</u></span> and MIN No <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.min_no}}</u></span> and
         Superannuated from <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.unit_name}}</u></span> on <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.form_dt | date: 'dd-MM-yyyy'}}</u></span>. My SAIL
         PERSONNEL NO. is <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.personel_no}}</u></span>.
@@ -292,9 +333,10 @@
 
   <p-divider type="dashed"></p-divider>
 
-  <h4 class="text-center" style="color: black;">Approval Section</h4>
+  <h4 class="text-center" style="color: black;" *ngIf="stpinfo?.form_status !== 'A' && stpinfo?.form_status !== 'R'">Approval Section</h4>
 
-  <form [formGroup]="form">
+  <!-- <div *ngIf="isPending"> -->
+  <form *ngIf="stpinfo?.form_status !== 'A' && stpinfo?.form_status !== 'R'" [formGroup]="form">
     <div class="flex flex-row mt-5">
       <div class="field col-12 md:col-4">
         <label for="resolution_no" class="label_field" style="color: black;"><b>Resolution No:<span
@@ -317,7 +359,7 @@
 
       <div class="field col-12 md:col-4">
         <label for="status" class="label_field" style="color: black;"><b>Status: </b></label>&nbsp;
-        <select id="status" formControlName="status"  
+        <select id="status" formControlName="status"
           class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
           style="appearance: auto; height: 3vw; border-radius: 7px">
           <option value="P">Pending</option>
@@ -325,44 +367,7 @@
           <option value="R">Reject</option>
         </select>
       </div>
-
-      <!-- <div class="field col-12 md:col-4">
-        <label for="form_dt" style="color: black"><b>Date<span class="text-red-700">*</span></b></label>
-        <input id="form_dt" type="date" formControlName="form_dt" placeholder="dd/MM/yyyy" [max]="maxDate"
-          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
-        <div *ngIf="f['form_dt']?.touched || f['form_dt']?.dirty">
-          <small class="text-red-900" *ngIf="f['form_dt']?.errors">Date is required.</small>
-        </div>
-      </div> -->
     </div>
-
-    <!-- <div *ngIf="form.controls['status'].value === 'A'">
-      <div class="formgrid grid mt-3">
-        <div class="field col-12 md:col-4">
-          <label for="frm_no" style="color: black"><b>Form No</b></label>
-          <input id="frm_no" type="text" value="{{form_no}}"
-            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-            readonly />
-        </div>
-        <div class="field col-12 md:col-4">
-          <label for="pre_amt" style="color: black"><b>Premium Amount<span class="text-red-700">*</span></b></label>
-          <input id="pre_amt" type="text" formControlName="pre_amt" placeholder="Enter Premium Amount...."
-            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
-        </div>
-        <div class="field col-12 md:col-4">
-          <label for="payment" class="label_field" style="color: black;"><b>Payment Mode:</b></label>&nbsp;
-          <select id="payment" formControlName="payment" [(ngModel)]="selectedValue2"
-            class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
-            style="appearance: auto; height: 3vw; border-radius: 7px">
-            <option value="O" select>Online Transaction</option>
-          </select>
-        </div>
-      </div>
-      <div class="flex flex-row mt-3">
-        <button pButton pRipple type="button" label="Accept" class="p-button-raised sub_btn" (click)="approve()"
-          [disabled]="f['resolution_no'].invalid || f['resolution_dt'].invalid"></button>
-      </div>
-    </div> -->
 
      <div *ngIf="form.controls['status'].value === 'A'">
           <div class="formgrid grid mt-3">
@@ -385,29 +390,11 @@
                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
             </div>
           </div>
-    
-    
-          <p-divider type="dashed"></p-divider>
-    
-          <h4 class="text-center" style="color: black;">Payment Mode</h4>
-          <div class="flex flex-row">
-            <div class="field col-12 md:col-12">
-              <label for="payment" class="label_field" style="color: black;"><b>Payment Mode:</b></label>&nbsp;
-              <select id="payment" formControlName="payment" [(ngModel)]="selectedValue2"
-                class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
-                style="appearance: auto; height: 3vw; border-radius: 7px">
-                <option value="N" select>Select Payment Mode</option>
-                <!-- <option value="C">Cash</option> -->
-                <!-- <option value="Q">Cheque</option> -->
-                <option value="O">Online Transaction</option>
-              </select>
-            </div>
-          </div>
         </div>
 
          <div class="flex flex-row" *ngIf="form.controls['status'].value === 'A'">
-          <button pButton pRipple type="button" label="Send payment link" class="p-button-raised sub_btn" (click)="approve()"
-            [disabled]="form.controls['payment'].value == 'O' ? f['resolution_no'].invalid || f['resolution_dt'].invalid || f['trn_date'].invalid  : ''"></button>
+          <button pButton pRipple type="button" label="Submit" class="p-button-raised sub_btn" (click)="approve()"
+            [disabled]="f['resolution_no'].invalid || f['resolution_dt'].invalid || f['trn_date'].invalid"></button>
         </div>
 
     <p-divider type="dashed"></p-divider>
@@ -429,4 +416,5 @@
       </div>
       </div>
   </form>
+  <!-- </div> -->
 </p-card>

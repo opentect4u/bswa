@@ -30,6 +30,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./payment_preview_page/payment_preview_page.module').then((m) => m.Payment_preview_pageModule),
       },
+       {
+        path: 'stp_member_login',
+        loadChildren: () =>
+          import('./stp_member_login/stp_member_login.module').then((m) => m.Stp_member_loginModule),
+      },
     ],
   }
 ];

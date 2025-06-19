@@ -28,6 +28,20 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'stp_dashboard',
+        loadChildren: () =>
+          import('../main/stp_dashboard/stp_dashboard.module').then(
+            (m) => m.Stp_dashboardModule
+          ),
+      },
+         {
+        path: 'stp_memb_dtls',
+        loadChildren: () =>
+          import('../main/stp_member_details/stp_member_details.module').then(
+            (m) => m.Stp_member_detailsModule
+          ),
+      },
+      {
         path: 'memb_dtls',
         loadChildren: () =>
           import('./memb-dtls/memb-dtls.module').then(
