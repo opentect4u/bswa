@@ -42,7 +42,9 @@ interface MembershipInfo {
   remarks: string,
   resolution_no: string,
   trn_date: string,
-  form_no: string
+  form_no: string,
+  dependent_flag: string,
+  memb_flag: string
 }
 
 interface SpouseDepenInfo {
@@ -52,6 +54,7 @@ interface SpouseDepenInfo {
   particulars: string,
   amount: string,
   treatment_dtls: string,
+  treatment_flag: string
 }
 
 interface trnData {
@@ -119,7 +122,8 @@ export class Policy_view_formComponent implements OnInit {
   selectedValue: string = 'P';
   selectedValue2: string = 'O';
   frm_no:any;
-  spouseInfo: [SpouseDepenInfo] | undefined;
+  // spouseInfo: [SpouseDepenInfo] | undefined;
+  spouseInfo: SpouseDepenInfo[] = [];
   stpinfo: MembershipInfo | undefined;
   ind_type: any;
   treatment_dtls:any;
@@ -135,6 +139,7 @@ export class Policy_view_formComponent implements OnInit {
   tnxResData: any;
   maxDate!: string;
   save_dt: any;
+  filteredSpouseInfo: SpouseDepenInfo[] = [];
 
   constructor(
     private router: Router,
@@ -281,7 +286,7 @@ export class Policy_view_formComponent implements OnInit {
       .global_service(0, '/get_super_mediclaim', `form_no=${this.form_no}`)
       .subscribe((spouse_dt: any) => {
         this.resdata = spouse_dt;
-        console.log(this.resdata, '777');
+        // console.log(this.resdata, '777');
         this.resdata = 
            this.resdata.suc > 0 
              ? this.resdata.msg.length > 0 
@@ -290,6 +295,14 @@ export class Policy_view_formComponent implements OnInit {
              : [];
         this.spouseInfo = this.resdata
         // this.ind_type = this.responsedata[0].ind_type;
+          if (Array.isArray(this.spouseInfo)) {
+      this.filteredSpouseInfo = this.spouseInfo.filter(d =>
+        // (d.ind_type === 'S' && d.treatment_dtls?.toUpperCase() === 'Y') ||
+        // (d.ind_type === 'P' && d.treatment_dtls?.toUpperCase() === 'Y')
+         (d.ind_type === 'S' && d.treatment_flag === 'Y') ||
+        (d.ind_type === 'P' && d.treatment_flag === 'Y')
+      );
+    }
       });
   }
 
@@ -561,7 +574,7 @@ export class Policy_view_formComponent implements OnInit {
             Swal.fire('Success', 'Premium deposit successfully', 'success').then(
               (result) => {
                 if (result.isConfirmed) {
-                  this.router.navigate(['/admin/admin_group_premium_approve']);
+                  this.router.navigate(['/admin/admin_premium_approve']);
                 }
               }
             );

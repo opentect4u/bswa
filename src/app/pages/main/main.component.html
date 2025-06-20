@@ -1,9 +1,40 @@
-<!-- <div class=""> -->
-  <app-header (event) = "listneHeader($event)"></app-header>
-<!-- </div> -->
+  <!-- <app-header (event) = "listneHeader($event)"></app-header>
 <div class="sidemenu" [ngClass]="classSidemenu">
   <app-sidebar></app-sidebar>
 </div>
 <div class="content" [ngClass]="classContent">
   <router-outlet></router-outlet>
+</div> -->
+
+
+<ng-container *ngIf="flag === 'STP'; else normalHeader">
+  <app-stp-header (event)="listneHeader($event)"></app-stp-header>
+</ng-container>
+
+<ng-template #normalHeader>
+  <app-header (event)="listneHeader($event)"></app-header>
+</ng-template>
+
+<!-- Sidebar -->
+ 
+<ng-container *ngIf="flag === 'STP'; else normalSidebar">
+  <div class="sidemenu" [ngClass]="classSidemenu">
+    <app-stp-sidebar></app-stp-sidebar>
+  </div>
+</ng-container>
+
+<ng-template #normalSidebar>
+  <div class="sidemenu" [ngClass]="classSidemenu">
+    <app-sidebar></app-sidebar>
+  </div>
+</ng-template>
+
+<!-- <div class="sidemenu" [ngClass]="classSidemenu">
+  <app-sidebar></app-sidebar>
+</div> -->
+
+<!-- Main content -->
+<div class="content" [ngClass]="classContent">
+  <router-outlet></router-outlet>
 </div>
+

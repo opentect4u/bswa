@@ -1,0 +1,26 @@
+<div class="header-container shadow-sm">
+  <div class="header-left">
+    <button
+      pButton
+      pRipple
+      (click)="onMenuToggle()"
+      icon="pi pi-bars"
+      class="p-button-rounded p-button-text p-button-plain"
+    ></button>
+    <span class="welcome-text">
+      <b>Welcome,&nbsp;<span class="user-name">{{ memberName }}</span></b>
+    </span>
+  </div>
+
+  <div class="header-right">
+    <p-avatar
+      [label]="labelAdmin"
+      styleClass="mr-2"
+      size="large"
+      [style]="{ 'background-color': '#50b0dd', color: '#ffffff' }"
+      (click)="headermenu.toggle($event)"
+      shape="circle"
+    ></p-avatar>
+    <p-menu #headermenu [popup]="true" [model]="headerMenuItem"></p-menu>
+  </div>
+</div>

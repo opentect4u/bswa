@@ -114,7 +114,7 @@
               </th> -->
             </tr>
 
-            <tr>
+            <tr *ngIf="stpinfo?.memb_flag == 'Y'">
               <th><span>SELF</span></th>
               <th><span>{{stpinfo?.memb_name!='null' ? stpinfo?.memb_name : 'N/A'}}</span>
               </th>
@@ -130,7 +130,7 @@
               </th>
               <!-- <th><span>{{stpinfo?.fin_yr | date: 'dd-MM-yyyy' }}</span></th> -->
             </tr>
-            <tr *ngIf="stpinfo?.memb_oprn == 'D'">
+            <tr *ngIf="stpinfo?.memb_oprn == 'D' && stpinfo?.dependent_flag == 'Y'">
               <th><span>SPOUSE</span></th>
               <th><span>{{
                   stpinfo?.dependent_name!= 'null' ? stpinfo?.dependent_name : 'N/A'}}</span></th>
@@ -150,6 +150,9 @@
                   'N/A'}}</span></th>
               <!-- <th><span>{{stpinfo?.fin_yr | date: 'dd-MM-yyyy' }}</span></th> -->
             </tr>
+              <tr *ngIf="!(stpinfo?.memb_flag === 'Y') && !(stpinfo?.memb_oprn === 'D' && stpinfo?.dependent_flag === 'Y')">
+              <td colspan="6" class="text-center">No data found</td>
+              </tr>
           </table>
         </div>
 
@@ -182,7 +185,7 @@
                 <b>MEDICAL TREATMENT TAKEN AT (HOSPITAL NAME)</b><span class="label_field"></span>
               </th>
             </tr>
-            <tr *ngFor="let dt of spouseInfo; let i = index">
+            <tr *ngFor="let dt of filteredSpouseInfo; let i = index">
               <th><span>{{dt.sl_no}}</span>
               </th>
               <th><span>{{dt.ind_type == 'S' ?
@@ -192,6 +195,9 @@
               <th><span>{{dt.amount}}</span></th>
               <th><span>{{dt.treatment_dtls}}</span></th>
             </tr>
+             <tr *ngIf="filteredSpouseInfo.length === 0">
+             <td colspan="6" class="text-center">No Data Found</td>
+             </tr>
           </table>
         </div>
 

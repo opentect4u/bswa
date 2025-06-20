@@ -31,7 +31,9 @@ interface MembershipInfo {
   policy_holder_type: string,
   fin_yr: string,
   premium_type: string,
-  premium_amt: string
+  premium_amt: string,
+  memb_flag: string,
+  dependent_flag: string
 }
 
 interface SpouseDepenInfo {
@@ -41,6 +43,7 @@ interface SpouseDepenInfo {
   particulars: string,
   amount: string,
   treatment_dtls: string,
+  treatment_flag: string
 }
 
 @Component({
@@ -87,7 +90,8 @@ export class Print_stp_formComponent implements OnInit {
   member_id: any;
   responsedata_1: any;
 
-  spouseInfo: [SpouseDepenInfo] | undefined;
+  // spouseInfo: [SpouseDepenInfo] | undefined;
+  spouseInfo: SpouseDepenInfo[] = [];
   stpinfo: MembershipInfo | undefined;
   ind_type: any;
   treatment_dtls:any;
@@ -95,7 +99,9 @@ export class Print_stp_formComponent implements OnInit {
   amount:any;
   fin_year:any;
   genInsData: any;
+  filteredSpouseInfo: SpouseDepenInfo[] = [];
 
+  
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -120,7 +126,7 @@ export class Print_stp_formComponent implements OnInit {
       .global_service(0, '/get_member_policy_print_super', `member_id=${memb_id}&&form_no=${this.form_no}`)
       .subscribe((data: any) => {
         this.responsedata = data;
-        console.log(this.responsedata, '666');
+        // console.log(this.responsedata, '666');
         this.responsedata =  this.responsedata &&
           this.responsedata.suc > 0
             ? this.responsedata.msg.length > 0
@@ -128,7 +134,7 @@ export class Print_stp_formComponent implements OnInit {
               : {}
             : {};
         this.stpinfo = this.responsedata;
-        console.log(this.stpinfo,'stpinfo');
+        // console.log(this.stpinfo,'stpinfo');
       });
   }
 
@@ -155,15 +161,24 @@ export class Print_stp_formComponent implements OnInit {
       .global_service(0, '/get_super_mediclaim', `form_no=${this.form_no}`)
       .subscribe((spouse_dt: any) => {
         this.resdata = spouse_dt;
-        console.log(this.resdata, '777');
+        // console.log(this.resdata, '777');
         this.resdata = 
            this.resdata.suc > 0 
              ? this.resdata.msg.length > 0 
              ? this.resdata.msg
              : []
              : [];
-        this.spouseInfo = this.resdata
+        this.spouseInfo = this.resdata;
         // this.ind_type = this.responsedata[0].ind_type;
+          // ✅ FILTERING logic: keep only SELF or SPOUSE with treatment_flag 'Y'
+          if (Array.isArray(this.spouseInfo)) {
+      this.filteredSpouseInfo = this.spouseInfo.filter(d =>
+        // (d.ind_type === 'S' && d.treatment_dtls?.toUpperCase() === 'Y') ||
+        // (d.ind_type === 'P' && d.treatment_dtls?.toUpperCase() === 'Y')
+         (d.ind_type === 'S' && d.treatment_flag === 'Y') ||
+        (d.ind_type === 'P' && d.treatment_flag === 'Y')
+      );
+    }
       });
   }
 

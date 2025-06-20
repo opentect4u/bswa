@@ -9,6 +9,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 const routes:Routes=[
   {path: '', component: Stp_member_loginComponent}
@@ -25,7 +27,9 @@ const routes:Routes=[
     MatButtonModule,
     MatIconModule,
     MatCardModule,
+    ToastModule,
   ],
-  declarations: [Stp_member_loginComponent]
+  declarations: [Stp_member_loginComponent],
+   providers: [MessageService],
 })
 export class Stp_member_loginModule { }

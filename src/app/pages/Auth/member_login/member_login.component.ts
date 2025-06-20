@@ -39,6 +39,7 @@ export class Member_loginComponent implements OnInit {
       this.getLoginData = data;
       console.log(data, 'oo');
       if (this.getLoginData.suc > 0) {
+        localStorage.clear(); 
         localStorage.setItem('token', this.getLoginData.token);
         localStorage.setItem(
           'user_name',

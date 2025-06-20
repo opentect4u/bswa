@@ -124,3 +124,15 @@
   margin-left: 35px;
   color: blue;
 }
+
+.go_back {
+  text-decoration: none;
+  color: #2c5812;
+  font-size: 18px;
+  transition: color 0.3s ease-in-out;
+}
+
+.go_back:hover {
+  color: #053266;
+  text-decoration: underline;
+}

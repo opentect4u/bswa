@@ -39,6 +39,7 @@ export class Stp_member_loginComponent implements OnInit {
       this.getLoginData = data;
       console.log(data, 'oo');
       if (this.getLoginData.suc > 0) {
+        localStorage.clear(); 
         localStorage.setItem('token', this.getLoginData.token);
         localStorage.setItem('flag', 'STP');
         localStorage.setItem(
@@ -66,12 +67,19 @@ export class Stp_member_loginComponent implements OnInit {
         });
       } else {
         this.messageService.add({
-          severity: 'danger',
-          summary: 'Error',
-          detail: 'Message Content',
+          severity: 'error',
+          summary: 'Login Failed',
+          detail: 'Incorrect User ID or Password',
         });
       }
+       }, (err) => {
+    // In case of server/network error
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Server Error',
+      detail: 'Unable to connect. Please try again later.',
     });
+  });
   }
 
 }

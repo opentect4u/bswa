@@ -14,6 +14,8 @@ import { MenuModule } from 'primeng/menu';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { ScrollerModule } from 'primeng/scroller';
 import { AvatarModule } from 'primeng/avatar';
+import { StpHeaderComponent } from './stp-header/stp-header.component';
+import { StpSidebarComponent } from './stp-sidebar/stp-sidebar.component'
 
 const routes: Routes = [
   {
@@ -151,6 +153,6 @@ const routes: Routes = [
     AvatarModule,
     RouterModule.forChild(routes),
   ],
-  declarations: [MainComponent, SidebarComponent, HeaderComponent],
+  declarations: [MainComponent, SidebarComponent, HeaderComponent,StpHeaderComponent,StpSidebarComponent],
 })
 export class MainModule {}
