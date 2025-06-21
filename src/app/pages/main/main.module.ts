@@ -42,6 +42,12 @@ const routes: Routes = [
           import('../main/stp_member_details/stp_member_details.module').then(
             (m) => m.Stp_member_detailsModule
           ),
+      },{
+        path: 'stp_premium_dtls',
+        loadChildren: () =>
+          import('../main/stp_premium_dtls/stp_premium_dtls.module').then(
+            (m) => m.Stp_premium_dtlsModule
+          ),
       },
       {
         path: 'memb_dtls',

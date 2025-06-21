@@ -1,70 +1,102 @@
-.sidebar-container {
-  background: linear-gradient(to bottom, #f7fafd, #e3edf9);
-  border-right: 1px solid #ddd;
-  /* height: 100vh; */
-  /* padding: 1rem; */
-  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.05);
-  /* display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  font-family: 'Segoe UI', sans-serif; */
-  margin-top: 12px;
+body, html {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  height: 100%;
+}
+ 
+
+.sidebar {
+  width: 20vw;
+    height: 100vh;
+    background: linear-gradient(to bottom, #fafafa, #aebadb);
+    transition: width 0.3s ease;
+    display: flex
+;
+    flex-direction: column;
+    padding-top: 4rem;
+    position: fixed;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
 }
 
-::ng-deep .p-panelmenu .p-panelmenu-header {
-  background-color: transparent;
-  border: none;
-  font-weight: 600;
-  color: #003366;
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu li {
+  /* display: flex; */
+  align-items: center;
+  padding: 13px 17px;
+  color: #6a1b9a;
   font-size: 16px;
-  padding: 0px 2px;
-  transition: background 0.3s ease;
+  cursor: pointer;
+  transition: background 0.2s ease;
 }
 
-::ng-deep .p-panelmenu .p-panelmenu-header:hover {
-  background-color: #ddeeff;
+.sidebar-menu li i {
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.sidebar-menu li:hover {
+  background-color: rgba(255, 255, 255, 0.3);
   border-radius: 8px;
 }
 
-/* ::ng-deep .p-panelmenu .p-menuitem-link {
-  padding: 10px 16px;
-  border-radius: 6px;
-  color: #333;
-  transition: all 0.3s;
-} */
-
-::ng-deep .p-panelmenu .p-menuitem-link:hover {
-  background-color: #cce5ff;
-  color: #004085;
-  font-weight: 500;
-  transform: translateX(4px);
+.label {
+  white-space: nowrap;
+  transition: opacity 0.3s ease;
 }
 
-/* ::ng-deep .p-panelmenu .p-menuitem-icon {
-  margin-right: 4px;
-  color: #3366cc;
-} */
-
-::ng-deep .p-panelmenu .p-menuitem-active > .p-menuitem-link {
-  background-color: #99ccff;
-  font-weight: bold;
+.main-content {
+  margin-left: 60px;
+  padding: 2rem;
+  height: 100vh;
+  overflow-y: auto;
+  transition: margin-left 0.3s ease;
 }
 
-/* Reduce icon size inside panel menu */
-::ng-deep .p-panelmenu .p-menuitem-icon {
-  font-size: 16px !important; /* Decrease size */
-  color: #1a73e8;
-  margin-right: 6px;
-  vertical-align: middle;
+.sidebar.expanded ~ .main-content {
+  margin-left: 220px;
 }
 
-/* Optional: Adjust menu item layout if icons are vertically misaligned */
-::ng-deep .p-panelmenu .p-menuitem-link {
+
+.menu-item {
+  list-style: none;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.menu-box {
   display: flex;
   align-items: center;
-  padding: 10px 14px;
-  border-radius: 6px;
-  font-size: 14px;
-  transition: all 0.3s ease;
+  gap: 10px;
+  background-color: white;
+  border-radius: 12px;
+  padding: 10px 16px;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
+.menu-box:hover {
+  background-color: #f0f8ff;
+  transform: translateX(5px);
+}
+
+.menu-box i {
+  font-size: 22;
+  color: #6087b7;
+}
+
+.label {
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
+  white-space: nowrap;
+}

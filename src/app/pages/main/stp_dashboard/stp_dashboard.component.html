@@ -1,21 +1,38 @@
 <div class="dashboard-container">
-  <h2 class="text-center mt-3">
+  <h2 class="text-center mt-5">
     Welcome To <span class="brand-text">Bokaro Steel People Welfare Association</span>
   </h2>
 
   <div class="card-grid">
     <!-- Member Details Card -->
     <div class="dashboard-card" (click)="open_member()">
-      <img src="/assets/images/icon/icon_employee.svg" width="40" alt="Member">
+      <img src="/assets/images/icon/employees.png" width="40" alt="Member">
+       <!-- <i class="pi pi-user card-icon mt-3"></i> -->
       <p><b>Member Details</b></p>
     </div>
 
-    <!-- Insurance Form Card -->
-    <div class="dashboard-card" (click)="open_insurance()">
-      <img src="/assets/images/icon/icon_claim.svg" width="40" alt="Insurance">
-      <p><b>Insurance Form</b></p>
+     <!-- Insurance Form Card -->
+    <div class="dashboard-card" (click)="open_premium()">
+      <img src="/assets/images/icon/premium.png" width="40" alt="Premium details">
+      <p><b>Premium Details</b></p>
     </div>
 
-    <!-- Add more cards here if needed -->
+    <!-- Insurance Form Card -->
+    <div class="dashboard-card" (click)="open_premium()">
+      <img src="/assets/images/icon/cashless-payment.png" width="40" alt="Premium payment">
+      <p><b>Premium Payment</b></p>
+    </div>
+
+     <!-- Insurance Form Card -->
+    <div class="dashboard-card" (click)="open_premium()">
+      <img src="/assets/images/icon/card.png" width="40" alt="Renew Premium">
+      <p><b>Renew Premium Payment</b></p>
+    </div>
+
+      <!-- Insurance Form Card -->
+    <div class="dashboard-card" (click)="open_premium()">
+      <img src="/assets/images/icon/bill.png" width="40" alt="Receipt">
+      <p><b>Premium Payment Receipt</b></p>
+    </div>
   </div>
 </div>

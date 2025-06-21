@@ -14,11 +14,11 @@ export class Stp_dashboardComponent implements OnInit {
   }
 
   open_member(){
-    this.router.navigate(['/main/memb_dtls'])
+    this.router.navigate(['/main/stp_memb_dtls'])
   }
 
-  open_insurance(){
-    this.router.navigate(['/main/ins_form'])
+  open_premium(){
+    this.router.navigate(['/main/stp_premium_dtls'])
   }
 
 }

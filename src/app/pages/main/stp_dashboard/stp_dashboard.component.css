@@ -1,9 +1,17 @@
 .dashboard-container {
   /* background-color: #f4faff; */
-  background: linear-gradient(to right, #899fb8, #adc3dd);
-  padding: 11rem;
+  background: linear-gradient(to right, #adc1da, #d9e0e9);
+  padding: 8rem;
+  height: 100%;
 }
 
+body, html {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  height: 100%;
+}
+/* 899fb8 */
 .brand-text {
   color: #1444be;
   font-weight: 600;

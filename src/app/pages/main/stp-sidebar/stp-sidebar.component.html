@@ -1,8 +1,32 @@
-<div class="sidebar-container">
-  <p-panelMenu [model]="items" [style]="{'width':'100%'}"></p-panelMenu>
-  </div>
+<!-- <div class="sidebar-container"> -->
+  <!-- <p-panelMenu [model]="items" [style]="{'width':'100%'}"></p-panelMenu> -->
+  <!-- </div> -->
 
 
   <!-- <div class="sidebar-container">
     <p-panelMenu [model]="items" [style]="{'width':'100%'}"></p-panelMenu>
   </div> -->
+
+
+<div class="main-wrapper" [class.expanded]="isExpanded" 
+(mouseenter)="isExpanded = true" 
+(mouseleave)="isExpanded = false">
+  <div class="sidebar">
+    <ul class="sidebar-menu">
+      <li *ngFor="let item of items" 
+       class="menu-item"
+      (click)="navigate(item.routerLink)">
+      <div class="menu-box">
+        <i class="pi" [ngClass]="item.icon"></i>
+        <span class="label">{{ item.label }}</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- <div class="main-content">
+    <router-outlet></router-outlet>
+  </div>
+</div> -->
+
+

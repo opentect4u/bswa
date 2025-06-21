@@ -12,6 +12,7 @@ public sideMenuItem: any = [];
   mem_type: any;
   items!: MenuItem[]
   flag: any;
+  isExpanded: boolean = false
 
   constructor(private router: Router,private route: ActivatedRoute) { }
 
@@ -21,11 +22,32 @@ public sideMenuItem: any = [];
     {
       label: 'Dashboard',
       icon: 'pi pi-microsoft',
-      routerLink: ['dashboard'],
+      // routerLink: ['dashboard'],
+      routerLink: '/main/stp_dashboard',
     },
     {
       label: 'Member Details',
       icon: 'pi pi-user',
+      routerLink: '/main/stp_memb_dtls',
+    },
+    {
+      label: 'Premium Details',
+      icon: 'pi pi-server',
+      routerLink: '/main/stp_premium_dtls',
+    },
+      {
+      label: 'Premium Payment',
+      icon: 'pi pi-wallet',
+      routerLink: ['memb_dtls'],
+    },
+      {
+      label: 'Renew Premium Payment',
+      icon: 'pi pi-credit-card',
+      routerLink: ['memb_dtls'],
+    },
+    {
+      label: 'Premium Payment Receipt',
+      icon: 'pi pi-receipt',
       routerLink: ['memb_dtls'],
     }
   ];
@@ -43,6 +65,14 @@ public sideMenuItem: any = [];
 
   getRoute() {
     return this.router.url;
+  }
+
+    navigate(path: string | string[]) {
+    if (Array.isArray(path)) {
+      this.router.navigate(path);
+    } else {
+      this.router.navigate([path]);
+    }
   }
 
 }
