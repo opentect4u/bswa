@@ -1,71 +1,112 @@
-.margin{
-    margin-left: 65vw;
+.form-container {
+  /* max-width: 900px; */
+  margin: 30px 30px;
+  padding: 20px;
+  border-radius: 16px;
+  /* background: #e9ecf0; */
+  background: linear-gradient(to bottom, #fafafa, #aab6df);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.letter{
-    margin-left: 19px;
-    margin: 6PX;
-    padding: 0;
+.form-section {
+  background-color: white;
+  padding: 20px 30px;
+  border-radius: 12px;
+  border-left: 6px solid #3f51b5;
+  box-shadow: 0 2px 12px rgba(63, 81, 181, 0.08);
 }
 
-.table_space {
-    margin-left: 14px;
+.form-section h2 {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: #3f51b5;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 8px;
 }
 
-.size{
-    /* margin-left: 67px; */
-    /* margin: 6px; */
-    /* padding: 0; */
+.field-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
 }
 
-.spacing {
-    margin: 10px 0;
-}
-.checkbox-spacing {
-    margin-right: 10px;
-}
-.space {
-    color: black;
-    float: right;
-    margin-top: -1vw;
-    margin-right: 10vw;
+/* .short-field {
+   flex: 1 1 250px; 
+  min-width: 250px; 
+} */
+
+.short-field {
+  width: 200px; /* Or whatever width you want */
+  min-width: 150px;
 }
 
-p-button.p-element, .print_btn {
-    /* align-items: center;     */
-    /* position: fixed; */
-    /* right: 30px; */
-    bottom: 15px;
-    /* margin-left: 30vw; */
-  }
-
-.color{
-    color: black;
-    display: flex;
-    justify-content: space-evenly;
+.middle-field {
+  width: 630px; 
+  min-width: 150px;
 }
 
-.span_space{
-    margin-left: 19px;
-    color: rgb(62 66 201);
+.big-field {
+  width: 850px; 
+  min-width: 150px;
 }
 
-/* .custom-badge {
-    position: relative;
+/* .dependent-block {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 12px;
+  background-color: #f9f9f9;
+} */
+
+.dependent-block {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+/* Optional: section spacing */
+.form-section {
+  margin-bottom: 32px;
+}
+
+.button-container {
+  margin-top: 15px;
+  text-align: center; /* Aligns the button to the left */
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+badge {
     display: inline-block;
-  } */
-  
-  .custom-badge .p-badge {
-    position: absolute;
-    top: -10px; /* Adjust these values to position the badge */
-    right: -10px;
-    background-color: rgb(144, 177, 214); /* Customize badge color */
-    color: white; /* Customize badge text color */
-    border-radius: 50%;
+    padding: 0.5em 1em;
+    font-size: 0.95em;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.375em;
+  }
+  .badge-pending {
+    color: #073fdb;
+    background-color: #e9d188;
     padding: 5px;
-    font-size: 12px;
   }
+/* .button-container button {
+  padding: 22px 10px;
+  font-weight: 400;
+  font-size: 14px;
+  border-radius: 8px;
+} */
 
-  .top{
-    margin-top: 24px;
-  }
+.head_size {
+  font-size: 16px;
+  color: rgb(37, 61, 12);
+}

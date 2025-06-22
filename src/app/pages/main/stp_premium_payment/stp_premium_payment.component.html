@@ -1,0 +1,34 @@
+<form [formGroup]="form">
+  <div class="payment-container">
+    <h2 class="payment-title">📥 Deposit Premium</h2>
+
+    <div class="card-row">
+      <!-- User Details -->
+      <div class="card-box">
+        <h4>User Details</h4>
+        <p><strong>Member ID:</strong> {{ form.get('memb_id')?.value }}</p>
+        <p><strong>Member Type:</strong> {{ form.get('member_type')?.value }}</p>
+        <p><strong>Member Name:</strong> {{ form.get('memb_name')?.value }} ({{ form.get('min_no')?.value }})</p>
+        <p *ngIf="form.get('memb_oprn')?.value === 'Double'">
+          <strong>Spouse Name:</strong> {{ form.get('dependent_name')?.value }} ({{ form.get('spou_min_no')?.value }})
+        </p>
+        <p><strong>Premium Type:</strong> {{ form.get('premium_type')?.value }}</p>
+      </div>
+
+      <!-- Premium Input -->
+      <div class="card-box">
+        <h4>Premium Details</h4>
+        <label for="tot_prem">Total Premium</label>
+        <input type="text" id="tot_prem" formControlName="tot_prem" placeholder="Enter Amount" />
+        <div *ngIf="form.get('tot_prem')?.invalid && form.get('tot_prem')?.touched" style="color: red;">
+          <small *ngIf="form.get('tot_prem')?.errors?.['required']">Total Premium is required.</small>
+          <small *ngIf="form.get('tot_prem')?.errors?.['pattern']">Enter valid numeric value.</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="button-row">
+      <button class="continue-button" [disabled]="form.invalid" (click)="submit_premium()">Continue</button>
+    </div>
+  </div>
+</form>

@@ -21,4 +21,8 @@ export class Stp_dashboardComponent implements OnInit {
     this.router.navigate(['/main/stp_premium_dtls'])
   }
 
+  open_first_premium(){
+    this.router.navigate(['/main/stp_premium_payment'])
+  }
+
 }

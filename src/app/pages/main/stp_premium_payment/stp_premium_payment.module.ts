@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Stp_premium_dtlsComponent } from './stp_premium_dtls.component';
+import { Stp_premium_paymentComponent } from './stp_premium_payment.component';
 import { RouterModule, Routes } from '@angular/router';
-import { MatTableModule } from '@angular/material/table';
-import { MatCardModule } from '@angular/material/card';
+import { CardModule } from 'primeng/card';
+import { TableModule } from 'primeng/table';
 import { DividerModule } from 'primeng/divider';
 import { InputTextModule } from 'primeng/inputtext';
 import { MatButtonModule } from '@angular/material/button';
@@ -16,14 +16,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
 const routes:Routes=[
-  {path:'',component:Stp_premium_dtlsComponent}
+  {path:'',component:Stp_premium_paymentComponent}
 ]
 
 @NgModule({
   imports: [
     CommonModule,
-    MatTableModule,
-    MatCardModule,
+    CardModule,
+    TableModule,
     DividerModule,
     InputTextModule,
     MatButtonModule,
@@ -37,6 +37,6 @@ const routes:Routes=[
     MatInputModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [Stp_premium_dtlsComponent]
+  declarations: [Stp_premium_paymentComponent]
 })
-export class Stp_premium_dtlsModule { }
+export class Stp_premium_paymentModule { }

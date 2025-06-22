@@ -1,0 +1,54 @@
+.premium-details-container {
+  background: linear-gradient(to right, #dce9eb, #929bc2);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin: 2rem auto;
+  width: 90%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.premium-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #6a1b9a;
+  margin-bottom: 1.5rem;
+}
+
+.highlight {
+  color: #ab47bc;
+}
+
+.highlight-header {
+  color: #4a148c;
+  font-weight: 700;
+}
+
+.fin-year {
+  background: #ffecb3;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: bold;
+  color: #bf360c;
+}
+
+.premium-table {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+
+  th {
+    background: #ce93d8;
+    color: #fff;
+    text-transform: uppercase;
+  }
+
+  td {
+    background: #f3e5f5;
+    font-weight: 500;
+  }
+
+  tr:nth-child(even) td {
+    background: #ede7f6;
+  }
+}

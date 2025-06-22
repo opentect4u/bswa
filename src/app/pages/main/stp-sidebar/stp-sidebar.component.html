@@ -15,6 +15,7 @@
     <ul class="sidebar-menu">
       <li *ngFor="let item of items" 
        class="menu-item"
+       [ngClass]="{ 'active': isActive(item.routerLink) }"
       (click)="navigate(item.routerLink)">
       <div class="menu-box">
         <i class="pi" [ngClass]="item.icon"></i>

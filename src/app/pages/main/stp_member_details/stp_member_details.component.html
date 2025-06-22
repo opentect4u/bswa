@@ -1,41 +1,102 @@
-<style>
-  table {
-    width: 96%;
-    border-collapse: collapse;
-  }
+  <!-- Member Details Section -->
+   <form [formGroup]="form" class="form-container mat-elevation-z4">
+  <!-- Case: Super Topup policy -->
+  
+    <h1 class="text-center label_field title"> 📌 {{userData?.memb_name}}, You are enlisted under <span
+      class="heading badge {{ flag == 'STP' ? 'badge-pending' :''}}">{{ flag == 'STP' ?
+      'Super Topup
+      Policy' : 'N/A'}}</span> On {{ userData?.form_dt | date: 'dd-MM-yyyy'}}</h1>
+  <section class="form-section">
+    <h2>Member Details <span class="head_size"> ({{ userData?.policy_holder_type == 'M' ? 'BSPWA Member' : 'Member Of Other Sail Association'}})</span></h2>
+    <div class="field-group">
+      <!-- <mat-form-field appearance="fill" class="short-field">
+        <mat-label>Form No</mat-label>
+        <input matInput [readonly]="true" formControlName="form_no">
+      </mat-form-field> -->
 
-  th,
-  td {
-    border: 1px solid #ddd;
-    padding: 8px;
-  }
+      <mat-form-field appearance="fill" class="short-field">
+        <mat-label>MIN No</mat-label>
+        <input matInput [readonly]="true"  formControlName="min_no">
+      </mat-form-field>
 
-  th {
-    background-color: #f2f2f2;
-    text-align: left;
-  }
+       <mat-form-field appearance="fill" class="short-field">
+        <mat-label>Member Type</mat-label>
+        <input matInput [readonly]="true"  formControlName="member_type">
+       </mat-form-field>
 
-  tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
+        <mat-form-field appearance="fill" class="short-field">
+        <mat-label>Unit Name</mat-label>
+        <input matInput [readonly]="true"  formControlName="unit_name">
+        </mat-form-field>
 
-  /* tr:hover {
-        background-color: #ddd;
-    } */
-  th,
-  td {
-    padding: 15px;
-    text-align: left;
-  }
+        <mat-form-field appearance="fill" class="short-field">
+        <mat-label>Personel No</mat-label>
+        <input matInput [readonly]="true"  formControlName="personel_no">
+        </mat-form-field>
 
-  th {
-    background-color: #ffffff;
-    color: rgb(0, 0, 0);
-  }
-</style>
-<p-card id="divToPrint">
-  <h3 class="title_h3"><b>Member Details</b></h3>
+        <mat-form-field appearance="fill" class="short-field">
+        <mat-label>Member Operation</mat-label>
+        <input matInput [readonly]="true"  formControlName="memb_oprn">
+        </mat-form-field>
 
-  <form [formGroup]="form" class="memberDtl">
+         <mat-form-field appearance="fill" class="short-field">
+        <mat-label>Member Name</mat-label>
+        <input matInput [readonly]="true"  formControlName="memb_name">
+      </mat-form-field>
+
+        <mat-form-field appearance="fill" class="short-field">
+        <mat-label>Member ID</mat-label>
+        <input matInput [readonly]="true"  formControlName="memb_id">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="short-field">
+        <mat-label>DOB</mat-label>
+        <input matInput [readonly]="true"  formControlName="dob">
+      </mat-form-field>
+        
+        <mat-form-field appearance="fill" class="short-field">
+        <mat-label>Joining Year</mat-label>
+        <input matInput [readonly]="true"  formControlName="joining_year">
+      </mat-form-field>
+
+        <mat-form-field appearance="fill" class="middle-field">
+        <mat-label>Member Address</mat-label>
+        <input matInput [readonly]="true"  formControlName="memb_addr">
+      </mat-form-field>
+
+    </div>
+    </section>
+
+     <!-- Dependent Details Section -->
+  <section class="form-section" *ngIf="userData?.memb_oprn == 'D'">
+  <h2>Spouse Details</h2>
+
+    <div class="field-group">
+    <mat-form-field appearance="fill" class="short-field">
+      <mat-label>Spouse Name</mat-label>
+      <input matInput [readonly]="true" formControlName="spou_name">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="short-field">
+      <mat-label>Spouse MIN No</mat-label>
+      <input matInput [readonly]="true" formControlName="spou_min">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="short-field">
+      <mat-label>Spouse DOB</mat-label>
+      <input matInput [readonly]="true" formControlName="spou_dob | date: 'dd-MM-yyyy'">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="short-field">
+      <mat-label>Spou Mobile No</mat-label>
+      <input matInput [readonly]="true" formControlName="spou_mobile">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="big-field">
+      <mat-label>Spouse Address</mat-label> <!-- or Relationship if more accurate -->
+      <input matInput [readonly]="true" formControlName="spou_addr">
+    </mat-form-field>
+    </div>
+</section>
+
   </form>
-</p-card>

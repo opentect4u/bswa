@@ -1,7 +1,8 @@
 .dashboard-container {
   /* background-color: #f4faff; */
-  background: linear-gradient(to right, #adc1da, #d9e0e9);
-  padding: 8rem;
+  background: linear-gradient(to right, #dfe4eb, #859ebe);
+  /* padding: 7.4rem; */
+  padding: 9vw;
   height: 100%;
 }
 

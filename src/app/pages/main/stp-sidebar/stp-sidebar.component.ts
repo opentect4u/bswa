@@ -36,15 +36,15 @@ public sideMenuItem: any = [];
       routerLink: '/main/stp_premium_dtls',
     },
       {
-      label: 'Premium Payment',
+      label: 'Deposit Premium',
       icon: 'pi pi-wallet',
-      routerLink: ['memb_dtls'],
+      routerLink: '/main/stp_premium_payment',
     },
-      {
-      label: 'Renew Premium Payment',
-      icon: 'pi pi-credit-card',
-      routerLink: ['memb_dtls'],
-    },
+    //   {
+    //   label: 'Renew Premium Payment',
+    //   icon: 'pi pi-credit-card',
+    //   routerLink: ['memb_dtls'],
+    // },
     {
       label: 'Premium Payment Receipt',
       icon: 'pi pi-receipt',
@@ -67,12 +67,12 @@ public sideMenuItem: any = [];
     return this.router.url;
   }
 
-    navigate(path: string | string[]) {
-    if (Array.isArray(path)) {
-      this.router.navigate(path);
-    } else {
-      this.router.navigate([path]);
-    }
+    isActive(route: string): boolean {
+    return this.router.url === route;
+  }
+
+   navigate(route: string) {
+    this.router.navigate([route]);
   }
 
 }

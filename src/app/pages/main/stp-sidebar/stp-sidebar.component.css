@@ -7,7 +7,7 @@ body, html {
  
 
 .sidebar {
-  width: 20vw;
+  width: 20.5vw;
     height: 100vh;
     background: linear-gradient(to bottom, #fafafa, #aebadb);
     transition: width 0.3s ease;
@@ -96,7 +96,14 @@ body, html {
 
 .label {
   font-weight: 600;
-  font-size: 14px;
+  font-size: 15px;
   color: #333;
   white-space: nowrap;
+}
+
+.sidebar-menu li.active .menu-box {
+  /* background-color: #3f739e; */
+  background: linear-gradient(to bottom, #fafafa, #778ed3);
+  transform: translateX(5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
