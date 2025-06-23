@@ -445,6 +445,20 @@ const routes: Routes = [
             '../Admin/upload_child_policy/upload_child_policy.module'
           ).then((m) => m.Upload_child_policyModule),
       },
+      {
+        path: 'stp_memb_trans_report',
+        loadChildren: () =>
+          import(
+            '../Admin/stp_memb_trans_report/stp_memb_trans_report.module'
+          ).then((m) => m.Stp_memb_trans_reportModule),
+      },
+      {
+        path: 'show_stp_trans_report/:from_dt/:to_dt/:memb_oprn',
+        loadChildren: () =>
+          import(
+            '../Admin/show_stp_trans_report/show_stp_trans_report.module'
+          ).then((m) => m.Show_stp_trans_reportModule),
+      },
     ],
   },
 ];

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { DataService } from 'src/app/service/data.service';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+// import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Router } from '@angular/router';
 
 interface membInsInfo {
@@ -21,14 +21,14 @@ export class Stp_memb_transactionComponent implements OnInit {
    form_no: any
    member_id: any;
    trnResData: any;
-   ref: DynamicDialogRef | any;
+  //  ref: DynamicDialogRef | any;
    responseDt: any
    memberInsDtls: membInsInfo | any
    presentIns: boolean = false
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private dataServe: DataService, public dialogService: DialogService, private router: Router) { }
+  constructor(private dataServe: DataService, private router: Router) { }
 
   ngOnInit() {
     // this.dataSource.paginator = this.paginator;
@@ -49,7 +49,7 @@ export class Stp_memb_transactionComponent implements OnInit {
   preview(trn_id:any){
     console.log(trn_id,'ki');
     
-    this.router.navigate(['/main/trn_history_child_view',trn_id]);
+    this.router.navigate(['/main/stp_memb_trans_view',trn_id]);
   }
 
 }

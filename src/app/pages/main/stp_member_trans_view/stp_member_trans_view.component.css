@@ -1,0 +1,107 @@
+.receipt-card {
+  padding: 24px;
+  max-width: 950px;
+  margin: 0 auto;
+  border-radius: 12px;
+  background: linear-gradient(to right, #bdcbdf, #9dbbeb);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.header-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logo-img {
+  width: 100px;
+  height: auto;
+  margin-left: 29vw;
+}
+
+.org-title {
+  margin: 0;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.sub-title {
+  font-weight: 600;
+  font-size: 16px;
+  /* color: #34495e; */
+  color: #061627;
+}
+
+.bold-divider {
+  height: 1px;             
+  background-color: black;  /* Optional: make it darker or another color */
+}
+
+.field{
+  font-weight: 600;
+  display: flex;
+  flex-direction: column-reverse;
+  align-content: stretch;
+  align-items: flex-end;
+}
+
+.receipt-table .row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.label {
+  width: 15%;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.colon {
+  width: 2%;
+}
+
+.value {
+  width: 28%;
+  font-weight: 500;
+  color: #555;
+}
+
+/* .row {
+  display: flex;
+  width: 100%;
+  margin-bottom: 8px;
+  align-items: center;
+  flex-wrap: wrap; 
+} */
+
+/* .label {
+  flex: 0 0 auto; 
+  font-weight: bold;
+  margin-right: 4px;
+} */
+
+/* .colon {
+  margin-right: 4px;
+} */
+
+/* .value {
+  flex: 1 1 auto; 
+} */
+
+
+.spacer {
+  width: 10%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+

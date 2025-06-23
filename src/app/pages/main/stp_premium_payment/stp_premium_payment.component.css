@@ -1,7 +1,8 @@
 .payment-container {
   min-height: 80vh;
   padding: 2.9rem;
-  background: linear-gradient(135deg, #ebd7ee, #c4e4e9, #6f78af);
+  /* background: linear-gradient(135deg, #ebd7ee, #c4e4e9, #6f78af); */
+  background: linear-gradient(135deg, #ebd7ee, #d4ecf0, #8185a3);
   font-family: 'Segoe UI', sans-serif;
   display: flex;
   flex-direction: column;

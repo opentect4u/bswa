@@ -1,0 +1,97 @@
+.report-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 3rem 1rem;
+  /* background: linear-gradient(to right, #e3f2fd, #bbdefb); */
+}
+
+/* .report-card {
+  width: 100%;
+  max-width: 720px;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(145deg, #ffffff, #f1f8ff);
+} */
+
+.report-card {
+    width: 100%;
+    max-width: 962px;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(145deg, #ddd6d6, #9aadc1);
+}
+
+.card-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.card-header h2 {
+  font-weight: 600;
+  font-size: 1.5rem;
+  margin-top: 0.5rem;
+  color: #1976d2;
+}
+
+.header-icon {
+  font-size: 40px;
+  color: #0288d1;
+}
+
+.form-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr 1fr;
+}
+
+/* Reduce form field size */
+.form-grid mat-form-field {
+  font-size: 0.85rem;
+  --mat-mdc-form-field-padding: 0.25rem;
+}
+
+.form-grid input.mat-input-element {
+  padding: 0.3rem 0.5rem;
+  font-size: 0.85rem;
+  height: 32px;
+}
+
+/* Reduce label spacing */
+.mat-mdc-form-field-infix {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+/* Icon sizing if used */
+.form-grid mat-icon {
+  font-size: 18px;
+}
+
+/* Optional: smaller datepicker toggle button */
+.mat-datepicker-toggle-default-icon {
+  font-size: 18px;
+}
+
+
+.btn-row {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.generate-btn {
+  padding: 0.75rem 2.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  background-color: #1976d2;
+  border-radius: 30px;
+  transition: background-color 0.3s ease;
+  color: #fff;
+}
+
+.generate-btn:hover {
+  background-color: #0d47a1;
+}

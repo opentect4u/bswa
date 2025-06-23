@@ -57,11 +57,18 @@ const routes: Routes = [
             (m) => m.Stp_premium_paymentModule
           ),
       },
-         {
+      {
         path: 'stp_memb_transaction',
         loadChildren: () =>
           import('../main/stp_memb_transaction/stp_memb_transaction.module').then(
             (m) => m.Stp_memb_transactionModule
+          ),
+      },
+       {
+        path: 'stp_memb_trans_view/:trn_id',
+        loadChildren: () =>
+          import('../main/stp_member_trans_view/stp_member_trans_view.module').then(
+            (m) => m.Stp_member_trans_viewModule
           ),
       },
       {

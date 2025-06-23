@@ -5,7 +5,7 @@
 } */
 
 .transaction-card {
-  background: linear-gradient(to right, #e7f2f3, #b7b9e2, #a4a8df); /* Light teal to light green */
+  background: linear-gradient(to right, #c3dbdd, #b7b9e2, #a4a8df); /* Light teal to light green */
   border-radius: 10px;
   padding: 25px;
   margin: 22px auto;
@@ -14,9 +14,9 @@
 }
 
 .transaction-title .icon {
-  color: rgb(0, 0, 0);          /* Force black color */
-  font-size: 22px;       /* Optional: make it larger */
-  margin-right: 8px;
+  /* color: rgb(0, 0, 0);           */
+  font-size: 22px;       
+  margin-right: 2px;
 }
 
 .mat-card-title {

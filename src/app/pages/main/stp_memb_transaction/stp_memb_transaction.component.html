@@ -1,6 +1,6 @@
 <mat-card class="transaction-card mat-elevation-z4">
   <mat-card-title class="transaction-title">
-    <span class="icon">📄</span> Transaction History Of Children Policy
+    <span class="icon">💸</span> Transaction History Of Children Policy
   </mat-card-title>
 
   <mat-card-content>
@@ -8,40 +8,40 @@
 
       <!-- Position Column -->
       <ng-container matColumnDef="position">
-        <th mat-header-cell *matHeaderCellDef>#</th>
+        <th mat-header-cell *matHeaderCellDef><b>#</b></th>
         <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
       </ng-container>
 
       <!-- Transaction Date Column -->
       <ng-container matColumnDef="transactionDate">
-        <th mat-header-cell *matHeaderCellDef>Transaction Date</th>
-        <td mat-cell *matCellDef="let element">{{ element.transactionDate }}</td>
+        <th mat-header-cell *matHeaderCellDef><b>Transaction Date</b></th>
+        <td mat-cell *matCellDef="let element">{{ element.trn_dt | date: 'dd-MM-yyyy' }}</td>
       </ng-container>
 
       <!-- Transaction ID Column -->
       <ng-container matColumnDef="transactionId">
-        <th mat-header-cell *matHeaderCellDef>Transaction ID</th>
-        <td mat-cell *matCellDef="let element">{{ element.transactionId }}</td>
+        <th mat-header-cell *matHeaderCellDef><b>Transaction ID</b></th>
+        <td mat-cell *matCellDef="let element">{{ element.trn_id }}</td>
       </ng-container>
 
       <!-- Amount Column -->
       <ng-container matColumnDef="amount">
-        <th mat-header-cell *matHeaderCellDef>Total Amount</th>
-        <td mat-cell *matCellDef="let element">{{ element.amount }}</td>
+        <th mat-header-cell *matHeaderCellDef><b>Total Amount</b></th>
+        <td mat-cell *matCellDef="let element">{{ element.tot_amt }}</td>
       </ng-container>
 
       <!-- Pay Mode Column -->
       <ng-container matColumnDef="payMode">
-        <th mat-header-cell *matHeaderCellDef>Pay Mode</th>
-        <td mat-cell *matCellDef="let element">{{ element.payMode }}</td>
+        <th mat-header-cell *matHeaderCellDef><b>Pay Mode</b></th>
+        <td mat-cell *matCellDef="let element">{{ element.pay_mode == 'O' ? 'Online' : '' }}</td>
       </ng-container>
 
       <!-- Status Column -->
       <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <th mat-header-cell *matHeaderCellDef><b>Status</b></th>
         <td mat-cell *matCellDef="let element">
-          <span class="status-chip approved" *ngIf="element.status === 'Approved'">
-            {{ element.status }}
+          <span class="status-chip approved">
+            {{ element.approval_status == 'A' ? 'Approved' : 'Unapproved' }}
           </span>
         </td>
       </ng-container>
@@ -50,7 +50,7 @@
       <ng-container matColumnDef="view">
         <th mat-header-cell *matHeaderCellDef>View</th>
         <td mat-cell *matCellDef="let element">
-          <button mat-icon-button color="primary">
+          <button mat-icon-button color="primary" (click)="preview(element.trn_id)">
             <mat-icon>visibility</mat-icon>
           </button>
         </td>

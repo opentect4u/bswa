@@ -1,0 +1,94 @@
+<mat-card class="receipt-card">
+  <div id="divToPrint">
+      <img src="assets/images/logo.jpg" alt="Logo" class="logo-img" />
+    <div class="header-section d-flex mt-3">
+      <div class="text-center flex-grow-1">
+        <h2 class="org-title">BOSEC WELFARE TRUST</h2>
+        <p>13, Camac Street, Kolkata 700017</p>
+        <p>(ESTD 2010)</p>
+        <p class="sub-title">PREMIUM RECEIPT FOR SUPER TOP UP POLICY</p>
+      </div>
+    </div>
+
+    <p class="field">Date: {{ today | date: 'dd-MM-yyyy'}}</p>
+    <mat-divider class="my-3 bold-divider"></mat-divider>
+
+    <div class="receipt-table">
+      <div class="row">
+        <div class="label"><b>Member ID</b></div>
+        <div class="colon">:</div>
+        <div class="value"><b>{{ member_id }}</b></div>
+
+        <div class="spacer"></div>
+
+        <div class="label"><b>Member Name</b></div>
+        <div class="colon">:</div>
+        <div class="value"><b>{{ trnData?.memb_name}}</b></div>
+      </div>
+
+        <div class="row">
+        <div class="label"><b>MIN No</b></div>
+        <div class="colon">:</div>
+        <div class="value"><b>{{ trnData?.min_no}}</b></div>
+       
+        <div class="spacer"></div>
+
+       
+        <div class="label"><b>Premium Type</b></div>
+        <div class="colon">:</div>
+        <div class="value"><b>{{ trnData?.premium_type == 'S' ? 'Single' : 'Double'}}</b></div>
+        </div>
+
+      <div class="row">
+        <div class="label"><b>Transaction ID</b></div>
+        <div class="colon">:</div>
+        <div class="value"><b>{{ trn_id }}</b></div>
+
+        <div class="spacer"></div>
+
+        <div class="label"><b>Transaction Date</b></div>
+        <div class="colon">:</div>
+        <div class="value"><b>{{ trnData?.trn_dt | date: 'dd-MM-yyyy'}}</b></div>
+      </div>
+
+      <div class="row">
+        <div class="label"><b>Premium Amount</b></div>
+        <div class="colon">:</div>
+        <div class="value"><b>{{ trnData?.premium_amt}}</b></div>
+
+        <div class="spacer"></div>
+
+        <div class="label"><b>Total Amount</b></div>
+        <div class="colon">:</div>
+        <div class="value"><b>{{ trnData?.tot_amt }}</b></div>
+      </div>
+
+      <div class="row">
+        <div class="label"><b>Paymode</b></div>
+        <div class="colon">:</div>
+        <div class="value"><b>{{ trnData?.pay_mode == 'O' ? 'Online' : '' }}</b></div>
+
+        <div class="spacer"></div>
+
+        <div class="label"><b>Status</b></div>
+        <div class="colon">:</div>
+        <div class="value"><b>{{ trnData?.approval_status == 'A' ? 'Approved' : '' }}</b></div>
+      </div>
+
+      <!-- <div class="row">
+        <div class="label">Policy with NATIONAL INSURANCE Co & TPA</div>
+        <div class="colon">:</div>
+        <div class="value">M D INDIA HEALTHCARE SERVICES (TPA) Pvt Ltd.</div>
+    </div> -->
+  </div>
+
+  <div class="text-center mt-5 btn-group">
+    <button mat-raised-button color="primary" (click)="goBack()">
+      🔙 Back
+    </button>
+    <button mat-raised-button color="primary" (click)="printDiv()">
+      🖨️ Print
+    </button>
+  </div>
+  </div>
+</mat-card>
