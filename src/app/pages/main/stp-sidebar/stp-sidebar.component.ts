@@ -48,7 +48,7 @@ public sideMenuItem: any = [];
     {
       label: 'Premium Payment Receipt',
       icon: 'pi pi-receipt',
-      routerLink: ['memb_dtls'],
+      routerLink: '/main/stp_memb_transaction',
     }
   ];
   }

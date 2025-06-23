@@ -42,6 +42,10 @@ export class Stp_member_loginComponent implements OnInit {
         localStorage.clear(); 
         localStorage.setItem('token', this.getLoginData.token);
         localStorage.setItem('flag', 'STP');
+         localStorage.setItem(
+          'member_id',
+          this.getLoginData.msg.userdata[0].member_id
+        );
         localStorage.setItem(
           'user_name',
           this.getLoginData.msg.userdata[0].stp_memb_name

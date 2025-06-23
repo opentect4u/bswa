@@ -25,4 +25,8 @@ export class Stp_dashboardComponent implements OnInit {
     this.router.navigate(['/main/stp_premium_payment'])
   }
 
+  open_trn_history(){
+    this.router.navigate(['/main/stp_memb_transaction'])
+  }
+
 }

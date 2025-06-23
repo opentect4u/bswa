@@ -90,7 +90,7 @@ export class Super_top_up_policy_registerComponent implements OnInit {
       personal_no: [''],
       memb_opr: [''],
       member: [''],
-      member_id: [''],
+      member_id: ['', Validators.required],
       gen_dob: [''],
       mobile: [''],
       fin_yr: [''],

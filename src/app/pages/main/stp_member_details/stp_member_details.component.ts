@@ -106,7 +106,7 @@ export class Stp_member_detailsComponent implements OnInit {
             personel_no: this.userData.personel_no,
             spou_name: this.userData.dependent_name, 
             spou_min: this.userData.spou_min_no,
-            spou_dob: this.datePipe.transform(this.userData.spou_dob, 'yyyy-MM-dd'),
+            spou_dob: this.datePipe.transform(this.userData?.spou_dob, 'yyyy-MM-dd'),
             spou_mobile: this.userData.spou_phone,
             spou_addr: this.userData.spou_address,
             });

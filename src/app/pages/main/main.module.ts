@@ -57,6 +57,13 @@ const routes: Routes = [
             (m) => m.Stp_premium_paymentModule
           ),
       },
+         {
+        path: 'stp_memb_transaction',
+        loadChildren: () =>
+          import('../main/stp_memb_transaction/stp_memb_transaction.module').then(
+            (m) => m.Stp_memb_transactionModule
+          ),
+      },
       {
         path: 'memb_dtls',
         loadChildren: () =>

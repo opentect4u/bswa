@@ -89,6 +89,9 @@
               <label for="member_id" class="label_field"><b>Member ID:</b></label>&nbsp;
                 <input id="member_id" type="text" formControlName="member_id" placeholder="Enter Member ID"
                   class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                   <div *ngIf="o['member_id']?.touched || o['member_id']?.dirty">
+                  <small class="text-red-900" *ngIf="o['member_id']?.errors">Member Id is required.</small>
+                </div>
             </div>
           </div>
 
