@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from 'src/app/service/data.service';
@@ -19,7 +19,12 @@ export class Show_stp_trans_reportComponent implements OnInit {
   userData: any = [];
   from_dt: any;
   to_dt: any;
-  memb_oprn: any;
+  memb_oprn: any;  
+  totalCalAmount = 0;
+  totalPremAmount = 0;
+  hasSpouseData = false;
+   @ViewChild('dt2') dt2: any;
+  hasSpouseDataInVisibleRows: boolean = false;
 
   constructor(private router: Router,
     private fb: FormBuilder,
@@ -36,13 +41,34 @@ export class Show_stp_trans_reportComponent implements OnInit {
     
     this.show_stp_trans_data()
   }
+  checkSpouseDataInVisibleRows(): void {
+    const data = this.dt2?.filteredValue ?? this.userData;
+    this.hasSpouseDataInVisibleRows = data.some(
+      (item: any) => item.memb_oprn === 'D'
+    );
+  }
 
     show_stp_trans_data(){
     this.dataServe.global_service(0,'/member_stp_trans_report',`from_dt=${this.from_dt}&to_dt=${this.to_dt}&memb_oprn=${this.memb_oprn}`).subscribe(data => {
       console.log(data,'kiki')
       this.userData = data;
       this.userData = this.userData.msg;
+      this.totalPremAmount = 0;
+      this.totalCalAmount = 0;
+      this.hasSpouseData = false;
+
+       for (let customer of this.userData) {
+      this.totalPremAmount += (+customer.premium_amt);
+      this.totalCalAmount += (+customer.premium_amt);
+
+      if (customer.memb_oprn === 'D') {
+      this.hasSpouseData = true;
+     }
+      }
       console.log(this.userData,'lili');
+       setTimeout(() => {
+      this.checkSpouseDataInVisibleRows();
+    }, 0);
     },error => {
       console.error(error);
     })
@@ -98,30 +124,34 @@ export class Show_stp_trans_reportComponent implements OnInit {
   
   
     download(){
-      const dataWithSlNo = this.userData.map((customer: { member_id: string; memb_name: any; adm_fee: any;donation: any; sub_amt: any; onetime_amt: any; premium_amt: any; pay_mode: any; receipt_no: any; chq_no: any;  chq_dt: string}, index: number) => {
-        return {
+      const dataWithSlNo = this.userData.map((customer: {trn_id: any; trn_dt: string; min_no: string; memb_name: any; dob: any; donation: any; spou_min_no: any; dependent_name: any; spou_dob: any; pay_mode: any; premium_amt: any; tot_amt: any; memb_oprn: string;}, index: number) => {
+        const baseData: any = {
           'SL No': index + 1,
-          'Member ID': customer.member_id,
+          'Transaction ID' : customer.trn_id,
+          'Transaction Date' : customer.trn_dt,
+          'MIN No': customer.min_no,
           'Member Name': customer.memb_name,
-          'Admission Fee': customer.adm_fee,
-          'Donation Fee': customer.donation,
-          'Subscription Fee': customer.sub_amt,
-          'Onetime Amount': customer.onetime_amt,
+          'Member Dob': customer.dob,
+          // 'Spouse MIN No': customer.spou_min_no,
+          // 'Spouse Name': customer.dependent_name,
+          // 'Spouse Dob': customer.spou_dob,
           'Premium Amount': customer.premium_amt,
-          'Pay Mode': customer.pay_mode=='C' ? 'Cash' : customer.pay_mode=='Q' ? 'Cheque' : customer.       pay_mode=='T' ?
-          'Online Transaction' : '',
-          'Receipt No': customer.receipt_no,
-          'Cheque No': customer.chq_no,
-          'Cheque Date' : this.datePipe.transform(customer.chq_dt, 'dd/MM/yyyy'),
-          // Add or remove columns as needed
+          'Total Amount' : customer.tot_amt,
+          'Pay Mode': customer.pay_mode=='O' ? 'Online' : '',
         };
+        if (customer.memb_oprn === 'D' || customer.memb_oprn === 'A') {
+        baseData['Spouse MIN No'] = customer.spou_min_no;
+        baseData['Spouse Name'] = customer.dependent_name;
+        baseData['Spouse Dob'] = customer.spou_dob;
+      }
+      return baseData;
       }); 
       const ws = XLSX.utils.json_to_sheet(dataWithSlNo);
       const wb = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb,ws, 'placeholder');
   
   
-      XLSX.writeFile(wb, 'Member Transaction List.xlsx')
+      XLSX.writeFile(wb, 'STP Member Transaction List.xlsx')
     }
 
 }

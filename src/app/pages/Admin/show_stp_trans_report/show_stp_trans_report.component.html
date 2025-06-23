@@ -15,7 +15,10 @@
 
         <div class="card mt-4" style="margin: 10px" class="table_print_outer">
           <p-table [value]="userData" #dt2 dataKey="id" [rows]="10" [showCurrentPageReport]="true"
-            [rowsPerPageOptions]="[10, 25, 50]" [paginator]="false"
+            [rowsPerPageOptions]="[10, 25, 50]" [paginator]="false"   
+            (onFilter)="checkSpouseDataInVisibleRows()"
+            (onPage)="checkSpouseDataInVisibleRows()"
+            (onSort)="checkSpouseDataInVisibleRows()"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
             [globalFilterFields]="['memb_type']" [tableStyle]="{
               'min-width': '95rem',
@@ -29,9 +32,9 @@
                 <th id="table_color">MIN No</th>
                 <th id="table_color">Member Name</th>
                 <th id="table_color">Member Dob</th>
-                <th id="table_color" *ngIf="userData?.memb_oprn === 'D'">Spouse MIN No</th>
-                <th id="table_color" *ngIf="userData?.memb_oprn === 'D'">Spouse Name</th>
-                <th id="table_color" *ngIf="userData?.memb_oprn === 'D'">Spouse Dob</th>
+                <th id="table_color" *ngIf="hasSpouseData">Spouse MIN No</th>
+                <th id="table_color" *ngIf="hasSpouseData">Spouse Name</th>
+                <th id="table_color" *ngIf="hasSpouseData">Spouse Dob</th>
                 <th id="table_color">Premium Amount</th>
                 <th id="table_color">Total Amount</th>
                 <th id="table_color">Pay Mode</th>
@@ -59,18 +62,14 @@
               </tr>
             </ng-template>
 
-            <!-- <ng-template pTemplate="footer">
+            <ng-template pTemplate="footer">
               <tr>
-                <td colspan="5" class="text-center">Total</td>
-                <td class="text-center">{{totalAdmissionFee }}</td>
-                <td class="text-center">{{totalDonationnFee}}</td>
-                <td class="text-center">{{totalSumamount}}</td>
-                <td class="text-center">{{totalOnetimeamount}}</td>
+                <td [attr.colspan]="hasSpouseDataInVisibleRows ? 9 : 6" class="text-center">Total</td>
                 <td class="text-center">{{totalPremAmount}}</td>
                 <td class="text-center">{{totalCalAmount}}</td>
                 <td colspan="5"></td>
               </tr>
-            </ng-template> -->
+            </ng-template>
 
             <ng-template pTemplate="emptymessage">
               <tr>
