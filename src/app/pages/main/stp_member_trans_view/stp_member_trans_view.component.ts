@@ -12,6 +12,7 @@ export class Stp_member_trans_viewComponent implements OnInit {
   today = new Date();
   trn_id:any
   member_id:any
+  form_no:any
   tranResData: any;
   trnData: any;
   divToPrint: any;
@@ -22,11 +23,12 @@ export class Stp_member_trans_viewComponent implements OnInit {
   ngOnInit() {
      this.trn_id = this.route.snapshot.params['trn_id'];
     this.member_id = localStorage.getItem('member_id')
-    this.getTransDetails(this.member_id, this.trn_id)
+    this.form_no = localStorage.getItem('form_no')
+    this.getTransDetails(this.form_no, this.trn_id)
   }
 
-     getTransDetails(member_id:any, trn_id:any){
-    this.dataServe.global_service(1, '/fetch_fr_view_stp_trans_dtls', {member_id,trn_id,}).subscribe((data: any) => {
+     getTransDetails(form_no:any, trn_id:any){
+    this.dataServe.global_service(1, '/fetch_fr_view_stp_trans_dtls', {form_no,trn_id,}).subscribe((data: any) => {
         this.tranResData = data;
         this.tranResData = this.tranResData.suc > 0 ? this.tranResData.msg : [];
         this.trnData = this.tranResData.length > 0 ? this.tranResData[0] : {};

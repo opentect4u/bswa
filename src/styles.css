@@ -328,3 +328,8 @@ h3.title_h3 {padding:0;}
 .swal2-icon {
   margin: 10px auto !important;
 }
+
+
+.mat-mdc-header-cell .mdc-data-table__header-cell .cdk-header-cell .cdk-column-treatment_details .mat-column-treatment_details .ng-star-inserted{
+  color: #080808 !important;
+}

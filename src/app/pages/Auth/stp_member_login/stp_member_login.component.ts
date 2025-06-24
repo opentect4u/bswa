@@ -46,6 +46,10 @@ export class Stp_member_loginComponent implements OnInit {
           'member_id',
           this.getLoginData.msg.userdata[0].member_id
         );
+         localStorage.setItem(
+          'form_no',
+          this.getLoginData.msg.userdata[0].form_no
+        );
         localStorage.setItem(
           'user_name',
           this.getLoginData.msg.userdata[0].stp_memb_name

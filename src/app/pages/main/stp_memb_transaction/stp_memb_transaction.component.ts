@@ -33,12 +33,13 @@ export class Stp_memb_transactionComponent implements OnInit {
   ngOnInit() {
     // this.dataSource.paginator = this.paginator;
     this.member_id = localStorage.getItem('member_id');
-    this.getTransactionDetails(this.member_id);
+    this.form_no = localStorage.getItem('form_no');
+    this.getTransactionDetails(this.form_no);
   }
 
-    getTransactionDetails(member_id : any){
+    getTransactionDetails(form_no : any){
     
-    this.dataServe.global_service(1, '/fetch_stp_trans_dtls',{member_id})
+    this.dataServe.global_service(1, '/fetch_stp_trans_dtls',{form_no})
           .subscribe((data: any) => {
             this.trnResData = data;
             const transData = this.trnResData.suc > 0 ? this.trnResData.msg : [];
