@@ -37,16 +37,16 @@
   border-radius: 12px;
   overflow: hidden;
 
-  th {
+  /* th {
     background: #ce93d8;
     color: #fff;
     text-transform: uppercase;
   }
 
-  td {
+  td{
     background: #f3e5f5;
     font-weight: 500;
-  }
+  } */
 
   tr:nth-child(even) td {
     background: #ede7f6;

@@ -13,6 +13,17 @@ import { MatTableDataSource } from '@angular/material/table';
   selector: 'app-stp_premium_dtls',
   templateUrl: './stp_premium_dtls.component.html',
   styleUrls: ['./stp_premium_dtls.component.css'],
+   styles: [`
+    th {
+      background: #ce93d8;
+      color: #fff;
+      text-transform: uppercase;
+    }
+    td {
+      background: #f3e5f5;
+      font-weight: 500;
+    }
+  `],
   providers: [DatePipe],
 })
 export class Stp_premium_dtlsComponent implements OnInit {
