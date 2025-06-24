@@ -107,6 +107,14 @@ export class Super_top_up_policy_registerComponent implements OnInit {
       premium_amt: [''],
       total_amt: ['']
     });
+    this.form.get('memb_opr')?.valueChanges.subscribe(value => {
+  if (value === 'Double') {
+    this.setSpouseValidators(true);
+  } else {
+    this.setSpouseValidators(false);
+  }
+});
+
     this.get_fin_year()
     if(this.depenFields_2.controls.length == 0)
       this.onadd();
@@ -114,10 +122,29 @@ export class Super_top_up_policy_registerComponent implements OnInit {
       this.relationship()
       // this.selectedValue3 = 'N'; 
       this.onMemberOperationChange();
+
   }
   ngAfterViewInit(): void {
     this.selectedValue3='N'
   }
+
+  setSpouseValidators(required: boolean) {
+  const spouseControls = ['spouse', 'spouse_min_no', 'spou_dob', 'spou_mobile', 'spou_mem'];
+  
+  spouseControls.forEach(controlName => {
+    const control = this.form.get(controlName);
+    if (control) {
+      if (required) {
+        control.setValidators(Validators.required);
+      } else {
+        control.clearValidators();
+        control.setValue(''); // Optional: clear field if not required
+      }
+      control.updateValueAndValidity();
+    }
+  });
+}
+
 
 onMemberOperationChange(event?: any) {
   let value = event?.target?.value ?? this.selectedValue3;

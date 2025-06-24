@@ -17,7 +17,7 @@ interface membInsInfo {
 })
 export class Stp_memb_transactionComponent implements OnInit {
    displayedColumns: string[] = ['position', 'transactionDate', 'transactionId', 'amount', 'payMode', 'status', 'view'];
-   dataSource = new MatTableDataSource<any>();
+   dataSource = new MatTableDataSource<any>([]);
    form_no: any
    member_id: any;
    trnResData: any;
