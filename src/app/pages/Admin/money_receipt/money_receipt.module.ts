@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Money_receiptComponent } from './money_receipt.component';
 import { RouterModule, Routes } from '@angular/router';
-import { CardModule } from 'primeng/card';
+import { MatCardModule } from '@angular/material/card';
 import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button';
+import { MatButtonModule } from '@angular/material/button';
 import { FieldsetModule } from 'primeng/fieldset';
 import { TableModule } from 'primeng/table';
 import { TabMenuModule } from 'primeng/tabmenu';
@@ -19,6 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TooltipModule } from 'primeng/tooltip';
 import { CheckboxModule } from 'primeng/checkbox';
 import { DatePipe } from '@angular/common';
+import { MatDividerModule } from '@angular/material/divider';
+
 
 const routes:Routes=[
   {path:'',component:Money_receiptComponent}
@@ -27,9 +29,9 @@ const routes:Routes=[
 @NgModule({
   imports: [
     CommonModule,
-    CardModule,
+    MatCardModule,
     InputTextModule,
-    ButtonModule,
+    MatButtonModule,
     DropdownModule,
     FieldsetModule,
     TableModule,
@@ -44,6 +46,7 @@ const routes:Routes=[
     TooltipModule,
     CheckboxModule,
     DatePipe,
+    MatDividerModule,
     RouterModule.forChild(routes)
   ],
   exports: [Money_receiptComponent],

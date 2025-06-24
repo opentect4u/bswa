@@ -94,6 +94,11 @@ export class SidebarComponent implements OnInit {
         routerLink: ['upload_child_policy'],
       },
       {
+        label: 'Subscription Deposit',
+        icon: 'pi pi-calendar',
+        routerLink: ['subs_depo_entry'],
+      },
+      {
         label: 'Member Details',
         icon: 'pi pi-users',
         routerLink: ['memb_list'],

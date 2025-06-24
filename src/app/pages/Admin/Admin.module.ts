@@ -249,12 +249,19 @@ const routes: Routes = [
             '../Admin/view_group_approve_form/view_group_approve_form.module'
           ).then((m) => m.View_group_approve_formModule),
       },
-      // {
-      //   path: 'subs_depo_entry',
+      {
+        path: 'subs_depo_entry',
+        loadChildren: () =>
+          import(
+            '../Admin/subs_depo/subs-depo-entry/subs-depo-entry.module'
+          ).then((m) => m.SubsDepoEntryModule),
+      },
+      //    {
+      //   path: 'admin_subs_deposit',
       //   loadChildren: () =>
       //     import(
-      //       '../Admin/subs_depo/subs-depo-entry/subs-depo-entry.module'
-      //     ).then((m) => m.SubsDepoEntryModule),
+      //       '../Admin/admin_subs_deposit/admin_subs_deposit.module'
+      //     ).then((m) => m.Admin_subs_depositModule),
       // },
       {
         path: 'subs_depo_approve',

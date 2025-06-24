@@ -46,10 +46,10 @@
         <label><b>Opening: </b></label>
         <label> {{this.userData!['calc_amt']}}</label>
       </p> -->
-      <p *ngIf="userData?.calc_amt > 0">
+      <!-- <p *ngIf="userData?.calc_amt > 0">
         <label><b>Opening: </b></label>
         <label>{{ userData!['calc_amt'] }}</label>
-      </p>
+      </p> -->
       
       
       
@@ -99,8 +99,8 @@
             style="appearance: auto; height: 3vw; border-radius: 7px">
             <option value="N" select>Select Payment Mode</option>
             <option value="C">Cash</option>
-            <option value="Q">Cheque</option>
-            <option value="O">Online Transaction</option>
+            <!-- <option value="Q">Cheque</option>
+            <option value="O">Online Transaction</option> -->
           </select>
         </div>
       </div>
@@ -126,7 +126,7 @@
         </div>
       </div> -->
 
-      <div *ngIf="entryForm.controls['payment'].value === 'Q'">
+      <!-- <div *ngIf="entryForm.controls['payment'].value === 'Q'">
         <div class="formgrid grid mt-3">
           <div class="field col-12 md:col-4">
             <label for="cheque_dt" style="color: black"><b>Cheque Date<span class="text-red-700">*</span></b></label>
@@ -146,25 +146,19 @@
           </div>
           <div class="field col-12 md:col-4">
             <label for="bank_name" style="color: black"><b>Bank Name<span class="text-red-700">*</span></b></label>
-            <!-- <input id="bank_name" type="text" formControlName="bank_name" placeholder="Enter Bank Name...."
-              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" /> -->
+         
             <select id="bank_name" formControlName="bank_name" [(ngModel)]="selectedValue3"
               class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
               style="appearance: auto; height: 3vw; border-radius: 7px">
               <option value="N" select>Select Bank Name</option>
               <option *ngFor="let option of responsedata" [value]="option.acc_cd">{{ option.bank_name }}</option>
-              <!-- <option value="O">Online Transaction</option> -->
             </select>
             <div *ngIf="f['bank_name']?.touched || f['bank_name']?.dirty">
               <small class="text-red-900" *ngIf="f['bank_name']?.errors">Bank Name is required.</small>
             </div>
           </div>
         </div>
-        <!-- <div class="flex flex-row">
-          <button pButton pRipple type="button" label="DONE" class="p-button-raised sub_btn"
-            (click)="cheque_accept_life()"></button>
-        </div> -->
-      </div>
+      </div> -->
 
       <!-- <div *ngIf="entryForm.controls['payment'].value === 'O'">
         <div class="flex flex-row">

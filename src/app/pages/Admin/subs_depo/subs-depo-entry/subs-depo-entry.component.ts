@@ -92,29 +92,41 @@ export class SubsDepoEntryComponent implements OnInit {
   
   }
 
-  calculateSubsFee(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const value = control.value;
-  
-      // Check if the value is a number and greater than zero
-      if (typeof value !== 'number' || isNaN(value) || value <= 0) {
-        return { invalidAmount: { value: value } };
+  calculateSubsFee() : ValidatorFn{
+    return (control: AbstractControl) : ValidationErrors | null => {
+      const value = control.value
+      // console.log(value, 'lalalala');
+
+        // Check if the value is a number and greater than zero
+        if (typeof value !== 'number' || isNaN(value) || value <= 0) {
+          return { invalidAmount: { value: value } };
+        }
+    
+      let sub_fee = 0
+      switch (this.responsedata_subs[0].memb_type) {
+        case 'G':
+          sub_fee = this.responsedata_subs[0].subscription_1
+          break;
+        case 'AI':
+          sub_fee = this.responsedata_subs[0].subscription_2
+          break;
+        case 'L':
+          sub_fee = this.responsedata_subs[0].subscription_1
+          break;
+      
+        default:
+          break;
       }
-  
-      // Example subscription fee for validation
-      let sub_fee = this.responsedata_subs[0]?.subscription_1;
-  
-      // Check if sub_fee is valid
+      // let sub_fee = this.responsedata_subs[0].subscription_1
+
       if (typeof sub_fee !== 'number' || isNaN(sub_fee) || sub_fee === 0) {
         return { invalidSubscriptionFee: { sub_fee: sub_fee } };
       }
-  
-      // Check divisibility
-      if (value % sub_fee !== 0) {
-        return { notDivisibleBySubFee: { value: value, sub_fee: sub_fee } };
+
+      if(value % sub_fee !== 0){
+        return {notDivisibleBySubFee: {value: value}}
       }
-  
-      return null;
+      return null
     };
   }
 
@@ -176,35 +188,77 @@ export class SubsDepoEntryComponent implements OnInit {
 
   }
 
-  subscription_fee(memb_type: any){
-    this.dataServe.global_service(0, '/master/subscription_fee_dynamic', `memb_type=${memb_type}`).subscribe((data:any) => {
-      this.responsedata_subs = data
-      console.log(this.responsedata_subs,'ooopsss');
-      this.responsedata_subs = this.responsedata_subs.suc > 0 ? this.responsedata_subs.msg : []
-      var nowDate = new Date()
-      var cal_upto = new Date(this.userData!.calc_upto)
-      var cal_month = cal_upto.getFullYear() > nowDate.getFullYear() ? 0 : (nowDate.getMonth() - cal_upto.getMonth())
-      console.log(cal_month,'month');
-      
-      
-      this.entryForm.patchValue({        
-        subs_amt: (cal_month > 0 ? cal_month : 1) * this.responsedata_subs[0].subscription_1 + parseInt(this.userData!.calc_amt)
-      })
-      console.log(this.entryForm.value.subs_amt);
-      this.entryForm.get('subs_amt')?.setValidators([Validators.required, this.calculateSubsFee()])
+    subscription_fee(memb_type: any) {
+    this.dataServe.global_service(0, '/master/subscription_fee_dynamic', `memb_type=${memb_type}`).subscribe((data: any) => {
+      this.responsedata_subs = data;
+      this.responsedata_subs = this.responsedata_subs.suc > 0 ? this.responsedata_subs.msg : [];
+  
+      const nowDate = new Date();
+      const cal_upto = new Date(this.userData!.calc_upto);
+      let calAmt = 0;
+      let monthsDue = 0;
+      let yearsDue = 0;
+  
+      const sub = this.responsedata_subs[0];
+      const monthlyFee = sub.subscription_1;
+      const annualFee = sub.subscription_1; // assuming annual for 'L'
+      const previousDue = parseInt(this.userData!.calc_amt) || 0;
+  
+      if (nowDate <= cal_upto) {
+        // Subscription still valid
+        calAmt = previousDue;
+      } else {
+        switch (sub.memb_type) {
+          case 'G':
+          case 'default':
+            monthsDue = (nowDate.getFullYear() - cal_upto.getFullYear()) * 12 + (nowDate.getMonth() - cal_upto.getMonth());
+            calAmt = monthsDue * monthlyFee + previousDue;
+            break;
+          case 'AI':
+            calAmt = sub.subscription_2 + previousDue;
+            break;
+          case 'L':
+            yearsDue = nowDate.getFullYear() - cal_upto.getFullYear();
+            calAmt = yearsDue * annualFee + previousDue;
+            break;
+        }
+      }
+  
+      this.entryForm.patchValue({
+        subs_amt: calAmt
+      });
+      this.entryForm.get('subs_amt')?.setValidators([Validators.required, this.calculateSubsFee()]);
       this.entryForm.get('subs_amt')?.updateValueAndValidity();
-      })
-      // console.log(subs_amt, 'qwqwqw')
+    });
   }
 
+  // subscription_fee(memb_type: any){
+  //   this.dataServe.global_service(0, '/master/subscription_fee_dynamic', `memb_type=${memb_type}`).subscribe((data:any) => {
+  //     this.responsedata_subs = data
+  //     console.log(this.responsedata_subs,'ooopsss');
+  //     this.responsedata_subs = this.responsedata_subs.suc > 0 ? this.responsedata_subs.msg : []
+  //     var nowDate = new Date()
+  //     var cal_upto = new Date(this.userData!.calc_upto)
+  //     var cal_month = cal_upto.getFullYear() > nowDate.getFullYear() ? 0 : (nowDate.getMonth() - cal_upto.getMonth())
+  //     console.log(cal_month,'month');
+      
+      
+  //     this.entryForm.patchValue({        
+  //       subs_amt: (cal_month > 0 ? cal_month : 1) * this.responsedata_subs[0].subscription_1 + parseInt(this.userData!.calc_amt)
+  //     })
+  //     console.log(this.entryForm.value.subs_amt);
+  //     this.entryForm.get('subs_amt')?.setValidators([Validators.required, this.calculateSubsFee()])
+  //     this.entryForm.get('subs_amt')?.updateValueAndValidity();
+  //     })
+  //     // console.log(subs_amt, 'qwqwqw')
+  // }
+
   save(){
-    var encDt = ''
-    if(this.f['payment'].value == 'O'){
-      // var payData = {form_no: '', member_id: this.m['mem_id'].value, memb_name: this.f['mem_name'].value, amount: this.f['totalAmount'].value, phone_no: this.phone_no, email: this.email_id, approve_status: 'U', calc_upto: '', subs_type: '', sub_fee: this.f['totalAmount'].value, redirect_path: '/'}
-      // payEncDataGen = CryptoJS.AES.encrypt(JSON.stringify(payData),this.secretKey ).toString();
-      var custDt = { form_no: this.f['form_no'].value, member_id: this.m['mem_id'].value, memb_name: this.f['mem_name'].value, amount: this.f['subs_amt'].value, phone_no: this.userData?.phone_no, email: '', approve_status: 'U', calc_upto: this.userData?.calc_upto, subs_type: this.responsedata_subs.length > 0 ? this.responsedata_subs[0].subs_type : 'M', sub_fee: this.responsedata_subs[0].subscription_1, redirect_path: '/admin/subs_depo_entry' }
-      encDt = CryptoJS.AES.encrypt(JSON.stringify(custDt),this.secretKey ).toString();
-    }
+    // var encDt = ''
+    // if(this.f['payment'].value == 'O'){
+    //   var custDt = { form_no: this.f['form_no'].value, member_id: this.m['mem_id'].value, memb_name: this.f['mem_name'].value, amount: this.f['subs_amt'].value, phone_no: this.userData?.phone_no, email: '', approve_status: 'U', calc_upto: this.userData?.calc_upto, subs_type: this.responsedata_subs.length > 0 ? this.responsedata_subs[0].subs_type : 'M', sub_fee: this.responsedata_subs[0].subscription_1, redirect_path: '/admin/subs_depo_entry' }
+    //   encDt = CryptoJS.AES.encrypt(JSON.stringify(custDt),this.secretKey ).toString();
+    // }
     var dt = {
       memb_id: this.m['mem_id'].value,
       form_dt: this.f['form_dt'] ? this.f['form_dt'].value : null,
@@ -213,19 +267,20 @@ export class SubsDepoEntryComponent implements OnInit {
       user: localStorage.getItem('user_name'),
       last_subs: this.f['subs_upto'].value,
       pay_mode: this.f['payment'].value,
-      receipt_no: this.f['payment'].value == 'C' ? this.f['receipt_no'].value : this.f['payment'].value == 'O' ? this.f['receipt_no_online'].value : '',
-      chq_no: this.f['cheque_no'].value,
-      chq_dt: this.f['cheque_dt'].value,
-      chq_bank: this.f['payment'].value == 'Q' ? this.f['bank_name'].value : this.f['payment'].value == 'O' ? '75' : '73',
+      receipt_no: this.f['receipt_no'].value,
+      // receipt_no: this.f['payment'].value == 'C' ? this.f['receipt_no'].value : this.f['payment'].value == 'O' ? this.f['receipt_no_online'].value : '',
+      // chq_no: this.f['cheque_no'].value,
+      // chq_dt: this.f['cheque_dt'].value,
+      // chq_bank: this.f['payment'].value == 'Q' ? this.f['bank_name'].value : this.f['payment'].value == 'O' ? '75' : '73',
       memb_name: this.f['mem_name'].value,
       memb_type: this.f['mem_type'].value,
       form_no: this.f['form_no'].value,
-      approval_status: 'U',
+      approval_status: 'A',
       cal_upto: this.userData?.calc_upto,
       cal_amt: this.userData?.calc_amt,
       phone_no: this.userData?.phone_no,
       member: this.userData?.memb_name ,
-      pay_enc_data: encDt,
+      // pay_enc_data: encDt,
     }
     this.dataServe.global_service(1,'/mem_sub_tnx_save',dt).subscribe(data => {
       // console.log(data,'kiki')
