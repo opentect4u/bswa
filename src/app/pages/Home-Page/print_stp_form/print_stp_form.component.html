@@ -32,6 +32,20 @@
     background-color: #ffffff;
     color: rgb(0, 0, 0);
   }
+
+  .big-text {
+  font-size: 20px; 
+  font-weight: bold;  
+  color: #504fe7; 
+  margin-left: 8px;
+}
+.heading_style {
+    display: flex;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+}
+
 </style>
 
 <div class="background">
@@ -76,10 +90,10 @@
             <p><b>This is to inform you that the under signed is the member of <span class="perple"><u>{{stpinfo?.mem_type
                   == 'G' ? 'General
                   Membership' : stpinfo?.mem_type == 'L' ? 'Life
-                  membership' : ''}}</u></span> of <span class="perple"><u>{{stpinfo?.policy_holder_type === 'M' ? 'BSPWA Member' : 'Member Of Other Sail Association'}}</u></span> having membership no.
+                  membership' : ''}}</u></span> of <span class="perple"><u>{{stpinfo?.policy_holder_type}}</u></span> having membership no.
               <span class="perple"><u>{{stpinfo?.member_id}}</u></span> and MIN No. <span class="perple"><u>{{stpinfo?.min_no}}</u></span> and
               Superannuated from <span class="perple"><u>{{stpinfo?.unit_name}}</u></span> on <span class="perple"><u>{{stpinfo?.form_dt | date: 'dd-MM-yyyy'}}</u></span>. My SAIL
-              PERSONNEL NO. is <span class="perple"><u>{{stpinfo?.personel_no}}</u></span>.
+              PERSONNEL NO. is <span class="perple"><u>{{stpinfo?.personel_no ? stpinfo?.personel_no : 'N/A'}}</u></span>.
               I am interested to join in the scheme of super top up policy with the UNITED INDIA INSURANCE CO LTD for
               the
               year
@@ -88,7 +102,14 @@
           </div>
         </div>
 
-        <div class="row">
+         <div class="row heading_style">Premium Type : 
+         <span class="perple big-text">
+         {{ stpinfo?.premium_type == 'S' ? 'Single' : stpinfo?.premium_type == 'D' ? 'Double' : 'N/A' }}
+        </span>
+        </div>
+
+
+        <div class="row mt-2">
           <table class="table_space_cus">
             <tr class="table_head_cus">
               <th>
@@ -124,7 +145,7 @@
                   stpinfo?.dob !== '0000-00-00' ? (stpinfo?.dob | date: 'MM/dd/yyyy') :
                   'N/A'}}</span></th>
               <th><span>{{
-                  stpinfo?.phone_no}}</span></th>
+                  stpinfo?.phone_no ? stpinfo?.phone_no : 'N/A'}}</span></th>
               <th><span>{{stpinfo?.mem_address!='null' ? stpinfo?.mem_address :
                   'N/A'}}</span>
               </th>
@@ -144,7 +165,7 @@
                 </span>
               </th>
 
-              <th><span>{{stpinfo?.spou_phone}}</span>
+              <th><span>{{stpinfo?.spou_phone ? stpinfo?.spou_phone : 'N/A'}}</span>
               </th>
               <th><span>{{stpinfo?.spou_address!='null' ? stpinfo?.spou_address :
                   'N/A'}}</span></th>
@@ -186,14 +207,14 @@
               </th>
             </tr>
             <tr *ngFor="let dt of filteredSpouseInfo; let i = index">
-              <th><span>{{dt.sl_no}}</span>
+              <th><span>{{dt.sl_no ? dt.sl_no : 'N/A'}}</span>
               </th>
               <th><span>{{dt.ind_type == 'S' ?
-                  'SELF' : 'SPOUSE'}}</span></th>
-              <th><span>{{dt.fin_year}}</span></th>
-              <th><span>{{dt.particulars}}</span></th>
-              <th><span>{{dt.amount}}</span></th>
-              <th><span>{{dt.treatment_dtls}}</span></th>
+                  'SELF' : dt.ind_type == 'P' ? 'SPOUSE' : 'N/A'}}</span></th>
+              <th><span>{{dt.fin_year ? dt.fin_year : 'N/A'}}</span></th>
+              <th><span>{{dt.particulars ? dt.particulars : 'N/A'}}</span></th>
+              <th><span>{{dt.amount ? dt.amount : 'N/A'}}</span></th>
+              <th><span>{{dt.treatment_dtls ? dt.treatment_dtls : 'N/A'}}</span></th>
             </tr>
              <tr *ngIf="filteredSpouseInfo.length === 0">
              <td colspan="6" class="text-center">No Data Found</td>
@@ -201,7 +222,7 @@
           </table>
         </div>
 
-         <div class="row mt-2">
+         <!-- <div class="row mt-2">
           <h4><br><br>
             <u><b>Premium details are given below:</b></u>
           </h4>
@@ -226,7 +247,7 @@
               <th><span>{{stpinfo?.premium_amt}}</span></th>
             </tr>
           </table>
-        </div>
+        </div> -->
 
         <div class="row mt-3">
           <!-- <h4 class="letter_style" style="color: black">

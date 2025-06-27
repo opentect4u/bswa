@@ -27,28 +27,10 @@ export class InsuranceHomeComponent implements OnInit {
     
   // }
 
-// super_policy() {
-//   Swal.fire({
-//     title: 'Warning',
-//     text: 'This policy is only for Sail Retirees and their Spouses',
-//     icon: 'warning',
-//     customClass: {
-//       popup: 'custom-swal-popup',
-//       icon: 'custom-swal-icon'
-//     },
-//     confirmButtonText: 'OK'
-//   }).then((result) => {
-//     if (result.isConfirmed) {
-//       this.router.navigate(['/home/super_topup_register']);
-//     }
-//   });
-// }
-
-
 super_policy() {
   Swal.fire({
     title: 'Warning',
-    text: 'Work is in Progress',
+    text: 'This policy is only for Sail Retirees and their Spouses',
     icon: 'warning',
     customClass: {
       popup: 'custom-swal-popup',
@@ -57,10 +39,28 @@ super_policy() {
     confirmButtonText: 'OK'
   }).then((result) => {
     if (result.isConfirmed) {
-      this.router.navigate(['/home/insurance_form_home']);
+      this.router.navigate(['/home/super_topup_register']);
     }
   });
 }
+
+
+// super_policy() {
+//   Swal.fire({
+//     title: 'Warning',
+//     text: 'Work is in Progress',
+//     icon: 'warning',
+//     customClass: {
+//       popup: 'custom-swal-popup',
+//       icon: 'custom-swal-icon'
+//     },
+//     confirmButtonText: 'OK'
+//   }).then((result) => {
+//     if (result.isConfirmed) {
+//       this.router.navigate(['/home/insurance_form_home']);
+//     }
+//   });
+// }
 
 
 

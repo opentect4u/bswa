@@ -18,13 +18,36 @@ interface TableData{
 })
 export class Member_policy_listComponent implements OnInit {
   userData:any
-  tableData: [TableData] | any
+  // tableData: [TableData] | any
+  selectedStatus: string = 'Y'; // default selected
+tableData: any[] = [];        // original full data
+  filteredData: any[] = [];     
 
   constructor(private router: Router, private dataServe: DataService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
   this.getMemberPolicyDtls()
   }
+
+filterByStatus() {
+  console.log('Filtering by status:', this.selectedStatus);
+
+  if (this.selectedStatus) {
+    this.filteredData = this.tableData.filter(item => {
+      console.log(this.filteredData,'lo');
+      
+      console.log('Item status:', item.status); // 🔍 Debug
+      return item.status === this.selectedStatus;
+    });
+  } else {
+    this.filteredData = [...this.tableData]; // show all
+  }
+
+  console.log('Filtered data:', this.filteredData);
+}
+
+
+
 
   getMemberPolicyDtls(){
     this.dataServe.global_service(1, '/member_policy_dtls', null).subscribe(
@@ -33,6 +56,7 @@ export class Member_policy_listComponent implements OnInit {
         this.userData = data;
         this.userData = this.userData.msg;
         this.tableData = this.userData
+        this.filterByStatus();
         console.log(this.userData, 'lili');
       },
       (error) => {

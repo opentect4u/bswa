@@ -3,23 +3,37 @@
   <p-divider type="dashed"></p-divider>
 
   <form [formGroup]="form">
-    <div class="flex flex-row">
-      <div class="field col-12 md:col-6">
+     <div class="flex flex-row">
+        <div class="field col-12 md:col-8">
         <label for="policy_holder" class="label_field"><b>Policy Holder Type: </b></label>&nbsp;
-        <input id="policy_holder" type="text" formControlName="policy_holder" placeholder="Enter Member ID"
-          class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-          readonly />
+           <select id="policy_holder" formControlName="policy_holder"
+            class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+            style="appearance: auto; height: 3vw; border-radius: 7px">
+            <option value="">Select Policy Holder Type</option>
+            <option *ngFor="let option of responsedata_policy_holder" [value]="option.policy_holder_type_id">{{ option.policy_holder_type }}</option>
+          </select>
       </div>
-      <div class="field col-12 md:col-6">
-        <label for="member_id" class="label_field"><b>Member ID:</b></label>&nbsp;
-        <input id="member_id" type="text" formControlName="member_id" placeholder="Enter Member ID"
-          class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-          readonly />
+       <div class="field col-12 md:col-4">
+        <label for="memb_flag" class="label_field"><b>User Status:</b></label>&nbsp;
+        <ng-container>
+          <select id="memb_flag" formControlName="memb_flag"
+            class="w-full text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+            style="appearance: auto; height: 3vw; border-radius: 7px">
+            <option value="NP">Select User Status</option>
+            <option value="Y">Activate</option>
+            <option value="N">Inactivate</option>
+          </select>
+        </ng-container>
       </div>
-    </div>
-
+     </div>
     <div class="flex flex-row">
-      <div class="field col-12 md:col-4">
+       <div class="field col-12 md:col-4">
+        <label for="form_dt" class="label_field"><b>Form Fillup Date: </b></label>&nbsp;
+        <input id="form_dt" type="text" formControlName="form_dt" placeholder="Enter Form Fillup Date"
+          class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          readonly />
+      </div>
+        <div class="field col-12 md:col-4">
         <label for="member_type" class="label_field"><b>Member Type:</b></label>&nbsp;
         <ng-container>
           <input id="member_type" type="text" formControlName="member_type" placeholder="Enter Personal No"
@@ -27,6 +41,17 @@
             readonly />
         </ng-container>
       </div>
+       <div class="field col-12 md:col-4">
+        <label for="min_no" class="label_field"><b>MIN No:</b></label>&nbsp;
+        <ng-container>
+          <input id="min_no" type="text" formControlName="min_no" placeholder="Enter MIN No"
+            class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" readonly/>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="flex flex-row">
+    
       <div class="field col-12 md:col-4">
         <label for="unit_name" class="label_field"><b>Unit Name:</b></label>&nbsp;
         <ng-container>
@@ -45,21 +70,22 @@
             class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
         </ng-container>
       </div>
-    </div>
-
-    <div class="flex flex-row">
-      <div class="field col-12 md:col-4">
+       <div class="field col-12 md:col-4">
         <label for="memb_opr" class="label_field"><b>Member Operation:</b></label>&nbsp;
         <ng-container>
           <select id="memb_opr" formControlName="memb_opr"
             class="w-full text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
             style="appearance: auto; height: 3vw; border-radius: 7px">
             <option value="N" selected>Select Operation</option>
-            <option value="S">Self</option>
-            <option value="J">Spouse</option>
+            <option value="S">Single</option>
+            <option value="D">Double</option>
           </select>
         </ng-container>
       </div>
+    </div>
+
+    <div class="flex flex-row">
+     
       <div class="field col-12 md:col-4">
         <label for="member" class="label_field"><b>Member Name:</b></label>&nbsp;
         <ng-container>
@@ -68,22 +94,21 @@
         </ng-container>
       </div>
       <div class="field col-12 md:col-4">
-        <label for="min_no" class="label_field"><b>MIN No:</b></label>&nbsp;
-        <ng-container>
-          <input id="min_no" type="text" formControlName="min_no" placeholder="Enter MIN No"
-            class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
-        </ng-container>
+        <label for="member_id" class="label_field"><b>Member ID:</b></label>&nbsp;
+        <input id="member_id" type="text" formControlName="member_id" placeholder="Enter Member ID"
+          class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          readonly />
       </div>
-    </div>
-
-    <div class="flex flex-row">
-      <div class="field col-12 md:col-4">
+        <div class="field col-12 md:col-4">
         <label for="gen_dob" class="label_field"><b>DOB:</b></label>&nbsp;
         <ng-container>
           <input id="gen_dob" type="date" formControlName="gen_dob" placeholder="dd/MM/yyyy"
             class="box_input text-l text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
         </ng-container>
       </div>
+    </div>
+
+    <div class="flex flex-row">
       <div class="field col-12 md:col-4">
         <label for="mobile" class="label_field"><b>Mobile No:</b></label>&nbsp;
         <ng-container>
@@ -92,9 +117,21 @@
         </ng-container>
       </div>
       <div class="field col-12 md:col-4">
-        <label for="fin_yr" class="label_field"><b>Joining Year:</b></label>&nbsp;
-        <input id="fin_yr" type="date" formControlName="fin_yr" placeholder="Enter Joining Year"
-          class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+        <label for="gender" class="label_field"><b>Gender:</b></label>&nbsp;
+        <select id="gender" formControlName="gender"
+            class="w-full text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+            style="appearance: auto; height: 3vw; border-radius: 7px">
+            <option value="N">Select Gender</option>
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+          </select>
+      </div>
+        <div class="field col-4">
+        <label for="premium_type" class="label_field"><b>Premium Type:</b></label>&nbsp;
+        <ng-container>
+          <input id="premium_type" type="text" formControlName="premium_type" placeholder="Enter premium type"
+            class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" readonly/>
+        </ng-container>
       </div>
     </div>
 
@@ -108,10 +145,10 @@
       </div>
     </div>
 
-    <p-divider type="dashed"></p-divider>
-    <h3 class="text-center"><b>Spouse Information</b></h3>
+    <p-divider type="dashed" *ngIf="form.get('memb_opr')?.value === 'D'"></p-divider>
+    <h3 class="text-center" *ngIf="form.get('memb_opr')?.value === 'D'"><b>Spouse Information</b></h3>
 
-    <ng-container>
+    <ng-container *ngIf="form.get('memb_opr')?.value === 'D'">
       <div class="flex flex-row">
         <div class="field col-12 md:col-3">
           <label for="spouse" class="label_field"><b>Spouse Name:</b></label>&nbsp;
@@ -124,7 +161,7 @@
           <label for="spouse_min_no" class="label_field"><b>MIN No:</b></label>&nbsp;
           <ng-container>
             <input id="spouse_min_no" type="text" formControlName="spouse_min_no" placeholder="Enter MIN No"
-              class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+              class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" readonly/>
           </ng-container>
         </div>
         <div class="field col-12 md:col-3">
@@ -143,13 +180,36 @@
           </ng-container>
         </div>
       </div>
+      <div class="flex flex-row">
+         <div class="field col-12 md:col-4">
+        <label for="spou_gender" class="label_field"><b>Gender:</b></label>&nbsp;
+        <select id="spou_gender" formControlName="spou_gender"
+            class="w-full text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+            style="appearance: auto; height: 3vw; border-radius: 7px">
+            <option value="N">Select Gender</option>
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+          </select>
+      </div>
+       <div class="field col-12 md:col-4">
+        <label for="dependent_flag" class="label_field"><b>Dependent User Status:</b></label>&nbsp;
+          <select id="dependent_flag" formControlName="dependent_flag"
+            class="w-full text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+            style="appearance: auto; height: 3vw; border-radius: 7px">
+            <option value="NP">Select Dependent User Status</option>
+            <option value="Y">Activate</option>
+            <option value="N">Inactivate</option>
+          </select>
+      </div>
+      </div>
+
 
       <div class="flex flex-row">
         <div class="field col-12">
-          <label for="spou_mem" class="label_field"><b>Member Address:</b></label>&nbsp;
+          <label for="spou_mem" class="label_field"><b>Spouse Address:</b></label>&nbsp;
           <ng-container>
             <textarea id="spou_mem" formControlName="spou_mem" type="text" rows="4"
-              placeholder="Enter Member address..."
+              placeholder="Enter Spouse address..."
               class="text-base text-l text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
           </ng-container>
 
@@ -157,6 +217,7 @@
       </div>
     </ng-container>
 
+    <ng-container *ngIf="depenFields_2 && depenFields_2.length > 0">
     <h3 class="text-center"><b>Medical details</b></h3>
     <p-divider type="dashed"></p-divider>
 
@@ -223,6 +284,7 @@
       </ng-container>
 
     </div>
+    </ng-container>
 
     <div class="field col-12 md:col-6">
       <button pButton pRipple type="button" label="Submit" class="p-button-raised sub_btn" (click)="save()"></button>

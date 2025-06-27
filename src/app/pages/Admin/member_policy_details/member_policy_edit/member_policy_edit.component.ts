@@ -9,6 +9,7 @@ import { MessageService } from 'primeng/api';
 import { environment } from 'src/environments/environment';
 
 interface UserInfo {
+  form_dt: string;
   form_no: string;
   policy_holder: string;
       member_id: string;
@@ -17,16 +18,21 @@ interface UserInfo {
       personal_no: string;
       memb_opr: string;
       member: string;
+      gender: string;
       min_no: string;
       gen_dob: string;
       mobile: string;
       fin_yr: string;
       mem: string;
+      premium_type: string;
       spouse: string;
       spouse_min_no: string;
       spou_dob: string;
       spou_mobile: string;
+      spou_gender: string;
       spou_mem: string;
+      memb_flag: string;
+      dependent_flag: string;
       dep_dt: [DepInfo];
 }
 
@@ -51,11 +57,13 @@ export class Member_policy_editComponent implements OnInit {
   member_id: any;
   form!: FormGroup;
   responsedata: any;
+  responsedata_policy_holder: any;
   userData: any;
   responsedata_rel: any
   responsedata_unit: any;
   finYearData:any
   memberData: any;
+  oldMembOprValue: any;
 
   constructor(
     private router: Router,
@@ -69,27 +77,33 @@ export class Member_policy_editComponent implements OnInit {
   ngOnInit() {
     const encodedFormNo = this.route.snapshot.params['form_no'];
     this.form_no = atob(decodeURIComponent(encodedFormNo));
-    this.member_id = this.route.snapshot.params['member_id']
-
+    this.member_id = this.route.snapshot.params['member_id'];
+    
     this.form = this.fb.group({
+      form_dt: [''],
       form_no: [this.form_no],
       policy_holder: [''],
-      member_id: ['', Validators.required],
-      member_type: ['', Validators.required],
-      unit_nm: ['', Validators.required],
-      personal_no: ['', Validators.required],
-      memb_opr: ['', Validators.required],
-      member: ['', Validators.required],
-      min_no: ['', Validators.required],
-      gen_dob: ['', Validators.required],
-      mobile: ['', Validators.required],
-      fin_yr: ['', Validators.required],
-      mem: ['', Validators.required],
+      memb_flag: [''],
+      dependent_flag: [''],
+      member_id: [''],
+      member_type: [''],
+      unit_nm: [''],
+      personal_no: [''],
+      memb_opr: [''],
+      member: [''],
+      gender: [''],
+      min_no: [''],
+      gen_dob: [''],
+      mobile: [''],
+      fin_yr: [''],
+      mem: [''],
       spouse: [''],
       spouse_min_no: [''],
       spou_dob: [''],
       spou_mobile: [''],
       spou_mem: [''],
+      spou_gender: [''],
+      premium_type: [''],
       depenFields_2: this.fb.array([]),
       user: [localStorage.getItem('user_name')],
     });
@@ -99,9 +113,50 @@ export class Member_policy_editComponent implements OnInit {
       // this.changedate();
 
     this.unit();
+    this.policy_holder();
     this.relationship();
     this.getMemberPolicyDetails();
+
+    this.oldMembOprValue = this.form.get('memb_opr')?.value;
+
+     this.form.get('memb_opr')?.valueChanges.subscribe(newValue => {
+    if (this.oldMembOprValue === 'S' && newValue === 'D') {
+      // Revert to old value if not allowed
+      Swal.fire({
+        icon: 'warning',
+        title: 'Not Allowed!',
+        text: 'Changing from Single to Double is not allowed directly.',
+      });
+      this.form.get('memb_opr')?.setValue(this.oldMembOprValue, { emitEvent: false });
+    } 
+    // else if (this.oldMembOprValue === 'D' && newValue === 'S') {
+    //   this.disableSpouseFields();
+    // }
+
+    // Always update old value after logic
+    this.oldMembOprValue = this.form.get('memb_opr')?.value;
+  });
   }
+
+  disableSpouseFields() {
+  this.form.get('spouse')?.disable();
+  this.form.get('spouse_min_no')?.disable();
+  this.form.get('spou_dob')?.disable();
+  this.form.get('spou_mobile')?.disable();
+  this.form.get('spou_gender')?.disable();
+  this.form.get('dependent_flag')?.disable();
+  this.form.get('spou_mem')?.disable();
+}
+
+enableSpouseFields() {
+  this.form.get('spouse')?.enable();
+  this.form.get('spouse_min_no')?.enable();
+  this.form.get('spou_dob')?.enable();
+  this.form.get('spou_mobile')?.enable();
+  this.form.get('spou_gender')?.enable();
+  this.form.get('dependent_flag')?.enable();
+  this.form.get('spou_mem')?.enable();
+}
 
   get depenFields_2(): FormArray {
     return this.form.get('depenFields_2') as FormArray;
@@ -194,6 +249,17 @@ export class Member_policy_editComponent implements OnInit {
       });
   }
 
+      policy_holder() {
+    this.dataServe
+      .global_service(0, '/master/policy_holder_list', null)
+      .subscribe((data: any) => {
+        this.responsedata_policy_holder = data;
+        // console.log(this.responsedata_policy_holder, '555');
+        this.responsedata_policy_holder =
+          this.responsedata_policy_holder.suc > 0 ? this.responsedata_policy_holder.msg : [];
+      });
+  }
+
   relationship() {
     this.dataServe
       .global_service(0, '/master/relationship_list', null)
@@ -216,29 +282,31 @@ export class Member_policy_editComponent implements OnInit {
           if (this.userData.suc > 0) {
             this.memberData = this.userData.msg[0];
             this.form.patchValue({
-              policy_holder: this.memberData?.policy_holder_type== 'M' ? 'BSPWA Member' : 'Member of Other SAIL Association',
+              form_dt: this.memberData?.form_dt != '0000-00-00' ? this.datePipe.transform(this.memberData?.form_dt, 'yyyy-MM-dd') : '',
+              memb_flag: this.memberData?.memb_flag != null ? this.memberData?.memb_flag : '',
+              policy_holder: this.memberData?.policy_holder_type,
               member_id: this.memberData?.member_id != 'null' ? this.memberData?.member_id : '',
               member_type: this.memberData?.memb_type== 'G' ? 'General Membership' : this.memberData?.memb_type== 'L' ? 'Life Membership' : '',
               memb_opr: this.memberData?.memb_oprn != 'null' ? this.memberData?.memb_oprn : '',
               unit_nm: this.memberData?.association != 'null' ? this.memberData?.association :'',
               member: this.memberData?.memb_name != 'null' ? this.memberData?.memb_name : '',
-              gen_dob: this.memberData?.dob != '0000-00-00'
-                ? this.datePipe.transform(this.memberData?.dob, 'yyyy-MM-dd')
-                : '',
-              mobile: this.memberData?.phone_no != 'null' ? this.memberData?.phone_no : '',
-              personal_no: this.memberData?.personel_no != 'null' ? this.memberData?.personel_no : '',
+              gender: this.memberData?.gender != 'null' ? this.memberData?.gender : '',
+              gen_dob: this.memberData?.dob == '0000-00-00'
+                ? '0000-00-00' : this.datePipe.transform(this.memberData?.dob, 'yyyy-MM-dd'),
+              mobile: this.memberData?.phone_no == 'null' ? 0 : this.memberData?.phone_no,
+              personal_no: this.memberData?.personel_no == 'null' ? 0 : this.memberData?.personel_no,
               min_no: this.memberData?.min_no != 'null' ? this.memberData?.min_no : '',
               mem: this.memberData?.mem_address != 'null' ? this.memberData?.mem_address : '',
-              fin_yr: this.memberData?.fin_yr
-              ? this.datePipe.transform(this.memberData?.fin_yr, 'yyyy-MM-dd')
-              : '',
               spouse: this.memberData?.dependent_name != 'null' ? this.memberData?.dependent_name : '',
               spouse_min_no: this.memberData?.spou_min_no != 'null' ?  this.memberData?.spou_min_no : '',
               spou_dob: this.memberData?.spou_dob != '0000-00-00'
               ? this.datePipe.transform(this.memberData?.spou_dob, 'yyyy-MM-dd')
               : '',
               spou_mobile: this.memberData?.spou_phone != '0' ? this.memberData?.spou_phone : '',
+              spou_gender: this.memberData?.spou_gender != 'null' ? this.memberData?.spou_gender : '',
               spou_mem: this.memberData?.spou_address != 'null' ? this.memberData?.spou_address : '',
+              dependent_flag: this.memberData?.dependent_flag != 'null' ? this.memberData?.dependent_flag : '',
+              premium_type: this.memberData?.premium_type == 'S' ? 'Single' : 'Double',
             });
 
 
@@ -271,8 +339,9 @@ export class Member_policy_editComponent implements OnInit {
   save(){
     const frmDt = new FormData();
     frmDt.append('data', JSON.stringify(this.form.value))
+    // console.log(frmDt,'oiuy');
     this.dataServe
-    .global_service(1, '/update_member_policy_dtls', frmDt)
+    .global_service(1, '/update_member_policy_dtls', frmDt)    
     .subscribe((data) => {
       this.responsedata = data;
       if (this.responsedata.suc > 0) {

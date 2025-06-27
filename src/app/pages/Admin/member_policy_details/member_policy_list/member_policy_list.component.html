@@ -6,8 +6,23 @@
     </h3>
   </div>
 
+ <div class="flex justify-content-start gap-4 my-3">
+  <div class="field-radiobutton">
+    <p-radioButton name="status" value="Y" [(ngModel)]="selectedStatus" inputId="active" (onClick)="filterByStatus()" />
+    <label for="active">Active</label>
+  </div>
+  <div class="field-radiobutton">
+    <p-radioButton name="status" value="N" [(ngModel)]="selectedStatus" inputId="deactive" (onClick)="filterByStatus()" />
+    <label for="deactive">Deactive</label>
+  </div>
+  <div class="field-radiobutton">
+    <p-radioButton name="status" value="" [(ngModel)]="selectedStatus" inputId="all" (onClick)="filterByStatus()" />
+    <label for="all">All</label>
+  </div>
+</div>
+
   <div class="card mt-4">
-    <p-table [value]="tableData" #dt2 dataKey="id" [rows]="10" [showCurrentPageReport]="true"
+    <p-table [value]="filteredData" #dt2 dataKey="id" [rows]="10" [showCurrentPageReport]="true"
       [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true"
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
       [globalFilterFields]="['memb_type']" [tableStyle]="{
@@ -29,6 +44,7 @@
           <th id="table_color">Member ID</th>
           <th id="table_color">Policy Holder Name</th>
           <th id="table_color">Association Name</th>
+          <th id="table_color">Status</th>
           <th id="table_color">Edit</th>
         </tr>
       </ng-template>
@@ -45,6 +61,12 @@
           </td>
           <td class="text-center">
             <b>{{ memb.unit_name }}</b>
+          </td>
+          <td class="text-center">
+             <p-badge 
+            [value]="memb.status == 'Y' ? 'Active' : 'Inactive'" 
+            [severity]="memb.status == 'Y' ? 'success' : 'danger'">
+           </p-badge>
           </td>
           <td class="text-center">
             <b><a pTooltip="View" tooltipPosition="bottom"

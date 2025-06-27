@@ -63,6 +63,19 @@ background-color: #f8f9fa;
   color: #d9534f;
   font-weight: bold;
 }
+
+.big-text {
+  font-size: 20px; 
+  font-weight: bold;  
+  color: #504fe7; 
+  margin-left: 8px;
+}
+.heading_style {
+    display: flex;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+}
 </style>
 
 
@@ -70,12 +83,12 @@ background-color: #f8f9fa;
   <div class="row" *ngIf="stpinfo?.form_status === 'A'">
     <div class="col-12 d-flex justify-content-end">
       <div class="status-box"> 
-      <h6>Member:</h6><span class="color_app">{{stpinfo?.policy_holder_type == 'M' ? 'BSPWA Member' : 'Member Of Other Sail Association'}}</span>
-      <h6>Form No : <span class="color_app">{{stpinfo?.form_no}}</span></h6>
-      <h6>Status : <span class="color_app">{{stpinfo?.form_status == 'A' ? 'Approved' : ''}}</span></h6>
-      <h6>Resolution No : <span class="color_app">{{stpinfo?.resolution_no}}</span></h6>
+      <h6>Member:</h6><span class="color_app">{{stpinfo?.policy_holder_type ? stpinfo?.policy_holder_type : 'N/A'}}</span>
+      <h6>Form No : <span class="color_app">{{stpinfo?.form_no ? stpinfo?.form_no : 'N/A'}}</span></h6>
+      <h6>Status : <span class="color_app">{{stpinfo?.form_status == 'A' ? 'Approved' : 'N/A'}}</span></h6>
+      <h6>Resolution No : <span class="color_app">{{stpinfo?.resolution_no ? stpinfo?.resolution_no : 'N/A'}}</span></h6>
       <h6>Transaction Date : <span class="color_app">{{stpinfo?.form_dt | date:'dd-MM-yyyy'}}</span></h6>
-      <h6>Premium Amount : <span class="color_app">{{stpinfo?.premium_amt}}</span></h6>
+      <!-- <h6>Premium Amount : <span class="color_app">{{stpinfo?.premium_amt}}</span></h6> -->
        <h6>Approved Date : <span class="color_app">{{stpinfo?.approve_at | date:'dd-MM-yyyy'}}</span></h6>
       <h6>Approved By : <span class="color_app">{{stpinfo?.approve_by}}</span></h6>
       </div>
@@ -84,10 +97,10 @@ background-color: #f8f9fa;
 <div class="row" *ngIf="stpinfo?.form_status === 'R'">
   <div class="col-12 d-flex justify-content-end">
     <div class="status-box">
-      <h6>Member:</h6><span class="color_rej">{{stpinfo?.policy_holder_type == 'M' ? 'BSPWA Member' : 'Member Of Other Sail Association'}}</span>
-      <h6>Status: <span class="color_rej">{{ stpinfo?.form_status == 'R' ? 'Reject' : '' }}</span></h6>
-      <h6>Resolution No: <span class="color_rej">{{ stpinfo?.resolution_no }}</span></h6>
-      <h6>Remarks: <span class="color_rej">{{ stpinfo?.remarks }}</span></h6>
+      <h6>Member:</h6><span class="color_rej">{{stpinfo?.policy_holder_type ? stpinfo?.policy_holder_type : 'N/A'}}</span>
+      <h6>Status: <span class="color_rej">{{ stpinfo?.form_status == 'R' ? 'Reject' : 'N/A' }}</span></h6>
+      <h6>Resolution No: <span class="color_rej">{{ stpinfo?.resolution_no ? stpinfo?.resolution_no : 'N/A' }}</span></h6>
+      <h6>Remarks: <span class="color_rej">{{ stpinfo?.remarks ? stpinfo?.remarks : 'N/A' }}</span></h6>
       <h6>Rejected Date: <span class="color_rej">{{ stpinfo?.rejected_dt | date:'dd-MM-yyyy' }}</span></h6>
       <h6>Rejected By: <span class="color_rej">{{ stpinfo?.rejected_by }}</span></h6>
     </div>
@@ -113,17 +126,23 @@ background-color: #f8f9fa;
         This is to inform you that the under signed is the member of <span
           style="color: rgb(55, 55, 230);"><u>{{stpinfo?.mem_type == 'G' ? 'General
             Membership' : stpinfo?.mem_type == 'L' ? 'Life
-            membership' : ''}}</u></span> of <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.policy_holder_type == 'M' ? 'BSPWA Member' : 'Member Of Other Sail Association'}}</u></span> having membership no.
+            membership' : ''}}</u></span> of <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.policy_holder_type ? stpinfo?.policy_holder_type : 'N/A'}}</u></span> having membership no.
         <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.member_id}}</u></span> and MIN No <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.min_no}}</u></span> and
         Superannuated from <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.unit_name}}</u></span> on <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.form_dt | date: 'dd-MM-yyyy'}}</u></span>. My SAIL
-        PERSONNEL NO. is <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.personel_no}}</u></span>.
+        PERSONNEL NO. is <span style="color: rgb(55, 55, 230);"><u>{{stpinfo?.personel_no ? stpinfo?.personel_no : 'N/A'}}</u></span>.
         I am interested to join in the scheme of super top up policy with the UNITED INDIA INSURANCE CO LTD for the year
         subject to premium and other term. The details of the undersigned are as under:
       </h5>
     </div>
   </div>
 
-  <div class="row">
+   <div class="row heading_style">Premium Type : 
+         <span class="perple big-text">
+         {{ stpinfo?.premium_type == 'S' ? 'Single' : stpinfo?.premium_type == 'D' ? 'Double' : 'N/A' }}
+        </span>
+        </div>
+
+  <div class="row mt-2">
     <table class="table_space">
       <tr class="table_head_cus">
         <th class="text-center">
@@ -159,7 +178,7 @@ background-color: #f8f9fa;
             stpinfo?.dob !== '0000-00-00' ? (stpinfo?.dob | date: 'MM/dd/yyyy') :
             'N/A'}}</span></th>
         <th class="text-center"><span style="color: rgb(55, 55, 230);">{{
-            stpinfo?.phone_no}}</span></th>
+            stpinfo?.phone_no ? stpinfo?.phone_no : 'N/A'}}</span></th>
         <th class="text-center"><span
             style="color: rgb(55, 55, 230);">{{stpinfo?.mem_address!='null' ? stpinfo?.mem_address : 'N/A'}}</span>
         </th>
@@ -179,7 +198,7 @@ background-color: #f8f9fa;
         </th>
 
         <th class="text-center"><span
-            style="color: rgb(55, 55, 230);">{{stpinfo?.spou_phone}}</span>
+            style="color: rgb(55, 55, 230);">{{stpinfo?.spou_phone ? stpinfo?.spou_phone : 'N/A'}}</span>
         </th>
         <th class="text-center"><span
             style="color: rgb(55, 55, 230);">{{stpinfo?.spou_address!='null' ? stpinfo?.spou_address :
@@ -221,16 +240,16 @@ background-color: #f8f9fa;
               </th>
             </tr>
       <tr *ngFor="let dt of filteredSpouseInfo; let i = index">
-        <th class="text-center" style="color: rgb(55, 55, 230);"><span>{{dt.sl_no}}</span>
+        <th class="text-center" style="color: rgb(55, 55, 230);"><span>{{dt.sl_no ? dt.sl_no : 'N/A'}}</span>
         </th>
         <th class="text-center"><span style="color: rgb(55, 55, 230);">{{dt.ind_type == 'S' ? 'SELF'
-            : 'SPOUSE'}}</span></th>
+            : dt.ind_type == 'P' ? 'SPOUSE' : 'N/A'}}</span></th>
         <th class="text-center" style="width: 8vw;"><span
-            style="color: rgb(55, 55, 230);">{{dt.fin_year}}</span></th>
+            style="color: rgb(55, 55, 230);">{{dt.fin_year ? dt.fin_year : 'N/A'}}</span></th>
         <th style="width: 38vw;"><span style="color: rgb(55, 55, 230);">{{dt.particulars}}</span>
         </th>
-        <th><span style="color: rgb(55, 55, 230);">{{dt.amount}}</span></th>
-        <th><span style="color: rgb(55, 55, 230);">{{dt.treatment_dtls}}</span></th>
+        <th><span style="color: rgb(55, 55, 230);">{{dt.amount ? dt.amount : 'N/A'}}</span></th>
+        <th><span style="color: rgb(55, 55, 230);">{{dt.treatment_dtls ? dt.treatment_dtls : 'N/A'}}</span></th>
       </tr>
         <tr *ngIf="filteredSpouseInfo.length === 0">
              <td colspan="6" class="text-center">No Data Found</td>
@@ -238,7 +257,7 @@ background-color: #f8f9fa;
     </table>
   </div>
 
-   <div class="row">
+   <!-- <div class="row">
           <h4 style="color: black"><br><br>
             <u>Premium details are given below:</u>
           </h4>
@@ -263,7 +282,7 @@ background-color: #f8f9fa;
               <th class="text-center"><span style="color: rgb(55, 55, 230);">{{stpinfo?.premium_amt}}</span></th>
             </tr>
           </table>
-        </div>
+        </div> -->
 
   <div class="row mt-3">
     <h5 class="letter_style" style="color: black">
@@ -393,11 +412,11 @@ background-color: #f8f9fa;
                 <small class="text-red-900" *ngIf="f['trn_date']?.errors">Date is required.</small>
               </div>
             </div>
-            <div class="field col-12 md:col-4">
+            <!-- <div class="field col-12 md:col-4">
               <label for="totalAmount" style="color: black"><b>Total Premium Amount</b></label>
               <input id="totalAmount" type="number" formControlName="totalAmount" readonly
                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
-            </div>
+            </div> -->
           </div>
         </div>
 

@@ -5,6 +5,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { FormsModule } from '@angular/forms';
+import { BadgeModule } from 'primeng/badge';
 
 const routes: Routes = [{ path: '', component: Member_policy_listComponent }];
 
@@ -14,6 +17,9 @@ const routes: Routes = [{ path: '', component: Member_policy_listComponent }];
     CardModule,
     TableModule,
     InputTextModule,
+    RadioButtonModule,
+    FormsModule,
+    BadgeModule,
     RouterModule.forChild(routes)
   ],
   declarations: [Member_policy_listComponent]
