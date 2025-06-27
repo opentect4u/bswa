@@ -37,6 +37,7 @@ export class Super_top_up_policy_registerComponent implements OnInit {
   member_id: any;
   checkedmember: any  = false
   responsedata_unit: any;
+  responsedata_policy_holder: any;
   premium_stp: any;
   responsedata_rel: any;
   policy_holder_type: any
@@ -45,6 +46,8 @@ export class Super_top_up_policy_registerComponent implements OnInit {
   selectedValue2: string = 'N';
   selectedValue3: string = 'N';
   selectedValue_4: string = 'NP';
+  selectedValue_3: string = 'N';
+  selectedValue_5: string = 'N';
   userData: any;
   maxDate!: string;
 
@@ -90,7 +93,7 @@ export class Super_top_up_policy_registerComponent implements OnInit {
       personal_no: [''],
       memb_opr: [''],
       member: [''],
-      member_id: ['', Validators.required],
+      gender: [''],
       gen_dob: [''],
       mobile: [''],
       fin_yr: [''],
@@ -99,13 +102,14 @@ export class Super_top_up_policy_registerComponent implements OnInit {
       spouse_min_no: ['', Validators.required],
       spou_dob: [''],
       spou_mobile: [''],
+      spou_gender: [''],
       spou_mem: [''],
       depenFields_2: this.fb.array([]),
       form_dt: ['', Validators.required],
       policy_holder_type: ['', Validators.required],
       premium_type: [''], 
-      premium_amt: [''],
-      total_amt: ['']
+      // premium_amt: [''],
+      // total_amt: ['']
     });
     this.form.get('memb_opr')?.valueChanges.subscribe(value => {
   if (value === 'Double') {
@@ -119,6 +123,7 @@ export class Super_top_up_policy_registerComponent implements OnInit {
     if(this.depenFields_2.controls.length == 0)
       this.onadd();
       this.unit()
+      this.policy_holder();
       this.relationship()
       // this.selectedValue3 = 'N'; 
       this.onMemberOperationChange();
@@ -129,7 +134,7 @@ export class Super_top_up_policy_registerComponent implements OnInit {
   }
 
   setSpouseValidators(required: boolean) {
-  const spouseControls = ['spouse', 'spouse_min_no', 'spou_dob', 'spou_mobile', 'spou_mem'];
+  const spouseControls = ['spouse', 'spouse_min_no', 'spou_dob', 'spou_mobile', 'spou_gender', 'spou_mem'];
   
   spouseControls.forEach(controlName => {
     const control = this.form.get(controlName);
@@ -153,8 +158,8 @@ onMemberOperationChange(event?: any) {
     // Reset fields
   this.form.get('ind_type')?.setValue('');
   this.form.get('premium_type')?.setValue('');
-  this.form.get('premium_amt')?.setValue('');
-  this.form.get('total_amt')?.setValue('');
+  // this.form.get('premium_amt')?.setValue('');
+  // this.form.get('total_amt')?.setValue('');
 
   // Show premium section if Single or Double is selected
   this.showPremiumSection = value === 'S' || value === 'D';
@@ -260,6 +265,17 @@ getPremiumDetails() {
         console.log(this.responsedata_unit, '555');
         this.responsedata_unit =
           this.responsedata_unit.suc > 0 ? this.responsedata_unit.msg : [];
+      });
+  }
+
+    policy_holder() {
+    this.dataServe
+      .global_service(0, '/master/policy_holder_list', null)
+      .subscribe((data: any) => {
+        this.responsedata_policy_holder = data;
+        // console.log(this.responsedata_policy_holder, '555');
+        this.responsedata_policy_holder =
+          this.responsedata_policy_holder.suc > 0 ? this.responsedata_policy_holder.msg : [];
       });
   }
 
@@ -401,27 +417,28 @@ onadd(sl_no: any = '', ind_type: any = '', fin_year: any = '', particulars: any 
     var dt = {
         flag: 'STP',
         form_dt: this.o['form_dt'] ? this.o['form_dt'].value : null,
-        policy_holder_type: this.o['policy_holder_type']? this.o['policy_holder_type'].value : 'N',
+        policy_holder_type: this.o['policy_holder_type']? this.o['policy_holder_type'].value : null,
         min_no: this.o['min_no'] ? this.o['min_no'].value : null,
         member_type: this.o['member_type'] ? this.o['member_type'].value : null,
         unit: this.o['unit_name']? this.o['unit_name'].value : null,
         personal_no: this.o['personal_no'] ? this.o['personal_no'].value : null,
         memb_oprn: this.o['memb_opr'] ? this.o['memb_opr'].value : null,
         member: this.o['member'] ? this.o['member'].value : null,
-        member_id: this.o['member_id'] ? this.o['member_id'].value : null,
+        gender: this.o['gender'] ? this.o['gender'].value : null,
         gen_dob: this.o['gen_dob'] ? this.o['gen_dob'].value : null,
         phone_no: this.o['mobile'] ? this.o['mobile'].value : null,
-        fin_yr: this.o['fin_yr'] ? this.o['fin_yr'].value : null,
+        // fin_yr: this.o['fin_yr'] ? this.o['fin_yr'].value : null,
         mem: this.o['mem'] ? this.o['mem'].value : null,
         spouse: this.o['spouse'] ? this.o['spouse'].value : null,
         spouse_min_no: this.o['spouse_min_no'] ? this.o['spouse_min_no'].value : null,
         spou_dob: this.o['spou_dob'] ? this.o['spou_dob'].value : null,
         spou_mobile: this.o['spou_mobile'] ? this.o['spou_mobile'].value : null,
+        spou_gender: this.o['spou_gender'] ? this.o['spou_gender'].value : null,
         spou_mem: this.o['spou_mem'] ? this.o['spou_mem'].value : null,
         dependent_dt: this.depenFields_2.value,
         premium_type: this.o['premium_type'] ?.value === 'Single' ? 'S' : 'D',
-        premium_amt: this.o['premium_amt'] ? this.o['premium_amt'].value : null,
-        total_amt: this.o['total_amt'] ? this.o['total_amt'].value : null,
+        // premium_amt: this.o['premium_amt'] ? this.o['premium_amt'].value : null,
+        // total_amt: this.o['total_amt'] ? this.o['total_amt'].value : null,
         // form_no: this.formNo
     }
     this.dataServe.global_service(1, '/save_super_policy_form', dt).subscribe(

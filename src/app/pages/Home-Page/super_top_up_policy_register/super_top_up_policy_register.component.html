@@ -15,7 +15,7 @@
                   <small class="text-red-900" *ngIf="o['form_dt']?.errors">Date is required.</small>
                 </div>
             </div>
-             <div class="field col-12 md:col-4">
+             <!-- <div class="field col-12 md:col-4">
               <label for="policy_holder_type" class="label_field"><b>Policy Holder Type:<span class="text-red-700">*</span></b></label>&nbsp;
               <select id="policy_holder_type" formControlName="policy_holder_type" [(ngModel)]="selectedValue_4"
                   class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
@@ -23,6 +23,19 @@
                   <option value="NP">Select Policy Holder Type</option>
                   <option value="M">BSPWA Member</option>
                   <option value="N">Member of Other SAIL Association</option>
+                </select>
+                <div *ngIf="o['policy_holder_type']?.touched || o['policy_holder_type']?.dirty">
+                  <small class="text-red-900" *ngIf="o['policy_holder_type']?.errors">Policy Holder Type is required.</small>
+                </div>
+            </div> -->
+             <div class="field col-12 md:col-4">
+              <label for="policy_holder_type" class="label_field"><b>Policy Holder Type:<span class="text-red-700">*</span></b></label>&nbsp;
+               <select id="policy_holder_type" formControlName="policy_holder_type" [(ngModel)]="selectedValue_4"
+                  class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                  style="appearance: auto; height: 3vw; border-radius: 7px">
+                  <option value="NP">Select Policy Holder Type</option>
+                  <option *ngFor="let option of responsedata_policy_holder" [value]="option.policy_holder_type_id">{{ option.policy_holder_type }}
+                  </option>
                 </select>
                 <div *ngIf="o['policy_holder_type']?.touched || o['policy_holder_type']?.dirty">
                   <small class="text-red-900" *ngIf="o['policy_holder_type']?.errors">Policy Holder Type is required.</small>
@@ -85,13 +98,23 @@
                 (ngModelChange)="convertToUppercase()"
                   class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
             </div>
-            <div class="field col-12 md:col-4">
+            <!-- <div class="field col-12 md:col-4">
               <label for="member_id" class="label_field"><b>Member ID:</b></label>&nbsp;
                 <input id="member_id" type="text" formControlName="member_id" placeholder="Enter Member ID"
                   class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                    <div *ngIf="o['member_id']?.touched || o['member_id']?.dirty">
                   <small class="text-red-900" *ngIf="o['member_id']?.errors">Member Id is required.</small>
                 </div>
+            </div> -->
+            <div class="field col-12 md:col-4">
+              <label for="gender" class="label_field"><b>Gender:</b></label>&nbsp;
+                <select id="gender" formControlName="gender" [(ngModel)]="selectedValue_3"
+                 class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                  style="appearance: auto; height: 3vw; border-radius: 7px">
+                  <option value="N">Select Gender</option>
+                  <option value="M">Male</option>
+                  <option value="F">Female</option>
+                </select>
             </div>
           </div>
 
@@ -106,10 +129,15 @@
                 <input id="mobile" type="text" formControlName="mobile" placeholder="Enter Mobile No"
                   class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
             </div>
-            <div class="field col-12 md:col-4">
+            <!-- <div class="field col-12 md:col-4">
               <label for="fin_yr" class="label_field"><b>Joining Year:</b></label>&nbsp;
               <input id="fin_yr" type="date" formControlName="fin_yr" placeholder="Enter Joining Year" [max]="maxDate"
                 class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            </div> -->
+             <div class="field col-12 md:col-4">
+              <label for="premium_type" class="label_field"><b>Premium Type:</b></label>&nbsp;
+                <input id="premium_type" type="text" formControlName="premium_type" placeholder="Enter Premium Type"
+                  class="box_input text-2xl text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" readonly/>
             </div>
           </div>
 
@@ -154,12 +182,24 @@
             </div>
 
             <div class="flex flex-row">
+               <div class="field col-12 md:col-4">
+              <label for="spou_gender" class="label_field"><b>Gender:</b></label>&nbsp;
+                <select id="spou_gender" formControlName="spou_gender" [(ngModel)]="selectedValue_5"
+                 class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                  style="appearance: auto; height: 3vw; border-radius: 7px">
+                  <option value="N">Select Gender</option>
+                  <option value="M">Male</option>
+                  <option value="F">Female</option>
+                </select>
+            </div>
+            </div>
+
+            <div class="flex flex-row">
               <div class="field col-12">
                 <label for="spou_mem" class="label_field"><b>Spouse Address:</b></label>&nbsp;
                 <textarea id="spou_mem" formControlName="spou_mem" type="text" rows="4"
                   placeholder="Enter Spouse address..."
                   class="text-base text-2xl text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
-
               </div>
             </div>
           </ng-container>
@@ -233,7 +273,7 @@
             </ng-container>
           </div>
 
-          <p-divider type="dashed"></p-divider>
+          <!-- <p-divider type="dashed"></p-divider>
           <h3 class="text-center"><b>Premium Details</b></h3>
 
             <div class="flex flex-row mt-3">
@@ -251,7 +291,7 @@
               <label for="total_amt" class="label_field"><b>Total Premium Amount:</b></label>&nbsp;
               <input id="total_amt" type="text" formControlName="total_amt" placeholder="Enter Total Premium Amount" class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" readonly/>
             </div>
-          </div>
+          </div> -->
 
         </form>
            <button mat-raised-button color="primary"label="Submit" class="p-button-raised final" (click)="final_submit()"
