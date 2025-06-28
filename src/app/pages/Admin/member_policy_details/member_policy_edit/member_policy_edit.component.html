@@ -74,7 +74,7 @@
         <label for="memb_opr" class="label_field"><b>Member Operation:</b></label>&nbsp;
         <ng-container>
           <select id="memb_opr" formControlName="memb_opr"
-            class="w-full text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+            class="w-full text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary" (change)="onMemberOperationChange($event)"
             style="appearance: auto; height: 3vw; border-radius: 7px">
             <option value="N" selected>Select Operation</option>
             <option value="S">Single</option>
@@ -217,74 +217,117 @@
       </div>
     </ng-container>
 
-    <ng-container *ngIf="depenFields_2 && depenFields_2.length > 0">
-    <h3 class="text-center"><b>Medical details</b></h3>
-    <p-divider type="dashed"></p-divider>
+<ng-container *ngIf="depenFields_2 && depenFields_2.length > 0; else noMedicalData">
+  <h3 class="text-center"><b>Medical details</b></h3>
+  <p-divider type="dashed"></p-divider>
 
-    <div formArrayName="depenFields_2">
-
-      <ng-container *ngFor="let group of depenFields_2.controls; let i = index" [formGroupName]="i">
-        <div class="flex flex-row mt-5">
-          <!-- <div class="field col-12 md:col-3">
-            <label for="sl_no" class="label_field"><b>Sl No:</b></label>
-            <input id="sl_no" type="text" formControlName="sl_no" placeholder="Enter Sl No"
-              class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
-          </div> -->
-          <div class="field col-12 md:col-4">
-            <label for="ind_type" class="label_field"><b>Status:</b></label>
-            <select id="ind_type" formControlName="ind_type"
-              class="w-full text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
-              style="appearance: auto; height: 3vw; border-radius: 7px" (change)="changedate($event,i)">
-              <option value="null">Select Status</option>
-              <option value="S">SELF</option>
-              <option value="P">SPOUSE</option>
-            </select>
-          </div>
-          <div class="field col-12 md:col-4">
-            <label for="fin_year" class="label_field"><b>Year:</b></label>&nbsp;
-            <input id="fin_year" type="text" formControlName="fin_year" placeholder="Enter Year"
-              class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-              readonly />
-          </div>
-          <div class="field col-12 md:col-4">
-            <label for="amount" class="label_field"><b>Amount Utilised:</b></label>
-            <input id="amount" type="text" formControlName="amount" placeholder="Enter Amount"
-              class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
-          </div>
+  <div formArrayName="depenFields_2">
+    <ng-container *ngFor="let group of depenFields_2.controls; let i = index" [formGroupName]="i">
+      <div class="flex flex-row mt-5">
+        <div class="field col-12 md:col-4">
+          <label for="ind_type" class="label_field"><b>Status:</b></label>
+          <select id="ind_type" formControlName="ind_type"
+            class="w-full text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+            style="appearance: auto; height: 3vw; border-radius: 7px" (change)="changedate($event,i)">
+            <option value="N">Select Status</option>
+            <option value="S">SELF</option>
+            <option value="P">SPOUSE</option>
+          </select>
         </div>
 
-        <div class="flex flex-row mt-2">
-          <div class="field col-12">
-            <label for="particulars" class="label_field"><b>Particular of Diseases:</b></label>
-            <textarea id="particulars" formControlName="particulars" type="text" rows="4"
-              placeholder="Enter Diseases name..."
-              class="text-base text-l text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
-          </div>
+        <div class="field col-12 md:col-4">
+          <label for="fin_year" class="label_field"><b>Year:</b></label>&nbsp;
+          <input id="fin_year" type="text" formControlName="fin_year" placeholder="Enter Year"
+            class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            readonly />
         </div>
 
-        <div class="flex flex-row mt-2">
-          <div class="field col-12 md:col-6">
-            <label for="treatment_dtls" class="label_field"><b>Medical treatment taken At(Hospital
-                Name):</b></label>
-            <input id="treatment_dtls" type="text" formControlName="treatment_dtls" placeholder="Enter Hospital Name"
-              class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
-          </div>
-          <div *ngIf="i === 0" class="field col-12 md:col-3">
-            <p-button class="custom-tooltip" pTooltip="Add Dependent" tooltipPosition="bottom" icon="pi pi-plus"
-              styleClass="p-button-rounded p-button-text p-button-raised" (click)="onadd()"
-              [style]="{ 'background-color': 'rgb(177 209 161)', 'border-color': 'rgb(116 207 78)', color: '#ffff', 'margin-top': '1.3vw' }"></p-button>
-          </div>
-
-          <div *ngIf="i > 0" class="field col-12 md:col-3">
-            <p-button class="custom-tooltip" pTooltip="Delete Dependent" tooltipPosition="bottom" icon="pi pi-minus"
-              styleClass="p-button-rounded p-button-text p-button-raised" (click)="onminus(i)"
-              [style]="{ 'background-color': 'rgb(223 105 105)', 'border-color': 'rgb(129 54 54)', color: '#ffff', 'margin-top': '1.3vw'}"></p-button>
-          </div>
+        <div class="field col-12 md:col-4">
+          <label for="amount" class="label_field"><b>Amount Utilised:</b></label>
+          <input id="amount" type="text" formControlName="amount" placeholder="Enter Amount"
+            class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
         </div>
-      </ng-container>
+      </div>
 
-    </div>
+      <div class="flex flex-row mt-2">
+        <div class="field col-12">
+          <label for="particulars" class="label_field"><b>Particular of Diseases:</b></label>
+          <textarea id="particulars" formControlName="particulars" type="text" rows="4"
+            placeholder="Enter Diseases name..."
+            class="text-base text-l text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
+        </div>
+      </div>
+
+      <div class="flex flex-row mt-2">
+        <div class="field col-12 md:col-6">
+          <label for="treatment_dtls" class="label_field"><b>Medical treatment taken At (Hospital Name):</b></label>
+          <input id="treatment_dtls" type="text" formControlName="treatment_dtls" placeholder="Enter Hospital Name"
+            class="box_input text-l text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+        </div>
+
+        <div class="field col-12 md:col-3" style="margin-top: 1.3vw">
+          <!-- ADD button only on the last row -->
+          <p-button
+            *ngIf="i === depenFields_2.length - 1"
+            class="custom-tooltip"
+            pTooltip="Add Dependent"
+            tooltipPosition="bottom"
+            icon="pi pi-plus"
+            styleClass="p-button-rounded p-button-text p-button-raised"
+            (click)="onadd()"
+            [style]="{
+              'background-color': 'rgb(177 209 161)',
+              'border-color': 'rgb(116 207 78)',
+              color: '#ffff'
+            }"
+          ></p-button>
+
+          <!-- REMOVE button for all except the first row -->
+          <p-button
+            *ngIf="depenFields_2.length > 1"
+            class="custom-tooltip ml-2"
+            pTooltip="Delete Dependent"
+            tooltipPosition="bottom"
+            icon="pi pi-minus"
+            styleClass="p-button-rounded p-button-text p-button-raised"
+            (click)="onminus(i)"
+            [style]="{
+              'background-color': 'rgb(223 105 105)',
+              'border-color': 'rgb(129 54 54)',
+              color: '#ffff'
+            }"
+          ></p-button>
+        </div>
+      </div>
     </ng-container>
+  </div>
+</ng-container>
+
+<ng-template #noMedicalData>
+  <h3 class="text-center"><b>No medical data found</b></h3>
+  <p class="text-center mb-3">If you want to add, please click below.</p>
+  <div class="flex justify-content-center">
+    <p-button 
+      label="Add Medical Data" 
+      icon="pi pi-plus" 
+      (click)="onadd()"
+      styleClass="p-button-success p-button-rounded p-button-outlined"
+    ></p-button>
+  </div>
+</ng-template>
+
+<ng-template #noMedicalData>
+  <h3 class="text-center"><b>No medical data found</b></h3>
+  <p class="text-center mb-3">If you want to add, please click below.</p>
+  <div class="flex justify-content-center">
+    <p-button 
+      label="Add Medical Data" 
+      icon="pi pi-plus" 
+      (click)="onadd()"
+      styleClass="p-button-success p-button-rounded p-button-outlined"
+    ></p-button>
+  </div>
+</ng-template>
 
     <div class="field col-12 md:col-6">
       <button pButton pRipple type="button" label="Submit" class="p-button-raised sub_btn" (click)="save()"></button>

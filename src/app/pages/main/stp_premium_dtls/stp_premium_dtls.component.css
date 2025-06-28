@@ -52,3 +52,11 @@
     background: #ede7f6;
   }
 }
+
+.text-center {
+  text-align: center;
+  font-style: italic;
+  color: #888;
+  padding: 1rem;
+}
+

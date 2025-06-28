@@ -7,12 +7,23 @@
       'Super Topup
       Policy' : 'N/A'}}</span> On {{ userData?.form_dt | date: 'dd-MM-yyyy'}}</h1>
   <section class="form-section">
-    <h2>Member Details <span class="head_size"> ({{ userData?.policy_holder_type == 'M' ? 'BSPWA Member' : 'Member Of Other Sail Association'}})</span></h2>
-    <div class="field-group">
-      <!-- <mat-form-field appearance="fill" class="short-field">
+    <h2>Member Details <span class="head_size"> ({{ userData?.policy_holder_type}})</span>
+    <mat-slide-toggle
+  [checked]="memberDetailsVisible"
+  (change)="toggleMemberDetails($event)" style="
+    margin-left: 6vw"> 
+  {{ memberDetailsVisible ? 'Active' : 'Inactive' }}
+</mat-slide-toggle></h2>
+    <div class="field-group" *ngIf="memberDetailsVisible">
+      <mat-form-field appearance="fill" class="short-field">
         <mat-label>Form No</mat-label>
         <input matInput [readonly]="true" formControlName="form_no">
-      </mat-form-field> -->
+      </mat-form-field>
+
+        <mat-form-field appearance="fill" class="short-field">
+        <mat-label>Member Name</mat-label>
+        <input matInput [readonly]="false"  formControlName="memb_name">
+      </mat-form-field>
 
       <mat-form-field appearance="fill" class="short-field">
         <mat-label>MIN No</mat-label>
@@ -21,47 +32,77 @@
 
        <mat-form-field appearance="fill" class="short-field">
         <mat-label>Member Type</mat-label>
-        <input matInput [readonly]="true"  formControlName="member_type">
+        <mat-select formControlName="member_type">
+         <mat-option *ngFor="let type of memberTypes" [value]="type">
+         {{ type }}
+          </mat-option>
+      </mat-select>
+       </mat-form-field>
+
+        <mat-form-field appearance="fill" class="short-field">
+        <mat-label>Policy Holder Type Type</mat-label>
+        <mat-select formControlName="policy_holder_type">
+         <mat-option *ngFor="let type of responsedata_policy_holder" [value]="type.policy_holder_type">
+         {{ type.policy_holder_type }}
+          </mat-option>
+      </mat-select>
        </mat-form-field>
 
         <mat-form-field appearance="fill" class="short-field">
         <mat-label>Unit Name</mat-label>
-        <input matInput [readonly]="true"  formControlName="unit_name">
+        <mat-select formControlName="unit_name">
+         <mat-option *ngFor="let type of responsedata" [value]="type.unit_name">
+         {{ type.unit_name }}
+          </mat-option>
+          </mat-select>
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="short-field">
         <mat-label>Personel No</mat-label>
-        <input matInput [readonly]="true"  formControlName="personel_no">
+        <input matInput [readonly]="false"  formControlName="personel_no">
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="short-field">
         <mat-label>Member Operation</mat-label>
-        <input matInput [readonly]="true"  formControlName="memb_oprn">
+          <mat-select formControlName="memb_oprn">
+         <mat-option *ngFor="let type of memberoperation" [value]="type">
+         {{ type }}
+          </mat-option>
+          </mat-select>
         </mat-form-field>
 
-         <mat-form-field appearance="fill" class="short-field">
-        <mat-label>Member Name</mat-label>
-        <input matInput [readonly]="true"  formControlName="memb_name">
-      </mat-form-field>
+       
 
         <mat-form-field appearance="fill" class="short-field">
-        <mat-label>Member ID</mat-label>
-        <input matInput [readonly]="true"  formControlName="memb_id">
+        <mat-label>Gender</mat-label>
+        <mat-select formControlName="gender">
+         <mat-option *ngFor="let type of memberGender" [value]="type">
+         {{ type }}
+          </mat-option>
+          </mat-select>
         </mat-form-field>
 
-        <mat-form-field appearance="fill" class="short-field">
-        <mat-label>DOB</mat-label>
-        <input matInput [readonly]="true"  formControlName="dob">
-      </mat-form-field>
+      
+    <mat-form-field appearance="fill" class="short-field">
+      <mat-label>DOB</mat-label>
+  <input matInput [matDatepicker]="spousePicker" formControlName="dob">
+  <mat-datepicker-toggle matSuffix [for]="spousePicker"></mat-datepicker-toggle>
+  <mat-datepicker #spousePicker></mat-datepicker>
+</mat-form-field>
         
         <mat-form-field appearance="fill" class="short-field">
-        <mat-label>Joining Year</mat-label>
-        <input matInput [readonly]="true"  formControlName="joining_year">
+        <mat-label>Phone No</mat-label>
+        <input matInput [readonly]="false"  formControlName="memb_mobile">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="short-field">
+        <mat-label>Premium Type</mat-label>
+        <input matInput [readonly]="true"  formControlName="premium_type">
       </mat-form-field>
 
         <mat-form-field appearance="fill" class="middle-field">
         <mat-label>Member Address</mat-label>
-        <input matInput [readonly]="true"  formControlName="memb_addr">
+        <input matInput [readonly]="false"  formControlName="memb_addr">
       </mat-form-field>
 
     </div>
@@ -74,29 +115,41 @@
     <div class="field-group">
     <mat-form-field appearance="fill" class="short-field">
       <mat-label>Spouse Name</mat-label>
-      <input matInput [readonly]="true" formControlName="spou_name">
+      <input matInput [readonly]="false" formControlName="spou_name">
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="short-field">
       <mat-label>Spouse MIN No</mat-label>
-      <input matInput [readonly]="true" formControlName="spou_min">
+      <input matInput [readonly]="false" formControlName="spou_min">
     </mat-form-field>
 
-    <mat-form-field appearance="fill" class="short-field">
-      <mat-label>Spouse DOB</mat-label>
-      <input matInput [readonly]="true" formControlName="spou_dob">
-    </mat-form-field>
+<mat-form-field appearance="fill" class="short-field">
+  <mat-label>Spouse DOB</mat-label>
+  <input matInput [matDatepicker]="spousePicker" formControlName="spou_dob">
+  <mat-datepicker-toggle matSuffix [for]="spousePicker"></mat-datepicker-toggle>
+  <mat-datepicker #spousePicker></mat-datepicker>
+</mat-form-field>
+
 
     <mat-form-field appearance="fill" class="short-field">
-      <mat-label>Spou Mobile No</mat-label>
-      <input matInput [readonly]="true" formControlName="spou_mobile">
+      <mat-label>Spouse Mobile No</mat-label>
+      <input matInput [readonly]="false" formControlName="spou_mobile">
+    </mat-form-field>
+
+        <mat-form-field appearance="fill" class="short-field">
+      <mat-label>Spouse Gender</mat-label>
+      <input matInput [readonly]="false" formControlName="spou_gender">
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="big-field">
       <mat-label>Spouse Address</mat-label> <!-- or Relationship if more accurate -->
-      <input matInput [readonly]="true" formControlName="spou_addr">
+      <input matInput [readonly]="false" formControlName="spou_addr">
     </mat-form-field>
     </div>
+      <div class="submit-container">
+  <button mat-raised-button color="primary" type="submit" (click)="edit_dtls_submit()">
+    <mat-icon>check_circle</mat-icon> Submit
+  </button>
+</div>
 </section>
-
   </form>

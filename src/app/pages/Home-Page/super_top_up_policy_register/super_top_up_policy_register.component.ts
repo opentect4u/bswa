@@ -383,7 +383,7 @@ onadd(sl_no: any = '', ind_type: any = '', fin_year: any = '', particulars: any 
     {
       validators: this.validatorsService.conditionalRequiredValidator(
         'ind_type',
-        ['fin_year', 'particulars', 'amount', 'treatment_dtls']
+        ['fin_year', 'ind_type','particulars', 'amount', 'treatment_dtls']
       ),
     }
   );

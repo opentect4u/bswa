@@ -51,22 +51,22 @@ export class SidebarComponent implements OnInit {
           // },
         ],
       },
-      {
-        label: 'Existing Group Policy',
-        icon: 'pi pi-fw pi-users',
-        items: [
-          {
-            label: 'Approve / Reject Group Policy Form',
-            icon: 'pi pi-check',
-            routerLink: ['admin_group_premium_approve'],
-          },
+      // {
+      //   label: 'Existing Group Policy',
+      //   icon: 'pi pi-fw pi-users',
+      //   items: [
+      //     {
+      //       label: 'Approve / Reject Group Policy Form',
+      //       icon: 'pi pi-check',
+      //       routerLink: ['admin_group_premium_approve'],
+      //     },
           // {
           //   label: 'Approve Group Policy Form',
           //   icon: 'pi pi-verified',
           //   routerLink: ['group_policy_approve_form'],
           // },
-        ],
-      },
+        // ],
+      // },
       // {
       //   label: 'Subscription Deposit',
       //   icon: 'pi pi-fw pi-users',
@@ -103,16 +103,16 @@ export class SidebarComponent implements OnInit {
         icon: 'pi pi-users',
         routerLink: ['memb_list'],
       },
-      {
-        label: 'Member STP Policy Details',
-        icon: 'pi pi-list',
-        routerLink: ['member_policy_list'],
-      },
-      {
-        label: 'Member Group Policy Details',
-        icon: 'fa fa-list-alt',
-        routerLink: ['member_gmp_list'],
-      },
+      // {
+      //   label: 'Member STP Policy Details',
+      //   icon: 'pi pi-list',
+      //   routerLink: ['member_policy_list'],
+      // },
+      // {
+      //   label: 'Member Group Policy Details',
+      //   icon: 'fa fa-list-alt',
+      //   routerLink: ['member_gmp_list'],
+      // },
       {
         label: 'Reports',
         icon: 'pi pi-id-card',
@@ -132,11 +132,11 @@ export class SidebarComponent implements OnInit {
           //   icon: 'pi pi-money-bill',
           //   routerLink: ['approve_money_receipt_transaction'],
           // },
-          {
-            label: 'GMP Member Transaction Details',
-            icon: 'pi pi-credit-card',
-            routerLink: ['gmp_memb_trans_report'],
-          },
+          // {
+          //   label: 'GMP Member Transaction Details',
+          //   icon: 'pi pi-credit-card',
+          //   routerLink: ['gmp_memb_trans_report'],
+          // },
            {
             label: 'STP Member Transaction Details',
             icon: 'pi pi-credit-card',

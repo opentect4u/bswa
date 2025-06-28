@@ -141,6 +141,13 @@ const routes: Routes = [
             (m) => m.Change_password_memberModule
           ),
       },
+        {
+        path: 'change_password_stp_member',
+        loadChildren: () =>
+          import('../main/change_password_stp_member/change_password_stp_member.module').then(
+            (m) => m.Change_password_stp_memberModule
+          ),
+      },
        {
         path: 'child_policy',
         loadChildren: () =>

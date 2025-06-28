@@ -13,6 +13,7 @@ import { MessageService } from 'primeng/api';
 export class Stp_member_loginComponent implements OnInit {
   loginForm!: FormGroup;
   getLoginData: any;
+  hide: boolean = true;
 
   constructor(private router: Router,
       private fb: FormBuilder,
@@ -21,7 +22,7 @@ export class Stp_member_loginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.fb.group({
-      min_no: ['', [Validators.required]],
+      member_id: ['', [Validators.required]],
       password: ['', [Validators.required]],
     });
   }
@@ -32,7 +33,7 @@ export class Stp_member_loginComponent implements OnInit {
 
    onSubmit() {
      var dt = {
-      min_no: this.f['min_no'].value,
+      member_id: this.f['member_id'].value,
       password: this.f['password'].value,
     };
     this.dataServe.global_service(1, '/stp_member_login', dt).subscribe((data) => {

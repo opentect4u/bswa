@@ -32,3 +32,74 @@
   color: #0078d7;
   text-transform: uppercase;
 }
+
+.change-password-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to right, #c9d6ff, #e2e2e2);
+  overflow: hidden; /* prevents vertical scroll */
+}
+
+.change-password-box {
+  background-color: white;
+  padding: 20px 25px;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  width: 340px;
+  height: auto; 
+  /* margin-bottom: 2vw; */
+  max-height: 400px; 
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 20px;
+  color: #333;
+}
+
+.form-field {
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: 500;
+  margin-bottom: 5px;
+  color: #444;
+  font-size: 14px;
+}
+
+input[type="password"] {
+  padding: 8px 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #2c72e9;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:disabled {
+  background-color: #a0c0f8;
+  cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+  background-color: #155cc5;
+}
+
+

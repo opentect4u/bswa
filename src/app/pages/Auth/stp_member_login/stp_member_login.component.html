@@ -15,8 +15,8 @@
           </div>
           <mat-form-field appearance="fill" class="input-field">
             <mat-label>MIN No</mat-label>
-            <input matInput formControlName="min_no" />
-            <mat-error *ngIf="f['min_no'].hasError('required') && f['min_no'].touched">
+            <input matInput formControlName="member_id" />
+            <mat-error *ngIf="f['member_id'].hasError('required') && f['member_id'].touched">
               MIN No is required
             </mat-error>
           </mat-form-field>
@@ -27,7 +27,10 @@
           </div>
           <mat-form-field appearance="fill" class="input-field">
             <mat-label>Password</mat-label>
-            <input matInput type="password" formControlName="password" />
+            <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" />
+             <button mat-icon-button matSuffix type="button" (click)="hide = !hide">
+             <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
             <mat-error *ngIf="f['password'].hasError('required') && f['password'].touched">
             Password is required
             </mat-error>
