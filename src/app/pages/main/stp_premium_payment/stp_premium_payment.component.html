@@ -19,12 +19,9 @@
       <div class="card-box">
         <h4>Premium Details</h4>
         <label for="tot_prem">Total Premium</label>
-        <input type="text" id="tot_prem" formControlName="tot_prem" placeholder="Enter Amount" />
-        <div *ngIf="form.get('tot_prem')?.invalid && form.get('tot_prem')?.touched" style="color: red;">
-          <small *ngIf="form.get('tot_prem')?.errors?.['required']">Total Premium is required.</small>
-          <small *ngIf="form.get('tot_prem')?.errors?.['pattern']">Enter valid numeric value.</small>
-        </div>
+        <input type="text" id="tot_prem" formControlName="tot_prem" placeholder="Enter Amount" readonly/>
       </div>
+
     </div>
 
     <div class="button-row">

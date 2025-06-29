@@ -8,12 +8,15 @@
       Policy' : 'N/A'}}</span> On {{ userData?.form_dt | date: 'dd-MM-yyyy'}}</h1>
   <section class="form-section">
     <h2>Member Details <span class="head_size"> ({{ userData?.policy_holder_type}})</span>
-    <mat-slide-toggle
-  [checked]="memberDetailsVisible"
-  (change)="toggleMemberDetails($event)" style="
-    margin-left: 6vw"> 
-  {{ memberDetailsVisible ? 'Active' : 'Inactive' }}
-</mat-slide-toggle></h2>
+ <ng-container *ngIf="form.get('memb_flag')?.value !== null">
+  <mat-slide-toggle 
+    (change)="onToggleChange($event)" 
+    [checked]="form.get('memb_flag')?.value === 'Y'"
+     style="margin-left: 6vw">
+    {{ form.get('memb_flag')?.value === 'Y' ? 'Active' : 'Inactive' }}
+  </mat-slide-toggle>
+</ng-container>
+</h2>
     <div class="field-group" *ngIf="memberDetailsVisible">
       <mat-form-field appearance="fill" class="short-field">
         <mat-label>Form No</mat-label>
@@ -30,28 +33,29 @@
         <input matInput [readonly]="true"  formControlName="min_no">
       </mat-form-field>
 
-       <mat-form-field appearance="fill" class="short-field">
-        <mat-label>Member Type</mat-label>
-        <mat-select formControlName="member_type">
-         <mat-option *ngFor="let type of memberTypes" [value]="type">
-         {{ type }}
-          </mat-option>
+     <mat-form-field appearance="fill" class="short-field">
+     <mat-label>Member Type</mat-label>
+     <mat-select formControlName="member_type">
+      <mat-option *ngFor="let type of memberTypes" [value]="type.value">
+      {{ type.label }}
+      </mat-option>
       </mat-select>
-       </mat-form-field>
+      </mat-form-field>
 
-        <mat-form-field appearance="fill" class="short-field">
-        <mat-label>Policy Holder Type Type</mat-label>
-        <mat-select formControlName="policy_holder_type">
-         <mat-option *ngFor="let type of responsedata_policy_holder" [value]="type.policy_holder_type">
-         {{ type.policy_holder_type }}
-          </mat-option>
-      </mat-select>
-       </mat-form-field>
+       <mat-form-field appearance="fill" class="short-field">
+  <mat-label>Policy Holder Type</mat-label> <!-- fixed duplicate word 'Type' -->
+  <mat-select formControlName="policy_holder_type">
+    <mat-option *ngFor="let type of responsedata_policy_holder" [value]="type.policy_holder_type_id">
+      {{ type.policy_holder_type }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
 
         <mat-form-field appearance="fill" class="short-field">
         <mat-label>Unit Name</mat-label>
         <mat-select formControlName="unit_name">
-         <mat-option *ngFor="let type of responsedata" [value]="type.unit_name">
+         <mat-option *ngFor="let type of responsedata" [value]="type.unit_id">
          {{ type.unit_name }}
           </mat-option>
           </mat-select>
@@ -62,22 +66,31 @@
         <input matInput [readonly]="false"  formControlName="personel_no">
         </mat-form-field>
 
-        <mat-form-field appearance="fill" class="short-field">
+        <!-- <mat-form-field appearance="fill" class="short-field">
         <mat-label>Member Operation</mat-label>
-          <mat-select formControlName="memb_oprn">
-         <mat-option *ngFor="let type of memberoperation" [value]="type">
-         {{ type }}
+          <mat-select [value]="form.get('memb_oprn')?.value" (selectionChange)="onMemberOperationChange($event)">
+         <mat-option *ngFor="let type of memberoperation" [value]="type.value">
+         {{ type.label }}
           </mat-option>
           </mat-select>
-        </mat-form-field>
+        </mat-form-field> -->
+ <mat-form-field appearance="fill" class="short-field">
+  <mat-label>Member Operation</mat-label>
+  <mat-select formControlName="memb_oprn" [disabled]="form.get('dependent_flag')?.value === 'Y'" (selectionChange)="onMemberOperationChange($event)">
+    <mat-option *ngFor="let type of memberoperation" [value]="type.value">
+      {{ type.label }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
 
-       
+
+
 
         <mat-form-field appearance="fill" class="short-field">
         <mat-label>Gender</mat-label>
         <mat-select formControlName="gender">
-         <mat-option *ngFor="let type of memberGender" [value]="type">
-         {{ type }}
+         <mat-option *ngFor="let type of memberGender" [value]="type.value">
+         {{ type.label }}
           </mat-option>
           </mat-select>
         </mat-form-field>
@@ -109,10 +122,19 @@
     </section>
 
      <!-- Dependent Details Section -->
-  <section class="form-section" *ngIf="userData?.memb_oprn == 'D'">
-  <h2>Spouse Details</h2>
-
-    <div class="field-group">
+  <!-- <section class="form-section" *ngIf="userData?.memb_oprn == 'D'"> -->
+  <section class="form-section" *ngIf="form.get('memb_oprn')?.value === 'D' && spouseDetailsVisible">
+  <h2>Spouse Details
+    <ng-container *ngIf="form.get('dependent_flag')?.value !== null">
+     <mat-slide-toggle
+  [checked]="form.get('dependent_flag')?.value === 'Y'"
+  (change)="onToggleChangeDependent($event)"
+  style="margin-left: 6vw">
+  {{ form.get('dependent_flag')?.value === 'Y' ? 'Active' : 'Inactive' }}
+</mat-slide-toggle>
+</ng-container>
+  </h2>
+    <div class="field-group" id="spouse-section" *ngIf="spouseDetailsVisible">
     <mat-form-field appearance="fill" class="short-field">
       <mat-label>Spouse Name</mat-label>
       <input matInput [readonly]="false" formControlName="spou_name">
@@ -136,20 +158,24 @@
       <input matInput [readonly]="false" formControlName="spou_mobile">
     </mat-form-field>
 
-        <mat-form-field appearance="fill" class="short-field">
-      <mat-label>Spouse Gender</mat-label>
-      <input matInput [readonly]="false" formControlName="spou_gender">
-    </mat-form-field>
+      <mat-form-field appearance="fill" class="short-field">
+        <mat-label>Spouse Gender</mat-label>
+        <mat-select formControlName="spou_gender">
+         <mat-option *ngFor="let type of spouseGender" [value]="type.value">
+         {{ type.label }}
+          </mat-option>
+          </mat-select>
+        </mat-form-field>
 
     <mat-form-field appearance="fill" class="big-field">
       <mat-label>Spouse Address</mat-label> <!-- or Relationship if more accurate -->
       <input matInput [readonly]="false" formControlName="spou_addr">
     </mat-form-field>
     </div>
-      <div class="submit-container">
+</section>
+ <div class="submit-container text-center" style="margin-top: -24px;">
   <button mat-raised-button color="primary" type="submit" (click)="edit_dtls_submit()">
     <mat-icon>check_circle</mat-icon> Submit
   </button>
 </div>
-</section>
   </form>

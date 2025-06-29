@@ -44,15 +44,30 @@ export class Stp_member_detailsComponent implements OnInit {
     form!: FormGroup;
     responseData: any
     userData: UserInfo | any;
-    memberTypes: string[] = ['General Membership', 'Life Membership']; // Add whatever types you need
-    memberoperation: string[] = ['Single', 'Double']; // Add whatever types you need
-    memberGender: string[] = ['Male', 'Female']; // Add whatever types you need
+    skipPremiumUpdate = false;
+   memberTypes = [
+    { label: 'General Membership', value: 'G' },
+    { label: 'Life Membership', value: 'L' }
+    ];
+     memberoperation = [
+    { label: 'Single', value: 'S' },
+    { label: 'Double', value: 'D' }
+    ];
+      memberGender = [
+    { label: 'Male', value: 'M' },
+    { label: 'Female', value: 'F' }
+    ];
+    spouseGender = [
+    { label: 'Male', value: 'M' },
+    { label: 'Female', value: 'F' }
+    ];
     responsedata: any;
     responsedata_policy_holder: any;
     groupSaveData: any;
     memberDetailsVisible = true;
-    pouseDetailsVisible = true;
-
+    spouseDetailsVisible = true;
+    selectedMembOprn: string = ''; 
+    previousMembOprn: string = '';
 
   constructor(private router: Router,
     private fb: FormBuilder,
@@ -86,12 +101,32 @@ export class Stp_member_detailsComponent implements OnInit {
     spou_mobile: [''],
     spou_gender: [''],
     spou_addr: [''],
-    premium_type: ['']
+    premium_type: [''],
+    memb_flag: ['Y'],
+    dependent_flag: ['Y']
     });
+
+this.form.get('memb_oprn')?.valueChanges.subscribe((oprn: string) => {
+  if (this.skipPremiumUpdate) {
+    this.skipPremiumUpdate = false;
+    return;
+  }
+
+  const premium = oprn === 'S' ? 'Single' : oprn === 'D' ? 'Double' : '';
+  this.form.get('premium_type')?.setValue(premium);
+});
+
+
 
     this.getSuperMemberDetails();
     this.unit();
     this.policy_holder();
+  //     if (this.userData?.memb_flag) {
+  //   this.form.get('memb_flag')?.setValue(this.userData.memb_flag);
+
+  //   // ✅ Also set visibility correctly
+    // this.memberDetailsVisible = this.userData.memb_flag === 'Y';
+  // }
     }
 
       unit() {
@@ -113,8 +148,129 @@ export class Stp_member_detailsComponent implements OnInit {
       });
   }
 
-  toggleMemberDetails(event: MatSlideToggleChange): void {
-  this.memberDetailsVisible = event.checked;
+// onMemberOperationChange(event: any) {
+//   const newValue = event.value;
+//   const currentValue = this.form.get('memb_oprn')?.value;
+
+//   if (currentValue === 'D' && newValue === 'S') {
+//     if (this.form.get('dependent_flag')?.value === 'Y') {
+//       Swal.fire({
+//         icon: 'warning',
+//         title: 'Deactivate Spouse First',
+//         text: 'Please deactivate spouse details before changing Member Operation to Single.',
+//         confirmButtonText: 'Go to Spouse Section'
+//       }).then((result) => {
+//         if (result.isConfirmed) {
+//           // Scroll to spouse section
+//           const spouseSection = document.getElementById('spouse-section');
+//           if (spouseSection) {
+//             spouseSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+//           }
+//         }
+//       });
+
+//       // Reset selected value to 'D'
+//       setTimeout(() => {
+//         this.selectedMembOprn = 'D';
+//       });
+//     } else {
+//       // Now allow change
+//       this.form.get('memb_oprn')?.setValue('S');
+//       this.form.get('premium_type')?.setValue('Single');
+//     }
+//   } else {
+//     // All other changes allowed
+//     this.form.get('memb_oprn')?.setValue(newValue);
+//     const premium = newValue === 'S' ? 'Single' : 'Double';
+//     this.form.get('premium_type')?.setValue(premium);
+//   }
+// }
+
+// onMemberOperationChange(event: any) {
+//   const newValue = event.value;
+
+//   if (this.previousMembOprn === 'D' && newValue === 'S' && this.form.get('dependent_flag')?.value === 'Y') {
+//     // Revert the value
+//     this.form.get('memb_oprn')?.setValue('D'); // revert immediately
+//     // Keep previousMembOprn as 'D' (no update yet)
+
+//     // Show popup
+//     Swal.fire({
+//       icon: 'warning',
+//       title: 'Deactivate Spouse First',
+//       text: 'Please deactivate spouse details before changing Member Operation to Single.',
+//       confirmButtonText: 'Go to Spouse Section'
+//     }).then((result) => {
+//       if (result.isConfirmed) {
+//         const el = document.getElementById('spouse-section');
+//         if (el) {
+//           el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+//         }
+//       }
+//     });
+//   } else {
+//     // Allow the change and update premium_type
+//     this.previousMembOprn = newValue;
+//     const premium = newValue === 'S' ? 'Single' : 'Double';
+//     this.form.get('premium_type')?.setValue(premium);
+//   }
+// }
+
+onMemberOperationChange(event: any) {
+  const newValue = event.value;
+
+  // 🛑 Going from Double → Single with active spouse
+  if (this.previousMembOprn === 'D' && newValue === 'S' && this.form.get('dependent_flag')?.value === 'Y') {
+    this.form.get('memb_oprn')?.setValue('D');
+
+    Swal.fire({
+      icon: 'warning',
+      title: 'Deactivate Spouse First',
+      text: 'Please deactivate spouse details before changing Member Operation to Single.',
+      confirmButtonText: 'Go to Spouse Section'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const el = document.getElementById('spouse-section');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+
+    return; // prevent further execution
+  }
+
+  // ✅ Going from Single → Double
+  if (this.previousMembOprn === 'S' && newValue === 'D') {
+    // Activate spouse section
+    this.spouseDetailsVisible = true;
+
+    // Set dependent_flag to 'Y' to mark active
+    this.form.get('dependent_flag')?.setValue('N');
+
+    // Initialize spouse fields only if blank
+    this.form.patchValue({
+      spou_name: this.form.get('spou_name')?.value || '',
+      spou_min: this.form.get('spou_min')?.value || '',
+      spou_dob: this.form.get('spou_dob')?.value || '',
+      spou_mobile: this.form.get('spou_mobile')?.value || '',
+      spou_gender: this.form.get('spou_gender')?.value || '',
+      spou_addr: this.form.get('spou_addr')?.value || ''
+    });
+  }
+
+  // ✅ Set updated values
+  this.previousMembOprn = newValue;
+  this.form.get('memb_oprn')?.setValue(newValue);
+  this.form.get('premium_type')?.setValue(newValue === 'S' ? 'Single' : 'Double');
+}
+
+
+
+onToggleChange(event: MatSlideToggleChange) {
+  this.form.get('memb_flag')?.setValue(event.checked ? 'Y' : 'N');
+}
+
+onToggleChangeDependent(event: MatSlideToggleChange) {
+  this.form.get('dependent_flag')?.setValue(event.checked ? 'Y' : 'N');
 }
 
     getSuperMemberDetails() {
@@ -132,32 +288,40 @@ export class Stp_member_detailsComponent implements OnInit {
         if (this.responseData.suc > 0) {
           if (Array.isArray(this.responseData.msg) && this.responseData.msg.length > 0) {
             this.userData = this.responseData.msg[0];
+
+             this.previousMembOprn = this.userData.memb_oprn;
+
+            this.memberDetailsVisible = this.userData.memb_flag === 'Y';
+            this.spouseDetailsVisible = this.userData.dependent_flag === 'Y';
+
             this.form.patchValue({
             form_no: this.userData.form_no ?  this.userData.form_no : 'N/A',
             form_dt: this.userData?.form_dt ? this.datePipe.transform(this.userData.form_dt, 'yyyy-MM-dd') : 'N/A',
             // joining_year: this.datePipe.transform(this.userData.fin_yr, 'yyyy-MM-dd'),
-            policy_holder_type: this.userData.policy_holder_type ? this.userData.policy_holder_type : 'N/A',
+            policy_holder_type: this.userData.policy_holder_type_id ? this.userData.policy_holder_type_id : 'N/A',
             memb_id: this.userData.member_id ? this.userData.member_id : 'N/A',
-            unit_name: this.userData.unit_name ? this.userData.unit_name : 'N/A',
-            member_type: this.userData.memb_type == 'G' ? 'General Membership' : this.userData.memb_type == 'L' ?'Life Membership' : this.userData.memb_type == 'AI' ? 'Associate Membership' : 'N/A',
-            memb_oprn: this.userData.memb_oprn == 'S' ? 'Single' : this.userData.memb_oprn == 'D' ? 'Double' : 'N/A',
+            unit_name: this.userData.association ? this.userData.association : 'N/A',
+            member_type: this.userData.memb_type,
+            memb_oprn: this.userData.memb_oprn,
             memb_name: this.userData.memb_name ? this.userData.memb_name : 'N/A',      
-            gender: this.userData.gender == 'M' ? 'Male' : this.userData.gender == 'F' ? 'Female' : 'N/A',      
-            dob: this.userData?.dob ? this.datePipe.transform(this.userData.dob, 'yyyy-MM-dd') : 'N/A',
+            gender: this.userData.gender,      
+            // dob: this.userData?.dob ? this.datePipe.transform(this.userData.dob, 'yyyy-MM-dd') : null,
+            dob: this.userData?.dob? this.datePipe.transform(this.userData.dob, 'yyyy-MM-dd'): null,
             memb_addr: this.userData.mem_address ? this.userData.mem_address : 'N/A',
-            memb_mobile: this.userData.phone_no ? this.userData.phone_no : 'N/A',
+            memb_mobile: this.userData.phone_no ?? '',
             min_no: this.userData.min_no ? this.userData.min_no : 'N/A',
             personel_no: this.userData.personel_no ? this.userData.personel_no : 'N/A',
-            member_flag: this.userData.memb_flag,
+            memb_flag: this.userData.memb_flag,
             spou_name: this.userData.dependent_name ? this.userData.dependent_name : 'N/A', 
             spou_min: this.userData.spou_min_no ? this.userData.spou_min_no : 'N/A',
-            spou_dob: this.userData?.spou_dob ? this.datePipe.transform(this.userData.spou_dob, 'yyyy-MM-dd') : 'N/A',
-            spou_mobile: this.userData.spou_phone ? this.userData.spou_phone : 'N/A',
-            spou_gender: this.userData.spou_gender == 'M' ? 'Male' : this.userData.spou_gender == 'F' ? 'Femake' : 'N/A',
+            spou_dob: this.userData?.spou_dob ? this.datePipe.transform(this.userData.spou_dob, 'yyyy-MM-dd') : null,
+            spou_mobile: this.userData.spou_phone ?? '',
+            spou_gender: this.userData.spou_gender,
             spou_addr: this.userData.spou_address ? this.userData.spou_address : 'N/A',
             dependent_flg: this.userData.dependent_flg,
             premium_type: this.userData.premium_type == 'S' ? 'Single' : this.userData.premium_type == 'D' ? 'Double' : 'N/A',
             });
+            // this.selectedMembOprn = this.userData.memb_oprn;
           } 
         } else {
           Swal.fire('Error', this.responseData.msg, 'error');
@@ -179,18 +343,22 @@ export class Stp_member_detailsComponent implements OnInit {
           policy_holder_type: this.o['policy_holder_type']? this.o['policy_holder_type'].value : null,
           unit_name: this.o['unit_name']? this.o['unit_name'].value : null,
           member_type: this.o['member_type'] ? this.o['member_type'].value : null,
-          memb_oprn: this.o['memb_opr'] ? this.o['memb_opr'].value : null,
+          memb_oprn: this.o['memb_oprn'] ? this.o['memb_oprn'].value : null,
           memb_name: this.o['memb_name'] ? this.o['memb_name'].value : null,
           gender: this.o['gender'] ? this.o['gender'].value : null,
-          dob: this.o['dob'] ? this.o['dob'].value : null,
+          dob: this.o['dob']?.value
+  ? this.datePipe.transform(this.o['dob'].value, 'yyyy-MM-dd')
+  : null,
           memb_addr: this.o['memb_addr'] ? this.o['memb_addr'].value : null,
-          phone_no: this.o['phone_no'] ? this.o['phone_no'].value : null,
+          phone_no: this.o['memb_mobile'].value || null,
           personel_no: this.o['personel_no'] ? this.o['personel_no'].value : null,
           memb_flag: this.o['memb_flag'] ? this.o['memb_flag'].value : null,
           spou_name: this.o['spou_name'] ? this.o['spou_name'].value : null,
           spou_min: this.o['spou_min'] ? this.o['spou_min'].value : null,
-          spou_dob: this.o['spou_dob'] ? this.o['spou_dob'].value : null,
-          spou_mobile: this.o['spou_mobile'] ? this.o['spou_mobile'].value : null,
+          spou_dob: this.o['spou_dob']?.value
+  ? this.datePipe.transform(this.o['spou_dob'].value, 'yyyy-MM-dd')
+  : null,
+          spou_mobile: this.o['spou_mobile'].value || null,
           spou_gender: this.o['spou_gender'] ? this.o['spou_gender'].value : null,
           spou_addr: this.o['spou_addr'] ? this.o['spou_addr'].value : null,
           dependent_flag: this.o['dependent_flag'] ? this.o['dependent_flag'].value : null,
@@ -198,12 +366,13 @@ export class Stp_member_detailsComponent implements OnInit {
           premium_type: this.o['premium_type'] ?.value === 'Single' ? 'S' : 'D',
           form_no: localStorage.getItem('form_no'),
           member_id: localStorage.getItem('member_id'),
-          min_no: localStorage.getItem('min_no')
+          min_no: localStorage.getItem('min_no'),
+          user_name: localStorage.getItem('user_name')
 
       }
       this.dataServe.global_service(1, '/edit_stp_member_details', dt).subscribe(
         data => {
-          console.log(data);
+          console.log(data,'ytre');
           this.groupSaveData = data;
           console.log(this.groupSaveData,'data');
           
@@ -213,7 +382,10 @@ export class Stp_member_detailsComponent implements OnInit {
               'success'
             ).then((result) => {
               if (result.isConfirmed) {
-                      this.router.navigate(['/main/stp_memb_dtls'])
+                      // this.router.navigate(['/main/stp_memb_dtls'])
+                      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+  this.router.navigate(['/main/stp_memb_dtls']);
+});
                     }
                   });
           } else {
