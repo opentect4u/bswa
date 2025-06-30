@@ -466,6 +466,20 @@ const routes: Routes = [
             '../Admin/show_stp_trans_report/show_stp_trans_report.module'
           ).then((m) => m.Show_stp_trans_reportModule),
       },
+        {
+        path: 'stp_member_register',
+        loadChildren: () =>
+          import(
+            '../Admin/stp_member_register/stp_member_register.module'
+          ).then((m) => m.Stp_member_registerModule),
+      },
+       {
+        path: 'show_stp_member_report/:from_dt/:to_dt/:memb_oprn',
+        loadChildren: () =>
+          import(
+            '../Admin/show_stp_member_report/show_stp_member_report.module'
+          ).then((m) => m.Show_stp_member_reportModule),
+      },
     ],
   },
 ];

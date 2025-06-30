@@ -1,0 +1,91 @@
+<p-card>
+  <div class="wrapper">
+    <div class="col-lg-12 container contant-wraper">
+
+      <div id="divToPrint">
+
+        <div style="text-align:center;" class="print_top_head">
+          <h2>BOSEC WELFARE TRUST</h2>
+          <h4>13, Camac Street, Kolkata 700017</h4>
+          <h4>STP Member Register Report As On <b>{{from_dt | date: 'dd/MM/yyyy'}} to {{to_dt | date: 'dd/MM/yyyy'}}</b></h4>
+        </div>
+        <br>
+
+        <div class="card mt-4" style="margin: 10px" class="table_print_outer">
+          <p-table [value]="userData" #dt2 dataKey="id" [rows]="10" [showCurrentPageReport]="true"
+            [rowsPerPageOptions]="[10, 25, 50]" [paginator]="false"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [globalFilterFields]="['memb_type']" [tableStyle]="{
+              'min-width': '95rem',
+              'box-shadow': '0 10px 28px rgba(1.5, 1.5, 1.5, 1.5)',
+            }">
+            <ng-template pTemplate="header">
+              <tr>
+                <th id="table_color">SL No</th>
+                <th id="table_color">Form No</th>
+                <th id="table_color">Form Date</th>
+                <th id="table_color">Policy Holder Type</th>
+                <th id="table_color">Member ID</th>
+                <th id="table_color">Association</th>
+                <th id="table_color">Member Report</th>
+                <th id="table_color">Member Operation</th>
+                <th id="table_color">Member Name</th>
+                <th id="table_color">Gender</th>
+                <th id="table_color">Dob</th>
+                <th id="table_color">Member Address</th>
+                <th id="table_color">Phone No</th>
+                <th id="table_color">MIN No</th>
+                <th id="table_color">Personel No</th>
+                <th id="table_color">Spouse Name</th>
+                <th id="table_color">Spouse MIN No</th>
+                <th id="table_color">Spouse Dob</th>
+                <th id="table_color">Spouse Phone No</th>
+                <th id="table_color">Spouse Gender</th>
+                <th id="table_color">Spouse Address</th>
+                <th id="table_color">Premium Type</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-customer let-i="rowIndex">
+              <tr>
+                <td class="text-center">{{i+1}}</td>
+                <td class="text-center">{{customer.form_no}}</td>
+                <td class="text-center">{{customer.form_dt}}</td>
+                <td class="text-center">{{customer.policy_holder_type}}</td>
+                <td class="text-center">{{ customer.member_id}}</td>
+                <td class="text-center">{{customer.unit_name}}</td>
+                <td class="text-center">{{customer.memb_type == 'G' ? 'General Membership' : customer.memb_type == 'L' ? 'Life Membership' : ''}}</td>
+                 <td class="text-center">{{customer.memb_oprn == 'S' ? 'Single' : customer.memb_oprn == 'D' ? 'Double' : ''}}</td>
+                <td class="text-center">{{customer.memb_name}}</td>
+                <td class="text-center">{{customer.gender == 'M' ? 'Male' : customer.gender == 'F' ? 'Female' : ''}}</td>
+                <td class="text-center">{{customer.dob | date: 'dd/MM/yyyy'}}</td>
+                 <td class="text-center">
+                  {{customer.mem_address }}</td>
+                <td class="text-center">{{customer.phone_no}}</td>
+                <td class="text-center">{{customer.min_no}}</td>
+                <td class="text-center">{{customer.personel_no}}</td>
+                <td class="text-center">{{customer.dependent_name}}</td>
+                <td class="text-center">{{customer.spou_min_no}}</td>
+                <td class="text-center">{{customer.spou_dob | date: 'dd/MM/yyyy'}}</td>
+                <td class="text-center">{{customer.spou_phone}}</td>
+                <td class="text-center">{{customer.spou_gender}}</td>
+                <td class="text-center">{{customer.spou_address}}</td>
+                <td class="text-center">{{customer.premium_type == 'S' ? 'Single' : customer.premium_type == 'D' ? 'Double' : ''}}</td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+              <tr>
+                <td colspan="22" class="text-center text-red-900">No data available</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+
+      </div>
+      <p-button label="PRINT" styleClass="p-button-rounded print_btn" (click)="printDiv()"
+        style="margin-left: 1vw;"></p-button>
+        <p-button label="Download" styleClass="p-button-rounded print_btn" (click)="download()"
+        style="margin-left: 1vw;"></p-button>
+    </div>
+  </div>
+
+</p-card>

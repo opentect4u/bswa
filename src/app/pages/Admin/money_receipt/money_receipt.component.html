@@ -103,7 +103,7 @@
 
   <mat-divider></mat-divider>
 
-  <div class="receipt-section">
+  <div class="receipt-section" *ngIf="trnData?.flag !== 'STP'">
     <!-- Left Column -->
     <div class="receipt-column">
       <div class="receipt-row">
@@ -171,6 +171,81 @@
           <div class="receipt-value">{{ chqBank[trnData?.chq_bank] }}</div>
         </div>
       </ng-container>
+    </div>
+  </div>
+
+    <div class="receipt-section" *ngIf="trnData?.flag === 'STP'">
+    <!-- Left Column -->
+      <div class="receipt-column">
+      <div class="receipt-row">
+        <div class="receipt-label">Member ID</div>
+        <div class="receipt-separator">:</div>
+        <div class="receipt-value">{{ trnData?.member_id }}</div>
+      </div>
+
+       <div class="receipt-row">
+        <div class="receipt-label">MIN No</div>
+        <div class="receipt-separator">:</div>
+        <div class="receipt-value">{{ trnData?.min_no }}</div>
+      </div>
+
+      <div class="receipt-row">
+        <div class="receipt-label">Transaction ID</div>
+        <div class="receipt-separator">:</div>
+        <div class="receipt-value">{{ trnData?.trn_id }}</div>
+      </div>
+
+       <div class="receipt-row">
+        <div class="receipt-label">Premium Amount</div>
+        <div class="receipt-separator">:</div>
+        <div class="receipt-value">{{ trnData?.premium_amt }}</div>
+      </div>
+     
+       <div class="receipt-row">
+        <div class="receipt-label">Paymode</div>
+        <div class="receipt-separator">:</div>
+        <div class="receipt-value">{{ payMode[trnData?.pay_mode] }}</div>
+      </div>
+    </div>
+
+    <!-- Right Column -->
+      <div class="receipt-column">
+      <div class="receipt-row">
+        <div class="receipt-label">Member Name</div>
+        <div class="receipt-separator">:</div>
+        <div class="receipt-value">{{ trnData?.memb_name }}</div>
+      </div>
+
+       <div class="receipt-row">
+        <div class="receipt-label">Premium Type</div>
+        <div class="receipt-separator">:</div>
+        <div class="receipt-value">{{ trnData?.premium_type == 'S' ? 'Single' :  trnData?.premium_type == 'D' ? 'Double' : ''}}</div>
+      </div>
+
+      <div class="receipt-row">
+        <div class="receipt-label">Transaction Date</div>
+        <div class="receipt-separator">:</div>
+        <div class="receipt-value">{{ trnData?.trn_dt | date: 'dd/MM/yyyy' }}</div>
+      </div>
+      <div class="receipt-row">
+        <div class="receipt-label">Total Amount</div>
+        <div class="receipt-separator">:</div>
+        <div class="receipt-value">{{ trnData?.tot_amt }}</div>
+      </div>
+     
+       <div class="receipt-row">
+        <div class="receipt-label">Status</div>
+        <div class="receipt-separator">:</div>
+        <div class="receipt-value">
+          {{
+            trnData?.approval_status === 'U'
+              ? 'Unapproved'
+              : trnData?.approval_status === 'A'
+              ? 'Approved'
+              : ''
+          }}
+        </div>
+      </div>
     </div>
   </div>
 </mat-card>

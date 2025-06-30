@@ -137,6 +137,11 @@ export class SidebarComponent implements OnInit {
           //   icon: 'pi pi-credit-card',
           //   routerLink: ['gmp_memb_trans_report'],
           // },
+            {
+            label: 'STP Member Register',
+            icon: 'pi pi-users',
+            routerLink: ['stp_member_register'],
+          },
            {
             label: 'STP Member Transaction Details',
             icon: 'pi pi-credit-card',
