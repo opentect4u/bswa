@@ -48,11 +48,15 @@ export class Stp_member_registerComponent implements OnInit {
   }
 
    submit_btn(){
+     const fromDateRaw = this.m['from_dt'].value;
+     const toDateRaw = this.m['to_dt'].value;
     var dt = {
-          from_dt: this.m['from_dt'].value,
-          to_dt: this.m['to_dt'].value,
+          from_dt: this.datePipe.transform(fromDateRaw, 'yyyy-MM-dd'),
+          to_dt: this.datePipe.transform(toDateRaw, 'yyyy-MM-dd'),
           memb_oprn: this.m['memb_oprn'].value,      
         }
+        // console.log(dt);
+        
     this.router.navigate(['/admin/show_stp_member_report',dt.from_dt,dt.to_dt,dt.memb_oprn]);    
   }
 

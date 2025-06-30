@@ -30,10 +30,10 @@ export class Show_stp_member_reportComponent implements OnInit {
 
   ngOnInit() {
      const encodedFormNo = this.route.snapshot.params['form_no'];
-    this.memb_oprn = this.route.snapshot.params['member_type'];
+    this.memb_oprn = this.route.snapshot.params['memb_oprn'];
     this.from_dt = this.route.snapshot.params['from_dt'];
     this.to_dt = this.route.snapshot.params['to_dt'];
-    console.log( this.memb_oprn, this.from_dt, this.to_dt);
+    // console.log( this.memb_oprn, this.from_dt, this.to_dt);
     
     this.show_data();
   }
@@ -102,6 +102,7 @@ export class Show_stp_member_reportComponent implements OnInit {
       const dataWithSlNo = this.userData.map((customer: { unit_name: any; member_id: string;  memb_name: any; min_no: any; memb_address: any; ps:any; city_town_dist: any; pin_no: any; phone_no: any; email_id: any}, index: number) => {
         return {
           'SL No': index + 1,
+          // 'Form No' : ,
           'Unit Name': customer.unit_name,
           'Member ID': customer.member_id,
           'Member Name': customer.memb_name,

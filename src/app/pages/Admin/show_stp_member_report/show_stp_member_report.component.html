@@ -48,28 +48,28 @@
             <ng-template pTemplate="body" let-customer let-i="rowIndex">
               <tr>
                 <td class="text-center">{{i+1}}</td>
-                <td class="text-center">{{customer.form_no}}</td>
-                <td class="text-center">{{customer.form_dt}}</td>
-                <td class="text-center">{{customer.policy_holder_type}}</td>
-                <td class="text-center">{{ customer.member_id}}</td>
-                <td class="text-center">{{customer.unit_name}}</td>
-                <td class="text-center">{{customer.memb_type == 'G' ? 'General Membership' : customer.memb_type == 'L' ? 'Life Membership' : ''}}</td>
-                 <td class="text-center">{{customer.memb_oprn == 'S' ? 'Single' : customer.memb_oprn == 'D' ? 'Double' : ''}}</td>
-                <td class="text-center">{{customer.memb_name}}</td>
-                <td class="text-center">{{customer.gender == 'M' ? 'Male' : customer.gender == 'F' ? 'Female' : ''}}</td>
-                <td class="text-center">{{customer.dob | date: 'dd/MM/yyyy'}}</td>
+                <td class="text-center">{{customer.form_no ? customer.form_no : 'N/A'}}</td>
+                <td class="text-center">{{customer?.form_dt ? (customer.form_dt | date: 'dd/MM/yyyy') : 'N/A'}}</td>
+                <td class="text-center">{{customer.policy_holder_type ? customer.policy_holder_type : 'N/A'}}</td>
+                <td class="text-center">{{ customer.member_id ? customer.member_id : 'N/A'}}</td>
+                <td class="text-center">{{customer.unit_name ? customer.unit_name : 'N/A'}}</td>
+                <td class="text-center">{{customer.memb_type == 'G' ? 'General Membership' : customer.memb_type == 'L' ? 'Life Membership' : 'N/A'}}</td>
+                 <td class="text-center">{{customer.memb_oprn == 'S' ? 'Single' : customer.memb_oprn == 'D' ? 'Double' : 'N/A'}}</td>
+                <td class="text-center">{{customer.memb_name ? customer.memb_name : 'N/A'}}</td>
+                <td class="text-center">{{customer.gender == 'M' ? 'Male' : customer.gender == 'F' ? 'Female' : 'N/A'}}</td>
+                <td class="text-center">{{customer.dob ? (customer.dob | date: 'dd/MM/yyyy') : 'N/A'}}</td>
                  <td class="text-center">
-                  {{customer.mem_address }}</td>
-                <td class="text-center">{{customer.phone_no}}</td>
-                <td class="text-center">{{customer.min_no}}</td>
-                <td class="text-center">{{customer.personel_no}}</td>
-                <td class="text-center">{{customer.dependent_name}}</td>
-                <td class="text-center">{{customer.spou_min_no}}</td>
-                <td class="text-center">{{customer.spou_dob | date: 'dd/MM/yyyy'}}</td>
-                <td class="text-center">{{customer.spou_phone}}</td>
-                <td class="text-center">{{customer.spou_gender}}</td>
-                <td class="text-center">{{customer.spou_address}}</td>
-                <td class="text-center">{{customer.premium_type == 'S' ? 'Single' : customer.premium_type == 'D' ? 'Double' : ''}}</td>
+                  {{customer.mem_address ? customer.mem_address : 'N/A' }}</td>
+                <td class="text-center">{{customer.phone_no ? customer.phone_no : 'N/A'}}</td>
+                <td class="text-center">{{customer.min_no ? customer.min_no : 'N/A'}}</td>
+                <td class="text-center">{{customer.personel_no ? customer.personel_no : 'N/A'}}</td>
+                <td class="text-center">{{customer.dependent_name ? customer.dependent_name : 'N/A'}}</td>
+                <td class="text-center">{{customer.spou_min_no ? customer.spou_min_no : 'N/A'}}</td>
+                <td class="text-center">{{customer.spou_dob ? (customer.spou_dob | date: 'dd/MM/yyyy') : 'N/A'}}</td>
+                <td class="text-center">{{customer.spou_phone ? customer.spou_phone : 'N/A'}}</td>
+                <td class="text-center">{{customer.spou_gender ? customer.spou_gender : 'N/A'}}</td>
+                <td class="text-center">{{customer.spou_address ? customer.spou_address : 'N/A'}}</td>
+                <td class="text-center">{{customer.premium_type == 'S' ? 'Single' : customer.premium_type == 'D' ? 'Double' : 'N/A'}}</td>
               </tr>
             </ng-template>
             <ng-template pTemplate="emptymessage">
@@ -83,8 +83,8 @@
       </div>
       <p-button label="PRINT" styleClass="p-button-rounded print_btn" (click)="printDiv()"
         style="margin-left: 1vw;"></p-button>
-        <p-button label="Download" styleClass="p-button-rounded print_btn" (click)="download()"
-        style="margin-left: 1vw;"></p-button>
+        <!-- <p-button label="Download" styleClass="p-button-rounded print_btn" (click)="download()"
+        style="margin-left: 1vw;"></p-button> -->
     </div>
   </div>
 
