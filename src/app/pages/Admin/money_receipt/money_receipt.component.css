@@ -5,3 +5,10 @@
     justify-content: flex-start;
     flex-direction: column;
 }
+.sub-titles {
+  margin-top: 20px;
+  font-style: italic;
+  font-size: 14px;
+  text-align: center;
+  color: rgb(4, 53, 92);
+}

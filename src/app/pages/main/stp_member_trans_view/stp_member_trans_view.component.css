@@ -32,6 +32,14 @@
   color: #061627;
 }
 
+.sub-titles {
+  font-weight: 600;
+  font-size: 16px;
+  /* color: #34495e; */
+  color: #063e7a;
+}
+
+
 .bold-divider {
   height: 1px;             
   background-color: black;  /* Optional: make it darker or another color */

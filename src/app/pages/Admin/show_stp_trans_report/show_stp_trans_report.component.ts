@@ -22,9 +22,11 @@ export class Show_stp_trans_reportComponent implements OnInit {
   memb_oprn: any;  
   totalCalAmount = 0;
   totalPremAmount = 0;
-  hasSpouseData = false;
+  hasSpouseData : boolean = false;
    @ViewChild('dt2') dt2: any;
   hasSpouseDataInVisibleRows: boolean = false;
+  // showSpouseColumns: boolean = false;
+
 
   constructor(private router: Router,
     private fb: FormBuilder,
@@ -44,7 +46,7 @@ export class Show_stp_trans_reportComponent implements OnInit {
   checkSpouseDataInVisibleRows(): void {
     const data = this.dt2?.filteredValue ?? this.userData;
     this.hasSpouseDataInVisibleRows = data.some(
-      (item: any) => item.memb_oprn === 'D'
+      (item: any) => item.memb_oprn === 'D' || item.memb_oprn === 'A'
     );
   }
 
@@ -127,22 +129,22 @@ export class Show_stp_trans_reportComponent implements OnInit {
       const dataWithSlNo = this.userData.map((customer: {trn_id: any; trn_dt: string; min_no: string; memb_name: any; dob: any; donation: any; spou_min_no: any; dependent_name: any; spou_dob: any; pay_mode: any; premium_amt: any; tot_amt: any; memb_oprn: string;}, index: number) => {
         const baseData: any = {
           'SL No': index + 1,
-          'Transaction ID' : customer.trn_id,
-          'Transaction Date' : customer.trn_dt,
-          'MIN No': customer.min_no,
-          'Member Name': customer.memb_name,
-          'Member Dob': customer.dob,
+          'Transaction ID' : customer.trn_id ? customer.trn_id : 'N/A',
+          'Transaction Date' : new Date(customer.trn_dt).toISOString().split('T')[0],
+          'MIN No': customer.min_no ? customer.min_no : 'N/A',
+          'Member Name': customer.memb_name ? customer.memb_name : 'N/A',
+          'Member Dob': new Date(customer.dob).toISOString().split('T')[0],
           // 'Spouse MIN No': customer.spou_min_no,
           // 'Spouse Name': customer.dependent_name,
           // 'Spouse Dob': customer.spou_dob,
-          'Premium Amount': customer.premium_amt,
-          'Total Amount' : customer.tot_amt,
-          'Pay Mode': customer.pay_mode=='O' ? 'Online' : '',
+          'Premium Amount': customer.premium_amt ? customer.premium_amt : '0',
+          'Total Amount' : customer.tot_amt ? customer.tot_amt : '0',
+          'Pay Mode': customer.pay_mode=='O' ? 'Online' : 'N/A',
         };
         if (customer.memb_oprn === 'D' || customer.memb_oprn === 'A') {
-        baseData['Spouse MIN No'] = customer.spou_min_no;
-        baseData['Spouse Name'] = customer.dependent_name;
-        baseData['Spouse Dob'] = customer.spou_dob;
+        baseData['Spouse MIN No'] = customer.spou_min_no ? customer.spou_min_no : 'N/A';
+        baseData['Spouse Name'] = customer.dependent_name ? customer.dependent_name : 'N/A';
+        baseData['Spouse Dob'] = new Date(customer.spou_dob).toISOString().split('T')[0];
       }
       return baseData;
       }); 

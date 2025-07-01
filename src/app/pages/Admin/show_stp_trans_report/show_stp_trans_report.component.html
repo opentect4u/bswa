@@ -51,10 +51,20 @@
                 <td class="text-center"><b>{{customer.memb_name}}</b></td>
                 <td class="text-center"><b>{{customer.dob ? (customer.dob | date: 'dd/MM/yyyy') :
                     '0000/00/00'}}</b></td>
-                <td class="text-center" *ngIf="customer.memb_oprn === 'D'"><b>{{customer.spou_min_no}}</b></td>
+                <!-- <td class="text-center" *ngIf="customer.memb_oprn === 'D'"><b>{{customer.spou_min_no}}</b></td>
                 <td class="text-center" *ngIf="customer.memb_oprn === 'D'"><b>{{customer.dependent_name}}</b></td>
                 <td class="text-center" *ngIf="customer.memb_oprn === 'D'"><b>{{customer.spou_dob ? (customer.spou_dob | date: 'dd/MM/yyyy') :
-                    '0000/00/00'}}</b></td>
+                    '0000/00/00'}}</b></td> -->
+                    <td class="text-center" *ngIf="hasSpouseData">
+                    <b>{{customer.memb_oprn === 'D' ? customer.spou_min_no : 'N/A'}}</b>
+                    </td>
+                    <td class="text-center" *ngIf="hasSpouseData">
+                      <b>{{customer.memb_oprn === 'D' ? customer.dependent_name : 'N/A'}}</b>
+                    </td>
+                    <td class="text-center" *ngIf="hasSpouseData">
+                      <b>{{customer.memb_oprn === 'D' ? (customer.spou_dob ? (customer.spou_dob | date: 'dd/MM/yyyy') : '0000/00/00') : 'N/A'}}</b>
+                    </td>
+
                 <td class="text-center"><b>{{customer.premium_amt}}</b></td>
                 <td class="text-center"><b>{{customer.tot_amt}}</b></td>
                 <td class="text-center"><b>{{customer.pay_mode =='O' ? 'Online' : 'N/A'}}</b></td>
@@ -64,7 +74,8 @@
 
             <ng-template pTemplate="footer">
               <tr>
-                <td [attr.colspan]="hasSpouseDataInVisibleRows ? 9 : 6" class="text-center">Total</td>
+                <!-- <td [attr.colspan]="hasSpouseDataInVisibleRows ? 9 : 6" class="text-center">Total</td> -->
+                <td [attr.colspan]="hasSpouseData ? 9 : 6" class="text-center">Total</td>
                 <td class="text-center">{{totalPremAmount}}</td>
                 <td class="text-center">{{totalCalAmount}}</td>
                 <td colspan="5"></td>

@@ -21,12 +21,62 @@ interface UserInfo {
   calc_upto: string;
 }
 
+// interface FeeDtls{
+//   effective_dt: string;
+//   memb_type: string;
+//   adm_fee: string;
+//   donation: string;
+//   subs_type: string;
+//   subscription_1: string;
+//   subscription_2: string;
+// }
+
+// interface MembDtls{
+//   member_id: string;
+//   form_no: string;
+//   memb_name: string;
+//   mem_type: string;
+//   memb_oprn: string;
+//   phone_no: string;
+//   email_id: string;
+//   subscription_upto: string;
+//   calc_amt: any;
+//   calc_upto: string;
+// }
+
+// interface TrnDtls{
+//   form_no: string;
+//   trn_dt: string;
+//   trn_id: string;
+//   sub_amt: string;
+//   onetime_amt: string;
+//   adm_fee: string;
+//   donation: string;
+//   premium_amt: string;
+//   tot_amt: string;
+//   pay_mode: string;
+//   receipt_no: string;
+//   chq_no: string;
+//   chq_dt: string;
+//   chq_bank: string;
+//   approval_status: string;
+//   approved_by: string;
+//   approved_dt: string;
+//   created_by: string;
+//   created_at: string;
+//   modified_by: string;
+//   modified_at: string;
+//   mem_dt: MembDtls;
+//   fee_dt: FeeDtls;
+// }
+
 @Component({
   selector: 'app-subs-depo-entry',
   templateUrl: './subs-depo-entry.component.html',
   styleUrls: ['./subs-depo-entry.component.css']
 })
 export class SubsDepoEntryComponent implements OnInit {
+  //  trn_id:any
   secretKey = environment.secretKey
   responseData: any
   userData: UserInfo | undefined;
@@ -39,8 +89,12 @@ export class SubsDepoEntryComponent implements OnInit {
   selectedValue3: string = 'N'
   member_id: any;
   phone_no: any;
+  form_no: any;
   responsedata: any;
   maxDate!: string;
+  // trnsData: TrnDtls | undefined;
+  accType:any = {C: 'Cash', Q: 'Cheque', O: 'Online'}
+  chqBank:any = {'74': 'Cash at BSE(Cal) Co op Cr Soc Ltd', '75': 'Cash at UCO Bank (A/c No.)'}
 
   constructor(private router: Router,private formBuilder: FormBuilder, private dataServe: DataService) { }
 
@@ -51,7 +105,7 @@ export class SubsDepoEntryComponent implements OnInit {
     const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
     const year = today.getFullYear();
     this.maxDate = `${year}-${month}-${day}`;
-
+    this.form_no = localStorage.getItem('form_no')
 
     this.form = this.formBuilder.group({
       mem_id: ['',  Validators.required]
@@ -259,6 +313,9 @@ export class SubsDepoEntryComponent implements OnInit {
     //   var custDt = { form_no: this.f['form_no'].value, member_id: this.m['mem_id'].value, memb_name: this.f['mem_name'].value, amount: this.f['subs_amt'].value, phone_no: this.userData?.phone_no, email: '', approve_status: 'U', calc_upto: this.userData?.calc_upto, subs_type: this.responsedata_subs.length > 0 ? this.responsedata_subs[0].subs_type : 'M', sub_fee: this.responsedata_subs[0].subscription_1, redirect_path: '/admin/subs_depo_entry' }
     //   encDt = CryptoJS.AES.encrypt(JSON.stringify(custDt),this.secretKey ).toString();
     // }
+
+    //----------------------------//
+    //comment off 30.06.2025//
     var dt = {
       memb_id: this.m['mem_id'].value,
       form_dt: this.f['form_dt'] ? this.f['form_dt'].value : null,
@@ -266,6 +323,11 @@ export class SubsDepoEntryComponent implements OnInit {
       sub_amt: this.f['subs_amt'].value,
       user: localStorage.getItem('user_name'),
       last_subs: this.f['subs_upto'].value,
+      form_no: this.f['form_no'].value,
+      approval_status: 'A',
+      // trn_id: this.trn_id,
+      cal_upto: this.userData?.calc_upto,
+      cal_amt: this.userData?.calc_amt,
       pay_mode: this.f['payment'].value,
       receipt_no: this.f['receipt_no'].value,
       // receipt_no: this.f['payment'].value == 'C' ? this.f['receipt_no'].value : this.f['payment'].value == 'O' ? this.f['receipt_no_online'].value : '',
@@ -274,14 +336,16 @@ export class SubsDepoEntryComponent implements OnInit {
       // chq_bank: this.f['payment'].value == 'Q' ? this.f['bank_name'].value : this.f['payment'].value == 'O' ? '75' : '73',
       memb_name: this.f['mem_name'].value,
       memb_type: this.f['mem_type'].value,
-      form_no: this.f['form_no'].value,
-      approval_status: 'A',
-      cal_upto: this.userData?.calc_upto,
-      cal_amt: this.userData?.calc_amt,
       phone_no: this.userData?.phone_no,
       member: this.userData?.memb_name ,
+      acc_code: this.f['payment'].value == 'C' ? '73' : '0',
+      remarks: `Subscription Amount deposited for existing of member for member no ${this.m['mem_id'].value}`
       // pay_enc_data: encDt,
     }
+    console.log(dt,'dst');
+    
+   // -----------------------------//
+
     this.dataServe.global_service(1,'/mem_sub_tnx_save',dt).subscribe(data => {
       // console.log(data,'kiki')
       this.responseData = data;

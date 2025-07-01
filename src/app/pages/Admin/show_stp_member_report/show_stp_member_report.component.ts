@@ -99,17 +99,31 @@ export class Show_stp_member_reportComponent implements OnInit {
     }
   
     download(){
-      const dataWithSlNo = this.userData.map((customer: { unit_name: any; member_id: string;  memb_name: any; min_no: any; memb_address: any; ps:any; city_town_dist: any; pin_no: any; phone_no: any; email_id: any}, index: number) => {
+      const dataWithSlNo = this.userData.map((customer: { form_no: any; form_dt: any; policy_holder_type:any;unit_name: any; member_id: string;  memb_type: any; memb_oprn: any; memb_name: any; gender: any; dob: any;min_no: any; mem_address: any; phone_no: any; personel_no: any; dependent_name: any; spou_min_no: any; spou_dob: any; spou_phone: any; spou_gender: any; spou_address: any; premium_type: any}, index: number) => {
         return {
           'SL No': index + 1,
-          // 'Form No' : ,
-          'Unit Name': customer.unit_name,
-          'Member ID': customer.member_id,
-          'Member Name': customer.memb_name,
-          'MIN No': customer.min_no,
-        
-          'Phone No': customer.phone_no,
-          'Email ID': customer.email_id
+          'Form No' : customer.form_no ? customer.form_no : 'N/A',
+          // 'Form Date' : customer.form_dt,
+          'Form Date' : new Date(customer.form_dt).toISOString().split('T')[0],
+          'Policy Holder Type' : customer.policy_holder_type ? customer.policy_holder_type : 'N/A',
+          'Member ID': customer.member_id ? customer.member_id : 'N/A',
+          'Unit Name': customer.unit_name ? customer.unit_name : 'N/A',
+          'Member Type': customer.memb_type == 'G' ? 'General Membership' : customer.memb_type == 'L' ? 'Life Membership' : 'N/A',
+          'Member Operation': customer.memb_oprn == 'S' ? 'Single' : customer.memb_oprn == 'D' ? 'Double' : 'N/A',
+          'Member Name': customer.memb_name ? customer.memb_name : 'N/A',
+          'Gender': customer.gender == 'F' ? 'Female' : customer.gender == 'M' ? 'Male' : 'N/A',
+          'DOB' : new Date(customer.dob).toISOString().split('T')[0],
+          'Member Address': customer.mem_address ? customer.mem_address : 'N/A',
+          'Phone No': customer.phone_no ? customer.phone_no : 'N/A',
+          'MIN No': customer.min_no ? customer.min_no : 'N/A',
+          'Personel No': customer.personel_no ? customer.personel_no : 'N/A',
+          'Spouse Name': customer.dependent_name ? customer.dependent_name : 'N/A',
+          'Spouse MIN No': customer.spou_min_no ? customer.spou_min_no : 'N/A',
+          'Spouse Dob': new Date(customer.spou_dob).toISOString().split('T')[0],
+          'Spouse Phone No': customer.spou_phone ? customer.spou_phone : 'N/A',
+          'Spouse Gender': customer.spou_gender ? customer.spou_gender : 'N/A',
+          'Spouse Address': customer.spou_address ? customer.spou_address : 'N/A',
+          'Premium Type': customer.premium_type == 'S' ? 'Single' : customer.premium_type == 'D' ? 'Double' : 'N/A',
           // Add or remove columns as needed
         };
       }); 
@@ -118,7 +132,7 @@ export class Show_stp_member_reportComponent implements OnInit {
       XLSX.utils.book_append_sheet(wb,ws, 'placeholder');
   
   
-      XLSX.writeFile(wb, 'Member Register List.xlsx')
+      XLSX.writeFile(wb, 'STP Member Register List.xlsx')
     }
 
 }
