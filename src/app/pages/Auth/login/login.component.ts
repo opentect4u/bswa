@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   getLoginData: any;
+  hide: boolean = true;
 
   constructor(
     private router: Router,

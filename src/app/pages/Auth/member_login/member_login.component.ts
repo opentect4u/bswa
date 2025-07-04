@@ -13,6 +13,7 @@ import { MessageService } from 'primeng/api';
 export class Member_loginComponent implements OnInit {
   loginForm!: FormGroup;
   getLoginData: any;
+  hide: boolean = true;
 
   constructor(private router: Router,
     private formBuilder: FormBuilder,

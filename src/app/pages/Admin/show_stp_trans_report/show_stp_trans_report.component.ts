@@ -130,10 +130,10 @@ export class Show_stp_trans_reportComponent implements OnInit {
         const baseData: any = {
           'SL No': index + 1,
           'Transaction ID' : customer.trn_id ? customer.trn_id : 'N/A',
-          'Transaction Date' : new Date(customer.trn_dt).toISOString().split('T')[0],
+          'Transaction Date' : customer.trn_dt ? new Date(customer.trn_dt).toISOString().split('T')[0] : 'N/A',
           'MIN No': customer.min_no ? customer.min_no : 'N/A',
           'Member Name': customer.memb_name ? customer.memb_name : 'N/A',
-          'Member Dob': new Date(customer.dob).toISOString().split('T')[0],
+          'Member Dob': customer.dob ? new Date(customer.dob).toISOString().split('T')[0] : 'N/A',
           // 'Spouse MIN No': customer.spou_min_no,
           // 'Spouse Name': customer.dependent_name,
           // 'Spouse Dob': customer.spou_dob,
@@ -141,19 +141,35 @@ export class Show_stp_trans_reportComponent implements OnInit {
           'Total Amount' : customer.tot_amt ? customer.tot_amt : '0',
           'Pay Mode': customer.pay_mode=='O' ? 'Online' : 'N/A',
         };
+        baseData['Spouse MIN No'] = 'N/A';
+        baseData['Spouse Name'] = 'N/A';
+        baseData['Spouse Dob'] = 'N/A';
         if (customer.memb_oprn === 'D' || customer.memb_oprn === 'A') {
-        baseData['Spouse MIN No'] = customer.spou_min_no ? customer.spou_min_no : 'N/A';
-        baseData['Spouse Name'] = customer.dependent_name ? customer.dependent_name : 'N/A';
-        baseData['Spouse Dob'] = new Date(customer.spou_dob).toISOString().split('T')[0];
+        baseData['Spouse MIN No'] = customer.spou_min_no ? customer.spou_min_no : 'NULL';
+        baseData['Spouse Name'] = customer.dependent_name ? customer.dependent_name : 'NULL';
+        baseData['Spouse Dob'] = customer.spou_dob ? new Date(customer.spou_dob).toISOString().split('T')[0] : 'N/A';
       }
       return baseData;
       }); 
+
+       // 🔍 Determine file name based on member operation
+  const hasSingle = this.userData?.some((item: any) => item.memb_oprn === 'S');
+  const hasDouble = this.userData?.some((item: any) => item.memb_oprn === 'D' || item.memb_oprn === 'A');
+
+  let fileName = 'STP Member Transaction List';
+  if (hasSingle && hasDouble) {
+    fileName = 'STP Member Transaction List - Single & Double';
+  } else if (hasSingle) {
+    fileName = 'STP Member Transaction List - Single';
+  } else if (hasDouble) {
+    fileName = 'STP Member Transaction List - Double';
+  }
       const ws = XLSX.utils.json_to_sheet(dataWithSlNo);
       const wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb,ws, 'placeholder');
+      XLSX.utils.book_append_sheet(wb,ws, 'TransactionData');
   
   
-      XLSX.writeFile(wb, 'STP Member Transaction List.xlsx')
+      XLSX.writeFile(wb, `${fileName}.xlsx`)
     }
 
 }
