@@ -146,9 +146,9 @@ download() {
       'Premium Amount': customer?.premium_amt ?? '0',
       'Total Amount': customer?.tot_amt ?? '0',
       'Pay Mode': customer?.pay_mode === 'O' ? 'Online' : 'N/A',
-      'Spouse MIN No': 'N/A',
-      'Spouse Name': 'N/A',
-      'Spouse Dob': 'N/A'
+      // 'Spouse MIN No': 'N/A',
+      // 'Spouse Name': 'N/A',
+      // 'Spouse Dob': 'N/A'
     };
 
     if (customer?.memb_oprn === 'D' || customer?.memb_oprn === 'A') {
