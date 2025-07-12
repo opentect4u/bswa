@@ -123,53 +123,108 @@ export class Show_stp_trans_reportComponent implements OnInit {
         this.WindowObject.close();
       }, 1000);
     }
-  
-  
-    download(){
-      const dataWithSlNo = this.userData.map((customer: {trn_id: any; trn_dt: string; min_no: string; memb_name: any; dob: any; donation: any; spou_min_no: any; dependent_name: any; spou_dob: any; pay_mode: any; premium_amt: any; tot_amt: any; memb_oprn: string;}, index: number) => {
-        const baseData: any = {
-          'SL No': index + 1,
-          'Transaction ID' : customer.trn_id ? customer.trn_id : 'N/A',
-          'Transaction Date' : customer.trn_dt ? new Date(customer.trn_dt).toISOString().split('T')[0] : 'N/A',
-          'MIN No': customer.min_no ? customer.min_no : 'N/A',
-          'Member Name': customer.memb_name ? customer.memb_name : 'N/A',
-          'Member Dob': customer.dob ? new Date(customer.dob).toISOString().split('T')[0] : 'N/A',
-          // 'Spouse MIN No': customer.spou_min_no,
-          // 'Spouse Name': customer.dependent_name,
-          // 'Spouse Dob': customer.spou_dob,
-          'Premium Amount': customer.premium_amt ? customer.premium_amt : '0',
-          'Total Amount' : customer.tot_amt ? customer.tot_amt : '0',
-          'Pay Mode': customer.pay_mode=='O' ? 'Online' : 'N/A',
-        };
-        baseData['Spouse MIN No'] = 'N/A';
-        baseData['Spouse Name'] = 'N/A';
-        baseData['Spouse Dob'] = 'N/A';
-        if (customer.memb_oprn === 'D' || customer.memb_oprn === 'A') {
-        baseData['Spouse MIN No'] = customer.spou_min_no ? customer.spou_min_no : 'NULL';
-        baseData['Spouse Name'] = customer.dependent_name ? customer.dependent_name : 'NULL';
-        baseData['Spouse Dob'] = customer.spou_dob ? new Date(customer.spou_dob).toISOString().split('T')[0] : 'N/A';
-      }
-      return baseData;
-      }); 
 
-       // 🔍 Determine file name based on member operation
-  const hasSingle = this.userData?.some((item: any) => item.memb_oprn === 'S');
-  const hasDouble = this.userData?.some((item: any) => item.memb_oprn === 'D' || item.memb_oprn === 'A');
+download() {
+  const formatDate = (date: any) => {
+    const parsedDate = new Date(date);
+    return isNaN(parsedDate.getTime()) ? 'N/A' : parsedDate.toISOString().split('T')[0];
+  };
+
+  if (!Array.isArray(this.userData)) {
+    console.error("userData is not an array");
+    return;
+  }
+
+  const dataWithSlNo = this.userData.map((customer: any, index: number) => {
+    const baseData: any = {
+      'SL No': index + 1,
+      'Transaction ID': customer?.trn_id ?? 'N/A',
+      'Transaction Date': formatDate(customer?.trn_dt),
+      'MIN No': customer?.min_no ?? 'N/A',
+      'Member Name': customer?.memb_name ?? 'N/A',
+      'Member Dob': formatDate(customer?.dob),
+      'Premium Amount': customer?.premium_amt ?? '0',
+      'Total Amount': customer?.tot_amt ?? '0',
+      'Pay Mode': customer?.pay_mode === 'O' ? 'Online' : 'N/A',
+      'Spouse MIN No': 'N/A',
+      'Spouse Name': 'N/A',
+      'Spouse Dob': 'N/A'
+    };
+
+    if (customer?.memb_oprn === 'D' || customer?.memb_oprn === 'A') {
+      baseData['Spouse MIN No'] = customer?.spou_min_no || 'NULL';
+      baseData['Spouse Name'] = customer?.dependent_name || 'NULL';
+      baseData['Spouse Dob'] = formatDate(customer?.spou_dob);
+    }
+
+    return baseData;
+  });
+
+  const hasSingle = this.userData.some((item: any) => item?.memb_oprn === 'S');
+  const hasDouble = this.userData.some((item: any) => item?.memb_oprn === 'D' || item?.memb_oprn === 'A');
 
   let fileName = 'STP Member Transaction List';
   if (hasSingle && hasDouble) {
-    fileName = 'STP Member Transaction List - Single & Double';
+    fileName += ' - Single & Double';
   } else if (hasSingle) {
-    fileName = 'STP Member Transaction List - Single';
+    fileName += ' - Single';
   } else if (hasDouble) {
-    fileName = 'STP Member Transaction List - Double';
+    fileName += ' - Double';
   }
-      const ws = XLSX.utils.json_to_sheet(dataWithSlNo);
-      const wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb,ws, 'TransactionData');
+
+  const ws = XLSX.utils.json_to_sheet(dataWithSlNo);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'TransactionData');
+  XLSX.writeFile(wb, `${fileName}.xlsx`);
+}
+
+
+  
+  //   download(){
+  //     const dataWithSlNo = this.userData.map((customer: {trn_id: any; trn_dt: string; min_no: string; memb_name: any; dob: any; donation: any; spou_min_no: any; dependent_name: any; spou_dob: any; pay_mode: any; premium_amt: any; tot_amt: any; memb_oprn: string;}, index: number) => {
+  //       const baseData: any = {
+  //         'SL No': index + 1,
+  //         'Transaction ID' : customer.trn_id ? customer.trn_id : 'N/A',
+  //         'Transaction Date' : customer.trn_dt ? new Date(customer.trn_dt).toISOString().split('T')[0] : 'N/A',
+  //         'MIN No': customer.min_no ? customer.min_no : 'N/A',
+  //         'Member Name': customer.memb_name ? customer.memb_name : 'N/A',
+  //         'Member Dob': customer.dob ? new Date(customer.dob).toISOString().split('T')[0] : 'N/A',
+  //         // 'Spouse MIN No': customer.spou_min_no,
+  //         // 'Spouse Name': customer.dependent_name,
+  //         // 'Spouse Dob': customer.spou_dob,
+  //         'Premium Amount': customer.premium_amt ? customer.premium_amt : '0',
+  //         'Total Amount' : customer.tot_amt ? customer.tot_amt : '0',
+  //         'Pay Mode': customer.pay_mode=='O' ? 'Online' : 'N/A',
+  //       };
+  //       baseData['Spouse MIN No'] = 'N/A';
+  //       baseData['Spouse Name'] = 'N/A';
+  //       baseData['Spouse Dob'] = 'N/A';
+  //       if (customer.memb_oprn === 'D' || customer.memb_oprn === 'A') {
+  //       baseData['Spouse MIN No'] = customer.spou_min_no ? customer.spou_min_no : 'NULL';
+  //       baseData['Spouse Name'] = customer.dependent_name ? customer.dependent_name : 'NULL';
+  //       baseData['Spouse Dob'] = customer.spou_dob ? new Date(customer.spou_dob).toISOString().split('T')[0] : 'N/A';
+  //     }
+  //     return baseData;
+  //     }); 
+
+  //      // 🔍 Determine file name based on member operation
+  // const hasSingle = this.userData?.some((item: any) => item.memb_oprn === 'S');
+  // const hasDouble = this.userData?.some((item: any) => item.memb_oprn === 'D' || item.memb_oprn === 'A');
+
+  // let fileName = 'STP Member Transaction List';
+  // if (hasSingle && hasDouble) {
+  //   fileName = 'STP Member Transaction List - Single & Double';
+  // } else if (hasSingle) {
+  //   fileName = 'STP Member Transaction List - Single';
+  // } else if (hasDouble) {
+  //   fileName = 'STP Member Transaction List - Double';
+  // }
+  //     const ws = XLSX.utils.json_to_sheet(dataWithSlNo);
+  //     const wb = XLSX.utils.book_new();
+  //     XLSX.utils.book_append_sheet(wb,ws, 'TransactionData');
   
   
-      XLSX.writeFile(wb, `${fileName}.xlsx`)
-    }
+  //     XLSX.writeFile(wb, `${fileName}.xlsx`)
+  //   }
 
 }
