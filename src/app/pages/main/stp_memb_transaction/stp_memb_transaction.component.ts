@@ -47,10 +47,15 @@ export class Stp_memb_transactionComponent implements OnInit {
             this.dataSource.paginator = this.paginator;
           });
   }
-  preview(trn_id:any){
+  formatDate(date: any): string {
+  const parsedDate = new Date(date);
+  if (isNaN(parsedDate.getTime())) return ''; // fallback for invalid dates
+  return parsedDate.toISOString().split('T')[0]; // YYYY-MM-DD
+}
+  preview(trn_id:any,form_no:any,trn_dt:any){
     console.log(trn_id,'ki');
     
-    this.router.navigate(['/main/stp_memb_trans_view',trn_id]);
+    this.router.navigate(['/main/stp_memb_trans_view',trn_id,form_no,trn_dt]);
   }
 
 }

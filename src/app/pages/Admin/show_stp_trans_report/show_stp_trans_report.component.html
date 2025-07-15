@@ -31,9 +31,11 @@
                 <th id="table_color">Transaction Date</th>
                 <th id="table_color">MIN No</th>
                 <th id="table_color">Member Name</th>
+                <th id="table_color">Member Gender</th>
                 <th id="table_color">Member Dob</th>
                 <th id="table_color" *ngIf="hasSpouseData">Spouse MIN No</th>
                 <th id="table_color" *ngIf="hasSpouseData">Spouse Name</th>
+                <th id="table_color" *ngIf="hasSpouseData">Spouse Gender</th>
                 <th id="table_color" *ngIf="hasSpouseData">Spouse Dob</th>
                 <th id="table_color">Premium Amount</th>
                 <th id="table_color">Total Amount</th>
@@ -49,6 +51,7 @@
                     '0000/00/00'}}</b></td>
                 <td class="text-center"><b>{{customer.min_no}}</b></td>
                 <td class="text-center"><b>{{customer.memb_name}}</b></td>
+                <td class="text-center"><b>{{customer.gender == 'M' ? 'Male' : customer.gender == 'F' ? 'Female' : 'N/A'}}</b></td>
                 <td class="text-center"><b>{{customer.dob ? (customer.dob | date: 'dd/MM/yyyy') :
                     '0000/00/00'}}</b></td>
                 <!-- <td class="text-center" *ngIf="customer.memb_oprn === 'D'"><b>{{customer.spou_min_no}}</b></td>
@@ -60,6 +63,9 @@
                     </td>
                     <td class="text-center" *ngIf="hasSpouseData">
                       <b>{{customer.memb_oprn === 'D' ? customer.dependent_name : 'N/A'}}</b>
+                    </td>
+                     <td class="text-center" *ngIf="hasSpouseData">
+                      <b>{{customer.memb_oprn === 'D' ? (customer.spou_gender == 'M' ? 'Male' : customer.spou_gender == 'F' ? 'Female' : 'N/A') : 'N/A'}}</b>
                     </td>
                     <td class="text-center" *ngIf="hasSpouseData">
                       <b>{{customer.memb_oprn === 'D' ? (customer.spou_dob ? (customer.spou_dob | date: 'dd/MM/yyyy') : '0000/00/00') : 'N/A'}}</b>
@@ -75,16 +81,16 @@
             <ng-template pTemplate="footer">
               <tr>
                 <!-- <td [attr.colspan]="hasSpouseDataInVisibleRows ? 9 : 6" class="text-center">Total</td> -->
-                <td [attr.colspan]="hasSpouseData ? 9 : 6" class="text-center">Total</td>
+                <td [attr.colspan]="hasSpouseData ? 11 : 7" class="text-center">Total</td>
                 <td class="text-center">{{totalPremAmount}}</td>
                 <td class="text-center">{{totalCalAmount}}</td>
-                <td colspan="5"></td>
+                <td colspan="2"></td>
               </tr>
             </ng-template>
 
             <ng-template pTemplate="emptymessage">
               <tr>
-                <td colspan="13" class="text-center text-red-900">No data available</td>
+                <td colspan="15" class="text-center text-red-900">No data available</td>
               </tr>
             </ng-template>
           </p-table>

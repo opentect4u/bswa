@@ -65,7 +65,7 @@ const routes: Routes = [
           ),
       },
        {
-        path: 'stp_memb_trans_view/:trn_id',
+        path: 'stp_memb_trans_view/:trn_id/:form_no/:trn_dt',
         loadChildren: () =>
           import('../main/stp_member_trans_view/stp_member_trans_view.module').then(
             (m) => m.Stp_member_trans_viewModule
