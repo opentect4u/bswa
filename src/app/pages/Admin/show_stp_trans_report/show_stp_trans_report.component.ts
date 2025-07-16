@@ -142,6 +142,7 @@ download() {
       'Transaction Date': formatDate(customer?.trn_dt),
       'MIN No': customer?.min_no ?? 'N/A',
       'Member Name': customer?.memb_name ?? 'N/A',
+      'Member Gender': customer.gender == 'M' ? 'Male' : customer.gender == 'F' ? 'Female' : 'N/A',
       'Member Dob': formatDate(customer?.dob),
       'Premium Amount': customer?.premium_amt ?? '0',
       'Total Amount': customer?.tot_amt ?? '0',
@@ -154,6 +155,7 @@ download() {
     if (customer?.memb_oprn === 'D' || customer?.memb_oprn === 'A') {
       baseData['Spouse MIN No'] = customer?.spou_min_no || 'NULL';
       baseData['Spouse Name'] = customer?.dependent_name || 'NULL';
+      baseData['Spouse Gender'] = customer.spou_gender == 'M' ? 'Male' : customer.spou_gender == 'F' ? 'Female' : 'NULL';
       baseData['Spouse Dob'] = formatDate(customer?.spou_dob);
     }
 
