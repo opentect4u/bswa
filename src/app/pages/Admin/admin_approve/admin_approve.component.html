@@ -107,8 +107,8 @@
           <td class="text-center">
             <b>
               <span
-                class="badge {{ customer.memb_status=='P' ? 'badge-pending' : customer.memb_status=='R' ? 'badge-reject' : 'badge-settlement' }}">
-                {{ customer.memb_status=='P' ? 'Pending' : customer.memb_status=='R' ? 'Reject' : 'Accept' }}
+                class="badge {{ customer.memb_status=='P' ? 'badge-pending' : customer.memb_status=='R' ? 'badge-reject' : customer.memb_status=='T' ? 'badge-accept' : 'badge-settlement' }}">
+                {{ customer.memb_status=='P' ? 'Pending' : customer.memb_status=='R' ? 'Reject' : customer.memb_status=='T' ? 'Accept' : 'Approved' }}
               </span>
             </b>
           </td>
