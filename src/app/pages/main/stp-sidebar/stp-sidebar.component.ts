@@ -13,6 +13,7 @@ public sideMenuItem: any = [];
   items!: MenuItem[]
   flag: any;
   isExpanded: boolean = false
+  selectedItem: any;
 
   constructor(private router: Router,private route: ActivatedRoute) { }
 
@@ -49,7 +50,14 @@ public sideMenuItem: any = [];
       label: 'Premium Payment Receipt',
       icon: 'pi pi-receipt',
       routerLink: '/main/stp_memb_transaction',
-    }
+    },
+   {
+      label: 'Download E-card',
+      icon: 'pi pi-id-card',
+      url: 'https://mdindiaonline.com/E-Cardrequest.aspx',
+      target: '_blank',
+      routerLink: null
+   }
   ];
   }
 
@@ -71,8 +79,20 @@ public sideMenuItem: any = [];
     return this.router.url === route;
   }
 
-   navigate(route: string) {
+  //  navigate(route: string) {
+  //   this.router.navigate([route]);
+  // }
+
+  navigate(route: any) {
+  if (typeof route === 'string' && route) {
     this.router.navigate([route]);
+  } else if (route === null && this.selectedItem?.url) {
+    // Handle external link
+    window.open(this.selectedItem.url, '_blank');
+  } else {
+    console.warn('Invalid route or no action needed.');
   }
+}
+
 
 }

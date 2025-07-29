@@ -29,4 +29,8 @@ export class Stp_dashboardComponent implements OnInit {
     this.router.navigate(['/main/stp_memb_transaction'])
   }
 
+    open_e_card(){
+    window.open(`https://mdindiaonline.com/E-Cardrequest.aspx`, '_blank');
+  }
+
 }
