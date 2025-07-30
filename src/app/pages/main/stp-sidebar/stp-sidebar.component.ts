@@ -57,7 +57,7 @@ public sideMenuItem: any = [];
       url: 'https://mdindiaonline.com/E-Cardrequest.aspx',
       target: '_blank',
       routerLink: null
-   }
+   },
   ];
   }
 

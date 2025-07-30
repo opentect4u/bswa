@@ -2,7 +2,7 @@
   /* background-color: #f4faff; */
   background: linear-gradient(to right, #dfe4eb, #859ebe);
   /* padding: 7.4rem; */
-  padding: 9vw;
+  padding: 7vw;
   height: 100%;
 }
 
@@ -15,6 +15,11 @@ body, html {
 /* 899fb8 */
 .brand-text {
   color: #1444be;
+  font-weight: 600;
+}
+
+.brand-text_second {
+  color: #3611dd;
   font-weight: 600;
 }
 
