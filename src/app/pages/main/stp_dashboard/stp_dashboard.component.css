@@ -2,15 +2,16 @@
   /* background-color: #f4faff; */
   background: linear-gradient(to right, #dfe4eb, #859ebe);
   /* padding: 7.4rem; */
-  padding: 7vw;
-  height: 100%;
+  padding: 5vh 5vw;
+  height: 98%;
 }
 
 body, html {
   margin: 0;
+  padding: 0;
   height: 100%;
   overflow: hidden;
-  height: 100%;
+  /* height: 100%; */
 }
 /* 899fb8 */
 .brand-text {

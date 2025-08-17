@@ -28,6 +28,7 @@ const routes: Routes = [{ path: '', component: Member_loginComponent }];
         MatCardModule,
         ToastModule,
   ],
-  declarations: [Member_loginComponent]
+  declarations: [Member_loginComponent],
+  providers: [MessageService],
 })
 export class Member_loginModule { }

@@ -8,7 +8,7 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./stp-header.component.css']
 })
 export class StpHeaderComponent implements OnInit {
-    public sidemenuOpen = true;
+  public sidemenuOpen = true;
   public classSidemenu: any;
   public classContent: any;
   public headerMenuItem!: MenuItem[];

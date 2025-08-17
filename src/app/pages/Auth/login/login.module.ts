@@ -28,5 +28,6 @@ const routes: Routes = [{ path: '', component: LoginComponent }];
             ToastModule,
   ],
   declarations: [LoginComponent],
+   providers: [MessageService],
 })
 export class LoginModule {}

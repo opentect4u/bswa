@@ -73,11 +73,26 @@
             <label for="tb_rej" class="ml-2"><b>Rejected</b></label>
           </div>
 
-          <div class="flex align-items-center">
-            <input type="radio" name="tb_filter" [(ngModel)]="tr_status" (click)="filterTableData('T')" id="tb_acc"
-              value="T">
-            <label for="tb_acc" class="ml-2"><b>Accept</b></label>
-          </div>
+            <div class="flex align-items-center relative accept-menu">
+  <!-- Accept main option -->
+  <input type="radio" name="tb_filter" [(ngModel)]="tr_status"
+         (click)="toggleAcceptMenu($event)" id="tb_acc" value="T" class="hidden-radio">
+  <label for="tb_acc" class="ml-2"><b>Accept</b></label>
+
+  <!-- Submenu -->
+  <div *ngIf="showAcceptSub" class="submenu">
+    <button class="sub-btn" 
+            [class.active]="tr_status === 'T_IN_PROGRESS'" 
+            (click)="filterTableData('T_IN_PROGRESS')">
+      In Progress
+    </button>
+    <button class="sub-btn" 
+            [class.active]="tr_status === 'T_EXPIRED'" 
+            (click)="filterTableData('T_EXPIRED')">
+      Expired
+    </button>
+  </div>
+</div>
 
           <div class="flex align-items-center">
             <input type="radio" name="tb_filter" [(ngModel)]="tr_status" (click)="filterTableData('A')" id="tb_app"

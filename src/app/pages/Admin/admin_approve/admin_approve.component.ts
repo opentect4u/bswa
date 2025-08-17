@@ -22,6 +22,11 @@ export class Admin_approveComponent implements OnInit {
   approvedCount: number = 0;
   acceptount: number = 0;
   rowsPerPageOptions: number[] = [];
+  showAcceptSub = false;
+ selectedStatus: string = 'in-progress'; // current active
+//  previousStatus: string | null = null;   // last active before current
+
+
 
   constructor(private router: Router, private dataServe: DataService, private formBuilder: FormBuilder, private messageService: MessageService, private route: ActivatedRoute,private datePipe: DatePipe,private cdr: ChangeDetectorRef) { }
 
@@ -31,6 +36,13 @@ export class Admin_approveComponent implements OnInit {
       memb_name: ['']
     })
     this.submit()
+
+    // ✅ Close submenu when clicking outside
+  document.addEventListener('click', (event: any) => {
+    if (!event.target.closest('.accept-menu')) {
+      this.showAcceptSub = false;
+    }
+  });
   }
 
   get m() {
@@ -88,6 +100,9 @@ export class Admin_approveComponent implements OnInit {
     })
   }
 
+setStatus(status: string) {
+  this.selectedStatus = status;
+}
   calculateCounts() {
     if (!this.userData?.msg || !Array.isArray(this.userData.msg)) {
       console.warn('No valid data found in userData.msg');
@@ -117,26 +132,54 @@ export class Admin_approveComponent implements OnInit {
   // filterTableData(flag:any){
   //   this.tbFilterData = this.userData.length > 0 ? this.userData.filter((dt:any) => flag != 'R' ? dt.memb_status != 'R' : dt.memb_status == flag) : []
   // }
+
+  toggleAcceptMenu(event: Event) {
+  event.stopPropagation();
+  this.showAcceptSub = !this.showAcceptSub;
+}
   
-  filterTableData(flag: any) {
+  // filterTableData(flag: any) {
+  //   if (this.userData.msg && this.userData.msg.length > 0) {
+  //     this.tbFilterData = this.userData.msg.filter((dt: any) => {
+  //       if (flag === 'Y') {
+  //         return dt.memb_status === 'P'; 
+  //       } else if (flag === 'R') {
+  //         return dt.memb_status === 'R'; 
+  //       } else if (flag === 'T') {
+  //         return dt.memb_status === 'T';  
+  //       } else {
+  //         return dt.memb_status === 'A'; 
+  //       // } else {
+  //       //   return true;
+  //       }
+  //     });
+  //   } else {
+  //     this.tbFilterData = [];
+  //   }
+  //   this.updateRowsPerPageOptions();
+  // }
+
+   filterTableData(flag: any) {
     if (this.userData.msg && this.userData.msg.length > 0) {
       this.tbFilterData = this.userData.msg.filter((dt: any) => {
         if (flag === 'Y') {
-          return dt.memb_status === 'P'; 
+          return dt.memb_status === 'P' && dt.pay_status === 'P'; 
         } else if (flag === 'R') {
-          return dt.memb_status === 'R'; 
-        } else if (flag === 'T') {
-          return dt.memb_status === 'T';  
+          return dt.memb_status === 'R' && dt.pay_status === 'P'; 
+        } else if (flag === 'T_IN_PROGRESS') {
+          return dt.memb_status === 'T' && dt.pay_status === 'P';
+        } else if (flag === 'T_EXPIRED') {
+        return dt.memb_status === 'T' && dt.pay_status === 'E'; 
         } else {
-          return dt.memb_status === 'A'; 
-        // } else {
-        //   return true;
+          return dt.memb_status === 'A' && dt.pay_status === 'PA'; 
         }
       });
     } else {
       this.tbFilterData = [];
     }
     this.updateRowsPerPageOptions();
+    // this.showAcceptSub = false;
+  
   }
 
   updateRowsPerPageOptions() {

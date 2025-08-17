@@ -404,11 +404,15 @@ export class View_formComponent implements OnInit {
     }
 
     cash_accept(){
-      var payEncDataGen = ''
+      var payEncDataGen = '';
+      let expiryTimestamp: number = Date.now() + 5 * 60 * 1000; // 5 minute expiry
+      // let expiryTimestamp: number = Date.now() + 24 * 60 * 60 * 1000; // 24 hours expiry
+
       if(this.f['payment'].value == 'O'){
         var payData = {form_no: atob(decodeURIComponent(this.encodedFormNo)), member_id: '', memb_name: this.memb_name, amount: this.f['totalAmount'].value, phone_no: this.phone_no, email: this.email_id, approve_status: 'U', calc_upto: '', subs_type: '', sub_fee: this.f['totalAmount'].value, redirect_path: '/'}
         payEncDataGen = CryptoJS.AES.encrypt(JSON.stringify(payData),this.secretKey ).toString();
       }
+      
       var dt = {
         formNo: atob(decodeURIComponent(this.encodedFormNo)),
         member: this.memb_name,
@@ -432,6 +436,7 @@ export class View_formComponent implements OnInit {
         cheque_no: this.f['cheque_no'] ? this.f['cheque_no'].value : null,
         bank_name: this.f['bank_name'] ? this.f['bank_name'].value : null,
         payEncDataGen: payEncDataGen,
+        expiryTimestamp: expiryTimestamp,
         // admissionFee_life:  this.f['admissionFee_life'] ? this.f['admissionFee_life'].value : null,
         // donationFee_life:  this.f['donationFee_life'] ? this.f['donationFee_life'].value : null,
         // subscriptionFee_2:  this.f['subscriptionFee_2'] ? this.f['subscriptionFee_2'].value : null,
@@ -476,11 +481,15 @@ export class View_formComponent implements OnInit {
   }
 
     cash_accept_life(){
-      var payEncDataLife = ''
+      var payEncDataLife = '';
+      let expiryTimestamp: number = Date.now() + 5 * 60 * 1000; // 5 minute expiry
+      // let expiryTimestamp: number = Date.now() + 24 * 60 * 60 * 1000; // 24 hours expiry
+
       if(this.f['payment'].value == 'O'){
         var payData = {form_no: atob(decodeURIComponent(this.encodedFormNo)), member_id: '', memb_name: this.memb_name, amount: this.f['totalAmount_life'].value, phone_no: this.phone_no, email: this.email_id, approve_status: 'U', calc_upto: '', subs_type: '', sub_fee: this.f['totalAmount_life'].value, redirect_path: '/'}
         payEncDataLife = CryptoJS.AES.encrypt(JSON.stringify(payData),this.secretKey ).toString();
       }
+
       var dt = {
         formNo: atob(decodeURIComponent(this.encodedFormNo)),
         member: this.memb_name,
@@ -503,6 +512,7 @@ export class View_formComponent implements OnInit {
         cheque_no: this.f['cheque_no'] ? this.f['cheque_no'].value : null,
         bank_name: this.f['bank_name'] ? this.f['bank_name'].value : null,
         payEncDataLife: payEncDataLife,
+        expiryTimestamp: expiryTimestamp,
       }
 
       this.dataServe.global_service(1, '/payment_accept_life',dt ).subscribe((data: any) => {
@@ -541,11 +551,16 @@ export class View_formComponent implements OnInit {
     }
 
     cash_accept_associate(){
-      var payEncData = ''
+      var payEncData = '';
+      let expiryTimestamp: number = Date.now() + 5 * 60 * 1000; // 5 minute expiry
+      // let expiryTimestamp: number = Date.now() + 24 * 60 * 60 * 1000; // 24 hours expiry
+
+
       if(this.f['payment'].value == 'O'){
         var payData = {form_no: atob(decodeURIComponent(this.encodedFormNo)), member_id: '', memb_name: this.memb_name, amount: this.f['totalAmount_associate'].value, phone_no: this.phone_no, email: this.email_id, approve_status: 'U', calc_upto: '', subs_type: '', sub_fee: this.f['totalAmount_associate'].value, redirect_path: '/'}
         payEncData = CryptoJS.AES.encrypt(JSON.stringify(payData),this.secretKey ).toString();
       }
+      
       var dt = {
         formNo: atob(decodeURIComponent(this.encodedFormNo)),
         member: this.memb_name,
@@ -568,6 +583,7 @@ export class View_formComponent implements OnInit {
         cheque_no: this.f['cheque_no'] ? this.f['cheque_no'].value : null,
         bank_name: this.f['bank_name'] ? this.f['bank_name'].value : null,
         pay_enc_data: payEncData,
+        expiryTimestamp: expiryTimestamp,
       }
 
       this.dataServe.global_service(1, '/payment_accept_associate',dt ).subscribe((data: any) => {

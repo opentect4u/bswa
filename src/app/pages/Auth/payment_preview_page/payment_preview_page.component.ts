@@ -35,6 +35,54 @@ export class Payment_preview_pageComponent implements OnInit {
 
     this.route.queryParams.subscribe(params => {
       const enc_dt = params['enc_dt'];
+      const expiry = Number(params['exp']);
+      console.log(enc_dt,expiry,'juy');
+
+      // const formNo = this.route.snapshot.queryParamMap.get('form_no');
+      // console.log(formNo,'form');
+
+         //    // 🚨 Expiry check before decrypting
+    if (!expiry || Date.now() > expiry) {
+    //   Swal.fire({
+    //     icon: 'error',
+    //     title: 'Payment Link Expired',
+    //     text: 'This payment link is no longer valid. Please request a new one.',
+      // }).then(() => {
+       Swal.fire({
+            icon: 'error',
+            title: 'Payment Link Expired',
+            // text: 'This payment link is no longer valid. Please request a new one.',
+          }).then(() => {
+      if (enc_dt) {
+          const decDt = CryptoJS.AES.decrypt(enc_dt, this.secretKey).toString(CryptoJS.enc.Utf8);
+          const custDt = JSON.parse(decDt);
+          const formNo = custDt.form_no; // now we get form_no
+          
+          // update pay_status to 'E'
+          this.dataServe.global_service(1, '/update_payment_status', { form_no: formNo, pay_status: 'E' })
+            .subscribe(res => {
+              console.log('Payment expired, status updated', res);
+              this.router.navigate(['/auth/payment_expired_page']); 
+            });
+        }
+      });
+      return; // Stop further execution
+    }
+      
+
+    //   this.dataServe.global_service(1, '/check_link_expiry', { form_no: formNo })
+    //   .subscribe((data: any) => {
+    //   if (data.expired) {
+    //    Swal.fire({
+    //     icon: 'error',
+    //     title: 'Payment Link Expired',
+    //     text: 'This payment link is no longer valid. Please request a new one.',
+    //   }).then(() => {
+    //     this.router.navigate(['/auth/payment_expired_page']);
+    //   });
+    //   return;
+    // }
+    // });
   
       if (enc_dt) {
         const decDt = CryptoJS.AES.decrypt(enc_dt, this.secretKey).toString(CryptoJS.enc.Utf8);
@@ -72,5 +120,7 @@ export class Payment_preview_pageComponent implements OnInit {
       // SHOW A ALERT
     }
   }
+
+
 
 }

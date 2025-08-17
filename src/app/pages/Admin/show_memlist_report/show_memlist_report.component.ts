@@ -124,4 +124,9 @@ export class Show_memlist_reportComponent implements OnInit {
     XLSX.writeFile(wb, 'Member Register List.xlsx')
   }
 
+  navigateBack() {
+  this.router.navigate(['/your-target-route']); // Replace with your route
+}
+
+
 }

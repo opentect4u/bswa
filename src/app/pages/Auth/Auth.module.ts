@@ -31,6 +31,11 @@ const routes: Routes = [
           import('./payment_preview_page/payment_preview_page.module').then((m) => m.Payment_preview_pageModule),
       },
        {
+        path: 'payment_expired_page',
+        loadChildren: () =>
+          import('./payment_expired/payment_expired.module').then((m) => m.Payment_expiredModule),
+      },
+       {
         path: 'stp_member_login',
         loadChildren: () =>
           import('./stp_member_login/stp_member_login.module').then((m) => m.Stp_member_loginModule),

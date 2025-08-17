@@ -59,20 +59,26 @@ export class LoginComponent implements OnInit {
           'user_email',
           this.getLoginData.msg.userdata[0].user_email
         );
-        this.router.navigate(['admin/admin_approve']).catch((data) => {
           this.messageService.add({
             severity: 'success',
-            summary: 'Success',
-            detail: 'Message Content',
+            summary: 'Login Successful',
+            detail: 'Welcome!',
           });
+        this.router.navigate(['admin/admin_approve'])
+     } else {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Login Failed',
+          detail: 'Incorrect User ID or Password',
         });
-      } else {
-        Swal.fire(
-          'Error',
-          this.getLoginData.msg,
-          'error'
-        );
       }
+       }, (err) => {
+         // In case of server/network error
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Server Error',
+      detail: 'Unable to connect. Please try again later.',
+    });
     });
   }
 

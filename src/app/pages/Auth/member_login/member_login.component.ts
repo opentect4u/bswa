@@ -71,11 +71,18 @@ export class Member_loginComponent implements OnInit {
         });
       } else {
         this.messageService.add({
-          severity: 'danger',
-          summary: 'Error',
-          detail: 'Message Content',
+          severity: 'error',
+          summary: 'Login Failed',
+          detail: 'Incorrect User ID or Password',
         });
       }
+       }, (err) => {
+         // In case of server/network error
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Server Error',
+      detail: 'Unable to connect. Please try again later.',
+    });
     });
   }
 
