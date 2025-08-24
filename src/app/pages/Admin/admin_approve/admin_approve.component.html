@@ -76,11 +76,11 @@
             <div class="flex align-items-center relative accept-menu">
   <!-- Accept main option -->
   <input type="radio" name="tb_filter" [(ngModel)]="tr_status"
-         (click)="toggleAcceptMenu($event)" id="tb_acc" value="T" class="hidden-radio">
+         (click)="filterTableData('T')" id="tb_acc" value="T">
   <label for="tb_acc" class="ml-2"><b>Accept</b></label>
 
   <!-- Submenu -->
-  <div *ngIf="showAcceptSub" class="submenu">
+  <!-- <div *ngIf="showAcceptSub" class="submenu">
     <button class="sub-btn" 
             [class.active]="tr_status === 'T_IN_PROGRESS'" 
             (click)="filterTableData('T_IN_PROGRESS')">
@@ -91,7 +91,7 @@
             (click)="filterTableData('T_EXPIRED')">
       Expired
     </button>
-  </div>
+  </div> -->
 </div>
 
           <div class="flex align-items-center">

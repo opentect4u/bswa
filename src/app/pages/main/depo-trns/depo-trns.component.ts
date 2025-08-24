@@ -33,6 +33,8 @@ export class DepoTrnsComponent implements OnInit {
   selectedValue2: string = 'C'
   memberType: any = {'G': 'General Membership', 'L': 'Life Membership', 'AI': 'Associate Membership'}
   // subs_amt: any;
+  showModal: boolean = true;
+
   constructor(private router: Router,private formBuilder: FormBuilder, private dataServe: DataService) { }
 
   ngOnInit() {
@@ -50,6 +52,22 @@ export class DepoTrnsComponent implements OnInit {
       phone_no: ['']
     })
     this.getSubsDtls()
+
+     // 🔹 Show SweetAlert modal immediately when page loads
+  Swal.fire({
+    title: 'Subscription Deposit',
+    text: 'Subscription Deposit is in under process. No transactions are possible at this time.',
+    icon: 'info',
+    showCancelButton: false,
+    confirmButtonText: 'OK',
+    allowOutsideClick: false,   // prevent closing on outside click
+    allowEscapeKey: false       // prevent closing with ESC
+    }).then((result) => {
+    if (result.isConfirmed) {
+      // 🔹 Redirect to another page
+      this.router.navigate(['/main/dashboard']); 
+    }
+  });
   }
 
   get f() {

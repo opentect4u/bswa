@@ -7,6 +7,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DividerModule } from 'primeng/divider';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 const routes:Routes=[
   {path:'',component:DepoTrnsComponent}
@@ -21,6 +23,8 @@ const routes:Routes=[
     FormsModule,
     DividerModule,
     CardModule,
+    MatDialogModule,
+    MatButtonModule,
     RouterModule.forChild(routes)
 ],
   declarations: [DepoTrnsComponent]

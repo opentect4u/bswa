@@ -35,6 +35,7 @@ export class Stp_premium_paymentComponent implements OnInit {
     form!: FormGroup;
     responseData: any
     userData: UserInfo | any;
+    isCutoffPassed: boolean = false;
 
   constructor(private router: Router,
     private fb: FormBuilder,
@@ -60,8 +61,15 @@ export class Stp_premium_paymentComponent implements OnInit {
     tot_prem: [''],
     });
 
+    this.checkCutoff();
     this.getSuperMemberDetails();
     
+  }
+
+   checkCutoff() {
+    const cutoff = new Date('2025-08-25T00:00:00'); // 5 Aug 2025, 12:00 PM
+    const now = new Date();
+    this.isCutoffPassed = now >= cutoff;
   }
 
      getSuperMemberDetails() {
@@ -132,6 +140,15 @@ export class Stp_premium_paymentComponent implements OnInit {
 }
 
       submit_premium() {
+        // 🔒 Double security: Prevent submission even if user manipulates DOM
+       const cutoff = new Date('2025-08-25T00:00:00');
+       const now = new Date();
+
+       if (now >= cutoff) {
+        Swal.fire("Deposit Premium Closed", "You cannot submit after 22-08-2025 12:00 PM", "error");
+        return;
+        }
+
          var memberName = this.userData.memb_name;
          var premiumAmount = this.userData.premium_amt;
          var form_no = this.userData.form_no; 

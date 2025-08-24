@@ -25,8 +25,8 @@ export class Change_password_memberComponent implements OnInit {
   constructor(private router: Router, private fb: FormBuilder,
     private dataServe: DataService,
     private validatorsService: ValidatorsService,
-private route: ActivatedRoute,
-private messageService: MessageService) { }
+    private route: ActivatedRoute,
+    private messageService: MessageService) { }
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -36,13 +36,44 @@ private messageService: MessageService) { }
         '',
         [
           Validators.required,
-          Validators.minLength(10),
-          Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,}$/)
+          Validators.maxLength(10),
+           Validators.pattern(/^[0-9]+$/), 
+          // Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,}$/)
         ]
       ],
       con_pass: ['', Validators.required]
     }, { validator: this.passwordsMatch });
+    
   }
+
+// checkMaxLength(event: any) {
+//   let value = event.target.value;
+
+//   // Allow only numbers
+//   if (!/^[0-9]*$/.test(value)) {
+//     value = value.replace(/\D/g, ''); // remove non-numeric
+//   }
+
+//   // Restrict to max 10 digits
+//   if (value.length > 10) {
+//     value = value.substring(0, 10); // cut extra digits
+//   }
+
+//   // Update form control
+//   event.target.value = value;
+//   this.form.get('new_pass')?.setValue(value);
+
+//   // Show alert only once when exactly 10 digits are reached
+//   if (value.length === 10) {
+//     Swal.fire({
+//       icon: 'info',
+//       title: 'Password Limit Reached',
+//       text: 'Password must be exactly 10 digits long.',
+//       confirmButtonText: 'OK'
+//     });
+//   }
+// }
+
 
   passwordsMatch(form: FormGroup) {
     const newPass = form.get('new_pass')?.value;

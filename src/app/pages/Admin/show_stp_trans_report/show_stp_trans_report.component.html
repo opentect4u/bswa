@@ -14,8 +14,8 @@
 
 
         <div class="card mt-4" style="margin: 10px" class="table_print_outer">
-          <p-table [value]="userData" #dt2 dataKey="id" [rows]="10" [showCurrentPageReport]="true"
-            [rowsPerPageOptions]="[10, 25, 50]" [paginator]="false"   
+          <p-table [value]="userData" #dt2 dataKey="id" [rows]="5" [showCurrentPageReport]="true"
+            [rowsPerPageOptions]="[5, 10, 25, 50]" [paginator]="true"   
             (onFilter)="checkSpouseDataInVisibleRows()"
             (onPage)="checkSpouseDataInVisibleRows()"
             (onSort)="checkSpouseDataInVisibleRows()"

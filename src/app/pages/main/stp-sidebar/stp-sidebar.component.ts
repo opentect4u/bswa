@@ -14,11 +14,16 @@ public sideMenuItem: any = [];
   flag: any;
   isExpanded: boolean = false
   selectedItem: any;
+  cutoffDate: Date = new Date('2025-08-25T00:00:00'); // 25 Aug 2025, 12 PM
+  isAfterCutoff: boolean = false;
+
 
   constructor(private router: Router,private route: ActivatedRoute) { }
 
   ngOnInit() {
    this.mem_type = localStorage.getItem('mem_type')
+    this.checkCutoff();
+
      this.items = [
     {
       label: 'Dashboard',
@@ -36,11 +41,17 @@ public sideMenuItem: any = [];
       icon: 'pi pi-server',
       routerLink: '/main/stp_premium_dtls',
     },
-      {
+     {
       label: 'Deposit Premium',
       icon: 'pi pi-wallet',
-      routerLink: '/main/stp_premium_payment',
+      routerLink: this.isAfterCutoff ? null : '/main/stp_premium_payment', // disable after cutoff
+      disabled: this.isAfterCutoff // PrimeNG supports disabled flag
     },
+    //   {
+    //   label: 'Deposit Premium',
+    //   icon: 'pi pi-wallet',
+    //   routerLink: '/main/stp_premium_payment',
+    // },
     //   {
     //   label: 'Renew Premium Payment',
     //   icon: 'pi pi-credit-card',
@@ -60,6 +71,11 @@ public sideMenuItem: any = [];
    },
   ];
   }
+
+  checkCutoff() {
+  const now = new Date();
+  this.isAfterCutoff = now >= this.cutoffDate;
+}
 
     onClick(id: any) {
     let element = document.getElementById(id);

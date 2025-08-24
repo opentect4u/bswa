@@ -24,7 +24,7 @@
 
     </div>
 
-    <div class="button-row">
+    <div class="button-row" *ngIf="!isCutoffPassed">
       <button class="continue-button" [disabled]="form.invalid" (click)="submit_premium()">Continue</button>
     </div>
   </div>

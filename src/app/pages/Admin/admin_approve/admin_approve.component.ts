@@ -38,11 +38,11 @@ export class Admin_approveComponent implements OnInit {
     this.submit()
 
     // ✅ Close submenu when clicking outside
-  document.addEventListener('click', (event: any) => {
-    if (!event.target.closest('.accept-menu')) {
-      this.showAcceptSub = false;
-    }
-  });
+  // document.addEventListener('click', (event: any) => {
+  //   if (!event.target.closest('.accept-menu')) {
+  //     this.showAcceptSub = false;
+  //   }
+  // });
   }
 
   get m() {
@@ -138,49 +138,49 @@ setStatus(status: string) {
   this.showAcceptSub = !this.showAcceptSub;
 }
   
-  // filterTableData(flag: any) {
-  //   if (this.userData.msg && this.userData.msg.length > 0) {
-  //     this.tbFilterData = this.userData.msg.filter((dt: any) => {
-  //       if (flag === 'Y') {
-  //         return dt.memb_status === 'P'; 
-  //       } else if (flag === 'R') {
-  //         return dt.memb_status === 'R'; 
-  //       } else if (flag === 'T') {
-  //         return dt.memb_status === 'T';  
-  //       } else {
-  //         return dt.memb_status === 'A'; 
-  //       // } else {
-  //       //   return true;
-  //       }
-  //     });
-  //   } else {
-  //     this.tbFilterData = [];
-  //   }
-  //   this.updateRowsPerPageOptions();
-  // }
-
-   filterTableData(flag: any) {
+  filterTableData(flag: any) {
     if (this.userData.msg && this.userData.msg.length > 0) {
       this.tbFilterData = this.userData.msg.filter((dt: any) => {
         if (flag === 'Y') {
-          return dt.memb_status === 'P' && dt.pay_status === 'P'; 
+          return dt.memb_status === 'P'; 
         } else if (flag === 'R') {
-          return dt.memb_status === 'R' && dt.pay_status === 'P'; 
-        } else if (flag === 'T_IN_PROGRESS') {
-          return dt.memb_status === 'T' && dt.pay_status === 'P';
-        } else if (flag === 'T_EXPIRED') {
-        return dt.memb_status === 'T' && dt.pay_status === 'E'; 
+          return dt.memb_status === 'R'; 
+        } else if (flag === 'T') {
+          return dt.memb_status === 'T';  
         } else {
-          return dt.memb_status === 'A' && dt.pay_status === 'PA'; 
+          return dt.memb_status === 'A'; 
+        // } else {
+        //   return true;
         }
       });
     } else {
       this.tbFilterData = [];
     }
     this.updateRowsPerPageOptions();
-    // this.showAcceptSub = false;
-  
   }
+
+  //  filterTableData(flag: any) {
+  //   if (this.userData.msg && this.userData.msg.length > 0) {
+  //     this.tbFilterData = this.userData.msg.filter((dt: any) => {
+  //       if (flag === 'Y') {
+  //         return dt.memb_status === 'P' && dt.pay_status === 'P'; 
+  //       } else if (flag === 'R') {
+  //         return dt.memb_status === 'R' && dt.pay_status === 'P'; 
+  //       } else if (flag === 'T_IN_PROGRESS') {
+  //         return dt.memb_status === 'T' && dt.pay_status === 'P';
+  //       } else if (flag === 'T_EXPIRED') {
+  //       return dt.memb_status === 'T' && dt.pay_status === 'E'; 
+  //       } else {
+  //         return dt.memb_status === 'A' && dt.pay_status === 'PA'; 
+  //       }
+  //     });
+  //   } else {
+  //     this.tbFilterData = [];
+  //   }
+  //   this.updateRowsPerPageOptions();
+  //   // this.showAcceptSub = false;
+  
+  // }
 
   updateRowsPerPageOptions() {
     const totalRows = this.tbFilterData.length;

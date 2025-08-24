@@ -8,9 +8,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class Stp_dashboardComponent implements OnInit {
 
+  isDepositPremiumDisabled: boolean = false;
+
   constructor(private router: Router) { }
 
   ngOnInit() {
+    // 🔹 Set cutoff date & time
+    const cutoff = new Date('2025-08-25T00:00:00');  
+    const now = new Date();
+
+    this.isDepositPremiumDisabled = now > cutoff;
   }
 
   open_member(){
@@ -21,8 +28,14 @@ export class Stp_dashboardComponent implements OnInit {
     this.router.navigate(['/main/stp_premium_dtls'])
   }
 
-  open_first_premium(){
-    this.router.navigate(['/main/stp_premium_payment'])
+  // open_first_premium(){
+  //   this.router.navigate(['/main/stp_premium_payment'])
+  // }
+
+   open_first_premium() {
+    if (!this.isDepositPremiumDisabled) {
+      this.router.navigate(['/main/stp_premium_payment'])
+    }
   }
 
   open_trn_history(){
