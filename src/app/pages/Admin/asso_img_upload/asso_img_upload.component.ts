@@ -15,7 +15,8 @@ export class Asso_img_uploadComponent implements OnInit {
   @Output() fileSelected = new EventEmitter();
 
   items!: any[];
-  uploadedFiles: any[] = [];
+  // uploadedFiles: any[] = [];
+  uploadedMemberFiles: any[] = [];
 
   constructor(private router: Router, private fb: FormBuilder, private dataServe: DataService, private messageService: MessageService) { }
 
@@ -39,22 +40,75 @@ export class Asso_img_uploadComponent implements OnInit {
   ];
   }
 
-  onUpload(event: any, flag: any) {
+  // onUpload(event: any, flag: any) {
+  //   const file = event.files[0];
+  //   const maxFileSize = 1 * 1024 * 1024; // 1MB
+  //   const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+  //   if (file) {
+  //     this.fileSelected.emit({ file, flag });
+  //   }
+  //   if (!allowedTypes.includes(file.type)) {
+  //     this.showError('Invalid file type. Only JPG, JPEG, and PNG are allowed.');
+  //     return;
+  //   }
+
+  //   if (file.size > maxFileSize) {
+  //     this.showError('File size exceeds the limit of 1MB.');
+  //     return;
+  //   }
+
+  //   // for (let file of event.files) {
+  //   //   this.uploadedFiles.push(file);
+  //   // }
+
+  //   // this.messageService.add({
+  //   //   severity: 'info',
+  //   //   summary: 'File Uploaded',
+  //   //   detail: '',
+  //   // });
+  // }
+
+  onUpload(event: any, flag: any, uploader: any) {
     const file = event.files[0];
     const maxFileSize = 1 * 1024 * 1024; // 1MB
     const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
-    if (file) {
-      this.fileSelected.emit({ file, flag });
-    }
-    if (!allowedTypes.includes(file.type)) {
-      this.showError('Invalid file type. Only JPG, JPEG, and PNG are allowed.');
-      return;
+
+    if (!file) return;
+
+     // ✅ Check file type
+     if (!allowedTypes.includes(file.type)) {
+    this.showError('Invalid file type. Only JPG, JPEG, and PNG are allowed.');
+    uploader.clear();   // ❌ clears from UI
+    return;
     }
 
+    // ✅ Check file size
     if (file.size > maxFileSize) {
-      this.showError('File size exceeds the limit of 1MB.');
-      return;
+    this.showError('File size exceeds the limit of 1MB.');
+    uploader.clear();   // ❌ clears from UI
+    return;
     }
+
+    this.fileSelected.emit({ file, flag });
+
+     this.messageService.add({
+      severity: 'info',
+      summary: 'File Uploaded',
+      detail: `${file.name} uploaded successfully`,
+    });
+
+    // if (file) {
+    //   this.fileSelected.emit({ file, flag });
+    // }
+    // if (!allowedTypes.includes(file.type)) {
+    //   this.showError('Invalid file type. Only JPG, JPEG, and PNG are allowed.');
+    //   return;
+    // }
+
+    // if (file.size > maxFileSize) {
+    //   this.showError('File size exceeds the limit of 1MB.');
+    //   return;
+    // }
 
     // for (let file of event.files) {
     //   this.uploadedFiles.push(file);

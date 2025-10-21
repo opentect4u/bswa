@@ -58,9 +58,9 @@ export class Gen_dep_formComponent implements OnInit, AfterViewInit {
     // this.phoneNumbers.push('');
     const fieldGroup = this.fb.group(
       {
-        dependent_name: [null],
-        phone_no: [null],
-        relation: [null],
+        dependent_name: [''],
+        phone_no: [''],
+        relation: [''],
       },
       {
         validators: this.validatorsService.conditionalRequiredValidator(

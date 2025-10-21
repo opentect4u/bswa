@@ -14,7 +14,7 @@ public sideMenuItem: any = [];
   flag: any;
   isExpanded: boolean = false
   selectedItem: any;
-  cutoffDate: Date = new Date('2025-08-25T00:00:00'); // 25 Aug 2025, 12 PM
+  cutoffDate: Date = new Date('2025-08-26T00:00:00'); // 26 Aug 2025, 12 PM
   isAfterCutoff: boolean = false;
 
 

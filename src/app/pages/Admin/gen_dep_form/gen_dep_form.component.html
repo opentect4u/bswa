@@ -19,22 +19,26 @@
         <select id="relation" formControlName="relation"
           class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
           style="appearance: auto; height: 3vw; border-radius: 7px">
-          <option value="null">Select Relationship</option>
+          <option value="">Select Relationship</option>
           <option *ngFor="let option of responsedata_rel" [value]="option.id">
             {{ option.relation_name }}
           </option>
         </select>
       </div>
-      <div *ngIf="i === 0" class="field col-12 md:col-3">
+
+      <!-- ✅ Always show both Add and Remove buttons -->
+      <!-- <div *ngIf="i === 0" class="field col-12 md:col-3"> -->
+      <div class="field col-12 md:col-3">
         <p-button class="custom-tooltip" pTooltip="Add Dependent" tooltipPosition="bottom" icon="pi pi-plus"
           styleClass="p-button-rounded p-button-text p-button-raised" (click)="onadd()"
-          [style]="{ 'background-color': 'rgb(177 209 161)', 'border-color': 'rgb(116 207 78)', color: '#ffff', 'margin-top': '1.3vw' }"></p-button>
-      </div>
+          [style]="{ 'background-color': 'rgb(177 209 161)', 'border-color': 'rgb(116 207 78)', color: '#ffff', 'margin-top': '2.4vw' }"></p-button>
+      <!-- </div> -->
 
-      <div *ngIf="i > 0" class="field col-12 md:col-3">
+      <!-- <div *ngIf="i > 0" class="field col-12 md:col-3"> -->
+      <!-- <div class="field col-12 md:col-3"> -->
         <p-button class="custom-tooltip" pTooltip="Delete Dependent" tooltipPosition="bottom" icon="pi pi-minus"
           styleClass="p-button-rounded p-button-text p-button-raised" (click)="onminus(i)"
-          [style]="{ 'background-color': 'rgb(223 105 105)', 'border-color': 'rgb(129 54 54)', color: '#ffff', 'margin-top': '1.3vw'}"></p-button>
+          [style]="{ 'background-color': 'rgb(223 105 105)', 'border-color': 'rgb(129 54 54)', color: '#ffff', 'margin-top': '2.4vw'}"></p-button>
       </div>
     </div>
   </div>

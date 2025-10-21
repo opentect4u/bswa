@@ -65,9 +65,9 @@ responsedata_rel: any;
     // this.phoneNumbers.push('');
     const fieldGroup = this.fb.group(
       {
-        dependent_name: [null],
-        dob: [null],
-        relation: [null],
+        dependent_name: [''],
+        dob: [''],
+        relation: [''],
       },
       {
         validators: this.validatorsService.conditionalRequiredValidator(

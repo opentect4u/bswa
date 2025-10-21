@@ -67,7 +67,7 @@ export class Stp_premium_paymentComponent implements OnInit {
   }
 
    checkCutoff() {
-    const cutoff = new Date('2025-08-25T00:00:00'); // 5 Aug 2025, 12:00 PM
+    const cutoff = new Date('2025-08-26T00:00:00'); // 26 Aug 2025, 12:00 PM
     const now = new Date();
     this.isCutoffPassed = now >= cutoff;
   }
@@ -137,15 +137,15 @@ export class Stp_premium_paymentComponent implements OnInit {
       console.error("Error fetching premium amount", error);
     }
   );
-}
+} 
 
       submit_premium() {
         // 🔒 Double security: Prevent submission even if user manipulates DOM
-       const cutoff = new Date('2025-08-25T00:00:00');
+       const cutoff = new Date('2025-08-26T00:00:00');
        const now = new Date();
 
        if (now >= cutoff) {
-        Swal.fire("Deposit Premium Closed", "You cannot submit after 22-08-2025 12:00 PM", "error");
+        Swal.fire("Deposit Premium Closed", "You cannot submit after 26-08-2025 12:00 PM", "error");
         return;
         }
 

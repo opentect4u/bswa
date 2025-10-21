@@ -125,20 +125,20 @@ export class SubsDepoEntryComponent implements OnInit {
       phone_no: [''],
       form_dt: ['',Validators.required]
     })
-      Swal.fire({
-        title: 'Subscription Deposit',
-        text: 'Subscription Deposit is in under process. No transactions are possible at this time.',
-        icon: 'info',
-        showCancelButton: false,
-        confirmButtonText: 'OK',
-        allowOutsideClick: false,   // prevent closing on outside click
-        allowEscapeKey: false       // prevent closing with ESC
-        }).then((result) => {
-        if (result.isConfirmed) {
-          // 🔹 Redirect to another page
-          this.router.navigate(['/admin/admin_approve']); 
-        }
-      });
+      // Swal.fire({
+      //   title: 'Subscription Deposit',
+      //   text: 'Subscription Deposit is in under process. No transactions are possible at this time.',
+      //   icon: 'info',
+      //   showCancelButton: false,
+      //   confirmButtonText: 'OK',
+      //   allowOutsideClick: false,   
+      //   allowEscapeKey: false       
+      //   }).then((result) => {
+      //   if (result.isConfirmed) {
+      //     // 🔹 Redirect to another page
+      //     this.router.navigate(['/admin/admin_approve']); 
+      //   }
+      // });
     this.bank_list();
   }
 

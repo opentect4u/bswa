@@ -14,7 +14,7 @@ export class Stp_dashboardComponent implements OnInit {
 
   ngOnInit() {
     // 🔹 Set cutoff date & time
-    const cutoff = new Date('2025-08-25T00:00:00');  
+    const cutoff = new Date('2025-08-26T00:00:00');  
     const now = new Date();
 
     this.isDepositPremiumDisabled = now > cutoff;
