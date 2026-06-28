@@ -13,6 +13,7 @@ import { MessageService } from 'primeng/api';
 export class Superadmin_loginComponent implements OnInit {
   loginForm!: FormGroup;
   getLoginData: any;
+  hide: boolean = true;
 
   constructor(
     private router: Router,
@@ -54,7 +55,7 @@ export class Superadmin_loginComponent implements OnInit {
           'user_id',
           this.getLoginData.msg.userdata[0].user_id
         );
-        this.router.navigate(['superadmin/fee_type']).catch((data) => {
+        this.router.navigate(['superadmin/super_dashboard']).catch((data) => {
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
@@ -63,11 +64,18 @@ export class Superadmin_loginComponent implements OnInit {
         });
       } else {
         this.messageService.add({
-          severity: 'danger',
-          summary: 'Error',
-          detail: 'Message Content',
+          severity: 'error',
+          summary: 'Login Failed',
+          detail: 'Incorrect User ID or Password',
         });
       }
+       }, (err) => {
+         // In case of server/network error
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Server Error',
+      detail: 'Unable to connect. Please try again later.',
+    });
     });
   }
 

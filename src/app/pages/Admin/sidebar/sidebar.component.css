@@ -1,0 +1,153 @@
+body, html {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 20vw;
+  height: 100vh;
+  /* background: linear-gradient(to bottom right, #f3f5fa, #8b9fce); */
+  background: linear-gradient(to right, #e2d8d8, #9ec1d3);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  padding-top: 4rem;
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Sidebar Menu List */
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Main Menu Item */
+.menu-item {
+  list-style: none;
+  margin-bottom: 8px;
+  transition: all 0.2s ease;
+}
+
+.menu-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fdfdfd;
+  border-radius: 10px;
+  padding: 6px 14px;
+  margin: 13px 13px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s ease;
+}
+
+.menu-box:hover {
+  background-color: #f3f7ff;
+  transform: translateX(4px);
+}
+
+.menu-box i {
+  font-size: 18px;
+  color: #3f6ebf;
+  margin-right: 10px;
+}
+
+.label {
+  font-weight: 800;
+  font-size: 14px;
+  color: #333;
+  /* white-space: nowrap; */
+  flex: 1;
+}
+
+/* Active Main Item */
+.sidebar-menu li.active .menu-box {
+  background: linear-gradient(to bottom, #e0e8ff, #7683ad);
+  box-shadow: 0 4px 10px rgba(63, 110, 191, 0.15);
+  transform: translateX(4px);
+}
+
+/* Submenu Section */
+.submenu {
+  list-style: none;
+  margin: 0 10px;
+  margin-top: 5px;
+  background-color: rgb(221, 238, 238);
+  border-radius: 8px;
+  padding: 5px 0;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.submenu li {
+  padding: 8px 16px;
+  font-size: 14px;
+  color: #444;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.submenu li:hover {
+  background: linear-gradient(to bottom, #e0e8ff, #c9cfe6);
+  color: #2563eb;
+}
+
+/* Active Submenu */
+.active-sub {
+  background: linear-gradient(to bottom, #e0e8ff, #8494cd);
+  color: white;
+  border-radius: 6px;
+}
+
+/* Main content margin */
+.main-content {
+  margin-left: 16vw;
+  padding: 2rem;
+  height: 100vh;
+  overflow-y: auto;
+  transition: margin-left 0.3s ease;
+}
+
+/* Toggle icon */
+.toggle-icon {
+  font-size: 14px;
+  color: #6b7280;
+  margin-left: auto;
+}
+
+
+/* Sidebar container */
+.sidebar {
+  height: 100vh;                 /* Full viewport height */
+  overflow-y: auto;              /* Enable vertical scroll */
+  overflow-x: hidden;            /* Prevent horizontal scroll */
+  background-color: #1e293b;     /* Optional */
+}
+
+/* Smooth scrollbar */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 10px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Menu list spacing */
+.menu-list {
+  padding-bottom: 80px;          /* Prevent last item cutoff */
+}
+
+

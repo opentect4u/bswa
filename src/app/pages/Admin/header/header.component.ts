@@ -27,10 +27,13 @@ export class HeaderComponent implements OnInit {
     }
 
     this.headerMenuItem = [
-      // {
-      //   label: 'Profile',
-      //   icon: 'pi pi-fw pi-user',
-      // },
+      {
+        label: 'Profile',
+        icon: 'pi pi-fw pi-user',
+        command: () => {
+          this.admin_profile();
+        }
+      },
       {
         label: 'Change Password',
         icon: 'pi pi-fw pi-cog',
@@ -91,6 +94,10 @@ export class HeaderComponent implements OnInit {
 
   password_change(){
     this.router.navigate(['/admin/change_password']);
+  }
+
+   admin_profile(){
+    this.router.navigate(['/admin/admin_Profile']);
   }
 
 }

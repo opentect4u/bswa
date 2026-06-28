@@ -1,0 +1,64 @@
+/* Page background matching Home banner */
+.about-bg {
+  min-height: 100vh;
+  background: linear-gradient(
+      rgba(0, 0, 0, 0.75),
+      rgba(0, 0, 0, 0.85)
+    ),
+    url('/assets/home/banner.jpg'); /* optional */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+}
+
+/* White content card */
+.about-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 45px;
+  max-width: 92vw;
+  margin: auto;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35);
+  margin-left: 4vw;
+}
+
+/* Heading */
+.about-title {
+  font-size: 2.3rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 30px;
+  color: #111;
+  position: relative;
+}
+
+.about-title::after {
+  content: "";
+  width: 90px;
+  height: 4px;
+  background: linear-gradient(to right, #ff3c3c, #111);
+  display: block;
+  margin: 12px auto 0;
+  border-radius: 3px;
+}
+
+/* Text styling */
+.about-card p {
+  font-size: 1.08rem;
+  line-height: 1.9;
+  color: #333;
+  text-align: justify;
+  margin-bottom: 18px;
+}
+
+/* Mobile support */
+@media (max-width: 768px) {
+  .about-card {
+    padding: 25px;
+  }
+
+  .about-title {
+    font-size: 1.9rem;
+  }
+}

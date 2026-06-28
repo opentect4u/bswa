@@ -35,8 +35,11 @@
   }
    .badge-accept {
     color: #fff;
-    background-color: #e7d10d;
+    background-color: #09998d;
   }
+  /* .p-card .p-card-body {
+    background: linear-gradient(to right, #dfe4eb, #859ebe);
+  } */
 /* .submenu {
   min-width: 150px;
 }
@@ -90,5 +93,8 @@
   display: none;
 }
 
-
+::ng-deep p-card.custom-card .p-card-body {
+  /* background: linear-gradient(to right, #dfe4eb, #c7d9f1); */
+  background: linear-gradient(to right, #adbcd1, #dfe4eb);
+}
 

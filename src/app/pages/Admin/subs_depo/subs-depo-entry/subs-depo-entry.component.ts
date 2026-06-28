@@ -237,9 +237,9 @@ export class SubsDepoEntryComponent implements OnInit {
           }
         }else{
           Swal.fire(
-            'Error',
+            'Warning',
             this.responseData.msg,
-              'error'
+              'warning'
           )
         }
         

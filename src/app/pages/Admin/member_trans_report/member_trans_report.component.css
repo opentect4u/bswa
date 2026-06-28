@@ -1,0 +1,69 @@
+.change-password-container {
+  min-height: 80vh;
+  padding: 30px;
+  background: linear-gradient(135deg, #6a8cc7, #cfd8ea);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  border-radius: 14px;
+}
+
+.change-password-box {
+  background: #fff;
+  padding: 30px 40px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  width: 100%;
+  max-width: 1000px;
+}
+
+h3 {
+  text-align: center;
+  color: #1b3c66;
+  font-weight: 600;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.label_field {
+  font-size: 17px;
+  color: #11141a;
+  display: block;
+  margin-bottom: 8px;
+}
+
+input[type="date"],
+select {
+  height: 42px;
+  border-radius: 8px !important;
+  border: 1px solid #d1d5db !important;
+  transition: all .2s ease;
+  width: 100%;
+  padding: 0 10px;
+  outline: none;
+  font-weight: bold;
+}
+
+input[type="date"]:focus,
+select:focus {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 4px rgba(59,130,246,0.4);
+}
+
+.sub_btn {
+  background: #7683ad !important;
+  border: none !important;
+  padding: 8px 24px !important;
+  border-radius: 8px !important;
+  color: white !important;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.sub_btn:hover {
+  background: #5c678a !important;
+}
+
+::ng-deep .p-divider.p-divider-horizontal {
+  margin: 20px 0;
+}

@@ -1,4 +1,4 @@
-<div class="menu">
+<!-- <div class="menu"> -->
   <!-- ======================================================= -->
   <!-- =============== Dynamic Menu With Model =============== -->
   <!-- <div
@@ -210,10 +210,40 @@
 
 
 
-  <p-panelMenu [model]="items" [style]="{'width':'300px'}"></p-panelMenu>
+  <!-- <p-panelMenu [model]="items" [style]="{'width':'300px'}"></p-panelMenu>
 
-</div>
+</div> -->
 
 <!-- <div class="sidebar">
   <a routerLink="main/dashboard" routerLinkActive="active">Home</a>
 </div> -->
+
+
+  <div class="main-wrapper" [class.expanded]="isExpanded">
+  <div class="sidebar">
+    <ul class="sidebar-menu">
+      <li *ngFor="let item of items; let i = index"
+          class="menu-item"
+          [ngClass]="{ 'active': isActive(item.routerLink), 'open': openIndex === i }">
+        <div class="menu-box" (click)="toggleDropdown(i, item)">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <i class="pi" [ngClass]="item.icon"></i>
+            <span class="label">{{ item.label }}</span>
+          </div>
+          <i *ngIf="item.items" class="pi toggle-icon" [ngClass]="openIndex === i ? 'pi-angle-up' : 'pi-angle-down'"></i>
+        </div>
+
+        <ul *ngIf="item.items && openIndex === i" class="submenu">
+          <li *ngFor="let sub of item.items"
+              [ngClass]="{ 'active-sub': selectedSubmenu === sub.routerLink }"
+              (click)="navigate(sub.routerLink, $event)">
+            <i class="pi" [ngClass]="sub.icon" style="margin-right: 8px;"></i>
+            <span>{{ sub.label }}</span>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+
+

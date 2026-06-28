@@ -18,14 +18,34 @@
       <!-- Premium Input -->
       <div class="card-box">
         <h4>Premium Details</h4>
-        <label for="tot_prem">Total Premium</label>
-        <input type="text" id="tot_prem" formControlName="tot_prem" placeholder="Enter Amount" readonly/>
+        <mat-form-field appearance="outline" style="width: 100%;" class="mt-1">
+          <mat-label>Premium Amount</mat-label>
+          <mat-select formControlName="policy_amount" (selectionChange)="onPolicyChange($event)">
+            <mat-option *ngFor="let amt of policyAmtList; let i = index" [value]="i">{{ amt }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <p style="margin-top: 1rem; font-size: 1.0rem; color: #111010;">
+          <strong>Total Premium:</strong>
+          <span *ngIf="form.get('tot_prem')?.value; else noAmount">
+            ₹ {{ form.get('tot_prem')?.value }}
+          </span>
+          <ng-template #noAmount><span style="color: #0c0b0b;"> 0</span></ng-template>
+        </p>
       </div>
 
     </div>
 
-    <div class="button-row" *ngIf="!isCutoffPassed">
+    <!-- <div class="button-row" *ngIf="!isCutoffPassed"> -->
+    <div class="button-row">
       <button class="continue-button" [disabled]="form.invalid" (click)="submit_premium()">Continue</button>
     </div>
+    
+    <div style="font-size: 12px; color: gray; margin-top: 20px; word-break: break-all;">
+      DEBUG: {{ userData | json }}
+    </div>
+    <!-- <div class="button-row">
+      <button class="continue-button" [disabled]="form.invalid" (click)="submit_premium()">Continue</button>
+    </div> -->
   </div>
 </form>

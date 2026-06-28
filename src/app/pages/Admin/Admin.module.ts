@@ -46,6 +46,13 @@ const routes: Routes = [
       //       (m) => m.Add_fee_typeModule
       //     ),
       // },
+       {
+        path: 'admin_dashboard',
+        loadChildren: () =>
+          import('../Admin/dashboard/dashboard.module').then(
+            (m) => m.DashboardModule
+          ),
+      },
       {
         path: 'member_form',
         loadChildren: () =>
@@ -193,12 +200,54 @@ const routes: Routes = [
             '../Admin/admin_premium_approve/admin_premium_approve.module'
           ).then((m) => m.Admin_premium_approveModule),
       },
+       {
+        path: 'active_deactive_members',
+        loadChildren: () =>
+          import(
+            '../Admin/active_deactive_members/active_deactive_members.module'
+          ).then((m) => m.Active_deactive_membersModule),
+      },
+      {
+       path: 'active_inactive_memb_dtls/:member_id/:phone_no',
+       loadChildren: () => 
+         import('../Admin/active_inactive_memb_dtls/active_inactive_memb_dtls.module').then(
+          (m) => m.Active_inactive_memb_dtlsModule
+         )
+      },
+      {
+       path: 'admin_approve_child_policy',
+       loadChildren: () =>
+          import(
+            '../Admin/admin_approve_child_policy/admin_approve_child_policy.module'
+          ).then((m) => m.Admin_approve_child_policyModule),
+      },
       {
         path: 'policy_view_form/:form_no/:member_id/:phone_no',
         loadChildren: () =>
           import('../Admin/policy_view_form/policy_view_form.module').then(
             (m) => m.Policy_view_formModule
           ),
+      },
+      {
+       path: 'child_policy_view_form/:form_no/:member_id/:phone_no',
+       loadChildren: () => 
+         import('../Admin/child_policy_view_form/child_policy_view_form.module').then(
+          (m) => m.Child_policy_view_formModule
+         )
+      },
+      {
+       path: 'admin_approve_group_policy',
+       loadChildren: () =>
+          import(
+            '../Admin/admin_approve_group_policy/admin_approve_group_policy.module'
+          ).then((m) => m.Admin_approve_group_policyModule),
+      },
+      {
+       path: 'gp_policy_view_form/:form_no/:member_id/:phone_no',
+       loadChildren: () => 
+         import('../Admin/gp_policy_view_form/gp_policy_view_form.module').then(
+          (m) => m.Gp_policy_view_formModule
+         )
       },
       {
         path: 'super_policy_approve',
@@ -460,7 +509,7 @@ const routes: Routes = [
           ).then((m) => m.Stp_memb_trans_reportModule),
       },
       {
-        path: 'show_stp_trans_report/:from_dt/:to_dt/:memb_oprn',
+        path: 'show_stp_trans_report/:from_dt/:to_dt/:memb_oprn/:fin_year',
         loadChildren: () =>
           import(
             '../Admin/show_stp_trans_report/show_stp_trans_report.module'
@@ -479,6 +528,13 @@ const routes: Routes = [
           import(
             '../Admin/show_stp_member_report/show_stp_member_report.module'
           ).then((m) => m.Show_stp_member_reportModule),
+      },
+       {
+        path: 'admin_Profile',
+        loadChildren: () =>
+          import('../Admin/admin_profile/admin_profile.module').then(
+            (m) => m.Admin_profileModule
+          ),
       },
     ],
   },

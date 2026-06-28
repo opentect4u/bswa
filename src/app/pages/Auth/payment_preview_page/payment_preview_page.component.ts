@@ -36,7 +36,7 @@ export class Payment_preview_pageComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       const enc_dt = params['enc_dt'];
       // const expiry = Number(params['exp']);
-      // console.log(enc_dt,expiry,'juy');
+      console.log(enc_dt,'juy');
 
       // const formNo = this.route.snapshot.queryParamMap.get('form_no');
       // console.log(formNo,'form');
@@ -120,7 +120,5 @@ export class Payment_preview_pageComponent implements OnInit {
       // SHOW A ALERT
     }
   }
-
-
 
 }

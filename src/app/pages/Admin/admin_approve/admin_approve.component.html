@@ -1,4 +1,4 @@
-<p-card>
+<p-card class="custom-card">
 
   <div class="row align-items-center">
     <h3 class="flex align-items-center">
@@ -17,6 +17,7 @@
         <p-button class="add_btn" label="Submit" styleClass="p-button-rounded p-button-text p-button-raised"
           [style]="{'background-color': 'rgb(140 202 231)', 'border-color': '#50b0dd', 'color': '#ffff'}"
           (click)="submit_search()"></p-button>
+          <!-- <button mat-raised-button color="primary" (click)="submit_search()">Primary</button> -->
       </div>
     </div>
   </form>
@@ -101,7 +102,7 @@
           </div>
         </div>
       </ng-template>
-      <ng-template pTemplate="header" >
+      <ng-template pTemplate="header">
         <tr>
           <th id="table_color">Sl No</th>
           <th id="table_color">Form No</th>
@@ -134,7 +135,7 @@
       </ng-template>
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td colspan="5" class="text-center text-red-900">No data available</td>
+          <td colspan="6" class="text-center text-red-900">No data available</td>
         </tr>
       </ng-template>
     </p-table>

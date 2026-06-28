@@ -1,97 +1,69 @@
-.report-wrapper {
-  min-height: 100vh;
+.change-password-container {
+  min-height: 80vh;
+  padding: 30px;
+  background: linear-gradient(135deg, #6a8cc7, #cfd8ea);
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 3rem 1rem;
-  /* background: linear-gradient(to right, #e3f2fd, #bbdefb); */
+  border-radius: 14px;
 }
 
-/* .report-card {
+.change-password-box {
+  background: #fff;
+  padding: 30px 40px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
   width: 100%;
-  max-width: 720px;
-  border-radius: 20px;
-  padding: 2rem;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
-  background: linear-gradient(145deg, #ffffff, #f1f8ff);
-} */
-
-.report-card {
-    width: 100%;
-    max-width: 962px;
-    border-radius: 20px;
-    padding: 2rem;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
-    background: linear-gradient(145deg, #ddd6d6, #9aadc1);
+  max-width: 1000px;
 }
 
-.card-header {
+h3 {
   text-align: center;
-  margin-bottom: 2rem;
-}
-
-.card-header h2 {
+  color: #1b3c66;
   font-weight: 600;
-  font-size: 1.5rem;
-  margin-top: 0.5rem;
-  color: #1976d2;
+  margin-bottom: 20px;
+  justify-content: center;
 }
 
-.header-icon {
-  font-size: 40px;
-  color: #0288d1;
+.label_field {
+  font-size: 17px;
+  color: #11141a;
+  display: block;
+  margin-bottom: 8px;
 }
 
-.form-grid {
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: 1fr 1fr;
+input[type="date"],
+select {
+  height: 42px;
+  border-radius: 8px !important;
+  border: 1px solid #d1d5db !important;
+  transition: all .2s ease;
+  width: 100%;
+  padding: 0 10px;
+  outline: none;
+  font-weight: bold;
 }
 
-/* Reduce form field size */
-.form-grid mat-form-field {
-  font-size: 0.85rem;
-  --mat-mdc-form-field-padding: 0.25rem;
+input[type="date"]:focus,
+select:focus {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 4px rgba(59,130,246,0.4);
 }
 
-.form-grid input.mat-input-element {
-  padding: 0.3rem 0.5rem;
-  font-size: 0.85rem;
-  height: 32px;
-}
-
-/* Reduce label spacing */
-.mat-mdc-form-field-infix {
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
-}
-
-/* Icon sizing if used */
-.form-grid mat-icon {
-  font-size: 18px;
-}
-
-/* Optional: smaller datepicker toggle button */
-.mat-datepicker-toggle-default-icon {
-  font-size: 18px;
-}
-
-
-.btn-row {
-  text-align: center;
-  margin-top: 2rem;
-}
-
-.generate-btn {
-  padding: 0.75rem 2.5rem;
+.sub_btn {
+  background: #7683ad !important;
+  border: none !important;
+  padding: 8px 24px !important;
+  border-radius: 8px !important;
+  color: white !important;
   font-weight: 600;
-  font-size: 1rem;
-  background-color: #1976d2;
-  border-radius: 30px;
-  transition: background-color 0.3s ease;
-  color: #fff;
+  transition: background 0.3s;
 }
 
-.generate-btn:hover {
-  background-color: #0d47a1;
+.sub_btn:hover {
+  background: #5c678a !important;
+}
+
+::ng-deep .p-divider.p-divider-horizontal {
+  margin: 20px 0;
 }

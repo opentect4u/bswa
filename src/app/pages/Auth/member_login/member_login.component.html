@@ -1,14 +1,16 @@
 <p-toast></p-toast>
 <div class="login-container">
   <div class="login-box">
+
     <div class="image-section">
       <img src="assets/images/Asian family.gif" alt="Login illustration" />
     </div>
-    <div class="form-section">
-      <img src="assets/images/banner_logo.png" alt="Login illustration" class="stp_login_img"/>
-      <h4 class="img_adjust">WELCOME TO MEMBER LOGIN</h4>
 
-      <form [formGroup] = "loginForm" (ngSubmit)="logSubmit()">
+    <div class="form-section">
+      <!-- <img src="assets/images/logo.jpg" alt="Login illustration" class="stp_login_img"/> -->
+      <!-- <h4 class="img_adjust">WELCOME TO MEMBER LOGIN</h4> -->
+
+      <!-- <form [formGroup] = "loginForm" (ngSubmit)="logSubmit()">
         <div class="custom-input-wrapper">
           <div class="icon-section">
             <mat-icon>person</mat-icon>
@@ -47,7 +49,61 @@
           </div>
           <a class="go_back" href="/#/home">← Back to Home Page</a>
         </div>
-      </form>
+      </form> -->
+    <div class="title-wrapper">
+  <i class="pi pi-arrow-left back-arrow" (click)="goBack()"></i>
+  <h2 class="title">Sign In</h2>
+</div>
+      <p class="subtitle"><b>Enter your details to continue</b></p>
+
+        <div class="login-card mt-2">
+           <!-- <div class="icon-box">
+          <i class="pi pi-user"></i>
+        </div> -->
+
+         <label class="section-label">Select Type</label>
+        <div class="type-buttons mt-2">
+          <button class="type-btn active" [class.active]="loginType === 'BSPWA'" (click)="selectType('BSPWA')">BSPWA</button>
+          <button class="type-btn" [class.active]="loginType === 'OTHERS'" (click)="selectType('OTHERS')">Others</button>
+        </div>
+
+        <label class="section-label mt-3">{{ loginType === 'BSPWA' ? 'Member ID' : 'MIN Number' }}</label>
+        <input type="text" class="input-box mt-2" [placeholder]="loginType === 'BSPWA' ? 'Enter Member ID' : 'Enter MIN No'" [(ngModel)]="memberInput" (input)="memberInput = memberInput.trim() "/>
+
+         <label class="section-label mt-3">Enter PIN</label>
+
+           <div class="pin-row">
+  <input maxlength="1" inputmode="numeric" [type]="showPin ? 'text' : 'password'"
+    [(ngModel)]="pin[0]" [ngModelOptions]="{standalone:true}"
+    (input)="focusNext($event, 0)" (keydown)="handleKeydown($event, 0)"/>
+
+  <input maxlength="1" inputmode="numeric" [type]="showPin ? 'text' : 'password'"
+    [(ngModel)]="pin[1]" [ngModelOptions]="{standalone:true}"
+    (input)="focusNext($event, 1)" (keydown)="handleKeydown($event, 1)"/>
+
+  <input maxlength="1" inputmode="numeric" [type]="showPin ? 'text' : 'password'"
+    [(ngModel)]="pin[2]" [ngModelOptions]="{standalone:true}"
+    (input)="focusNext($event, 2)" (keydown)="handleKeydown($event, 2)"/>
+
+  <input maxlength="1" inputmode="numeric" [type]="showPin ? 'text' : 'password'"
+    [(ngModel)]="pin[3]" [ngModelOptions]="{standalone:true}" (keydown)="handleKeydown($event, 3)"/>
+
+  <i class="pi"
+     [ngClass]="showPin ? 'pi-eye' : 'pi-eye-slash'"
+     (click)="togglePin()">
+  </i>
+</div>
+
+  <button
+  class="continue-btn mt-4"
+  [disabled]="!canContinue()" (click)="logSubmit()">
+  Continue
+</button>
+
+
+  <!-- <a class="generate-pin" (click)="generate_pin_route()">Forget PIN</a> -->
+  </div>
+    
     </div>
   </div>
 </div>

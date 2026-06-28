@@ -1,105 +1,112 @@
-<p-card>
-  <div class="wrapper">
-    <div class="col-lg-12 container contant-wraper">
+<div class="change-password-container">
+  <div class="change-password-box relative">
+    <div class="absolute top-0 left-0 mt-4 ml-4" style="z-index: 10;">
+      <button pButton pRipple type="button" label="Back" icon="pi pi-arrow-left"
+        class="p-button-text p-button-secondary" (click)="navigateBack()" style="font-weight: 600;"></button>
+    </div>
 
-      <div id="divToPrint">
-
-        <div style="text-align:center;" class="print_top_head">
-          <h2>BOSEC WELFARE TRUST</h2>
-          <h4>13, Camac Street, Kolkata 700017</h4>
-          <h4>STP Member Transaction Report On <b>{{from_dt | date: 'dd/MM/yyyy'}}</b> to <b>{{to_dt | date:
-              'dd/MM/yyyy'}}</b></h4>
-        </div>
-        <br>
-
-
-        <div class="card mt-4" style="margin: 10px" class="table_print_outer">
-          <p-table [value]="userData" #dt2 dataKey="id" [rows]="5" [showCurrentPageReport]="true"
-            [rowsPerPageOptions]="[5, 10, 25, 50]" [paginator]="true"   
-            (onFilter)="checkSpouseDataInVisibleRows()"
-            (onPage)="checkSpouseDataInVisibleRows()"
-            (onSort)="checkSpouseDataInVisibleRows()"
-            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-            [globalFilterFields]="['memb_type']" [tableStyle]="{
-              'min-width': '95rem',
-              'box-shadow': '0 10px 28px rgba(1.5, 1.5, 1.5, 1.5)',
-            }">
-            <ng-template pTemplate="header">
-              <tr>
-                <th id="table_color">SL No</th>
-                <th id="table_color">Transaction ID</th>
-                <th id="table_color">Transaction Date</th>
-                <th id="table_color">MIN No</th>
-                <th id="table_color">Member Name</th>
-                <th id="table_color">Member Gender</th>
-                <th id="table_color">Member Dob</th>
-                <th id="table_color" *ngIf="hasSpouseData">Spouse MIN No</th>
-                <th id="table_color" *ngIf="hasSpouseData">Spouse Name</th>
-                <th id="table_color" *ngIf="hasSpouseData">Spouse Gender</th>
-                <th id="table_color" *ngIf="hasSpouseData">Spouse Dob</th>
-                <th id="table_color">Premium Amount</th>
-                <th id="table_color">Total Amount</th>
-                <th id="table_color">Pay Mode</th>
-                <th id="table_color">Approval Status</th>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-customer let-i="rowIndex">
-              <tr>
-                <td class="text-center"><b>{{i+1}}</b></td>
-                <td class="text-center"><b>{{customer.trn_id}}</b></td>
-                <td class="text-center"><b>{{customer.trn_dt ? (customer.trn_dt | date: 'dd/MM/yyyy') :
-                    '0000/00/00'}}</b></td>
-                <td class="text-center"><b>{{customer.min_no}}</b></td>
-                <td class="text-center"><b>{{customer.memb_name}}</b></td>
-                <td class="text-center"><b>{{customer.gender == 'M' ? 'Male' : customer.gender == 'F' ? 'Female' : 'N/A'}}</b></td>
-                <td class="text-center"><b>{{customer.dob ? (customer.dob | date: 'dd/MM/yyyy') :
-                    '0000/00/00'}}</b></td>
-                <!-- <td class="text-center" *ngIf="customer.memb_oprn === 'D'"><b>{{customer.spou_min_no}}</b></td>
-                <td class="text-center" *ngIf="customer.memb_oprn === 'D'"><b>{{customer.dependent_name}}</b></td>
-                <td class="text-center" *ngIf="customer.memb_oprn === 'D'"><b>{{customer.spou_dob ? (customer.spou_dob | date: 'dd/MM/yyyy') :
-                    '0000/00/00'}}</b></td> -->
-                    <td class="text-center" *ngIf="hasSpouseData">
-                    <b>{{customer.memb_oprn === 'D' ? customer.spou_min_no : 'N/A'}}</b>
-                    </td>
-                    <td class="text-center" *ngIf="hasSpouseData">
-                      <b>{{customer.memb_oprn === 'D' ? customer.dependent_name : 'N/A'}}</b>
-                    </td>
-                     <td class="text-center" *ngIf="hasSpouseData">
-                      <b>{{customer.memb_oprn === 'D' ? (customer.spou_gender == 'M' ? 'Male' : customer.spou_gender == 'F' ? 'Female' : 'N/A') : 'N/A'}}</b>
-                    </td>
-                    <td class="text-center" *ngIf="hasSpouseData">
-                      <b>{{customer.memb_oprn === 'D' ? (customer.spou_dob ? (customer.spou_dob | date: 'dd/MM/yyyy') : '0000/00/00') : 'N/A'}}</b>
-                    </td>
-
-                <td class="text-center"><b>{{customer.premium_amt}}</b></td>
-                <td class="text-center"><b>{{customer.tot_amt}}</b></td>
-                <td class="text-center"><b>{{customer.pay_mode =='O' ? 'Online' : 'N/A'}}</b></td>
-                <td class="text-center"><b>{{customer.approval_status == 'A' ? 'Approved' : 'Unapproved'}}</b></td>
-              </tr>
-            </ng-template>
-
-            <ng-template pTemplate="footer">
-              <tr>
-                <!-- <td [attr.colspan]="hasSpouseDataInVisibleRows ? 9 : 6" class="text-center">Total</td> -->
-                <td [attr.colspan]="hasSpouseData ? 11 : 7" class="text-center">Total</td>
-                <td class="text-center">{{totalPremAmount}}</td>
-                <td class="text-center">{{totalCalAmount}}</td>
-                <td colspan="2"></td>
-              </tr>
-            </ng-template>
-
-            <ng-template pTemplate="emptymessage">
-              <tr>
-                <td colspan="15" class="text-center text-red-900">No data available</td>
-              </tr>
-            </ng-template>
-          </p-table>
-        </div>
-
+    <div id="divToPrint">
+      <div style="text-align:center;" class="print_top_head">
+        <h2 style="color: #1b3c66; font-weight: bold;">BOSEC WELFARE TRUST</h2>
+        <h4 style="color: #4b5563;">13, Camac Street, Kolkata 700017</h4>
+        <h4 style="color: #4b5563; margin-top: 10px;">STP Member Transaction Report On <b>{{from_dt | date:
+            'dd/MM/yyyy'}}</b> to <b>{{to_dt | date: 'dd/MM/yyyy'}}</b></h4>
       </div>
-        <button mat-raised-button color="primary" style="margin-left: 1vw" (click)="printDiv()">Print</button>
-        <button mat-raised-button color="primary" style="margin-left: 1vw" (click)="download()">Download</button>
+      <p-divider type="dashed"></p-divider>
+
+      <div class="mt-4 table_print_outer">
+        <p-table [value]="userData" #dt2 dataKey="id" [rows]="10" [showCurrentPageReport]="true"
+          [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" (onFilter)="checkSpouseDataInVisibleRows()"
+          (onPage)="checkSpouseDataInVisibleRows()" (onSort)="checkSpouseDataInVisibleRows()"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+          [globalFilterFields]="['memb_type']"
+          [tableStyle]="{ 'min-width': '100%', 'box-shadow': '0 4px 10px rgba(0,0,0,0.1)' }"
+          styleClass="p-datatable-striped p-datatable-gridlines">
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="background-color: #1b3c66; color: white;">SL No</th>
+              <th style="background-color: #1b3c66; color: white;">Transaction ID</th>
+              <th style="background-color: #1b3c66; color: white;">Transaction Date</th>
+              <th style="background-color: #1b3c66; color: white;">MIN No</th>
+              <th style="background-color: #1b3c66; color: white;">Member Name</th>
+              <th style="background-color: #1b3c66; color: white;">Member Gender</th>
+              <th style="background-color: #1b3c66; color: white;">Member Dob</th>
+              <th style="background-color: #1b3c66; color: white;" *ngIf="hasSpouseData">Spouse MIN No</th>
+              <th style="background-color: #1b3c66; color: white;" *ngIf="hasSpouseData">Spouse Name</th>
+              <th style="background-color: #1b3c66; color: white;" *ngIf="hasSpouseData">Spouse Gender</th>
+              <th style="background-color: #1b3c66; color: white;" *ngIf="hasSpouseData">Spouse Dob</th>
+              <th style="background-color: #1b3c66; color: white;">Financial Year</th>
+              <th style="background-color: #1b3c66; color: white;">Premium Type</th>
+              <th style="background-color: #1b3c66; color: white;">Policy Amount</th>
+              <th style="background-color: #1b3c66; color: white;">Premium Amount</th>
+              <th style="background-color: #1b3c66; color: white;">Total Amount</th>
+              <th style="background-color: #1b3c66; color: white;">Pay Mode</th>
+              <th style="background-color: #1b3c66; color: white;">Approval Status</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-customer let-i="rowIndex">
+            <tr>
+              <td class="text-center">{{i+1}}</td>
+              <td class="text-center">{{customer.trn_id}}</td>
+              <td class="text-center">{{customer.trn_dt ? (customer.trn_dt | date: 'dd/MM/yyyy') : '0000/00/00'}}</td>
+              <td class="text-center">{{customer.min_no}}</td>
+              <td class="text-center">{{customer.memb_name}}</td>
+              <td class="text-center">{{customer.gender == 'M' ? 'Male' : customer.gender == 'F' ? 'Female' : 'N/A'}}
+              </td>
+              <td class="text-center">{{customer.dob ? (customer.dob | date: 'dd/MM/yyyy') : '0000/00/00'}}</td>
+              <td class="text-center" *ngIf="hasSpouseData">{{customer.memb_oprn === 'D' ? customer.spou_min_no :
+                'N/A'}}</td>
+              <td class="text-center" *ngIf="hasSpouseData">{{customer.memb_oprn === 'D' ? customer.dependent_name :
+                'N/A'}}</td>
+              <td class="text-center" *ngIf="hasSpouseData">{{customer.memb_oprn === 'D' ? (customer.spou_gender == 'M'
+                ? 'Male' : customer.spou_gender == 'F' ? 'Female' : 'N/A') : 'N/A'}}</td>
+              <td class="text-center" *ngIf="hasSpouseData">{{customer.memb_oprn === 'D' ? (customer.spou_dob ?
+                (customer.spou_dob | date: 'dd/MM/yyyy') : '0000/00/00') : 'N/A'}}</td>
+              <td class="text-center">{{customer.financial_year ? customer.financial_year : 'N/A'}}</td>
+              <td class="text-center">{{customer.memb_oprn == 'S' ? 'Single' : customer.memb_oprn == 'D' ?
+                'Double' : 'N/A'}}</td>
+              <td class="text-center">{{customer.policy_amount ? customer.policy_amount : '0'}}</td>
+              <td class="text-center">{{customer.premium_amt}}</td>
+              <td class="text-center">{{customer.tot_amt}}</td>
+              <td class="text-center">{{customer.pay_mode =='O' ? 'Online' : 'N/A'}}</td>
+              <td class="text-center">{{customer.approval_status == 'A' ? 'Approved' : 'Unapproved'}}</td>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="footer">
+            <tr>
+              <td [attr.colspan]="hasSpouseData ? 14 : 10" class="text-center">Total</td>
+              <td class="text-center">{{totalPremAmount}}</td>
+              <!-- <td class="text-center"></td> -->
+              <td class="text-center">{{totalCalAmount}}</td>
+              <td colspan="2"></td>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="18" class="text-center text-red-900" style="padding: 20px;">No data available</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+
+    <div class="flex justify-content-center mt-4 gap-3">
+      <button pButton pRipple type="button" label="Print" icon="pi pi-print"
+        class="p-button-raised p-button-info btn-print" (click)="printDiv()"></button>
+      <button pButton pRipple type="button" label="Download" icon="pi pi-download"
+        class="p-button-raised p-button-success btn-download" (click)="download(dt2)"></button>
+      <button pButton pRipple type="button" label="Download All Data" icon="pi pi-file-excel"
+        class="p-button-raised p-button-success btn-download" (click)="downloadAllData()"></button>
     </div>
   </div>
 
-</p-card>
+  <!-- Floating Scroll Controls -->
+  <div class="scroll-controls-container">
+    <button pButton pRipple icon="pi pi-arrow-up" class="p-button-rounded p-button-secondary shadow-3 mb-2"
+      (click)="scrollTable('up')" pTooltip="Scroll Up"></button>
+    <button pButton pRipple icon="pi pi-arrow-down" class="p-button-rounded p-button-secondary shadow-3"
+      (click)="scrollTable('down')" pTooltip="Scroll Down"></button>
+  </div>
+</div>

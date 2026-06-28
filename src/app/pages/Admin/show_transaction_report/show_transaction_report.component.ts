@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from 'src/app/service/data.service';
 import { ActivatedRoute } from '@angular/router';
-import { DatePipe } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 import * as XLSX from 'xlsx';
 
 @Component({
@@ -34,7 +34,8 @@ export class Show_transaction_reportComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private dataServe: DataService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private location: Location
   ) { }
 
   ngOnInit() {
@@ -64,6 +65,16 @@ export class Show_transaction_reportComponent implements OnInit {
       console.log(data,'kiki')
       this.userData = data;
       this.userData = this.userData.msg;
+
+      // Sort by transaction date descending (latest first)
+      if (this.userData && this.userData.length > 0) {
+        this.userData.sort((a: any, b: any) => {
+          const dateA = a.trn_dt ? new Date(a.trn_dt).getTime() : 0;
+          const dateB = b.trn_dt ? new Date(b.trn_dt).getTime() : 0;
+          return dateB - dateA;
+        });
+      }
+
       for (let customer of this.userData) {
       this.totalAdmissionFee += (+customer.adm_fee);
       this.totalDonationnFee += (+customer.donation);
@@ -107,14 +118,14 @@ export class Show_transaction_reportComponent implements OnInit {
       'body{font-family:Arial, Tahoma, Verdana;font-size: 14px;color: #6f7479;}' +
       '.wrapper{box-shadow: none !important; max-width: 1100px; width: 100%; margin: 0 auto; font-family:Arial, Tahoma, Verdana;}' +
       '.contant-wraper{box-shadow: none !important;}'+
-      // '.table_print_outer {border:red solid 2px;}' +
-      '.table_print_outer table thead tr th{background:#000 !important; color:#fff; margin: 0 !important; padding:7px 3px; border: none;}' +
-      '.table_print_outer table thead{text-align: left; background:#000 !important;}' +
-      '.table_print_outer table tbody tr td{text-align: left; text-wrap: wrap; color:#333; padding:7px 3px; word-break: break-word; border: none; margin: 0 !important;}' +
-      '.table_print_outer table tbody tr{border-bottom:#333 solid 1px;}' +
-      '.print_top_head h2{margin: 0; padding: 0; font-size:20px; color:#000;}' +
-      '.print_top_head h4{margin: 0; padding: 0; font-size:16px; color:#000;}' +
-      '.print_top_Title h4{margin: 0; padding: 0; font-size:16px; color:#000;}' +
+      '.table_print_outer table { width: 100%; border-collapse: collapse; }' +
+      '.table_print_outer table thead tr th{background:#000 !important; color:#fff; margin: 0 !important; padding:7px 3px; border: 1px solid #333; text-align: center;}' +
+      '.table_print_outer table tbody tr td{text-align: center; text-wrap: wrap; color:#333; padding:7px 3px; word-break: break-word; border: 1px solid #333; margin: 0 !important;}' +
+      '.p-paginator { display: none !important; }' +
+      '.p-datatable-wrapper { overflow: visible !important; }' +
+      '.print_top_head h2{margin: 0; padding: 0; font-size:20px; color:#000 !important;}' +
+      '.print_top_head h4{margin: 0; padding: 0; font-size:16px; color:#000 !important;}' +
+      '.print_top_Title h4{margin: 0; padding: 0; font-size:16px; color:#000 !important;}' +
       '.msg_adress{width:120px;}'+
       '.table_head_cus tr td{background: #D9D9D9;}' +
               '} </style>');
@@ -138,10 +149,19 @@ export class Show_transaction_reportComponent implements OnInit {
   }
 
 
-  download(){
-    const dataWithSlNo = this.userData.map((customer: { member_id: string; memb_name: any; adm_fee: any;donation: any; sub_amt: any; onetime_amt: any; premium_amt: any; pay_mode: any; receipt_no: any; chq_no: any;  chq_dt: string}, index: number) => {
+  download(dt: any = null){
+    let dataToExport = this.userData;
+
+    if (dt) {
+      const first = dt.first || 0;
+      const rows = dt.rows || 10;
+      const filteredValue = dt.filteredValue || dt.value || [];
+      dataToExport = filteredValue.slice(first, first + rows);
+    }
+
+    const dataWithSlNo = dataToExport.map((customer: { member_id: string; memb_name: any; adm_fee: any;donation: any; sub_amt: any; onetime_amt: any; premium_amt: any; pay_mode: any; receipt_no: any; chq_no: any;  chq_dt: string}, index: number) => {
       return {
-        'SL No': index + 1,
+        'SL No': (dt ? (dt.first || 0) : 0) + index + 1,
         'Member ID': customer.member_id,
         'Member Name': customer.memb_name,
         'Admission Fee': customer.adm_fee,
@@ -149,7 +169,7 @@ export class Show_transaction_reportComponent implements OnInit {
         'Subscription Fee': customer.sub_amt,
         'Onetime Amount': customer.onetime_amt,
         'Premium Amount': customer.premium_amt,
-        'Pay Mode': customer.pay_mode=='C' ? 'Cash' : customer.pay_mode=='Q' ? 'Cheque' : customer.       pay_mode=='T' ?
+        'Pay Mode': customer.pay_mode=='C' ? 'Cash' : customer.pay_mode=='Q' ? 'Cheque' : customer.pay_mode=='T' ?
           'Online Transaction' : '',
         'Receipt No': customer.receipt_no,
         'Cheque No': customer.chq_no,
@@ -162,7 +182,20 @@ export class Show_transaction_reportComponent implements OnInit {
     XLSX.utils.book_append_sheet(wb,ws, 'placeholder');
 
 
-    XLSX.writeFile(wb, 'Member Transaction List.xlsx')
+    XLSX.writeFile(wb, dt ? 'Member Transaction List (Page).xlsx' : 'Member Transaction List.xlsx')
   }
-  
+
+  downloadAllData() {
+    this.download(null);
+  }
+
+  navigateBack() {
+    this.location.back();
+  }
+
+  scrollTable(direction: string) {
+    const scrollAmount = 300;
+    if (direction === 'up') window.scrollBy({ top: -scrollAmount, behavior: 'smooth' });
+    else if (direction === 'down') window.scrollBy({ top: scrollAmount, behavior: 'smooth' });
+  }
 }

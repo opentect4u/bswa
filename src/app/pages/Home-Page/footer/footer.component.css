@@ -1,0 +1,40 @@
+.footer-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.footer-links {
+  margin: 0;
+  font-size: 14px;
+}
+
+.app-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.store-btn {
+  height: 65px;
+  width: auto;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+   /* filter: brightness(0) invert(1); */
+}
+.footer_sec {
+  background: #111;
+  color: #0e0a0a;
+}
+
+.store-btn:hover {
+  transform: scale(1.05);
+}
+
+.footer-email,
+.footer-copy {
+  text-align: center;
+  margin-top: 8px;
+  font-size: 13px;
+}

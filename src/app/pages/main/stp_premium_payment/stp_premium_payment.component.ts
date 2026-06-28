@@ -36,6 +36,8 @@ export class Stp_premium_paymentComponent implements OnInit {
     responseData: any
     userData: UserInfo | any;
     isCutoffPassed: boolean = false;
+    policyAmtList: any[] = [];
+    premiumAmtList: any[] = [];
 
   constructor(private router: Router,
     private fb: FormBuilder,
@@ -58,7 +60,8 @@ export class Stp_premium_paymentComponent implements OnInit {
     premium_type: [''],
     dependent_name: [''],
     spou_min_no: [''],
-    tot_prem: [''],
+    policy_amount: ['', Validators.required],
+    tot_prem: ['', Validators.required],
     });
 
     this.checkCutoff();
@@ -125,12 +128,45 @@ export class Stp_premium_paymentComponent implements OnInit {
     (res: any) => {
       console.log("Fetched premium amount:", res);
 
-      if (res && res.premium_amt) {
-        // Patch form and update userData
-        this.userData.premium_amt = res.premium_amt;
-        this.form.patchValue({ tot_prem: res.premium_amt });
+      if (res && res.policy_amt && res.premium_amt && res.policy_amt.length > 0) {
+        this.policyAmtList = res.policy_amt;
+        this.premiumAmtList = res.premium_amt;
+        
+        let preselectedIndex: any = '';
+        if (this.userData) {
+          // The backend might return the paid premium under a different key like 'amount' (as sent in submit), 'premium_amt', etc.
+          const paidPremium = this.userData.premium_amt || this.userData.amount || this.userData.tot_prem;
+          const paidPolicy = this.userData.policy_amt || this.userData.policy_amount;
+
+          if (paidPremium) {
+            const idx = this.premiumAmtList.findIndex((p: any) => String(p) === String(paidPremium));
+            if (idx !== -1) {
+              preselectedIndex = idx;
+            }
+          } else if (paidPolicy) {
+            const idx = this.policyAmtList.findIndex((p: any) => String(p) === String(paidPolicy));
+            if (idx !== -1) {
+              preselectedIndex = idx;
+            }
+          }
+        }
+        
+        // If DB doesn't have it, check localStorage to remember their exact previous selection on this device
+        if (preselectedIndex === '') {
+          let savedIdx = localStorage.getItem('stp_saved_policy_idx_' + (this.userData?.member_id || ''));
+          if (savedIdx !== null && savedIdx !== '') {
+            preselectedIndex = Number(savedIdx);
+          }
+        }
+        
+        this.form.patchValue({ 
+          policy_amount: preselectedIndex, 
+          tot_prem: preselectedIndex !== '' ? this.premiumAmtList[preselectedIndex] : '' 
+        });
       } else {
-        this.form.patchValue({ tot_prem: '0' });
+        this.policyAmtList = [];
+        this.premiumAmtList = [];
+        this.form.patchValue({ policy_amount: '', tot_prem: '' });
       }
     },
     (error) => {
@@ -139,15 +175,33 @@ export class Stp_premium_paymentComponent implements OnInit {
   );
 } 
 
+  onPolicyChange(event: any) {
+    const selectedIndex = event.value;
+    if (selectedIndex !== '' && selectedIndex !== undefined && selectedIndex !== null) {
+      const selectedPremium = this.premiumAmtList[selectedIndex];
+      this.form.patchValue({ tot_prem: selectedPremium });
+      if (this.userData) {
+        this.userData.premium_amt = selectedPremium;
+        localStorage.setItem('stp_saved_policy_idx_' + this.userData.member_id, selectedIndex);
+      }
+    } else {
+      this.form.patchValue({ tot_prem: '' });
+      if (this.userData) {
+        this.userData.premium_amt = '';
+        localStorage.removeItem('stp_saved_policy_idx_' + this.userData.member_id);
+      }
+    }
+  }
+
       submit_premium() {
         // 🔒 Double security: Prevent submission even if user manipulates DOM
        const cutoff = new Date('2025-08-26T00:00:00');
        const now = new Date();
 
-       if (now >= cutoff) {
-        Swal.fire("Deposit Premium Closed", "You cannot submit after 26-08-2025 12:00 PM", "error");
-        return;
-        }
+      //  if (now >= cutoff) {
+      //   Swal.fire("Deposit Premium Closed", "You cannot submit after 26-08-2025 12:00 PM", "error");
+      //   return;
+      //   }
 
          var memberName = this.userData.memb_name;
          var premiumAmount = this.userData.premium_amt;

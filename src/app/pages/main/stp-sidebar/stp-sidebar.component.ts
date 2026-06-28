@@ -44,8 +44,11 @@ public sideMenuItem: any = [];
      {
       label: 'Deposit Premium',
       icon: 'pi pi-wallet',
-      routerLink: this.isAfterCutoff ? null : '/main/stp_premium_payment', // disable after cutoff
-      disabled: this.isAfterCutoff // PrimeNG supports disabled flag
+      // routerLink: this.isAfterCutoff ? null : '/main/stp_premium_payment',
+      routerLink: '/main/stp_premium_payment',
+
+      // routerLink: this.isAfterCutoff ? null : '/main/stp_premium_payment', // disable after cutoff
+      // disabled: this.isAfterCutoff // PrimeNG supports disabled flag
     },
     //   {
     //   label: 'Deposit Premium',
@@ -68,6 +71,11 @@ public sideMenuItem: any = [];
       url: 'https://mdindiaonline.com/E-Cardrequest.aspx',
       target: '_blank',
       routerLink: null
+   },
+   {
+      label: 'Logout',
+      icon: 'pi pi-sign-out',
+      routerLink: '/auth/member_login'
    },
   ];
   }

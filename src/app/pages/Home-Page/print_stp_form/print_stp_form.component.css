@@ -90,3 +90,8 @@ p-card.p-element{
     display: flex;
     justify-content: space-between;
 }
+
+    ::ng-deep p-card.custom-card .p-card-body {
+  /* background: linear-gradient(to right, #dfe4eb, #c7d9f1); */
+  background: linear-gradient(to right, #afbdd3, #e6e9ee);
+}

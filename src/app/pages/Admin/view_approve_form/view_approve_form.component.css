@@ -9,3 +9,8 @@
 /* .size{
     margin-left: 53vw;
 } */
+
+    ::ng-deep p-card.custom-card .p-card-body {
+  /* background: linear-gradient(to right, #dfe4eb, #c7d9f1); */
+  background: linear-gradient(to right, #9eadc5, #dfe4eb);
+}

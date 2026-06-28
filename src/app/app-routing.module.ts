@@ -10,6 +10,48 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'about-us',
+    loadChildren: () =>
+      import('./pages/Home-Page/about-us/about-us.module').then(
+        (m) => m.AboutUsModule
+      ),
+  },
+   {
+    path: 'contact-us',
+    loadChildren: () =>
+      import('./pages/Home-Page/contact-us/contact-us.module').then(
+        (m) => m.ContactUsModule
+      ),
+  },
+   {
+    path: 'privacy-policy',
+    loadChildren: () =>
+      import('./pages/Home-Page/privacy-policy/privacy-policy.module').then(
+        (m) => m.PrivacyPolicyModule
+      ),
+  },
+  {
+    path: 'delivery-shipping-policy',
+    loadChildren: () =>
+      import('./pages/Home-Page/delivery-shipping-policy/delivery-shipping-policy.module').then(
+        (m) => m.DeliveryShippingPolicyModule
+      ),
+  },
+  {
+    path: 'refund-cancellation-policy',
+    loadChildren: () =>
+      import('./pages/Home-Page/refund-cancellation-policy/refund-cancellation-policy.module').then(
+        (m) => m.RefundCancellationPolicyModule
+      ),
+  },
+  {
+    path: 'terms-condition',
+    loadChildren: () =>
+      import('./pages/Home-Page/terms-condition/terms-condition.module').then(
+        (m) => m.TermsConditionModule
+      ),
+  },
+  {
     path: 'auth',
     loadChildren: () =>
       import('../app/pages/Auth/Auth.module').then((m) => m.AuthModule),

@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ValidatorsService } from 'src/app/service/validators.service';
 import Swal from 'sweetalert2';
 import { MessageService } from 'primeng/api';
+import { ChangeDetectorRef } from '@angular/core';
 
 // interface UserInfo {
 //   form_no: string;
@@ -150,32 +151,85 @@ export class MembDtlsComponent implements OnInit {
   // mem_type:any
   // memResDt: any;
   // userData: UserInfo | any;
-
-
   form!: FormGroup;
   responsedata: any;
-  userData: any;
+  userData: UserInfo | any;
 
   memberData: UserInfo | any;
-  responsedata_rel: any;
+  // responsedata_rel: any;
+  responsedata_rel: any[] = [];
+
+// relationship() {
+//   this.dataServe
+//     .global_service(0, '/master/relationship_list', null)
+//     .subscribe((data: any) => {
+//       this.responsedata_rel = Array.isArray(data?.msg) ? data.msg : [];
+//     });
+// }
+
   uploadedFiles: any[] = [];
   spouseFile: any = null
   memFile: any = null
+  responsedatas: any[] = [];
 
   api_url = environment.api_url
   spouseFileName: any = null;
   memFileName: any = null;
-
+  showDependentSection = false;
+  showSpouseSection = false;
+  showIntroSection = false;
 
   mem_type: any;
   memberData_intro: any;
+  
+
+    memberOperationList = [
+    { label: 'Select Member Operation', value: 'N', disabled: true },
+    { label: 'Self', value: 'S' },
+    { label: 'Joint', value: 'J' }
+    ];
+
+    genderList = [
+    { label: 'Select Gender', value: 'N', disabled: true },
+    { label: 'Male', value: 'M' },
+    { label: 'Female', value: 'F' }
+    ];
+
+    maritalStatusList = [
+    { label: 'Select Marital Status', value: 'N', disabled: true },
+    { label: 'Married', value: 'M' },
+    { label: 'Unmarried', value: 'U' },
+    { label: 'Widow', value: 'W' },
+    { label: 'Widower', value: 'WR' },
+    { label: 'Divorced', value: 'D' }
+    ];
+
+     bloodList = [
+    { label: 'Select Blood Group', value: 'N', disabled: true },
+    { label: 'A+', value: 'A+' },
+    { label: 'A-', value: 'A-' },
+    { label: 'B+', value: 'B+' },
+    { label: 'B-', value: 'B-' },
+    { label: 'O+', value: 'O+' },
+    { label: 'O-', value: 'O-' },
+    { label: 'AB+', value: 'AB+' },
+    { label: 'AB-', value: 'AB-' },
+    ];
+
+    casteList = [
+    { label: 'Select Caste', value: 'N', disabled: true },
+    { label: 'General', value: 'G' },
+    { label: 'SC', value: 'S' },
+    { label: 'ST', value: 'T' },
+    { label: 'Others', value: 'O' },
+    ];
   constructor(  private router: Router,
     private fb: FormBuilder,
     private dataServe: DataService,
     private validatorsService: ValidatorsService,
     private route: ActivatedRoute,
     private datePipe: DatePipe,
-    private messageService: MessageService) { }
+    private messageService: MessageService,private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.form_no = localStorage.getItem('form_no')
@@ -184,24 +238,24 @@ export class MembDtlsComponent implements OnInit {
 
   this.form = this.fb.group({
     form_no: [this.form_no],
-    member_type: [{ value: '', disabled: true } ],
-    member_opt: ['', Validators.required],
-    unit_nm: ['', Validators.required],
-    member: ['', Validators.required],
-    gurdian: ['', Validators.required],
-    gen: ['', Validators.required],
+    member_type: [{ value: '' } ],
+    member_opt: [''],
+    unit_nm: [''],
+    member: [''],
+    gurdian: [''],
+    gen: [''],
     marital_status: [''],
-    gen_dob: ['', Validators.required],
-    phone: ['', Validators.required],
+    gen_dob: [''],
+    phone: [''],
     email_id: [''],
-    blood: ['', Validators.required],
+    blood: [''],
     caste: [''],
-    staff: ['', Validators.required],
-    personal: ['', Validators.required],
+    staff: [''],
+    personal: [''],
     min: [''],
-    mem: ['', Validators.required],
+    mem: [''],
     city: [''],
-    pin: ['', Validators.required],
+    pin: [''],
     police_st: [''],
     spouse_fr: this.fb.group({
       spou_name: [''],
@@ -247,10 +301,11 @@ unit() {
   this.dataServe
     .global_service(0, '/master/unit_list', null)
     .subscribe((data: any) => {
-      this.responsedata = data;
+      // this.responsedata = data;
       console.log(this.responsedata, '555');
-      this.responsedata =
-        this.responsedata.suc > 0 ? this.responsedata.msg : [];
+      this.responsedatas =
+        // this.responsedata.suc > 0 ? this.responsedata.msg : [];
+        Array.isArray(data?.msg) ? data.msg : [];
     });
 }
 
@@ -258,12 +313,147 @@ relationship() {
   this.dataServe
     .global_service(0, '/master/relationship_list', null)
     .subscribe((data: any) => {
-      this.responsedata_rel = data;
+      // this.responsedata_rel = data;
       console.log(this.responsedata_rel);
-      this.responsedata_rel =
-        this.responsedata_rel.suc > 0 ? this.responsedata_rel.msg : [];
+      // 
+       this.responsedata_rel = Array.isArray(data?.msg) ? data.msg : [];
     });
 }
+
+// getMemberDetails() {
+//   this.dataServe
+//     .global_service(1, '/member_dtls', { flag: true, form_no: this.form_no })
+//     .subscribe(
+//       (data) => {
+//         console.log(data, 'kiki');
+//         this.userData = data;
+//         // this.userData = this.userData.msg;
+//         if (this.userData.suc > 0) {
+//           this.memberData = this.userData.msg[0];
+//           this.form.patchValue({
+//             mem_type: this.memberData?.mem_type,
+//             member_type:
+//               this.memberData?.mem_type == 'G'
+//                 ? 'General Membership'
+//                 : this.memberData?.mem_type == 'L'
+//                 ? 'Life Membership'
+//                 : this.memberData?.mem_type == 'AI'
+//                 ? 'Associate Membership'
+//                 : '',
+//             member_opt: this.memberData?.memb_oprn,
+//             unit_nm: this.memberData?.unit_id,
+//             member: this.memberData?.memb_name ? this.memberData?.memb_name : 'N/A',
+//             gurdian: this.memberData?.gurdian_name == '' ? 'N/A' : this.memberData?.gurdian_name,
+//             gen: this.memberData?.gender,
+//             marital_status: this.memberData?.marital_status,
+//             gen_dob: this.memberData?.dob
+//               ? this.datePipe.transform(this.memberData?.dob, 'dd-MM-yyyy')
+//               : '',
+//             phone: this.memberData?.phone_no ? this.memberData?.phone_no : 0,
+//             email_id: this.memberData?.email_id ? this.memberData?.email_id : 'N/A',
+//             blood: this.memberData?.blood_grp,
+//             caste: this.memberData?.caste,
+//             staff: this.memberData?.staff_nos ? this.memberData?.staff_nos : 'N/A',
+//             personal: this.memberData?.pers_no ? this.memberData?.pers_no : 'N/A',
+//             min: this.memberData?.min_no ? this.memberData?.min_no : 'N/A',
+//             mem: this.memberData?.memb_address ? this.memberData?.memb_address : 'N/A',
+//             city: this.memberData?.city_town_dist ? this.memberData?.city_town_dist : 'N/A',
+//             pin: this.memberData?.pin_no ? this.memberData?.pin_no : 'N/A',
+//             police_st: this.memberData?.ps ? this.memberData?.ps : 'N/A',
+//             mem_id: this.memberData?.member_id,
+//             spouse_fr: {
+//               sl_no: this.memberData?.spou_dt && this.memberData.spou_dt.length > 0 && this.memberData?.spou_dt[0].sl_no > 0 ? this.memberData?.spou_dt[0].sl_no : 0,
+//               spou_name: this.memberData?.spou_dt && this.memberData.spou_dt.length > 0 ? this.memberData?.spou_dt[0].dependent_name : 'N/A',
+//               spou_gurd_name: this.memberData?.spou_dt && this.memberData.spou_dt.length > 0 ? this.memberData?.spou_dt[0].gurdian_name : 'N/A',
+//               spou_blood_grp: this.memberData?.spou_dt && this.memberData.spou_dt.length > 0 ? this.memberData?.spou_dt[0].blood_grp : '',
+//               // spou_dob: this.memberData?.spou_dt && this.memberData.spou_dt.length > 0 && this.memberData?.spou_dt[0].dob != '0000-00-00'
+//               //   ? this.datePipe.transform(
+//               //       this.memberData?.spou_dt[0].dob,
+//               //       'yyyy-MM-dd'
+//               //     )
+//               //   : '',
+//               spou_dob: 
+//   this.memberData?.spou_dt && 
+//   this.memberData.spou_dt.length > 0 && 
+//   this.memberData?.spou_dt[0].dob && 
+//   this.memberData?.spou_dt[0].dob !== '0000-00-00' && 
+//   this.memberData?.spou_dt[0].dob !== '0000-00-00 00:00:00'
+//     ? this.datePipe.transform(this.memberData.spou_dt[0].dob, 'dd-MM-yyyy')
+//     : '',
+
+//               // spou_phone: this.memberData?.spou_dt,
+//               spou_mobile_no: this.memberData?.spou_dt && this.memberData.spou_dt.length > 0 
+//               ? this.memberData?.spou_dt[0].phone_no : 'N/A',
+//               spou_min_no: this.memberData?.spou_dt && this.memberData.spou_dt.length > 0 
+//               ? this.memberData?.spou_dt[0].min_no : 'N/A',
+//               spou_mem_addr: this.memberData?.spou_dt && this.memberData.spou_dt.length > 0 
+//               ? this.memberData?.spou_dt[0].memb_address : 'N/A',
+//               spou_police_st: this.memberData?.spou_dt && this.memberData.spou_dt.length > 0 
+//               ? this.memberData?.spou_dt[0].ps : 'N/A',
+//               spou_city: this.memberData?.spou_dt && this.memberData.spou_dt.length > 0 
+//               ? this.memberData?.spou_dt[0].city_town_dist : 'N/A',
+//             },
+//             intro_fr: {
+//               intro_member_id: this.memberData?.spou_dt && this.memberData.spou_dt.length > 0 
+//               ? this.memberData?.spou_dt[0]?.intro_member_id : '',
+//               intro_name: this.memberData?.spou_dt && this.memberData.spou_dt.length > 0 
+//               ? this.memberData?.spou_dt[0]?.dependent_name : '',
+//               relation_intro: this.memberData?.spou_dt && this.memberData.spou_dt.length > 0 
+//               ? this.memberData?.spou_dt[0]?.relation : '',
+//             },
+//           });
+
+
+//           for (let dt of this.memberData!.dep_dt) {
+//             this.depenFields.push(
+//               this.fb.group({
+//                 sl_no: [dt.sl_no > 0 ? dt.sl_no : 0],
+//                 dependent_name: [dt.dependent_name],
+//                 phone_no: [dt.phone_no],
+//                 relation: [dt.relation],
+//                 dob_dep: dt.dob > 0
+//                       ? this.datePipe.transform(
+//                           dt.dob,
+//                           'yyyy-MM-dd'
+//                         )
+//                       : '',
+//               })
+//             );
+//           }
+
+//           // for (let dt_1 of this.memberData!.dep_dt) {
+//           //   this.depenFields_intro.push(
+//           //     this.fb.group({
+//           //       sl_no: [dt_1.sl_no],
+//           //       dependent_name_dep: [dt_1.dependent_name],
+//           //       // dob_dep: this.datePipe.transform(dt_1?.dob, 'dd-MM-yyyy'),
+//           //       dob_dep: dt_1.dob
+//           //       ? this.datePipe.transform(
+//           //           dt_1.dob,
+//           //           'yyyy-MM-dd'
+//           //         )
+//           //       : '',
+//           //       relation_dep: [dt_1.relation],
+//           //     })
+//           //   );
+//           // }
+
+//           this.spouseFileName = this.memberData?.spou_dt[0]?.memb_pic ? `${this.api_url}/${this.memberData?.spou_dt[0].memb_pic}` : null
+//           this.memFileName = this.memberData?.memb_pic ? `${this.api_url}/${this.memberData?.memb_pic}` : null
+//         }
+//         console.log(this.userData, 'lili');
+//       },
+//       (error) => {
+//         console.error(error);
+//         Swal.fire(
+//           'Warning',
+//           'An error occurred while fetching data',
+//           'warning'
+//         );
+//         // this.messageService.add({ severity: 'error', summary: 'Error', detail: 'An error occurred while saving data' });
+//       }
+//     );
+// }
 
 getMemberDetails() {
   this.dataServe
@@ -275,6 +465,7 @@ getMemberDetails() {
         // this.userData = this.userData.msg;
         if (this.userData.suc > 0) {
           this.memberData = this.userData.msg[0];
+
           this.form.patchValue({
             mem_type: this.memberData?.mem_type,
             member_type:
@@ -282,32 +473,34 @@ getMemberDetails() {
                 ? 'General Membership'
                 : this.memberData?.mem_type == 'L'
                 ? 'Life Membership'
-                : 'Associate Membership',
+                : this.memberData?.mem_type == 'AI'
+                ? 'Associate Membership'
+                : '',
             member_opt: this.memberData?.memb_oprn,
             unit_nm: this.memberData?.unit_id,
-            member: this.memberData?.memb_name,
-            gurdian: this.memberData?.gurdian_name,
+            member: this.memberData?.memb_name ? this.memberData?.memb_name : 'N/A',
+            gurdian: this.memberData?.gurdian_name == '' ? 'N/A' : this.memberData?.gurdian_name,
             gen: this.memberData?.gender,
             marital_status: this.memberData?.marital_status,
             gen_dob: this.memberData?.dob
               ? this.datePipe.transform(this.memberData?.dob, 'yyyy-MM-dd')
               : '',
-            phone: this.memberData?.phone_no,
-            email_id: this.memberData?.email_id,
+            phone: this.memberData?.phone_no ? this.memberData?.phone_no : 0,
+            email_id: this.memberData?.email_id ? this.memberData?.email_id : 'N/A',
             blood: this.memberData?.blood_grp,
             caste: this.memberData?.caste,
-            staff: this.memberData?.staff_nos,
-            personal: this.memberData?.pers_no,
-            min: this.memberData?.min_no,
-            mem: this.memberData?.memb_address,
-            city: this.memberData?.city_town_dist,
-            pin: this.memberData?.pin_no,
-            police_st: this.memberData?.ps,
+            staff: this.memberData?.staff_nos ? this.memberData?.staff_nos : 'N/A',
+            personal: this.memberData?.pers_no ? this.memberData?.pers_no : 'N/A',
+            min: this.memberData?.min_no ? this.memberData?.min_no : 'N/A',
+            mem: this.memberData?.memb_address ? this.memberData?.memb_address : 'N/A',
+            city: this.memberData?.city_town_dist ? this.memberData?.city_town_dist : 'N/A',
+            pin: this.memberData?.pin_no ? this.memberData?.pin_no : 0,
+            police_st: this.memberData?.ps ? this.memberData?.ps : 'N/A',
             mem_id: this.memberData?.member_id,
             spouse_fr: {
               sl_no: this.memberData?.spou_dt && this.memberData.spou_dt.length > 0 && this.memberData?.spou_dt[0].sl_no > 0 ? this.memberData?.spou_dt[0].sl_no : 0,
-              spou_name: this.memberData?.spou_dt && this.memberData.spou_dt.length > 0 ? this.memberData?.spou_dt[0].dependent_name : '',
-              spou_gurd_name: this.memberData?.spou_dt && this.memberData.spou_dt.length > 0 ? this.memberData?.spou_dt[0].gurdian_name : '',
+              spou_name: this.memberData?.spou_dt && this.memberData.spou_dt.length > 0 ? this.memberData?.spou_dt[0].dependent_name : 'N/A',
+              spou_gurd_name: this.memberData?.spou_dt && this.memberData.spou_dt.length > 0 ? this.memberData?.spou_dt[0].gurdian_name : 'N/A',
               spou_blood_grp: this.memberData?.spou_dt && this.memberData.spou_dt.length > 0 ? this.memberData?.spou_dt[0].blood_grp : '',
               // spou_dob: this.memberData?.spou_dt && this.memberData.spou_dt.length > 0 && this.memberData?.spou_dt[0].dob != '0000-00-00'
               //   ? this.datePipe.transform(
@@ -326,26 +519,35 @@ getMemberDetails() {
 
               // spou_phone: this.memberData?.spou_dt,
               spou_mobile_no: this.memberData?.spou_dt && this.memberData.spou_dt.length > 0 
-              ? this.memberData?.spou_dt[0].phone_no : '',
+              ? this.memberData?.spou_dt[0]?.phone_no : '',
               spou_min_no: this.memberData?.spou_dt && this.memberData.spou_dt.length > 0 
-              ? this.memberData?.spou_dt[0].min_no : '',
+              ? this.memberData?.spou_dt[0].min_no : 'N/A',
               spou_mem_addr: this.memberData?.spou_dt && this.memberData.spou_dt.length > 0 
-              ? this.memberData?.spou_dt[0].memb_address : '',
+              ? this.memberData?.spou_dt[0].memb_address : 'N/A',
               spou_police_st: this.memberData?.spou_dt && this.memberData.spou_dt.length > 0 
-              ? this.memberData?.spou_dt[0].ps : '',
+              ? this.memberData?.spou_dt[0].ps : 'N/A',
               spou_city: this.memberData?.spou_dt && this.memberData.spou_dt.length > 0 
-              ? this.memberData?.spou_dt[0].city_town_dist : '',
+              ? this.memberData?.spou_dt[0].city_town_dist : 'N/A',
             },
             intro_fr: {
               intro_member_id: this.memberData?.spou_dt && this.memberData.spou_dt.length > 0 
               ? this.memberData?.spou_dt[0]?.intro_member_id : '',
               intro_name: this.memberData?.spou_dt && this.memberData.spou_dt.length > 0 
-              ? this.memberData?.spou_dt[0]?.dependent_name : '',
+              ? this.memberData?.spou_dt[0]?.dependent_name : 'N/A',
               relation_intro: this.memberData?.spou_dt && this.memberData.spou_dt.length > 0 
-              ? this.memberData?.spou_dt[0]?.relation : '',
+              ? this.memberData?.spou_dt[0]?.relation : 'N/A',
             },
           });
+           this.showSpouseSection =
+            this.memberData?.spou_dt &&
+            this.memberData.spou_dt.length > 0 &&
+            this.memberData.spou_dt[0]?.sl_no > 0;
 
+          // ===== DEPENDENT VISIBILITY =====
+          this.depenFields.clear();
+
+           if (this.memberData?.dep_dt && this.memberData.dep_dt.length > 0) {
+            this.showDependentSection = true;
 
           for (let dt of this.memberData!.dep_dt) {
             this.depenFields.push(
@@ -363,7 +565,6 @@ getMemberDetails() {
               })
             );
           }
-
           // for (let dt_1 of this.memberData!.dep_dt) {
           //   this.depenFields_intro.push(
           //     this.fb.group({
@@ -383,8 +584,12 @@ getMemberDetails() {
 
           this.spouseFileName = this.memberData?.spou_dt[0]?.memb_pic ? `${this.api_url}/${this.memberData?.spou_dt[0].memb_pic}` : null
           this.memFileName = this.memberData?.memb_pic ? `${this.api_url}/${this.memberData?.memb_pic}` : null
+          // console.log(this.spouseFileName,this.memFileName,'kik');
+          this.cdr.detectChanges(); 
+        }else {
+          this.showDependentSection = false;
         }
-        console.log(this.userData, 'lili');
+      }
       },
       (error) => {
         console.error(error);
@@ -440,12 +645,16 @@ onUpload(event: any, flag: any) {
   const file = event.files[0];
   const maxFileSize = 1 * 1024 * 1024; // 1MB
   const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+  const reader = new FileReader();
+  reader.onload = () => {
   if (file) {
     if(flag == 'O') this.memFile = file
 
     if(flag == 'S') this.spouseFile = file
     // this.fileSelected.emit({ file, flag });
   }
+   };
+   reader.readAsDataURL(file);
   if (!allowedTypes.includes(file.type)) {
     this.showError('Invalid file type. Only JPG, JPEG, and PNG are allowed.');
     return;
@@ -495,7 +704,9 @@ save() {
           'success'
         ).then((result) => {
           if (result.isConfirmed) {
-            this.router.navigate(['/main/memb_dtls']);
+             this.router.navigate(['/main/memb_dtls']).then(() => {
+            window.location.reload();
+          });
           }
         });
       } else {

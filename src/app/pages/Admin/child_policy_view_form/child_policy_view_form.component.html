@@ -1,0 +1,342 @@
+<style>
+  table {
+    width: 96%;
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+  th {
+    background-color: #f2f2f2;
+    text-align: left;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  /* tr:hover {
+      background-color: #ddd;
+  } */
+  th,
+  td {
+    padding: 15px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+  }
+  .view{
+    margin-left: 55vw;
+  }
+ .color_app{
+  color: rgb(25, 156, 25);
+  font-weight: bold;
+ }
+ .color_head{
+  color: rgb(24, 23, 23)
+ }
+.status-box {
+background-color: #f8f9fa;
+    border: 4px solid #dee2e6;
+    padding: 12px 16px;
+    border-radius: 6px;
+    max-width: 359px;
+    font-size: 19px;
+    box-shadow: 0 2px 4px rg;
+    margin-left: 47vw
+}
+
+.status-box h6 {
+  margin: 0 0;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.color_rej {
+  color: #d9534f;
+  font-weight: bold;
+}
+
+.big-text {
+  font-size: 20px; 
+  font-weight: bold;  
+  color: #504fe7; 
+  margin-left: 8px;
+}
+.heading_style {
+    display: flex;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+}
+</style>
+
+
+<p-card id="divToPrint" class="custom-card">
+  <div class="row" *ngIf="cpinfo?.approval_status === 'A'">
+    <div class="col-12 d-flex justify-content-end">
+      <div class="status-box"> 
+      <h6>Form No : <span class="color_app">{{cpinfo?.form_no ? cpinfo?.form_no : 'N/A'}}</span></h6>
+      <h6>Status : <span class="color_app">{{cpinfo?.approval_status == 'A' ? 'Approved' : 'N/A'}}</span></h6>
+      <h6>Resolution No : <span class="color_app">{{cpinfo?.resolution_no ? cpinfo?.resolution_no : 'N/A'}}</span></h6>
+      <h6>Transaction Date : <span class="color_app">{{cpinfo?.form_dt | date:'dd-MM-yyyy'}}</span></h6>
+      <h6>Approved Date : <span class="color_app">{{cpinfo?.approved_at | date:'dd-MM-yyyy'}}</span></h6>
+      <h6>Approved By : <span class="color_app">{{cpinfo?.approved_by}}</span></h6>
+      </div>
+    </div>
+  </div>
+<div class="row" *ngIf="cpinfo?.approval_status === 'R'">
+  <div class="col-12 d-flex justify-content-end">
+    <div class="status-box">
+      <h6>Form No:
+        <span class="color_rej">{{ cpinfo?.form_no || 'N/A' }}</span>
+      </h6>
+
+      <h6>Status:
+        <span class="color_rej">Rejected</span>
+      </h6>
+
+      <h6>Resolution No:
+        <span class="color_rej">{{ cpinfo?.resolution_no || 'N/A' }}</span>
+      </h6>
+
+      <h6>Remarks:
+  <span class="color_rej">
+    {{ cpinfo?.remarks || 'N/A' }}
+  </span>
+</h6>
+      <h6>Rejected Date:
+        <span class="color_rej">{{ cpinfo?.rejected_at | date:'dd-MM-yyyy' }}</span>
+      </h6>
+
+      <h6>Rejected By:
+        <span class="color_rej">{{ cpinfo?.rejected_by || 'N/A' }}</span>
+      </h6>
+    </div>
+  </div>
+</div>
+
+
+
+  <div class="row">
+    <div class="col-12">
+      <h5 class="letter" style="color: black">TO</h5>
+      <h5 class="letter" style="color: black">The Secreatry</h5>
+      <h5 class="letter" style="color: black">
+        BOSEC WELFARE TRUST
+      </h5>
+      <h5 class="letter" style="color: black">13 CAMAC STREET,</h5>
+      <h5 class="letter" style="color: black">KOLKATA 700017</h5>
+      <h5 class="letter" style="color: black">Dear Sir,</h5>
+      <h5 class="size mt-3" style="color: black">
+        This is to inform you that the under signed is the member of <span style="color: rgb(55, 55, 230);"><u>BOSEC WELFARE TRUST</u></span> having membership no. <span style="color: rgb(55, 55, 230);"><u>{{cpinfo?.member_id}}</u></span> on <span style="color: rgb(55, 55, 230);"><u>{{cpinfo?.form_dt | date: 'dd-MM-yyyy'}}</u></span>. I am interested to join in the scheme of Children for the year subject to premium and other term. policy 
+        The details of the undersigned are as under:
+      </h5>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <table class="table_space">
+      <tr class="table_head_cus">
+        <th class="text-center">
+          <b>MEMBER ID</b>
+        </th>
+         <th class="text-center">
+          <b>MEMBER NAME</b>
+        </th>
+        <th class="text-center">
+          <b>DOB</b>
+        </th>
+        <th class="text-center">
+          <b>AGE</b>
+        </th>
+        <th class="text-center">
+          <b>MOBILE NO</b>
+        </th>
+        <th class="text-center">
+          <b>ADDRESS</b>
+        </th>
+      </tr>
+
+      <tr>
+        <th class="text-center"><span style="color: rgb(55, 55, 230);">{{cpinfo?.member_id!='null'
+            ? cpinfo?.member_id : 'N/A'}}</span></th>
+        <th class="text-center"><span style="color: rgb(55, 55, 230);">{{cpinfo?.member_name!='null'
+            ? cpinfo?.member_name : 'N/A'}}</span></th>
+        <th class="text-center"><span style="color: rgb(55, 55, 230);">{{cpinfo?.dob &&
+            cpinfo?.dob !== '0000-00-00' ? (cpinfo?.dob | date: 'MM/dd/yyyy') :
+            'N/A'}}</span></th>
+        <th class="text-center"><span class="label_field" style="color: rgb(55, 55, 230);">{{cpinfo?.age!='null'
+            ? cpinfo?.age : 'N/A'}}</span></th>
+        <th class="text-center"><span style="color: rgb(55, 55, 230);">{{
+            cpinfo?.phone_no ? cpinfo?.phone_no : 'N/A'}}</span></th>
+        <th class="text-center"><span style="color: rgb(55, 55, 230);">{{cpinfo?.member_address!='null' ? cpinfo?.member_address : 'N/A'}}</span></th>
+      </tr>
+    </table>
+  </div>
+
+  <div class="row mt-4 text-center">
+    <span class="letter_style" style="color: rgb(9, 42, 233)"><b></b></span>
+    <p class="letter_style" style="color: black"><b>SELF & DEPENDENT Treatment Details</b></p>
+  </div>
+
+  <div class="row">
+          <table class="table_space_cus">
+            <tr class="table_head_cus">
+              <th class="text-center">
+                <b>Relation</b>
+              </th>
+              <th class="text-center">
+                <b>Dependent Name</b>
+              </th>
+               <th class="text-center">
+                <b>DOB</b>
+              </th>
+               <th class="text-center">
+                <b>Age</b>
+              </th>
+               <th class="text-center">
+                <b>Gender</b>
+              </th>
+              <th colspan="2" class="text-center">
+                <b>Treatment Details</b>
+              </th>
+            </tr>
+      <tr *ngFor="let dt of filteredSpouseInfo; let i = index">
+        <th class="text-center" style="color: rgb(55, 55, 230);"><span>{{dt.status ? dt.status : 'N/A'}}</span>
+        </th>
+        <th class="text-center"><span style="color: rgb(55, 55, 230);">{{dt.dependent_name ? dt.dependent_name : 'N/A'}}</span></th>
+        <th class="text-center" style="width: 18vw;"><span
+            style="color: rgb(55, 55, 230);">{{ dt.dob ? (dt.dob | date:'dd-MM-yyyy') : 'N/A' }}</span></th>
+        <th><span style="color: rgb(55, 55, 230);">{{dt.age ? dt.age : 0}}</span>
+        </th>
+        <th><span style="color: rgb(55, 55, 230);">{{dt.gender ? dt.gender : 'N/A'}}</span></th>
+        <th><span style="color: rgb(55, 55, 230);">{{dt.treatment_dtls ? dt.treatment_dtls : 'N/A'}}</span></th>
+      </tr>
+        <tr *ngIf="filteredSpouseInfo.length === 0">
+             <td colspan="6" class="text-center">No Data Found</td>
+             </tr>
+    </table>
+  </div>
+
+   <div class="row mt-5 text-center">
+    <span class="letter_style" style="color: rgb(9, 42, 233)"><b></b></span>
+    <p class="letter_style" style="color: black"><b>Signature with date</b></p>
+  </div>
+
+  <p-divider type="dashed"></p-divider>
+
+  <h4 class="text-center" style="color: black;" *ngIf="cpinfo?.approval_status !== 'A' && cpinfo?.approval_status !== 'R'">Approval Section</h4>
+
+  <form *ngIf="cpinfo?.approval_status !== 'A' && cpinfo?.approval_status !== 'R'" [formGroup]="form">
+    <div class="flex flex-row mt-5">
+        <div class="field col-12 md:col-3">
+              <label for="form_no" style="color: black"><b>CP Form No</b></label>
+              <input id="form_no" type="text" formControlName="form_no" readonly
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+            </div>
+
+      <div class="field col-12 md:col-3">
+        <label for="resolution_no" class="label_field" style="color: black;"><b>Resolution No:<span
+              class="text-red-700">*</span></b></label>&nbsp;
+        <input id="resolution_no" type="text" formControlName="resolution_no" placeholder="Enter Resolution No"
+          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+        <div *ngIf="f['resolution_no']?.touched || f['resolution_no']?.dirty">
+          <small class="text-red-900" *ngIf="f['resolution_no']?.errors">Resolution No is required.</small>
+        </div>
+      </div>
+      <div class="field col-12 md:col-3">
+        <label for="resolution_dt" class="label_field" style="color: black;"><b>Resolution Date:<span
+              class="text-red-700">*</span></b></label>&nbsp;
+        <input id="resolution_dt" type="date" formControlName="resolution_dt" placeholder="dd/mm/yyyy"
+          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+        <div *ngIf="f['resolution_dt']?.touched || f['resolution_dt']?.dirty">
+          <small class="text-red-900" *ngIf="f['resolution_dt']?.errors">resolution_dt is required.</small>
+        </div>
+      </div>
+
+      <div class="field col-12 md:col-3">
+        <label for="status" class="label_field" style="color: black;"><b>Status: </b></label>&nbsp;
+        <select id="status" formControlName="status"
+          class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+          style="appearance: auto; height: 3vw; border-radius: 7px">
+          <option value="P">Pending</option>
+          <option value="A">Approved</option>
+          <option value="R">Reject</option>
+        </select>
+      </div>
+    </div>
+
+     <div *ngIf="form.controls['status'].value === 'A'">
+          <div class="formgrid grid mt-3">
+            <div class="field col-12 md:col-3">
+              <label for="trn_date" style="color: black"><b>Date<span class="text-red-700">*</span></b></label>
+              <input id="trn_date" type="date" formControlName="trn_date" placeholder="dd/MM/yyyy" [max]="maxDate"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+              <div *ngIf="f['trn_date']?.touched || f['trn_date']?.dirty">
+                <small class="text-red-900" *ngIf="f['trn_date']?.errors">Date is required.</small>
+              </div>
+            </div>
+
+            <div class="field col-12 md:col-3">
+        <label for="policy_amount" class="label_field" style="color: black;"><b>Policy Amount:<span
+              class="text-red-700">*</span></b></label>&nbsp;
+        <input id="policy_amount" type="text" formControlName="policy_amount" placeholder="Enter Policy Amount"
+          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+        <div *ngIf="f['policy_amount']?.touched || f['policy_amount']?.dirty">
+          <small class="text-red-900" *ngIf="f['policy_amount']?.errors">Policy Amount is required.</small>
+        </div>
+      </div>
+
+      <div class="field col-12 md:col-3">
+        <label for="premium_amount" class="label_field" style="color: black;"><b>Premium Amount:<span
+              class="text-red-700">*</span></b></label>&nbsp;
+        <input id="premium_amount" type="text" formControlName="premium_amount" placeholder="Enter Premium Amount"
+          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+        <div *ngIf="f['premium_amount']?.touched || f['premium_amount']?.dirty">
+          <small class="text-red-900" *ngIf="f['premium_amount']?.errors">Premium Amount is required.</small>
+        </div>
+      </div>
+
+      <div class="field col-12 md:col-3">
+        <label for="trns_type" class="label_field" style="color: black;"><b>Transaction Type:<span
+              class="text-red-700">*</span></b></label>&nbsp;
+        <input id="trns_type" type="text" formControlName="trns_type" placeholder="Enter Transaction Type"
+          class="box_input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" readonly/>
+      </div>
+          </div>
+        </div>
+
+         <div class="flex flex-row" *ngIf="form.controls['status'].value === 'A'">
+          <button pButton pRipple type="button" label="Submit" class="p-button-raised sub_btn" (click)="approve()"
+            [disabled]="f['resolution_no'].invalid || f['resolution_dt'].invalid || f['trn_date'].invalid"></button>
+        </div>
+
+    <!-- <p-divider type="dashed"></p-divider> -->
+
+    <div *ngIf="form.controls['status'].value === 'R'">
+      <div class="flex flex-row">
+        <div class="field col-12">
+          <label for="reject" class="label_field"><b>Reason:<span class="text-red-700">*</span></b></label>&nbsp;
+          <textarea id="reject" formControlName="reject" rows="4" placeholder="Write the reason why reject this form..."
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
+          <div *ngIf="f['reject']?.touched || f['reject']?.dirty">
+            <small class="text-red-900" *ngIf="f['reject']?.errors">Reason is required.</small>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-row">
+        <button pButton pRipple type="button" label="OK" class="p-button-raised sub_btn" (click)="reject_submit()"
+          [disabled]="f['resolution_no'].invalid || f['resolution_dt'].invalid || f['reject'].invalid"></button>
+      </div>
+      </div>
+  </form>
+  <!-- </div> -->
+</p-card>

@@ -39,8 +39,8 @@ export class Member_list_reportComponent implements OnInit {
     this.mem_type = this.route.snapshot.params['mem_type'];
     // this.user = localStorage.setItem
     this.form = this.fb.group({
-      period: [''],
-      member_type: ['']
+      period: ['',Validators.required],
+      member_type: ['',Validators.required]
     });
   }
   get m() {

@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
   public classContent: any;
   public headerMenuItem!: MenuItem[];
   public user = '';
-  label: any = 'SA';
+  labelAdmin: any = 'SA';
   @Output() event = new EventEmitter();
   constructor(private router: Router) {
     console.log(window.innerWidth);
@@ -55,7 +55,7 @@ export class HeaderComponent implements OnInit {
     this.user = `Hi, ${localStorage.getItem('user_name')}` || '';
     let name = localStorage.getItem('user_name') || '';
     if (name != '') {
-      this.label = name[0];
+      this.labelAdmin = name[0];
     }
   }
 

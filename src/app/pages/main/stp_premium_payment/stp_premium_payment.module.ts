@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 const routes:Routes=[
   {path:'',component:Stp_premium_paymentComponent}
@@ -35,6 +36,7 @@ const routes:Routes=[
     ToastModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
     RouterModule.forChild(routes)
   ],
   declarations: [Stp_premium_paymentComponent]

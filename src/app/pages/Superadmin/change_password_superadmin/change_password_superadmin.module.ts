@@ -17,6 +17,10 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TooltipModule } from 'primeng/tooltip';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 
 const routes:Routes=[
   {path:'',component:Change_password_superadminComponent}
@@ -40,6 +44,10 @@ const routes:Routes=[
     FileUploadModule,
     ReactiveFormsModule,
     TooltipModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
     RouterModule.forChild(routes)
   ],
   declarations: [Change_password_superadminComponent]

@@ -7,7 +7,7 @@
 
         <form [formGroup]="form">
           <div class="flex flex-row">
-            <div class="field col-12 md:col-4">
+            <div class="field col-12"[ngClass]="showMemberId ? 'md:col-3' : 'md:col-4'">
               <label for="form_dt" class="label_field"><b>Date:<span class="text-red-700">*</span></b></label>&nbsp;
                 <input id="form_dt" type="date" formControlName="form_dt" placeholder="dd/MM/yyyy" [max]="maxDate"
                   class="box_input text-2xl text-color surface-overlay p-2 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
@@ -28,10 +28,10 @@
                   <small class="text-red-900" *ngIf="o['policy_holder_type']?.errors">Policy Holder Type is required.</small>
                 </div>
             </div> -->
-             <div class="field col-12 md:col-4">
+             <div class="field col-12" [ngClass]="showMemberId ? 'md:col-3' : 'md:col-4'">
               <label for="policy_holder_type" class="label_field"><b>Policy Holder Type:<span class="text-red-700">*</span></b></label>&nbsp;
                <select id="policy_holder_type" formControlName="policy_holder_type" [(ngModel)]="selectedValue_4"
-                  class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                  (change)="onPolicyHolderChange($event)" class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                   style="appearance: auto; height: 3vw; border-radius: 7px">
                   <option value="NP">Select Policy Holder Type</option>
                   <option *ngFor="let option of responsedata_policy_holder" [value]="option.policy_holder_type_id">{{ option.policy_holder_type }}
@@ -41,7 +41,20 @@
                   <small class="text-red-900" *ngIf="o['policy_holder_type']?.errors">Policy Holder Type is required.</small>
                 </div>
             </div>
-            <div class="field col-12 md:col-4">
+            <div class="field col-12" [ngClass]="showMemberId ? 'md:col-3' : 'md:col-0'"
+                       *ngIf="showMemberId">
+             <label for="member_id" class="label_field"><b>Member ID:<span class="text-red-700">*</span></b></label>&nbsp;
+  
+            <input id="member_id" type="text" formControlName="member_id"
+            placeholder="Enter Member ID"
+            class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+
+            <div *ngIf="o['member_id']?.touched || o['member_id']?.dirty">
+            <small class="text-red-900" *ngIf="o['member_id']?.errors">Member ID is required.</small>
+             </div>
+            </div>
+
+            <div class="field col-12" [ngClass]="showMemberId ? 'md:col-3' : 'md:col-4'">
               <label for="min_no" class="label_field"><b>MIN NO:<span
                     class="text-red-700">*</span></b></label>&nbsp;
               <input id="min_no" type="text" formControlName="min_no" placeholder="Enter MIN NO"

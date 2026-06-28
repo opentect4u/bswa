@@ -11,6 +11,13 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select';
 
 const routes: Routes = [{ path: '', component: MemberEditComponent }];
 
@@ -26,6 +33,12 @@ const routes: Routes = [{ path: '', component: MemberEditComponent }];
     FileUploadModule,
     ReactiveFormsModule,
     ToastModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatSelectModule,
     RouterModule.forChild(routes)
   ],
   declarations: [MemberEditComponent]

@@ -1,80 +1,74 @@
-<p-card>
-  <div class="wrapper">
-    <div class="col-lg-12 container contant-wraper">
-
-      <div id="divToPrint">
-
-        <div style="text-align:center;" class="print_top_head">
-          <h2>BOKARO STEEL PEOPLE WELFARE ASSOCIATION</h2>
-          <h4>13, Camac Street, Kolkata 700017</h4>
-          <h4>Member Register Report As On <b>{{period | date: 'dd/MM/yyyy'}}</b></h4>
-        </div>
-        <br>
-
-
-        <div style="margin: 10px;" class="print_top_Title">
-          <h4>Member Type: {{member_type=='G' ? 'General Member' : member_type=='L' ? 'Life Member' : 'Associate
-            Member'}}</h4>
-        </div>
-
-
-        <div class="card mt-4" style="margin: 10px" class="table_print_outer">
-          <p-table [value]="userData" #dt2 dataKey="id" [rows]="10" [showCurrentPageReport]="true"
-            [rowsPerPageOptions]="[10, 25, 50]" [paginator]="false"
-            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-            [globalFilterFields]="['memb_type']" [tableStyle]="{
-              'min-width': '95rem',
-              'box-shadow': '0 10px 28px rgba(1.5, 1.5, 1.5, 1.5)',
-            }">
-            <ng-template pTemplate="header">
-              <tr>
-                <th id="table_color">SL No</th>
-                <th id="table_color">Unit</th>
-                <th id="table_color">Member ID</th>
-                <th id="table_color">Member Name</th>
-                <th id="table_color">MIN No</th>
-                <th id="table_color" class="msg_adress">Member Address</th>
-                <th id="table_color">Phone No</th>
-                <th id="table_color">Email ID</th>
-                <!-- <th id="table_color">Resolution No</th>
-                <th id="table_color">Resolution Date</th> -->
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-customer let-i="rowIndex">
-              <tr>
-                <td class="text-center">{{i+1}}</td>
-                <td class="text-center">{{customer.unit_name}}</td>
-                <td class="text-center">{{ customer.member_id}}</td>
-                <td class="text-center">{{customer.memb_name}}</td>
-                <td class="text-center">{{customer.min_no}}</td>
-                <!-- <td class="text-center">
-                  {{customer.memb_address +customer.ps +customer.city_town_dist +customer.pin_no
-                    }}
-                </td> -->
-                <td class="text-center msg_adress">
-                  {{ formatAddress(customer.memb_address, customer.ps, customer.city_town_dist, customer.pin_no)
-                  }}
-                </td>
-                <td class="text-center">{{customer.phone_no}}</td>
-                <td class="text-center">{{customer.email_id}}</td>
-                <!-- <td class="text-center">{{customer.resolution_no}}</td>
-                <td class="text-center">{{customer.resolution_dt | date: 'dd/MM/yyyy'}}</td> -->
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="emptymessage">
-              <tr>
-                <td colspan="9" class="text-center text-red-900">No data available</td>
-              </tr>
-            </ng-template>
-          </p-table>
-        </div>
-
+<div class="change-password-container">
+  <div class="change-password-box relative">
+    <div class="absolute top-0 left-0 mt-4 ml-4" style="z-index: 10;">
+      <button pButton pRipple type="button" label="Back" icon="pi pi-arrow-left" class="p-button-text p-button-secondary" (click)="navigateBack()" style="font-weight: 600;"></button>
+    </div>
+    <div id="divToPrint">
+      <div style="text-align:center;" class="print_top_head">
+        <h2 style="color: #1b3c66; font-weight: bold;">BOKARO STEEL PEOPLE WELFARE ASSOCIATION</h2>
+        <h4 style="color: #4b5563;">13, Camac Street, Kolkata 700017</h4>
+        <h4 style="color: #4b5563; margin-top: 10px;">Member Register Report As On <b>{{period | date: 'dd/MM/yyyy'}}</b></h4>
       </div>
-      <p-button label="PRINT" styleClass="p-button-rounded print_btn" (click)="printDiv()"
-        style="margin-left: 1vw;"></p-button>
-        <p-button label="Download" styleClass="p-button-rounded print_btn" (click)="download()"
-        style="margin-left: 1vw;"></p-button>
+      <p-divider type="dashed"></p-divider>
+
+      <div style="margin: 10px 0;" class="print_top_Title">
+        <h4 style="color: #374151;">Member Type: 
+          <b>{{member_type=='G' ? 'General Member' : member_type=='L' ? 'Life Member' : member_type=='A' ? 'All' : 'Associate Member'}}</b>
+        </h4>
+      </div>
+
+      <div class="mt-4 table_print_outer">
+        <p-table [value]="userData" #dt2 dataKey="member_id" [rows]="10" [showCurrentPageReport]="true"
+          [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [lazy]="true" (onLazyLoad)="loadData($event)"
+          [totalRecords]="totalRecords" [loading]="loading"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+          [tableStyle]="{ 'min-width': '100%', 'box-shadow': '0 4px 10px rgba(0,0,0,0.1)' }"
+          styleClass="p-datatable-striped p-datatable-gridlines">
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="background-color: #1b3c66; color: white;">SL No</th>
+              <th style="background-color: #1b3c66; color: white;">Unit</th>
+              <th style="background-color: #1b3c66; color: white;">Member ID</th>
+              <th style="background-color: #1b3c66; color: white;">Member Name</th>
+              <th style="background-color: #1b3c66; color: white;">MIN No</th>
+              <th style="background-color: #1b3c66; color: white;" class="msg_adress">Member Address</th>
+              <th style="background-color: #1b3c66; color: white;">Phone No</th>
+              <th style="background-color: #1b3c66; color: white;">Email ID</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-customer let-rowIndex="rowIndex">
+            <tr>
+              <td class="text-center">{{ rowIndex + 1 }}</td>
+              <td class="text-center">{{ customer.unit_name }}</td>
+              <td class="text-center">{{ customer.member_id }}</td>
+              <td class="text-center">{{ customer.memb_name }}</td>
+              <td class="text-center">{{ customer.min_no }}</td>
+              <td class="text-center msg_adress">
+                {{ formatAddress(customer.memb_address, customer.ps, customer.city_town_dist, customer.pin_no) }}
+              </td>
+              <td class="text-center">{{ customer.phone_no }}</td>
+              <td class="text-center">{{ customer.email_id }}</td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="8" class="text-center text-red-900" style="padding: 20px;">No data available</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+
+    <div class="flex justify-content-center mt-4 gap-3">
+      <button pButton pRipple type="button" label="Print" icon="pi pi-print" class="p-button-raised p-button-info btn-print" (click)="printDiv()"></button>
+      <button pButton pRipple type="button" label="Download" icon="pi pi-download" class="p-button-raised p-button-success btn-download" (click)="download()"></button>
+      <button pButton pRipple type="button" label="Download All Data" icon="pi pi-file-excel" class="p-button-raised p-button-success btn-download" (click)="downloadAllData()"></button>
     </div>
   </div>
 
-</p-card>
+  <!-- Floating Scroll Controls -->
+  <div class="scroll-controls-container">
+    <button pButton pRipple icon="pi pi-arrow-up" class="p-button-rounded p-button-secondary shadow-3 mb-2" (click)="scrollTable('up')" pTooltip="Scroll Up"></button>
+    <button pButton pRipple icon="pi pi-arrow-down" class="p-button-rounded p-button-secondary shadow-3" (click)="scrollTable('down')" pTooltip="Scroll Down"></button>
+  </div>
+</div>

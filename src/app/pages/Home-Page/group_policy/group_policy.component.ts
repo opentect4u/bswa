@@ -60,6 +60,24 @@ export class Group_policyComponent implements OnInit {
   gurdianName: string = '';
   memberName: string = '';
   dependentName: string = '';
+  responsedata_policy_holder: any;
+   showMemberId = false;
+  selectedValue_4: string = 'NP';
+  selectedValue_3 : string = 'N';
+  selectedValue_2 : string = 'N';
+  selectedValue_1 : string = 'N';
+  selectedValue : string = 'N';
+  selectedValue_5 : string = 'N';
+  selectedValue_6 : string = 'N';
+  selectedValue_7 : string = 'N';
+  selectedValue_8 : string = 'N';
+  BOKARO_UNIT_ID = 1;
+  isMemberSearch = false;
+  allGroups: any[] = [];
+  premiumGroups: any[] = [];
+  memberData: any = [];
+  dependentData: any[] = [];
+
   // ageInvalid: true | undefined
   // selectedValue: string = 'N';
   // selectedValue_1: string = 'N';
@@ -133,11 +151,12 @@ export class Group_policyComponent implements OnInit {
    this.relationship();
    this.onadd(); 
    this.get_non_dtls();
+   this.policy_holder();
    
    this.form.get('gen_dob')?.valueChanges.subscribe((dobValue) => {
     const selectedValue = this.form.get('memb_oprn')?.value;
     if (selectedValue) {
-      this.filterDataBasedOnDOBAndOperation(selectedValue, dobValue);
+      // this.filterDataBasedOnDOBAndOperation(selectedValue, dobValue);
     }
   });
   }
@@ -154,22 +173,72 @@ export class Group_policyComponent implements OnInit {
     return this.form.controls;
   }
 
+    onPolicyHolderChange(event: any) {
+  const value = event.target.value;
+
+  if (value === 'M') {
+    this.showMemberId = true;
+    this.isMemberSearch = false;
+    this.form.get('member_id')?.setValidators([Validators.required]);
+    this.form.get('min_no')?.clearValidators();
+    this.form.get('min_no')?.setValue('');
+    // this.form.get('unit')?.setValue(this.BOKARO_UNIT_ID);
+    // this.form.get('unit')?.disable();
+  } else {
+    this.showMemberId = false;
+    this.isMemberSearch = false;
+    this.form.get('min_no')?.setValidators([Validators.required]);
+    this.form.get('member_id')?.clearValidators();
+    this.form.get('member_id')?.setValue('');
+    // this.form.get('unit')?.enable();
+    // this.form.get('unit')?.setValue('N');
+  }
+
+  this.form.get('member_id')?.updateValueAndValidity();
+  this.form.get('min_no')?.updateValueAndValidity();
+  // this.form.get('unit')?.updateValueAndValidity();
+}
+
+      policy_holder() {
+    this.dataServe
+      .global_service(0, '/master/policy_holder_list', null)
+      .subscribe((data: any) => {
+        this.responsedata_policy_holder = data;
+        // console.log(this.responsedata_policy_holder, '555');
+        this.responsedata_policy_holder =
+          this.responsedata_policy_holder.suc > 0 ? this.responsedata_policy_holder.msg : [];
+      });
+  }
+
+  // get_non_dtls(){
+  //   this.dataServe
+  //   .global_service(0, '/get_non_premium_dtls', null)
+  //   .subscribe((data: any) => {
+  //     this.responsedata = data;
+  //     this.responsedata =
+  //       this.responsedata.suc > 0 ? this.responsedata.msg : [];
+  //     this.responsedata[0]['pre_dt'] = this.responsedata;
+  //     // this.filterGroupNamesBasedOnMemberType();      
+  //   });
+  //   console.log(this.responsedata,'predata');
+  // }
+
   get_non_dtls(){
     this.dataServe
     .global_service(0, '/get_non_premium_dtls', null)
     .subscribe((data: any) => {
-      this.responsedata = data;
-      console.log(this.responsedata, '555');
-      this.responsedata =
-        this.responsedata.suc > 0 ? this.responsedata.msg : [];
-      this.responsedata[0]['pre_dt'] = this.responsedata;
+      this.premiumGroups = data.suc > 0 ? data.msg : [];
+      
+      this.allGroups = [...this.premiumGroups];
+
+    this.responsedata = [{ pre_dt: this.allGroups }];
       // this.filterGroupNamesBasedOnMemberType();      
     });
     console.log(this.responsedata,'predata');
   }
 
   onPolicyHolderTypeChange(isMember: any) {
-    this.form.reset()
+    // this.form.reset()
     this.depenFields_1.clear()
     if(isMember === 'M'){
       this.checkedmember = true;
@@ -218,42 +287,47 @@ export class Group_policyComponent implements OnInit {
       Swal.fire('Error', 'Please enter Date of Birth first.', 'error');
       return;
     }
+
+     this.responsedata[0].pre_dt = [...this.allGroups];
   
     const dob = new Date(dobValue);
     const today = new Date();
     const age = today.getFullYear() - dob.getFullYear();
   
-    this.dataServe.global_service(0, '/get_non_premium_dtls', null).subscribe((data: any) => {
-      this.responsedata = data.suc > 0 ? data.msg : [];
-      this.responsedata[0]['pre_dt'] = this.responsedata;
+    // this.dataServe.global_service(0, '/get_non_premium_dtls', null).subscribe((data: any) => {
+    //   this.responsedata = data.suc > 0 ? data.msg : [];
+
+    //   this.allGroups = [...this.responsedata];
+    //   this.responsedata[0]['pre_dt'] = this.allGroups;
   
-      if (selectedValue === 'J') {
-        this.responsedata[0].pre_dt = this.responsedata[0].pre_dt.filter(
-          (group: any) =>
-            group.family_catg === 'J' &&
-            (age > 50 ? group.age_group === 'Above50' : group.age_group === 'Below50')
-        );
-      } else if (selectedValue === 'S') {
-        this.responsedata[0].pre_dt = this.responsedata[0].pre_dt.filter(
-          (group: any) =>
-            group.family_catg === 'S' &&
-            (age > 50 ? group.age_group === 'Above50' : group.age_group === 'Below50')
-        );
-      }
   
-      if (this.responsedata[0].pre_dt.length === 0) {
-        Swal.fire(
-          'Warning',
-          'No eligible dependents found based on the selected operation and age.',
-          'warning'
-        ).then((result) => {
-          this.form.get('memb_oprn')?.setValue('S'); // Reset selection
-          if (result.isConfirmed) {
-            this.depenFields_1.clear();
-          }
-        });
-      }
-    });
+      // if (selectedValue === 'J') {
+      //   this.responsedata[0].pre_dt = this.responsedata[0].pre_dt.filter(
+      //     (group: any) =>
+      //       group.family_catg === 'J' &&
+      //       (age > 50 ? group.age_group === 'Above50' : group.age_group === 'Below50')
+      //   );
+      // } else if (selectedValue === 'S') {
+      //   this.responsedata[0].pre_dt = this.responsedata[0].pre_dt.filter(
+      //     (group: any) =>
+      //       group.family_catg === 'S' &&
+      //       (age > 50 ? group.age_group === 'Above50' : group.age_group === 'Below50')
+      //   );
+      // }
+  
+      // if (this.responsedata[0].pre_dt.length === 0) {
+      //   Swal.fire(
+      //     'Warning',
+      //     'No eligible dependents found based on the selected operation and age.',
+      //     'warning'
+      //   ).then((result) => {
+      //     this.form.get('memb_oprn')?.setValue('S'); 
+      //     if (result.isConfirmed) {
+      //       this.depenFields_1.clear();
+      //     }
+      //   });
+      // }
+    // });
   }
 
   onPolicyAddDependent(event: Event): void {
@@ -383,6 +457,14 @@ export class Group_policyComponent implements OnInit {
 //   this.filteredGroups = this.responsedata[0]?.pre_dt || [];
 // }
 
+// lockFormAfterMemberSubmit() {
+//   if (
+//     this.form.get('policy_holder_type')?.value === 'M' &&
+//     this.form.get('member_id')?.valid
+//   ) {
+//     this.form.disable(); // 🔒 lock everything
+//   }
+// }
 
 
   unit() {
@@ -434,11 +516,15 @@ export class Group_policyComponent implements OnInit {
       member: this.o['member'] ? this.o['member'].value : null,
       // policy_holder_type: 'M',
     }
+    if(dt.member_id){
+      this.form.get('memb_oprn')?.disable();
+    }else {
+      this.form.get('memb_oprn')?.enable();
+    }
     this.dataServe.global_service(0, '/get_member_policy', `member_id=${dt.member_id}`).subscribe((data:any) => {
-      this.responsedata = data
-      console.log(this.responsedata);
+      this.memberData = data
 
-      if(this.responsedata.suc == 3){
+      if(this.memberData.suc == 3){
         Swal.fire(
           'Warning',
           'This Member ID already exists in GMP Policy',
@@ -448,7 +534,7 @@ export class Group_policyComponent implements OnInit {
             this.form.reset()
           }
         });
-      } else if(this.responsedata.suc == 2){
+      } else if(this.memberData.suc == 2){
           Swal.fire(
             'Warning',
             'This Member ID already exists in STP Policy',
@@ -458,23 +544,28 @@ export class Group_policyComponent implements OnInit {
               this.form.reset()
             }
           });
-        }else if (this.responsedata.suc > 0 && this.responsedata.suc < 2){
-          this.responsedata = this.responsedata.suc > 0 ? this.responsedata.msg : []
-          this.formNo = this.responsedata[0].form_no
-          console.log(this.responsedata[0].unit_id)
+        }else if (this.memberData.suc > 0 && this.memberData.suc < 2){
+          this.memberData = this.memberData.suc > 0 ? this.memberData.msg : []
+          this.formNo = this.memberData[0].form_no
+          console.log(this.memberData[0].unit_id)
+          this.showMemberId = true;
+          this.isMemberSearch  = true;
           this.form.patchValue({
-            policy_holder_type: this.responsedata[0].policy_holder_type,
-            // form_dt: this.responsedata[0].form_dt,
-            unit: this.responsedata[0].unit_id,
-            member_type: this.responsedata[0].mem_type,
-            member: this.responsedata[0].memb_name,
-            phone: this.responsedata[0].phone_no,
-            memb_oprn: this.responsedata[0].memb_oprn,
-            gurdian: this.responsedata[0].gurdian_name,
-            gen: this.responsedata[0].gender,
-            marital_status: this.responsedata[0].marital_status,
-            gen_dob: this.datePipe.transform(this.responsedata[0].dob, 'yyyy-MM-dd'),
+            // policy_holder_type: this.memberData[0].policy_holder_type_id,
+            // form_dt: this.memberData[0].form_dt,
+            unit: this.memberData[0].unit_id,
+            member_type: this.memberData[0].mem_type,
+            member: this.memberData[0].memb_name,
+            phone: this.memberData[0].phone_no,
+            memb_oprn: this.memberData[0].memb_oprn,
+            gurdian: this.memberData[0].gurdian_name,
+            gen: this.memberData[0].gender,
+            marital_status: this.memberData[0].marital_status,
+            gen_dob: this.datePipe.transform(this.memberData[0].dob, 'yyyy-MM-dd'),
           });
+          // this.form.get('policy_holder_type')?.disable();
+          // this.isMemberSearch = true; // after member fetch
+           this.responsedata[0].pre_dt = [...this.allGroups];
           }else {
             Swal.fire(
               'Error',
@@ -487,7 +578,7 @@ export class Group_policyComponent implements OnInit {
             });
           }
   
-        this.getData_dependents()
+        this.getData_dependents();
       });
     }
 
@@ -534,7 +625,8 @@ export class Group_policyComponent implements OnInit {
           i++;
       }
   } else {
-      console.warn('No data found for this member.');
+      // console.warn('No data found for this member.');
+      this.onadd();
   }
 });
 
@@ -934,10 +1026,10 @@ onDependentNameChange(event: Event) {
 // }
 
 onminus(index: number) {
-  var member_id= this.o['member_id'] ? this.o['member_id'].value : null
-  var user = this.responsedata[0].memb_name
-  var sl_no = this.userData[0].sl_no
- console.log(member_id,sl_no,user, this.depenFields_1.value, 'ppppp');
+//   var member_id= this.o['member_id'] ? this.o['member_id'].value : null
+//   var user = this.responsedata[0].memb_name
+//   var sl_no = this.userData[0].sl_no
+//  console.log(member_id,sl_no,user, this.depenFields_1.value, 'ppppp');
   Swal.fire({
     title: 'Are you sure you want to delete?',
     text: "If Yes, then click on Yes, delete it.",

@@ -1,31 +1,33 @@
-<div class="header header-custom flex">
-  <div class="flex align-items-center">
-    <button id="header_icon"
+<div class="header-container shadow-sm">
+  <div class="header-left">
+    <!-- <button
       pButton
       pRipple
       (click)="onMenuToggle()"
-      type="button"
       icon="pi pi-bars"
       class="p-button-rounded p-button-text p-button-plain"
-    ></button>&nbsp;&nbsp;
-    <!-- <img src="assets/imgs/logo.jpg" /> -->
-    <span class="title-text"><b style="color: black;">Welcome, {{memberName}}</b></span>
+    ></button> -->
+    <span class="welcome-text">
+      <b>🙏 Welcome,&nbsp;<span class="user-name">{{ memberName }}</span></b>
+    </span>
   </div>
 
-  <div class="flex-grow-1"></div>
-
-  <div class="flex">
-    <!-- <button id="header_icon"
-      pButton
-      pRipple
+  <div class="header-right">
+    <!-- <p-avatar
+      [label]="labelAdmin"
+      styleClass="mr-2"
+      size="large"
+      [style]="{ 'background-color': '#50b0dd', color: '#ffffff' }"
       (click)="headermenu.toggle($event)"
-      type="button"
-      icon="pi pi-user"
-      class="p-button-rounded p-button-text p-button-plain header_icon"
-    ></button> -->
-    <p-avatar [label]="labelAdmin" styleClass="mr-2" size="large"
-      [style]="{ 'background-color': '#50b0dd', color: '#ffffff' }" (click)="headermenu.toggle($event)"
-      shape="circle"></p-avatar>
-    <p-menu #headermenu [popup]="true" [model]="headerMenuItem"></p-menu>
+      shape="circle"
+    ></p-avatar> -->
+    <!-- <p-menu #headermenu [popup]="true" [model]="headerMenuItem"></p-menu> -->
+     <p-avatar
+      [label]="labelAdmin"
+      styleClass="mr-2"
+      size="large"
+      [style]="{ 'background-color': '#50b0dd', color: '#ffffff' }"
+      shape="circle"
+    ></p-avatar>
   </div>
 </div>

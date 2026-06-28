@@ -57,6 +57,13 @@ const routes: Routes = [
             (m) => m.Show_admin_dataModule
           ),
       },
+       {
+        path: 'super_dashboard',
+        loadChildren: () =>
+          import('../Superadmin/super_dashboard/super_dashboard/super_dashboard.module').then(
+            (m) => m.Super_dashboardModule
+          ),
+      },
     ],
   },
 ];

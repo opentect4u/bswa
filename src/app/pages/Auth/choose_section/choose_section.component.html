@@ -1,0 +1,24 @@
+<div class="login-container">
+  <div class="login-box">
+    <div class="image-section">
+      <img src="assets/images/Select.gif" alt="Login illustration" />
+    </div>
+    <div class="form-section">
+      <img src="assets/images/logo.jpg" alt="Login illustration" class="stp_login_img"/>
+      <h3 class="img_adjust"><a class="go_back" href="/#/home">Home Page</a> <span class="breadcrumb-sep"> / </span><span>Choose an Option</span></h3>
+      <div class="option-cards">
+                <div class="option-card login-card" routerLink="/auth/member_login">
+          <i class="pi pi-sign-in card-icon"></i>
+          <h4>LOGIN</h4>
+          <p>Access your account</p>
+        </div>
+         <div class="option-card register-card" (click)="showRegisterSnack()">
+          <i class="pi pi-user-plus card-icon"></i>
+          <h4>REGISTER</h4>
+          <p>Create a new account</p>
+        </div>
+      </div>
+        <!-- <a class="go_back" href="/#/home">← Back to Home Page</a> -->
+    </div>
+  </div>
+</div>

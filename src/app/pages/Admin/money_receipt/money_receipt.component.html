@@ -247,8 +247,11 @@
         </div>
       </div>
     </div>
-      <p class="sub-titles">
+      <!-- <p class="sub-titles">
     **PREMIUM FOR SUPER TOP UP POLICY FOR 5 LACS FOR THE PERIOD FROM 11/07/2025 TO 10/07/2026 WITH NATIONAL INSURANCE CO**
+  </p> -->
+   <p class="sub-titles" style="text-align: center; margin-top: 2rem; font-weight: bold; width: 100%;">
+    **PREMIUM FOR SUPER TOP UP POLICY FOR {{ (trnData?.policy_amount | uppercase) || '5 LACS' }} WITH NATIONAL INSURANCE CO**
   </p>
   </div>
 </mat-card>

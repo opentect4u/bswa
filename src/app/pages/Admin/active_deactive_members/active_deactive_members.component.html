@@ -1,0 +1,88 @@
+<div class="page-wrapper">
+  <div class="card-container">
+
+    <h3 class="title">Active / Deactive Members List</h3>
+
+    <!-- Radio Buttons -->
+    <form [formGroup]="form">
+      <div class="radio-group">
+
+        <label class="radio-card">
+          <input type="radio" formControlName="status" value="A" />
+          <span class="radio-ui"></span>
+          <span>Active Members</span>
+        </label>
+
+        <label class="radio-card">
+          <input type="radio" formControlName="status" value="I" />
+          <span class="radio-ui"></span>
+          <span>Inactive Members</span>
+        </label>
+
+      </div>
+    </form>
+
+    <!-- Table -->
+    <div class="table-responsive">
+      <table class="member-table">
+        <thead>
+          <tr>
+            <th class="text-center">Sl No</th>
+            <th class="text-center">Member ID</th>
+            <th class="text-center">Member Name</th>
+            <th class="text-center">Mobile</th>
+            <th class="text-center">Status</th>
+            <th class="text-center">Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let dt of tableData; let i = index">
+            <td class="text-center">{{ i + 1 }}</td>
+            <td class="text-center">{{ dt.member_id}}</td>
+            <td class="text-center">{{ dt.memb_name }}</td>
+            <td class="text-center">{{ dt.phone_no }}</td>
+            <td class="text-center"> <span class="badge" [class.active]="dt.memb_status === 'A'"
+                [class.inactive]="dt.memb_status === 'I'">
+                {{ dt.memb_status === 'A' ? 'Active' : 'Inactive' }}
+              </span>
+            </td>
+            <td class="text-center">
+              <i class="fa fa-edit view-icon" title="View Member"
+                (click)="view_member_dtls(dt.member_id,dt.phone_no)"></i>
+            </td>
+          </tr>
+
+
+          <tr *ngIf="tableData.length === 0">
+            <td colspan="6" class="text-center">No data found</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="table-responsive">
+
+        <table class="member-table">
+          <!-- your existing thead & tbody -->
+        </table>
+
+        <!-- 🔽 ADD PAGINATION HERE -->
+        <div class="pagination-bar" *ngIf="totalRecords > limit">
+          <button class="pg-btn prev-btn" (click)="prevPage()" [disabled]="page === 1">
+            ‹ Prev
+          </button>
+
+          <span class="page-info">
+            Page {{ page }} of {{ totalPages }}
+          </span>
+
+          <button class="pg-btn next-btn" (click)="nextPage()" [disabled]="page * limit >= totalRecords">
+            Next ›
+          </button>
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
+</div>

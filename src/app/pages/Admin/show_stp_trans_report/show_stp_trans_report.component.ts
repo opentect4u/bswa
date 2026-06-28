@@ -19,11 +19,12 @@ export class Show_stp_trans_reportComponent implements OnInit {
   userData: any = [];
   from_dt: any;
   to_dt: any;
-  memb_oprn: any;  
+  memb_oprn: any;
+  fin_year: any;
   totalCalAmount = 0;
   totalPremAmount = 0;
-  hasSpouseData : boolean = false;
-   @ViewChild('dt2') dt2: any;
+  hasSpouseData: boolean = false;
+  @ViewChild('dt2') dt2: any;
   hasSpouseDataInVisibleRows: boolean = false;
   // showSpouseColumns: boolean = false;
 
@@ -36,11 +37,12 @@ export class Show_stp_trans_reportComponent implements OnInit {
 
   ngOnInit() {
     this.from_dt = this.route.snapshot.params['from_dt'];
-  this.to_dt = this.route.snapshot.params['to_dt'];
-  this.memb_oprn = this.route.snapshot.params['memb_oprn'];
+    this.to_dt = this.route.snapshot.params['to_dt'];
+    this.memb_oprn = this.route.snapshot.params['memb_oprn'];
+    this.fin_year = this.route.snapshot.params['fin_year'];
 
-  console.log('Params:', this.from_dt, this.to_dt, this.memb_oprn);
-    
+    console.log('Params:', this.from_dt, this.to_dt, this.memb_oprn, this.fin_year);
+
     this.show_stp_trans_data()
   }
   checkSpouseDataInVisibleRows(): void {
@@ -50,138 +52,168 @@ export class Show_stp_trans_reportComponent implements OnInit {
     );
   }
 
-    show_stp_trans_data(){
-    this.dataServe.global_service(0,'/member_stp_trans_report',`from_dt=${this.from_dt}&to_dt=${this.to_dt}&memb_oprn=${this.memb_oprn}`).subscribe(data => {
-      console.log(data,'kiki')
-      this.userData = data;
-      this.userData = this.userData.msg;
+  show_stp_trans_data() {
+    this.dataServe.global_service(0, '/member_stp_trans_report', `from_dt=${this.from_dt}&to_dt=${this.to_dt}&memb_oprn=${this.memb_oprn}&fin_year=${this.fin_year}`).subscribe((data: any) => {
+      console.log(data, 'kiki');
+
+      let fetchedData = data && data.suc > 0 && Array.isArray(data.msg) ? data.msg : [];
+
+      if (this.fin_year && this.fin_year !== 'A') {
+        fetchedData = fetchedData.filter((item: any) => item.fin_year === this.fin_year || item.financial_year === this.fin_year);
+      }
+
+      this.userData = fetchedData;
       this.totalPremAmount = 0;
       this.totalCalAmount = 0;
       this.hasSpouseData = false;
 
-       for (let customer of this.userData) {
-      this.totalPremAmount += (+customer.premium_amt);
-      this.totalCalAmount += (+customer.premium_amt);
+      for (let customer of this.userData) {
+        this.totalPremAmount += (+customer.premium_amt);
+        this.totalCalAmount += (+customer.premium_amt);
 
-      if (customer.memb_oprn === 'D') {
-      this.hasSpouseData = true;
-     }
+        if (customer.memb_oprn === 'D') {
+          this.hasSpouseData = true;
+        }
       }
-      console.log(this.userData,'lili');
-       setTimeout(() => {
-      this.checkSpouseDataInVisibleRows();
-    }, 0);
-    },error => {
+      console.log(this.userData, 'lili');
+      setTimeout(() => {
+        this.checkSpouseDataInVisibleRows();
+      }, 0);
+    }, error => {
       console.error(error);
     })
   }
 
-    printDiv() {
-      this.divToPrint = document.getElementById('divToPrint');
-  
-      this.WindowObject = window.open('', 'Print-Window');
-      this.WindowObject.document.open();
-      this.WindowObject.document.writeln('<!DOCTYPE html>');
-      this.WindowObject.document.writeln(
-        '<html><head><title></title><style type="text/css">'
-      );
-  
-      // this.WindowObject.document.writeln(
-      //   '@media print {.wraper { margin-left: 10px !important; margin-right: 10px !important; } .contant-wraper { border-top: 2px solid #32678d; background-color: white; margin-bottom: 100px; overflow: auto; }</style>'
-      // );
-  
-      this.WindowObject.document.writeln('@media print { .center { text-align: center;}' +
-        'body{font-family:Arial, Tahoma, Verdana;font-size: 14px;color: #6f7479;}' +
-        '.wrapper{box-shadow: none !important; max-width: 1100px; width: 100%; margin: 0 auto; font-family:Arial, Tahoma, Verdana;}' +
-        '.contant-wraper{box-shadow: none !important;}'+
-        // '.table_print_outer {border:red solid 2px;}' +
-        '.table_print_outer table thead tr th{background:#000 !important; color:#fff; margin: 0 !important; padding:7px 3px; border: none;}' +
-        '.table_print_outer table thead{text-align: left; background:#000 !important;}' +
-        '.table_print_outer table tbody tr td{text-align: left; text-wrap: wrap; color:#333; padding:7px 3px; word-break: break-word; border: none; margin: 0 !important;}' +
-        '.table_print_outer table tbody tr{border-bottom:#333 solid 1px;}' +
-        '.print_top_head h2{margin: 0; padding: 0; font-size:20px; color:#000;}' +
-        '.print_top_head h4{margin: 0; padding: 0; font-size:16px; color:#000;}' +
-        '.print_top_Title h4{margin: 0; padding: 0; font-size:16px; color:#000;}' +
-        '.msg_adress{width:120px;}'+
-        '.table_head_cus tr td{background: #D9D9D9;}' +
-                '} </style>');
-  
-      this.WindowObject.document.writeln(
-        '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">'
-      );
-      this.WindowObject.document.writeln(
-        '<link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">'
-      );
-      this.WindowObject.document.writeln(
-        '<link rel="stylesheet" href="/css/adminlte.min.css">'
-      );
-      this.WindowObject.document.writeln('</head><body onload="window.print()">');
-      this.WindowObject.document.writeln(this.divToPrint.innerHTML);
-      this.WindowObject.document.writeln('</body></html>');
-      this.WindowObject.document.close();
-      setTimeout(() => {
-        this.WindowObject.close();
-      }, 1000);
-    }
+  printDiv() {
+    this.divToPrint = document.getElementById('divToPrint');
 
-download() {
-  const formatDate = (date: any) => {
-    const parsedDate = new Date(date);
-    return isNaN(parsedDate.getTime()) ? 'N/A' : parsedDate.toISOString().split('T')[0];
-  };
+    this.WindowObject = window.open('', 'Print-Window');
+    this.WindowObject.document.open();
+    this.WindowObject.document.writeln('<!DOCTYPE html>');
+    this.WindowObject.document.writeln(
+      '<html><head><title></title><style type="text/css">'
+    );
 
-  if (!Array.isArray(this.userData)) {
-    console.error("userData is not an array");
-    return;
+    // this.WindowObject.document.writeln(
+    //   '@media print {.wraper { margin-left: 10px !important; margin-right: 10px !important; } .contant-wraper { border-top: 2px solid #32678d; background-color: white; margin-bottom: 100px; overflow: auto; }</style>'
+    // );
+
+    this.WindowObject.document.writeln('@media print { .center { text-align: center;}' +
+      'body{font-family:Arial, Tahoma, Verdana;font-size: 14px;color: #6f7479;}' +
+      '.wrapper{box-shadow: none !important; max-width: 1100px; width: 100%; margin: 0 auto; font-family:Arial, Tahoma, Verdana;}' +
+      '.contant-wraper{box-shadow: none !important;}' +
+      // '.table_print_outer {border:red solid 2px;}' +
+      '.table_print_outer table thead tr th{background:#000 !important; color:#fff; margin: 0 !important; padding:7px 3px; border: none;}' +
+      '.table_print_outer table thead{text-align: left; background:#000 !important;}' +
+      '.table_print_outer table tbody tr td{text-align: left; text-wrap: wrap; color:#333; padding:7px 3px; word-break: break-word; border: none; margin: 0 !important;}' +
+      '.table_print_outer table tbody tr{border-bottom:#333 solid 1px;}' +
+      '.print_top_head h2{margin: 0; padding: 0; font-size:20px; color:#000;}' +
+      '.print_top_head h4{margin: 0; padding: 0; font-size:16px; color:#000;}' +
+      '.print_top_Title h4{margin: 0; padding: 0; font-size:16px; color:#000;}' +
+      '.msg_adress{width:120px;}' +
+      '.table_head_cus tr td{background: #D9D9D9;}' +
+      '.p-paginator { display: none !important; }' +
+      '.p-datatable-wrapper { overflow: visible !important; }' +
+      'table { width: 100% !important; border-collapse: collapse !important; }' +
+      '} </style>');
+
+    this.WindowObject.document.writeln(
+      '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">'
+    );
+    this.WindowObject.document.writeln(
+      '<link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">'
+    );
+    this.WindowObject.document.writeln(
+      '<link rel="stylesheet" href="/css/adminlte.min.css">'
+    );
+    this.WindowObject.document.writeln('</head><body onload="window.print()">');
+    this.WindowObject.document.writeln(this.divToPrint.innerHTML);
+    this.WindowObject.document.writeln('</body></html>');
+    this.WindowObject.document.close();
+    setTimeout(() => {
+      this.WindowObject.close();
+    }, 1000);
   }
 
-  const dataWithSlNo = this.userData.map((customer: any, index: number) => {
-    const baseData: any = {
-      'SL No': index + 1,
-      'Transaction ID': customer?.trn_id ?? 'N/A',
-      'Transaction Date': formatDate(customer?.trn_dt),
-      'MIN No': customer?.min_no ?? 'N/A',
-      'Member Name': customer?.memb_name ?? 'N/A',
-      'Member Gender': customer.gender == 'M' ? 'Male' : customer.gender == 'F' ? 'Female' : 'N/A',
-      'Member Dob': formatDate(customer?.dob),
-      'Premium Amount': customer?.premium_amt ?? '0',
-      'Total Amount': customer?.tot_amt ?? '0',
-      'Pay Mode': customer?.pay_mode === 'O' ? 'Online' : 'N/A',
-      // 'Spouse MIN No': 'N/A',
-      // 'Spouse Name': 'N/A',
-      // 'Spouse Dob': 'N/A'
+  download(dt: any = null) {
+    const formatDate = (date: any) => {
+      const parsedDate = new Date(date);
+      return isNaN(parsedDate.getTime()) ? 'N/A' : parsedDate.toISOString().split('T')[0];
     };
 
-    if (customer?.memb_oprn === 'D' || customer?.memb_oprn === 'A') {
-      baseData['Spouse MIN No'] = customer?.spou_min_no || 'NULL';
-      baseData['Spouse Name'] = customer?.dependent_name || 'NULL';
-      baseData['Spouse Gender'] = customer.spou_gender == 'M' ? 'Male' : customer.spou_gender == 'F' ? 'Female' : 'NULL';
-      baseData['Spouse Dob'] = formatDate(customer?.spou_dob);
+    if (!Array.isArray(this.userData)) {
+      console.error("userData is not an array");
+      return;
     }
 
-    return baseData;
-  });
+    let dataToExport = this.userData;
+    if (dt) {
+      const filteredValue = dt.filteredValue || this.userData;
+      const first = dt.first || 0;
+      const rows = dt.rows || filteredValue.length;
+      dataToExport = filteredValue.slice(first, first + rows);
+    }
 
-  const hasSingle = this.userData.some((item: any) => item?.memb_oprn === 'S');
-  const hasDouble = this.userData.some((item: any) => item?.memb_oprn === 'D' || item?.memb_oprn === 'A');
+    const dataWithSlNo = dataToExport.map((customer: any, index: number) => {
+      const baseData: any = {
+        'SL No': (dt ? (dt.first || 0) : 0) + index + 1,
+        'Transaction ID': customer?.trn_id ?? 'N/A',
+        'Transaction Date': formatDate(customer?.trn_dt),
+        'MIN No': customer?.min_no ?? 'N/A',
+        'Member Name': customer?.memb_name ?? 'N/A',
+        'Member Gender': customer.gender == 'M' ? 'Male' : customer.gender == 'F' ? 'Female' : 'N/A',
+        'Member Dob': formatDate(customer?.dob),
+      };
 
-  let fileName = 'STP Member Transaction List';
-  if (hasSingle && hasDouble) {
-    fileName += ' - Single & Double';
-  } else if (hasSingle) {
-    fileName += ' - Single';
-  } else if (hasDouble) {
-    fileName += ' - Double';
+      if (this.hasSpouseData) {
+        if (customer?.memb_oprn === 'D' || customer?.memb_oprn === 'A') {
+          baseData['Spouse MIN No'] = customer?.spou_min_no || 'NULL';
+          baseData['Spouse Name'] = customer?.dependent_name || 'NULL';
+          baseData['Spouse Gender'] = customer.spou_gender == 'M' ? 'Male' : customer.spou_gender == 'F' ? 'Female' : 'NULL';
+          baseData['Spouse Dob'] = formatDate(customer?.spou_dob);
+        } else {
+          baseData['Spouse MIN No'] = 'N/A';
+          baseData['Spouse Name'] = 'N/A';
+          baseData['Spouse Gender'] = 'N/A';
+          baseData['Spouse Dob'] = 'N/A';
+        }
+      }
+
+      baseData['Premium Type'] = customer.premium_type == 'S' ? 'Single' : customer.premium_type == 'D' ? 'Double' : 'N/A';
+      baseData['Policy Amount'] = customer.policy_amount ? customer.policy_amount : '0';
+      baseData['Premium Amount'] = customer?.premium_amt ?? '0';
+      baseData['Financial Year'] = customer.fin_year ? customer.fin_year : 'N/A';
+      baseData['Total Amount'] = customer?.tot_amt ?? '0';
+      baseData['Pay Mode'] = customer?.pay_mode === 'O' ? 'Online' : 'N/A';
+      baseData['Approval Status'] = customer?.approval_status == 'A' ? 'Approved' : 'Unapproved';
+
+      return baseData;
+    });
+
+    const hasSingle = this.userData.some((item: any) => item?.memb_oprn === 'S');
+    const hasDouble = this.userData.some((item: any) => item?.memb_oprn === 'D' || item?.memb_oprn === 'A');
+
+    let fileName = 'STP Member Transaction List';
+    if (hasSingle && hasDouble) {
+      fileName += ' - Single & Double';
+    } else if (hasSingle) {
+      fileName += ' - Single';
+    } else if (hasDouble) {
+      fileName += ' - Double';
+    }
+
+    const ws = XLSX.utils.json_to_sheet(dataWithSlNo);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'TransactionData');
+    XLSX.writeFile(wb, `${fileName}.xlsx`);
   }
 
-  const ws = XLSX.utils.json_to_sheet(dataWithSlNo);
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, 'TransactionData');
-  XLSX.writeFile(wb, `${fileName}.xlsx`);
-}
+  downloadAllData() {
+    this.download();
+  }
 
 
-  
+
   //   download(){
   //     const dataWithSlNo = this.userData.map((customer: {trn_id: any; trn_dt: string; min_no: string; memb_name: any; dob: any; donation: any; spou_min_no: any; dependent_name: any; spou_dob: any; pay_mode: any; premium_amt: any; tot_amt: any; memb_oprn: string;}, index: number) => {
   //       const baseData: any = {
@@ -224,9 +256,19 @@ download() {
   //     const ws = XLSX.utils.json_to_sheet(dataWithSlNo);
   //     const wb = XLSX.utils.book_new();
   //     XLSX.utils.book_append_sheet(wb,ws, 'TransactionData');
-  
-  
+
+
   //     XLSX.writeFile(wb, `${fileName}.xlsx`)
   //   }
+
+  navigateBack() {
+    window.history.back();
+  }
+
+  scrollTable(direction: string) {
+    const scrollAmount = 300;
+    if (direction === 'up') window.scrollBy({ top: -scrollAmount, behavior: 'smooth' });
+    else if (direction === 'down') window.scrollBy({ top: scrollAmount, behavior: 'smooth' });
+  }
 
 }

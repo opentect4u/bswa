@@ -1,0 +1,62 @@
+<div class="dashboard-wrapper">
+  <!-- 🔹 Summary Card -->
+  <mat-card class="summary-card">
+    <mat-card-title class="summary-title">Summary of Active & Inactive Member Details</mat-card-title>
+    <mat-card-content>
+      <div class="form-container">
+        <mat-form-field appearance="outline" class="bank-select">
+          <mat-label>Unit Name</mat-label>
+          <mat-select [(ngModel)]="selectedUnitId">
+            <mat-option value="">Select Unit Name</mat-option>
+            <mat-option *ngFor="let option of responsedata" [value]="option.unit_id">
+              {{ option.unit_name }}
+              </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" (click)="getTotalMember()">Submit</button>
+        <button mat-icon-button color="warn" (click)="refreshData()" class="refresh-btn">
+  <mat-icon>refresh</mat-icon>
+</button>
+      </div>
+<div class="counts">
+  <div class="status-row">
+    <span class="label"><b>Active Member:</b></span>
+    <span class="count-box active">
+      {{ userCounts?.act_dt || 0 }}
+    </span>
+  </div>
+
+  <div class="status-row">
+    <span class="label"><b>Inactive Member:</b></span>
+    <span class="count-box inactive">
+      {{ userCounts?.deact_dt || 0 }}
+    </span>
+  </div>
+</div>
+
+
+    </mat-card-content>
+  </mat-card>
+
+  <!-- 🔹 Agent Summary Cards -->
+ <div class="card-container">
+    <mat-card *ngFor="let item of userData" class="custom-card">
+      <mat-card-content>
+        <p class="highlight-gradient">{{ item.total }}</p>
+      </mat-card-content>
+      <mat-card-title class="member-title gradient-text">{{ item.mem_type }} Member</mat-card-title>
+    </mat-card>
+  </div>
+
+<div class="card-container">
+  <mat-card *ngFor="let item of userDatas" class="custom-card">
+    <mat-card-content>
+      <p class="highlight-gradient">{{ item.total }}</p>
+    </mat-card-content>
+    <mat-card-title class="member-title gradient-text">
+      {{ item.mem_type }} Pending
+    </mat-card-title>
+  </mat-card>
+</div>
+</div>

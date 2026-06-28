@@ -1,70 +1,81 @@
-<p-card>
-  <div class="row align-items-center">
-    <h3 class="flex align-items-center">
-      <i class="pi pi-hourglass menu-icon"></i>&nbsp;
-      <b>Member List</b>
-    </h3>
-  </div>
+<div class="page-wrapper">
+  <div class="card-container">
+     <h3 class="title">Members List</h3>
 
-  <div class="card mt-4">
-    <p-table [value]="tableData" #dt2 dataKey="id" [rows]="10" [showCurrentPageReport]="true"
-      [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true"
-      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-      [globalFilterFields]="['memb_type']" [tableStyle]="{
-        'min-width': '55rem',
-        'box-shadow': '0 10px 28px rgba(1.5, 1.5, 1.5, 1.5)',
-      }">
-      <ng-template pTemplate="caption">
-        <div class="flex">
-          <span class="p-input-icon-left ml-auto">
-            <i class="pi pi-search"></i>
-            <input pInputText type="text" (input)="filerRes($event)" placeholder="Search by Form No, Member Name, Type"
-              style="width: 350px;" />
-          </span>
-        </div>
-      </ng-template>
-      <ng-template pTemplate="header">
-        <tr>
-          <th id="table_color">Form No</th>
-          <!-- <th id="table_color">Member ID</th> -->
-          <th id="table_color">Member Name</th>
-          <th id="table_color">Type</th>
-          <th id="table_color">Edit</th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-memb>
-        <tr>
-          <td class="text-center">
-            <b>{{ memb.form_no }}</b>
-          </td>
-          <!-- <td class="text-center">
-            <b>{{ memb.member_id }}</b>
-          </td> -->
-          <td class="text-center">
-            <b>{{ memb.memb_name }}</b>
-          </td>
-          <td class="text-center">
-            <b>{{
-              memb.mem_type == "G"
-              ? "General"
-              : memb.mem_type == "AI"
-              ? "Associate"
-              : "Life"
-              }}</b>
-          </td>
-          <td class="text-center">
-            <b><a pTooltip="View" tooltipPosition="bottom" (click)="preview(memb.form_no, memb.member_id)"><i
-                  class="pi pi-eye editLink" style="cursor: pointer;"></i></a></b>
-          </td>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="emptymessage">
-        <tr>
-          <td colspan="4" class="text-center text-red-900">
-            No data available
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
+       <div class="search-box">
+        <i class="fa fa-search"></i>
+        <input
+          type="text"
+          placeholder="Search Form No / Member Name"
+          (input)="filterRes($event)"
+        />
+      </div>
+    
+     <div class="table-responsive">
+      <table class="member-table">
+        <thead>
+          <tr>
+            <th class="text-center">Sl No</th>
+            <th class="text-center">Form No</th>
+            <th class="text-center">Member ID</th>
+            <th class="text-center">Member Name</th>
+            <th class="text-center">Type</th>
+            <th class="text-center">Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let memb of tableData; let i = index">
+            <td class="text-center">{{ i + 1 }}</td>
+            <td class="text-center">{{ memb.form_no }}</td>
+            <td class="text-center">{{ memb.member_id }}</td>
+            <td class="text-center">{{ memb.memb_name }}</td>
+            <td class="text-center"> <span
+                class="badge"
+                [class.active]="memb.mem_type === 'G' || memb.mem_type === 'AI' || memb.mem_type === 'L'"
+              >
+                {{ memb.mem_type === 'G' ? 'General' : memb.mem_type == "AI" ? 'Associate' : 'Life' }}
+              </span>
+            </td>
+           <td class="text-center">
+             <i class="fa fa-edit view-icon" title="View Member" (click)="preview(memb.form_no, memb.member_id)"></i>
+           </td>
+          </tr>
+          <tr *ngIf="tableData.length === 0">
+            <td colspan="6" class="text-center">No data found</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="table-responsive">
+
+  <table class="member-table">
+    <!-- your existing thead & tbody -->
+  </table>
+
+  <!-- 🔽 ADD PAGINATION HERE -->
+  <div class="pagination-bar" *ngIf="totalRecords > limit">
+  <button
+    class="pg-btn prev-btn"
+    (click)="prevPage()"
+    [disabled]="page === 1">
+    ‹ Prev
+  </button>
+
+  <span class="page-info">
+    Page {{ page }} of {{ totalPages }}
+  </span>
+
+  <button
+    class="pg-btn next-btn"
+    (click)="nextPage()"
+    [disabled]="page * limit >= totalRecords">
+    Next ›
+  </button>
+</div>
+
+
+</div>
+
+</div>
   </div>
-</p-card>
+</div>

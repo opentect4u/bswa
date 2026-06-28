@@ -1,0 +1,40 @@
+<div class="login-container">
+  <div class="login-box">
+
+    <div class="image-section">
+      <img src="assets/images/Sign up.gif" alt="Login illustration" />
+    </div>
+
+    <div class="form-section">
+    <div class="title-wrapper">
+  <i class="pi pi-arrow-left back-arrow" (click)="goBack()"></i>
+  <h2 class="title">Sign Up to Your Account</h2>
+</div>
+      <p class="subtitle"><b>Enter your details to continue</b></p>
+
+        <div class="login-card mt-2">
+           <div class="icon-box">
+          <i class="pi pi-users"></i>
+        </div>
+
+         <label class="section-label">Select Type</label>
+        <div class="type-buttons mt-2">
+          <button class="type-btn active" [class.active]="loginType === 'BSPWA'" (click)="selectType('BSPWA')">BSPWA</button>
+          <button class="type-btn" [class.active]="loginType === 'OTHERS'" (click)="selectType('OTHERS')">Others</button>
+        </div>
+
+        <label class="section-label mt-3">{{ loginType === 'BSPWA' ? 'Member ID' : 'MIN Number' }}</label>
+        <input type="text" class="input-box mt-2"  [class.input-error]="memberError" [placeholder]="loginType === 'BSPWA' ? 'Enter Your Member ID' : 'Enter Your MIN No'" [(ngModel)]="memberInput" (input)="memberInput = memberInput.trim()"/>
+
+        <div *ngIf="memberError" class="error-text">
+          {{ memberError }}
+        </div>
+
+  <button
+  class="continue-btn" (click)="continue()" [disabled]="!memberInput || memberInput.trim().length === 0">
+  Continue
+</button>
+</div>
+</div>
+</div>
+</div>

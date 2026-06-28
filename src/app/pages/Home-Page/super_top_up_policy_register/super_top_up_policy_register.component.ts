@@ -63,7 +63,7 @@ export class Super_top_up_policy_registerComponent implements OnInit {
   addClickCount = 0;
   showPremiumSection = true;
 
-
+   showMemberId = false;
 
   filteredStatusOptions: any[] = []; // to avoid undefined error
 
@@ -108,6 +108,7 @@ export class Super_top_up_policy_registerComponent implements OnInit {
       form_dt: ['', Validators.required],
       policy_holder_type: ['', Validators.required],
       premium_type: [''], 
+      member_id: [''] 
       // premium_amt: [''],
       // total_amt: ['']
     });
@@ -132,6 +133,21 @@ export class Super_top_up_policy_registerComponent implements OnInit {
   ngAfterViewInit(): void {
     this.selectedValue3='N'
   }
+
+  onPolicyHolderChange(event: any) {
+  const value = event.target.value;
+
+  if (value === 'M') {
+    this.showMemberId = true;
+    this.form.get('member_id')?.setValidators([Validators.required]);
+  } else {
+    this.showMemberId = false;
+    this.form.get('member_id')?.clearValidators();
+    this.form.get('member_id')?.setValue('');
+  }
+
+  this.form.get('member_id')?.updateValueAndValidity();
+}
 
   setSpouseValidators(required: boolean) {
   const spouseControls = ['spouse', 'spouse_min_no', 'spou_dob', 'spou_mobile', 'spou_gender', 'spou_mem'];
@@ -419,6 +435,7 @@ onadd(sl_no: any = '', ind_type: any = '', fin_year: any = '', particulars: any 
         form_dt: this.o['form_dt'] ? this.o['form_dt'].value : null,
         policy_holder_type: this.o['policy_holder_type']? this.o['policy_holder_type'].value : null,
         min_no: this.o['min_no'] ? this.o['min_no'].value : null,
+        member_id: this.o['member_id'] ? this.o['member_id'].value : null,
         member_type: this.o['member_type'] ? this.o['member_type'].value : null,
         unit: this.o['unit_name']? this.o['unit_name'].value : null,
         personal_no: this.o['personal_no'] ? this.o['personal_no'].value : null,

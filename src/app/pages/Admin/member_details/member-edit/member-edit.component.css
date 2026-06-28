@@ -1,0 +1,113 @@
+.change-password-container {
+  min-height: 100vh;
+  padding: 30px;
+  background: linear-gradient(135deg, #6a8cc7, #cfd8ea);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.change-password-box {
+  background: #fff;
+  padding: 30px 40px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  width: 100%;
+  max-width: 1400px;
+}
+
+/* Section titles */
+h3 {
+  text-align: center;
+  color: #1b3c66;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+/* Inputs */
+.box_input,
+select,
+textarea {
+  height: 42px;
+  border-radius: 8px !important;
+  border: 1px solid #d1d5db !important;
+  transition: all .2s ease;
+}
+
+textarea {
+  height: auto;
+}
+
+.box_input:focus,
+select:focus,
+textarea:focus {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 4px rgba(59,130,246,0.4);
+}
+
+/* labels */
+.label_field {
+  font-size: 14px;
+  color: #374151;
+}
+
+/* form spacing */
+.field {
+  margin-bottom: 15px;
+}
+
+/* section divider */
+::ng-deep .p-divider.p-divider-horizontal {
+  margin: 20px 0;
+}
+
+/* buttons */
+.sub_btn {
+  background: #2563eb !important;
+  border: none !important;
+  padding: 10px 30px;
+  border-radius: 8px !important;
+}
+
+.sub_btn:hover {
+  background: #1e40af !important;
+}
+
+/* add / remove buttons */
+::ng-deep .p-button-rounded {
+  width: 38px;
+  height: 38px;
+}
+
+/* image upload card */
+.card {
+  border: 1px dashed #d1d5db;
+  padding: 10px;
+  border-radius: 10px;
+  background: #f9fafb;
+}
+
+/* responsive */
+@media screen and (max-width: 768px) {
+  .change-password-box {
+    padding: 20px;
+  }
+}
+
+.form-field {
+  margin-bottom: 0px;
+  display: flex;
+  flex-direction: column;
+}
+
+.color{
+  color: #0e345f;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+::ng-deep .mat-mdc-form-field-required-marker {
+  color: #b30000 !important;
+  font-weight: 500;
+  font-size: 16px;
+}

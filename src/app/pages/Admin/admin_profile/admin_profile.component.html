@@ -1,0 +1,57 @@
+<div class="change-password-container">
+ <div class="change-password-box">
+    <h2>Profile Details</h2>
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+   
+   <div class="row">
+  <div class="form-field col-6">
+    <mat-form-field appearance="outline">
+      <mat-label class="color">User ID</mat-label>
+      <input matInput id="user_id" formControlName="user_id" placeholder="User ID..."/>
+    </mat-form-field>
+  </div>
+
+   <div class="form-field col-6">
+    <mat-form-field appearance="outline">
+      <mat-label class="color">User Type</mat-label>
+      <input matInput id="user_type" formControlName="user_type" placeholder="User Type..." />
+    </mat-form-field>
+  </div>
+</div>
+
+ <div class="row">
+  <div class="form-field col-6">
+    <mat-form-field appearance="outline">
+      <mat-label class="color">User Name</mat-label>
+      <input matInput id="user_name" formControlName="user_name" placeholder="User Name..."/>
+    </mat-form-field>
+  </div>
+
+   <div class="form-field col-6">
+    <mat-form-field appearance="outline">
+      <mat-label class="color">User Email</mat-label>
+      <input matInput id="user_email" formControlName="user_email" placeholder="User Email..." />
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="row">
+  <div class="form-field col-6">
+    <mat-form-field appearance="outline">
+      <mat-label class="color">User Phone</mat-label>
+      <input matInput id="user_phone" formControlName="user_phone" placeholder="User Phone..." [maxlength]="10"/>
+    </mat-form-field>
+  </div>
+
+   <div class="form-field col-6">
+    <mat-form-field appearance="outline">
+      <mat-label class="color">User Status</mat-label>
+      <input matInput id="user_status" formControlName="user_status" placeholder="User Status..." />
+    </mat-form-field>
+  </div>
+</div>
+
+    <button mat-raised-button color="primary" [disabled]="myForm.invalid || !myForm.dirty">Submit</button>
+  </form>
+</div>
+  </div>

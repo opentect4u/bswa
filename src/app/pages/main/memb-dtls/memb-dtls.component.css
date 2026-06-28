@@ -1,71 +1,261 @@
-.margin{
-    margin-left: 65vw;
+.form-container {
+  /* max-width: 900px; */
+  margin: 0px 20px;
+  padding: 20px;
+  border-radius: 16px;
+  /* background: #e9ecf0; */
+  background: linear-gradient(to bottom, #fafafa, #aab6df);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.letter{
-    margin-left: 19px;
-    margin: 6PX;
-    padding: 0;
+.form-section {
+  background-color: white;
+  padding: 20px 30px;
+  border-radius: 12px;
+  border-left: 6px solid #3f51b5;
+  box-shadow: 0 2px 12px rgba(63, 81, 181, 0.08);
 }
 
-.table_space {
-    margin-left: 14px;
+.form-section h2 {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: #3f51b5;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 8px;
 }
 
-.size{
-    /* margin-left: 67px; */
-    /* margin: 6px; */
-    /* padding: 0; */
+.field-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
 }
 
-.spacing {
-    margin: 10px 0;
-}
-.checkbox-spacing {
-    margin-right: 10px;
-}
-.space {
-    color: black;
-    float: right;
-    margin-top: -1vw;
-    margin-right: 10vw;
+/* .short-field {
+   flex: 1 1 250px; 
+  min-width: 250px; 
+} */
+
+.short-field {
+  width: 280px; /* Or whatever width you want */
+  min-width: 150px;
+  /* color: red; */
 }
 
-p-button.p-element, .print_btn {
-    /* align-items: center;     */
-    /* position: fixed; */
-    /* right: 30px; */
-    bottom: 15px;
-    /* margin-left: 30vw; */
-  }
+/* Make only the required asterisk red */
+/* Required asterisk when field is INVALID */
 
-.color{
-    color: black;
-    display: flex;
-    justify-content: space-evenly;
+
+.wide-field {
+  width: 64vw;   /* adjust as needed */
 }
 
-.span_space{
-    margin-left: 19px;
-    color: rgb(62 66 201);
+
+
+.middle-field {
+  width: 62vw; 
+  min-width: 150px;
 }
 
-/* .custom-badge {
-    position: relative;
+.big-field {
+  width: 630px; 
+  min-width: 150px;
+}
+
+/* .dependent-block {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 12px;
+  background-color: #f9f9f9;
+} */
+
+.dependent-block {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+/* Optional: section spacing */
+.form-section {
+  margin-bottom: 32px;
+}
+
+.button-container {
+  margin-top: 15px;
+  text-align: center; /* Aligns the button to the left */
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+.badge {
     display: inline-block;
-  } */
-  
-  .custom-badge .p-badge {
-    position: absolute;
-    top: -10px; /* Adjust these values to position the badge */
-    right: -10px;
-    background-color: rgb(144, 177, 214); /* Customize badge color */
-    color: white; /* Customize badge text color */
-    border-radius: 50%;
+    padding: 0.5em 1em;
+    font-size: 0.95em;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.375em;
+  }
+  .badge-pending {
+    color: #073fdb;
+    background-color: #e9d188;
     padding: 5px;
-    font-size: 12px;
   }
+/* .button-container button {
+  padding: 22px 10px;
+  font-weight: 400;
+  font-size: 14px;
+  border-radius: 8px;
+} */
 
-  .top{
-    margin-top: 24px;
-  }
+.head_size {
+  font-size: 16px;
+  color: rgb(37, 61, 12);
+}
+
+/* .submit-container {
+  text-align: center;
+  margin-top: 2rem;
+} */
+
+/* button[mat-raised-button] {
+  padding: 10px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 25px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.3s ease;
+}
+
+button[mat-raised-button]:hover {
+  background-color: #1565c0;
+  color: white;
+} */
+
+.dependent-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.dep-field {
+  width: 240px;
+}
+
+.action-btn {
+  height: 40px;
+  margin-bottom: 20px;
+}
+
+.add-btn {
+  background-color: rgb(131 183 106) !important;
+  border-color: rgb(116, 207, 78) !important;
+  color: #fff !important;
+}
+
+.remove-btn {
+  background-color: rgb(223, 105, 105) !important;
+  border-color: rgb(129, 54, 54) !important;
+  color: #fff !important;
+}
+
+.image-upload-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.image-preview {
+  position: relative;
+  width: 180px;
+  height: 180px;
+}
+
+.image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* .remove-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: #fff;
+} */
+
+.image-placeholder {
+  width: 180px;
+  height: 180px;
+  border: 2px dashed #ccc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #777;
+}
+
+.submit-container {
+  display: flex;
+  justify-content: center;
+  /* margin: 0 0 32px; */
+}
+
+.submit-btn {
+  min-width: 200px;
+  height: 48px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  letter-spacing: 0.5px;
+}
+
+/* Hover effect */
+.submit-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Disabled state */
+.submit-btn:disabled {
+  background-color: #3231bd !important;
+  color: #ffffff !important;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.image-upload-row {
+  display: flex;
+  gap: 20px;
+}
+
+.field-groups {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+/* When only member photo exists */
+.image-upload-row.single-center {
+  justify-content: center;
+}
+
+/* Ensure member box does not stretch full width */
+.member-upload {
+  max-width: 420px;
+}
+.hidden {
+  display: none !important;
+}

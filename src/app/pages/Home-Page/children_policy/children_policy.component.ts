@@ -34,6 +34,9 @@ export class Children_policyComponent implements OnInit {
   user: any;
   formNo: any = 0;
   showDiseaseInput =  false;
+  checkedmember: any  = false
+  isMember: boolean = true;
+  responsedata_unit: any;
 
   constructor(
     private router: Router,
@@ -49,15 +52,21 @@ export class Children_policyComponent implements OnInit {
     this.mem_type = this.route.snapshot.params['mem_type'];
     this.user = localStorage.setItem
     this.form = this.fb.group({
-      member_id: ['', Validators.required],
-      member_type: [''],
-      member: [''],
-      gurdian: [''],
-      gen: [''],
+      member_id: [''],
+      // unit: [''],
+      // member_type: [''],
+      member_name: [''],
+      gender: [''],
       marital_status: [''],
-      gen_dob: [''],
+      dob: [''],
+      age: [''],
+      gurdian_name: [''],
       type_diseases: [''],
+      phone_no: ['',  Validators.required],
       name_diseases: [''],
+      memb_treatment_dtls: [''],
+      memb_treatment_flag: [''],
+      member_address: [''],
       // sl_no: [''],
       // dependent_name: [''],
       // relation: [''],
@@ -68,6 +77,8 @@ export class Children_policyComponent implements OnInit {
     // this.form.get('type_diseases')?.valueChanges.subscribe(value => {
     //   this.onDiseaseChange(value);
     // });
+    // this.unit();
+  //  this.relationship();
   }
 
 
@@ -78,6 +89,43 @@ get depenFields_1(): FormArray {
   get o() {
     return this.form.controls;
   }
+
+  // onPolicyHolderTypeChange(isMember: any) {
+  //   this.form.reset()
+  //   this.depenFields_1.clear()
+  //   if(isMember === 'M'){
+  //     this.checkedmember = true;
+  //     this.unit()
+  //     this.relationship()
+  //   }else{
+  //     this.checkedmember = false;
+  //     this.unit()
+  //     this.relationship()
+  //   }
+  // }
+
+  
+  // unit() {
+  //   this.dataServe
+  //     .global_service(0, '/master/unit_list', null)
+  //     .subscribe((data: any) => {
+  //       this.responsedata_unit = data;
+  //       console.log(this.responsedata_unit, '555');
+  //       this.responsedata_unit =
+  //         this.responsedata_unit.suc > 0 ? this.responsedata_unit.msg : [];
+  //     });
+  // }
+
+  // relationship() {
+  //   this.dataServe
+  //     .global_service(0, '/master/relationship_list', null)
+  //     .subscribe((data: any) => {
+  //       this.responsedata_rel = data;
+  //       console.log(this.responsedata_rel);
+  //       this.responsedata_rel =
+  //         this.responsedata_rel.suc > 0 ? this.responsedata_rel.msg : [];
+  //     });
+  // }
 
   // onDiseaseChange(value: string) {
   //   this.showDiseaseInput = value === 'Y';
@@ -90,23 +138,31 @@ get depenFields_1(): FormArray {
     var dt = {
       member_id: this.o['member_id'] ? this.o['member_id'].value : null,
     }
-    this.dataServe.global_service(0, '/get_member_policy', `member_id=${dt.member_id}`).subscribe((data:any) => {
-      this.responsedata = data
-      console.log(this.responsedata);
-      this.responsedata = this.responsedata.suc > 0 ? this.responsedata.msg : []
-      this.formNo = this.responsedata[0].form_no
-      console.log(this.responsedata[0].subscription_1)
-      this.form.patchValue({
-        member_type: this.responsedata[0].mem_type == 'G' ? 'General Membership' : this.responsedata[0].mem_type == 'L' ? 'Life Membership' : 'Associate Membership',
-        member: this.responsedata[0].memb_name,
-        gurdian: this.responsedata[0].gurdian_name,
-        gen: this.responsedata[0].gender == 'M' ? 'Male' : 'Female',
-        marital_status: this.responsedata[0].marital_status == 'M' ? 'Married' : this.responsedata[0].marital_status == 'U' ? 'Unmarried' : this.responsedata[0].marital_status == 'W' ? 'Widow' : 'Divorced',
-        gen_dob: this.datePipe.transform(this.responsedata[0].dob, 'yyyy-MM-dd'),
-      })
-      })
+    this.dataServe.global_service(1, '/fetch_member_dtls_bspwa', dt).subscribe((data:any) => {
+      if (data.suc > 0 && data.member?.length > 0) {
 
+        const member = data.member[0];   // ✅ extract member
+        const dependents = data.dependents || [];
+
+      this.formNo = member.form_no
+      // console.log(this.responsedata[0].subscription_1)
+      this.form.patchValue({
+        member_name: member.memb_name,
+        gurdian_name: member.gurdian_name,
+        gender: member.gender == 'M' ? 'Male' : 'Female',
+        marital_status: member.marital_status == 'M' ? 'Married' : member.marital_status == 'U' ? 'Unmarried' : member.marital_status == 'W' ? 'Widow' : 'Divorced',
+        dob: this.datePipe.transform(member.dob, 'yyyy-MM-dd'),
+        age: member.age,
+        phone_no: member.phone_no,
+        member_address: member.memb_address,
+        marital_status_code: member.marital_status,
+      });
+      // this.dependentsList = dependents;
       this.getData_dependents()
+
+    }
+      });
+
   }
 
   getData_dependents () {
@@ -172,21 +228,29 @@ onadd(sl_no:any,dependent_name:any,relation:any,dob:any,type_diseases:any,name_d
 
 final_submit(){
   var dt = {
+      flag: 'CP',
+      form_no: this.formNo,
       member_id: this.o['member_id'] ? this.o['member_id'].value : null,
+      member_name: this.o['member_name'] ? this.o['member_name'].value : null,
+      dob: this.o['dob'] ? this.o['dob'].value : null,
+      gender: this.o['gender'] ? this.o['gender'].value : null,
+      marital_status: this.o['marital_status_code'] ? this.o['marital_status_code'].value : null,
+      age: this.o['age'] ? this.o['age'].value : null,
+      phone_no: this.o['phone_no'] ? this.o['phone_no'].value : null,
+      member_address: this.o['member_address'] ? this.o['member_address'].value : null,
+      gurdian_name: this.o['gurdian_name'] ? this.o['gurdian_name'].value : null,
       type_diseases: this.o['type_diseases'] ? this.o['type_diseases'].value : null,
       name_diseases: this.o['name_diseases'] ? this.o['name_diseases'].value : null,
-      member: this.o['member'] ? this.o['member'].value : null,
       dependent_dt: this.depenFields_1.value,
-      form_no: this.formNo
   }
-  this.dataServe.global_service(1, '/save_child_group_policy_form', dt).subscribe(
+  this.dataServe.global_service(1, '/save_children_policy', dt).subscribe(
     data => {
       console.log(data);
       this.groupSaveData = data;
       if (this.groupSaveData.suc > 0) {
         // this.formNo = this.groupSaveData.form_no;
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data saved successfully' });
-        this.router.navigate(['/main/dashboard']);
+        this.router.navigate(['/home/insurance_form_home']);
       } else {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to save data' });
       }

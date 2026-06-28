@@ -1,50 +1,47 @@
-.add_btn {
-    display: flex;
-    flex-direction: row-reverse;
-    float: right;
-    margin-top: -55px;
-    box-shadow: 0 3px 5px -1px rgba(255, 255, 255, 0.2),
-     0 6px 10px 0 rgba(255, 255, 255, 0.14),
-      0 1px 18px 0 rgba(255, 255, 255, 0.12);
-      color: #50b0dd;
-    
-  }
+.change-password-container {
+  min-height: 80vh;
+  padding: 30px;
+  background: linear-gradient(135deg, #6a8cc7, #cfd8ea);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  border-radius: 14px;
+}
 
-  .heading{
-    color: #3285b7;
-    cursor: pointer;
-    font-weight: 600;
-  }
+.change-password-box {
+  background: #fff;
+  padding: 30px 40px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  width: 100%;
+  max-width: 1100px;
+}
 
-  .head_active{
-    color: #6c757d;
-    font-weight: 600;
+h3 {
+  text-align: center;
+  color: black;
+  font-weight: 600;
+  margin-bottom: 20px;
+  justify-content: center;
+}
 
-  }
+.editLink {
+  color: #1b3c66;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: color 0.3s;
+}
 
-  .custom-tooltip {
-    font-size: 12px !important;
-    padding: 6px 20px !important;
-    /* color: #6c757d; */
-  }
+.editLink:hover {
+  color: #50b0dd;
+}
 
-  .editLink{
-    color: #052336;
-    font-size: larger;
-    cursor: pointer;
-  }
+::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  background-color: rgb(123, 163, 199) !important;
+  color: white !important;
+  padding: 1rem;
+}
 
-  .delLink{
-    color: rgb(65, 4, 4);
-    font-size: larger;
-  }
-
-  .sub_btn{
-    color: #ffffff;
-    background: #50b0dd;
-    border: 2px solid #50b0dd;
-  }
-
-  /* .search{
-    padding-left: 51rem;
-  } */
+::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+  padding: 1rem;
+}

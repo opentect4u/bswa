@@ -1,0 +1,102 @@
+<div class="login-container">
+  <div class="login-box">
+
+    <div class="image-section">
+      <img src="assets/images/Set Pin.gif" alt="Login illustration" />
+    </div>
+
+    <div class="form-section">
+    <div class="title-wrapper">
+  <i class="pi pi-arrow-left back-arrow" (click)="goBack()"></i>
+  <h2 class="title">Create Your PIN</h2>
+</div>
+      <p class="subtitle"><b>Set up a secure 4-digit PIN for your Account</b></p>
+
+        <div class="login-card mt-2">
+           <div class="icon-box">
+          <i class="pi pi-lock"></i>
+        </div>
+
+        <label class="section-label mt-2">Enter Your PIN</label>
+        <div class="pin-row">
+  <input maxlength="1" inputmode="numeric"
+  [type]="showPin ? 'text' : 'password'"
+  [(ngModel)]="pin[0]"
+  [ngModelOptions]="{standalone:true}"
+  (input)="focusNext($event, 0, 'enter')"
+  (keydown)="handleKeydown($event, 0, 'enter')" />
+
+<input maxlength="1" inputmode="numeric"
+[type]="showPin ? 'text' : 'password'"
+  [(ngModel)]="pin[1]"
+  [ngModelOptions]="{standalone:true}"
+  (input)="focusNext($event, 1, 'enter')"
+  (keydown)="handleKeydown($event, 1, 'enter')" />
+
+<input maxlength="1" inputmode="numeric"
+[type]="showPin ? 'text' : 'password'"
+  [(ngModel)]="pin[2]"
+  [ngModelOptions]="{standalone:true}"
+  (input)="focusNext($event, 2, 'enter')"
+  (keydown)="handleKeydown($event, 2, 'enter')" />
+
+<input maxlength="1" inputmode="numeric"
+[type]="showPin ? 'text' : 'password'"
+  [(ngModel)]="pin[3]"
+  [ngModelOptions]="{standalone:true}"
+  (keydown)="handleKeydown($event, 3, 'enter')" />
+
+  <i class="pi"
+     [ngClass]="showPin ? 'pi-eye' : 'pi-eye-slash'" (click)="togglePin()">
+  </i>
+</div>
+
+<label class="section-label mt-2">Confirm Your PIN</label>
+        <div class="pin-row">
+  <input maxlength="1" inputmode="numeric"
+  [type]="showconPin ? 'text' : 'password'"
+  [(ngModel)]="confirmPin[0]"
+  [ngModelOptions]="{standalone:true}"
+  (input)="focusNext($event, 0, 'confirm')"
+  (keydown)="handleKeydown($event, 0, 'confirm')" />
+
+<input maxlength="1" inputmode="numeric"
+[type]="showconPin ? 'text' : 'password'"
+  [(ngModel)]="confirmPin[1]"
+  [ngModelOptions]="{standalone:true}"
+  (input)="focusNext($event, 1, 'confirm')"
+  (keydown)="handleKeydown($event, 1, 'confirm')" />
+
+<input maxlength="1" inputmode="numeric"
+[type]="showconPin ? 'text' : 'password'"
+  [(ngModel)]="confirmPin[2]"
+  [ngModelOptions]="{standalone:true}"
+  (input)="focusNext($event, 2, 'confirm')"
+  (keydown)="handleKeydown($event, 2, 'confirm')" />
+
+<input maxlength="1" inputmode="numeric"
+[type]="showconPin ? 'text' : 'password'"
+  [(ngModel)]="confirmPin[3]"
+  [ngModelOptions]="{standalone:true}"
+  (keydown)="handleKeydown($event, 3, 'confirm')" />
+
+  <i class="pi"
+     [ngClass]="showconPin ? 'pi-eye' : 'pi-eye-slash'"  (click)="toggleConPin()">
+  </i>
+</div>
+  <p class="error-text"
+   *ngIf="confirmPin.join('').length === 4 && !isPinValid()">
+  PIN and Confirm PIN do not match
+</p>
+  <button
+  class="continue-btn mt-2" [disabled]="!isPinValid()">
+  Generate PIN
+</button>
+<p class="resend-line">
+  Already have a PIN?
+<a class="generate-pin" (click)="sign_in()">Sign In</a>
+</p>
+</div>
+</div>
+</div>
+</div>

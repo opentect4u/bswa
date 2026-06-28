@@ -5,7 +5,7 @@ import { Admin_approveComponent } from './admin_approve.component';
 import { RouterModule, Routes } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button';
+// import { ButtonModule } from 'primeng/button';
 import { FieldsetModule } from 'primeng/fieldset';
 import { TableModule } from 'primeng/table';
 import { TabMenuModule } from 'primeng/tabmenu';
@@ -18,6 +18,16 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+
+@NgModule({
+  imports: [
+    // other imports ...
+    MatButtonModule
+  ],
+})
+export class AppModule { }
+
 
 const routes:Routes=[
   {path:'',component:Admin_approveComponent}
@@ -29,7 +39,7 @@ const routes:Routes=[
     CommonModule,
     CardModule,
     InputTextModule,
-    ButtonModule,
+    // ButtonModule,
     DropdownModule,
     FieldsetModule,
     TableModule,

@@ -24,7 +24,8 @@ this.router.navigate(['/auth/superadmin_login'])
  }
 
  member_login(){
-  this.router.navigate(['/auth/member_login'])
+  // this.router.navigate(['/auth/member_login'])
+  this.router.navigate(['/auth/choose_section'])
  }
 
 }

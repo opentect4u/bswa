@@ -1,0 +1,58 @@
+<div class="login-container">
+  <div class="login-box">
+
+    <div class="image-section">
+      <img src="assets/images/Enter OTP.gif" alt="Login illustration" />
+    </div>
+
+    <div class="form-section">
+    <div class="title-wrapper">
+  <i class="pi pi-arrow-left back-arrow" (click)="goBack()"></i>
+  <h2 class="title">Verify OTP</h2>
+</div>
+      <p class="subtitle"><b>Enter the 4-digit code sent to your mobile number</b></p>
+
+        <div class="login-card mt-2">
+           <div class="icon-box">
+          <i class="pi pi-lock"></i>
+        </div>
+
+        <div class="pin-row">
+  <input maxlength="1" inputmode="numeric" [type]="showPin ? 'text' : 'password'"
+    [(ngModel)]="pin[0]" [ngModelOptions]="{standalone:true}"
+    (input)="focusNext($event, 0); otpError=''" (keydown)="handleKeydown($event, 0)"/>
+
+  <input maxlength="1" inputmode="numeric" [type]="showPin ? 'text' : 'password'"
+    [(ngModel)]="pin[1]" [ngModelOptions]="{standalone:true}"
+    (input)="focusNext($event, 1); otpError=''" (keydown)="handleKeydown($event, 1)"/>
+
+  <input maxlength="1" inputmode="numeric" [type]="showPin ? 'text' : 'password'"
+    [(ngModel)]="pin[2]" [ngModelOptions]="{standalone:true}"
+    (input)="focusNext($event, 2); otpError=''" (keydown)="handleKeydown($event, 2)"/>
+
+  <input maxlength="1" inputmode="numeric" [type]="showPin ? 'text' : 'password'"
+    [(ngModel)]="pin[3]" [ngModelOptions]="{standalone:true}" (keydown)="handleKeydown($event, 3)"/>
+
+  <i class="pi"
+     [ngClass]="showPin ? 'pi-eye' : 'pi-eye-slash'" (click)="togglePin()">
+  </i>
+</div>
+
+<div *ngIf="otpError" class="otp-error mt-3">
+  {{ otpError }}
+</div>
+
+
+  <button
+  class="continue-btn mt-4" (click)="verifyOtp()" [disabled]="!isOtpComplete()">
+  Verify OTP
+</button>
+<p class="resend-line">
+  Didn't receive the OTP?
+  <a class="generate-pin" [class.disabled]="resendTimer > 0"
+  (click)="onResendClick($event)"> {{ resendTimer > 0 ? 'Resend in ' + resendTimer + 's' : 'Resend' }}</a>
+</p>
+</div>
+</div>
+</div>
+</div>

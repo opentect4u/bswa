@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
             summary: 'Login Successful',
             detail: 'Welcome!',
           });
-        this.router.navigate(['admin/admin_approve'])
+        this.router.navigate(['admin/admin_dashboard'])
      } else {
         this.messageService.add({
           severity: 'error',

@@ -25,9 +25,9 @@ export class Admin_fee_typeComponent implements OnInit {
     this.router.navigate(['/superadmin/add_fee_type', encodeURIComponent(btoa(flag))]);
   }
 
-  // back(){
-  //   this.router.navigate(['/admin/dashboard']);
-  // }
+  back(){
+    this.router.navigate(['/superadmin/super_dashboard']);
+  }
 
   fetchdata() { 
     this.dataServe.global_service(0,'/fee/get_data',null).subscribe(data => {

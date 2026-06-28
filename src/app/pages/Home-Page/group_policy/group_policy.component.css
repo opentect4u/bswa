@@ -76,3 +76,8 @@ input[type=radio] {
   margin-top: 1px \9;
   line-height: normal;
 }
+.readonly-select {
+  pointer-events: none;   /* blocks clicks */
+  background-color: #f5f5f5;
+  color: #555;
+}

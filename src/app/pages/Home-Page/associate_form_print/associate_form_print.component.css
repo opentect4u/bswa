@@ -45,6 +45,13 @@ p-button.p-element, .print_btn {
     justify-content: space-evenly;
 }
 
+.color3{
+    color: rgb(250, 248, 248);
+    display: flex;
+    justify-content: space-between;
+    margin-left: 28vw;
+}
+
 .span_space{
     margin-left: 19px;
     color: rgb(62 66 201);
@@ -60,3 +67,7 @@ p-card.p-element{
     justify-content: center;
   }
 
+    ::ng-deep p-card.custom-card .p-card-body {
+  /* background: linear-gradient(to right, #dfe4eb, #c7d9f1); */
+  background: linear-gradient(to right, #afbdd3, #dfe4eb);
+}

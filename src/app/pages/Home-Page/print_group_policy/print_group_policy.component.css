@@ -41,3 +41,8 @@ p-card.p-element{
     flex-direction: row-reverse;
     margin-right: 9vw;
   }
+
+      ::ng-deep p-card.custom-card .p-card-body {
+  /* background: linear-gradient(to right, #dfe4eb, #c7d9f1); */
+  background: linear-gradient(to right, #afbdd3, #dfe4eb);
+}

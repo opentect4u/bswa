@@ -1,0 +1,214 @@
+.dashboard-wrapper {
+  padding: 20px;
+  /* background: linear-gradient(to bottom right, #e9f1fa, #f4f6ff); */
+  background: linear-gradient(to right, #c0c9d7, #7a94b6);
+  /* min-height: 100vh; */
+  height: 100vh;
+}
+
+.summary-card {
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 13px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 8px;
+  margin-left: 1vw;
+  margin-right: 1vw;
+}
+
+.summary-title {
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: #2a3b8f;
+  margin-bottom: 15px;
+  margin-left: 1vw;
+}
+
+.form-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.bank-select {
+  width: 450px;
+  height: 70px;
+}
+
+.counts {
+  margin-top: 186x;
+  font-size: 1rem;
+  color: #333;
+}
+
+.status-row {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.label {
+  margin-right: 10px;
+  min-width: 120px;
+}
+
+.count-box {
+  display: inline-block;
+  min-width: 40px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 600;
+  color: white;
+}
+
+/* ✅ Green box for Active */
+.count-box.active {
+  background-color: #28a745;
+}
+
+/* ✅ Red box for Inactive */
+.count-box.inactive {
+  background-color: #dc3545;
+}
+
+/* .count-box {
+  width: 180px;
+  text-align: center;
+  border-radius: 12px;
+  padding: 20px;
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease-in-out;
+}
+
+.count-box:hover {
+  transform: scale(1.05);
+} */
+
+.dashboard-container {
+  /* background-color: #f4faff; */
+  background: linear-gradient(to right, #dfe4eb, #859ebe);
+  /* padding: 7.4rem; */
+  /* padding: 5vh 5vw; */
+  /* height: 95%; */
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  padding: 10px;
+}
+
+/* .custom-card {
+  width: 220px;
+  height: 120px;
+  text-align: center;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+} */
+
+.custom-card {
+  background: linear-gradient(145deg, #ffffff, #f8f9fa);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+}
+
+.custom-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.highlight-number {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #6a0dad;
+  margin: 10px 0;
+}
+
+.highlight-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #444;
+}
+
+mat-card-title {
+  font-size: 1.4rem;
+  color: #3949ab;
+  margin-bottom: 10px;
+}
+
+.mat-mdc-raised-button:not(:disabled) {
+    background-color: var(--mdc-protected-button-container-color, transparent);
+    height: 44px;
+    margin-bottom: 20px;
+}
+
+mat-card-content p {
+  /* font-size: 1rem; */
+  color: #555;
+}
+.highlight-gradient {
+  font-size: 2.0rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #ff4081, #7c4dff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-top: 0vw;
+}
+/* Gradient for Member Type text */
+.gradient-text {
+  background: linear-gradient(90deg, #007bff, #104e60);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.member-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 8px;
+}
+/* 
+.dashboard-container {
+  display: flex;
+  gap: 2rem;
+  justify-content: space-around;
+  margin: 2rem 0;
+} */
+
+.main-container {
+  padding: 20px;
+}
+
+/* .button-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+} */
+
+.refresh-btn {
+  border: none;
+  background: #e5d2b6; /* no background */
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  margin-bottom: 22px;
+}
+
+.refresh-btn:hover {
+  transform: rotate(90deg); /* small spin on hover */
+  color: #f44336; /* warn color effect */
+}
+
+.refresh-btn mat-icon {
+  font-size: 24px;
+}

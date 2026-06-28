@@ -101,6 +101,7 @@ export class View_formComponent implements OnInit {
   tot_amt: any;
   receipt_no: any;
   memb_status: any;
+  // memb_status: string = 'P'
   remarks: any;
   responsedata_subs: any;
   tnxData: trnData | any;
@@ -108,7 +109,16 @@ export class View_formComponent implements OnInit {
   upi_data: any;
   responseData: any;
   maxDate!: string;
+  // approvalVisible: boolean = false;
   // dept_dt: any;
+  // stpinfo: MembershipInfo | undefined;
+  modified_by: any;
+  modified_at: any;
+  approve_by: any;
+  approve_at: any;
+  rejected_by: any;
+  rejected_dt: any;
+  remarks_rej: any;
 
   constructor(private router: Router,
     private fb: FormBuilder, private route: ActivatedRoute,
@@ -219,6 +229,8 @@ export class View_formComponent implements OnInit {
             // console.log(this.responsedata, '666');
             this.responsedata =
               this.responsedata.suc > 0 ? this.responsedata.msg : [];
+              // this.stpinfo = this.responsedata;
+
               this.memb_name = this.responsedata[0].memb_name;
               this.mem_type = this.responsedata[0].mem_type;
               this.unit_name = this.responsedata[0].unit_name;
@@ -242,6 +254,13 @@ export class View_formComponent implements OnInit {
               this.subs_type = this.responsedata[0].subs_type;
               this.memb_status = this.responsedata[0].memb_status;
               this.remarks = this.responsedata[0].remarks;
+
+              // this.form.patchValue({
+              //    memb_status: this.memb_status,
+              // // resolution_no: this.responsedata[0].resolution_no,
+              //   // patch other fields as necessary
+              //    });
+              //    console.log('memb_status initial:', this.form.get('memb_status')?.value);
 
               this.fee_data_get(this.responsedata[0].mem_type)
               this.bank_list();
@@ -285,6 +304,22 @@ export class View_formComponent implements OnInit {
             this.resdata =
             this.resdata.suc > 0 ? this.resdata.msg : [];
               this.tot_amt = this.resdata.length > 0 ? this.resdata[0].tot_amt : 0;
+          }); 
+
+           this.dataServe.global_service(0, '/show_data',`form_no=${this.form_no}` )           
+          .subscribe((total_data: any) => {
+           console.log(this.form_no,'hy');
+            this.resdata = total_data;
+            console.log(this.resdata, '-----');
+            this.resdata =
+            this.resdata.suc > 0 ? this.resdata.msg : [];
+              this.approve_by = this.resdata.length > 0 ? this.resdata[0].approve_by : 0;
+              this.approve_at = this.resdata.length > 0 ? this.resdata[0].approve_at : null;
+              this.modified_by = this.resdata.length > 0 ? this.resdata[0].modified_by : 0;
+              this.modified_at = this.resdata.length > 0 ? this.resdata[0].modified_at : null;
+              this.rejected_by = this.resdata.length > 0 ? this.resdata[0].rejected_by : 0;
+              this.rejected_dt = this.resdata.length > 0 ? this.resdata[0].rejected_dt : null;
+              this.remarks_rej = this.resdata.length > 0 ? this.resdata[0].remarks : null;
           }); 
 
       // this.fee_data_get();

@@ -37,9 +37,9 @@ export class Member_trans_reportComponent implements OnInit {
     this.mem_type = this.route.snapshot.params['mem_type'];
     // this.user = localStorage.setItem
     this.form = this.fb.group({
-      from_dt: [''],
-      to_dt: [''],
-      pay_mode: ['']
+      from_dt: ['',Validators.required],
+      to_dt: ['',Validators.required],
+      pay_mode: ['',Validators.required]
     });
   }
   get m() {

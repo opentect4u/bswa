@@ -40,7 +40,13 @@ p-button.p-element, .print_btn {
   }
 
 .color{
-    color: black;
+    color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.colors{
+    color: rgb(10, 9, 9);
     display: flex;
     justify-content: space-evenly;
 }
@@ -66,4 +72,8 @@ p-button.p-element, .print_btn {
     font-size: 12px;
   }
   
+  ::ng-deep p-card.custom-card .p-card-body {
+  /* background: linear-gradient(to right, #dfe4eb, #c7d9f1); */
+  background: linear-gradient(to right, #b7bfca, #dfe4eb);
+}
 

@@ -1,640 +1,456 @@
-<style>
-  table {
-    width: 96%;
-    border-collapse: collapse;
-  }
+  <!-- Member Details Section -->
+   <form [formGroup]="form" class="form-container mat-elevation-z4">
+    <section class="form-section">
+      <h2>Member Information</h2>
+      <div class="field-group">
+         <mat-form-field appearance="fill" class="short-field">
+        <mat-label>Member Type</mat-label>
+        <input matInput formControlName="member_type" readonly>
+      </mat-form-field>
 
-  th,
-  td {
-    border: 1px solid #ddd;
-    padding: 8px;
-  }
+       <mat-form-field appearance="fill" class="short-field" *ngIf="this.memberData?.mem_type != 'AI'">
+     <mat-label>Member Operation</mat-label>
+     <mat-select formControlName="member_opt">
+      <mat-option *ngFor="let opt of memberOperationList " [value]="opt.value" [disabled]="opt.disabled">
+      {{ opt.label }}
+      </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('member_opt')?.hasError('required')">
+      Member Operation is required
+      </mat-error>
+      </mat-form-field>
 
-  th {
-    background-color: #f2f2f2;
-    text-align: left;
-  }
+       <mat-form-field appearance="fill" class="short-field" *ngIf="this.memberData?.mem_type != 'AI'">
+        <mat-label>Unit Name</mat-label>
+        <mat-select formControlName="unit_nm">
+          <mat-option *ngFor="let unit of responsedatas || []" [value]="unit.unit_id">
+           {{ unit.unit_name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-  tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
+       <mat-form-field appearance="fill" class="short-field">
+        <mat-label>Member Name</mat-label>
+        <input matInput formControlName="member">
+      </mat-form-field>
 
-  /* tr:hover {
-        background-color: #ddd;
-    } */
-  th,
-  td {
-    padding: 15px;
-    text-align: left;
-  }
+       <mat-form-field appearance="fill" class="short-field">
+        <mat-label>Father's / Husband Name</mat-label>
+        <input matInput formControlName="gurdian">
+      </mat-form-field>
 
-  th {
-    background-color: #ffffff;
-    color: rgb(0, 0, 0);
-  }
-</style>
-<p-card id="divToPrint">
-  <h3 class="title_h3"><b>Member Details</b></h3>
-  <!-- <p-divider type="dashed"></p-divider> -->
+      <mat-form-field appearance="fill" class="short-field">
+        <mat-label>Gender</mat-label>
+         <mat-select formControlName="gen">
+          <mat-option *ngFor="let gend of genderList" [value]="gend.value" [disabled]="gend.disabled">
+           {{ gend.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-  <form [formGroup]="form" class="memberDtl">
-    <div *ngIf="this.memberData?.mem_type != 'AI'">
-      <div class="fieldGroup_Flex">
-        <div class="field col-12 md:col-4">
-          <label for="member_type" class="label_field"><b>Member Type:</b></label>&nbsp;
-          <input id="member_type" type="text" formControlName="member_type" placeholder="Enter Blood Group"
-            class="form-control" />
-        </div>
-        <div class="field col-12 md:col-4">
-          <label for="member_opt" class="label_field"><b>Member Operation:<span
-                class="text-red-700">*</span></b></label>&nbsp;
-          <select id="member_opt" formControlName="member_opt"
-            class="form-control">
-            <option value="">Select Operation</option>
-            <option value="S">Self</option>
-            <option value="J">Joint</option>
-          </select>
-          <div *ngIf="f['member_opt']?.touched || f['member_opt']?.dirty">
-            <small class="text-red-900" *ngIf="f['member_opt']?.errors">Member Operation is required.</small>
-          </div>
-        </div>
-        <div class="field col-12 md:col-4">
-          <label for="unit_nm" class="label_field"><b>Unit Name:<span class="text-red-700">*</span></b></label>&nbsp;
-          <select id="unit_nm" formControlName="unit_nm"
-            class="form-control">
-            <option value="">Select Unit Name</option>
-            <option *ngFor="let option of responsedata" [value]="option.unit_id">{{ option.unit_name }}</option>
-          </select>
-          <div *ngIf="f['unit_nm']?.touched || f['unit_nm']?.dirty">
-            <small class="text-red-900" *ngIf="f['unit_nm']?.errors">Unit Name is required.</small>
-          </div>
-        </div>
+       <mat-form-field appearance="fill" class="short-field">
+        <mat-label>Marital Status</mat-label>
+         <mat-select formControlName="marital_status">
+          <mat-option *ngFor="let maritals of maritalStatusList" [value]="maritals.value" [disabled]="maritals.disabled">
+           {{ maritals.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+       <mat-form-field appearance="fill" class="short-field">
+        <mat-label>DOB</mat-label>
+        <input matInput  [matDatepicker]="dobPicker" formControlName="gen_dob">
+        <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
+  <mat-datepicker #dobPicker startView="multi-year"></mat-datepicker>
+      </mat-form-field>
+
+       <mat-form-field appearance="fill" class="short-field">
+        <mat-label>Phone No</mat-label>
+        <input matInput formControlName="phone" maxlength="10">
+      </mat-form-field>
+
+       <mat-form-field appearance="fill" class="short-field">
+        <mat-label>Email ID</mat-label>
+        <input matInput formControlName="email_id">
+      </mat-form-field>
+
+       <mat-form-field appearance="fill" class="short-field" *ngIf="this.memberData?.mem_type != 'AI'">
+        <mat-label>Blood Group</mat-label>
+         <mat-select formControlName="blood">
+          <mat-option *ngFor="let bloods of bloodList" [value]="bloods.value" [disabled]="bloods.disabled">
+           {{ bloods.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+       <mat-form-field appearance="fill" class="short-field">
+        <mat-label>Caste</mat-label>
+         <mat-select formControlName="caste">
+          <mat-option *ngFor="let castes of casteList" [value]="castes.value" [disabled]="castes.disabled">
+           {{ castes.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+       <mat-form-field appearance="fill" class="short-field" *ngIf="this.memberData?.mem_type != 'AI'">
+        <mat-label>Staff No</mat-label>
+        <input matInput formControlName="staff">
+      </mat-form-field>
+
+       <mat-form-field appearance="fill" class="short-field" *ngIf="this.memberData?.mem_type != 'AI'">
+        <mat-label>Personal No</mat-label>
+        <input matInput formControlName="personal">
+      </mat-form-field>
+
+       <mat-form-field appearance="fill" class="short-field" *ngIf="this.memberData?.mem_type != 'AI'">
+        <mat-label>MIN No</mat-label>
+        <input matInput formControlName="min">
+      </mat-form-field>
       </div>
 
-      <div class="fieldGroup_Flex">
-        <div class="field col-12 md:col-4">
-          <label for="member" class="label_field"><b>Member Name:<span class="text-red-700">*</span></b></label>&nbsp;
-          <input id="member" type="text" formControlName="member" placeholder="Enter Member name"
-            class="form-control" />
-          <div *ngIf="f['member']?.touched || f['member']?.dirty">
-            <small class="text-red-900" *ngIf="f['member']?.errors">Member Name is required.</small>
-          </div>
-        </div>
-        <div class="field col-12 md:col-4">
-          <label for="gurdian" class="label_field"><b>Father's / Husband Name:<span
-                class="text-red-700">*</span></b></label>&nbsp;
-          <input id="gurdian" type="text" formControlName="gurdian" placeholder="Enter Father / Husband name"
-            class="form-control" />
-          <div *ngIf="f['gurdian']?.touched || f['gurdian']?.dirty">
-            <small class="text-red-900" *ngIf="f['gurdian']?.errors">Gurdian Name is required.</small>
-          </div>
-        </div>
-        <div class="field col-12 md:col-4">
-          <label for="gen" class="label_field"><b>Gender:<span class="text-red-700">*</span></b></label>&nbsp;
-          <select id="gen" formControlName="gen"
-            class="form-control">
-            <option value="">Select Gender</option>
-            <option value="M">Male</option>
-            <option value="F">Female</option>
-          </select>
-          <div *ngIf="f['gen']?.touched || f['gen']?.dirty">
-            <small class="text-red-900" *ngIf="f['gen']?.errors">Gender is required.</small>
-          </div>
-        </div>
+       <h2>Residential Information</h2>
+
+       <div class="field-group">
+      <mat-form-field appearance="fill" class="short-field wide-field">
+        <mat-label>Member Address</mat-label>
+        <textarea matInput formControlName="mem" rows="3" placeholder="Enter address">
+        </textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="short-field">
+        <mat-label>City / Town / District</mat-label>
+        <input matInput formControlName="city">
+      </mat-form-field>
+
+       <mat-form-field appearance="fill" class="short-field">
+        <mat-label>PIN No</mat-label>
+        <input matInput formControlName="pin">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="short-field">
+        <mat-label>Police Station</mat-label>
+        <input matInput formControlName="police_st">
+      </mat-form-field>
+      </div>
+    </section>
+
+    <section class="form-section" *ngIf="showSpouseSection">
+      <h2>Spouse Information</h2>
+      <div class="field-group" formGroupName="spouse_fr">
+
+         <mat-form-field appearance="fill" class="short-field">
+        <mat-label>Spouse Name</mat-label>
+        <input matInput formControlName="spou_name">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="short-field">
+        <mat-label>Father / Husband Name</mat-label>
+        <input matInput formControlName="spou_gurd_name">
+      </mat-form-field>
+
+     <mat-form-field appearance="fill" class="short-field">
+        <mat-label>Blood Group</mat-label>
+         <mat-select formControlName="spou_blood_grp">
+          <mat-option *ngFor="let bl of bloodList" [value]="bl.value" [disabled]="bl.disabled">
+           {{ bl.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="short-field">
+        <mat-label>DOB</mat-label>
+        <input matInput  [matDatepicker]="dobPicker" formControlName="spou_dob">
+        <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
+  <mat-datepicker #dobPicker startView="multi-year"></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="short-field">
+        <mat-label>Mobile No</mat-label>
+        <input matInput formControlName="spou_mobile_no" maxlength="10">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="short-field">
+        <mat-label>MIN No</mat-label>
+        <input matInput formControlName="spou_min_no">
+      </mat-form-field>
       </div>
 
-      <div class="fieldGroup_Flex">
-        <div class="field col-12 md:col-4">
-          <label for="marital_status" class="label_field"><b>Marital Status:</b></label>&nbsp;
-          <select id="marital_status" formControlName="marital_status"
-            class="form-control">
-            <option value="">Select Marital Status</option>
-            <option value="M">Married</option>
-            <option value="U">Unmarried</option>
-            <option value="W">Widow</option>
-            <option value="WR">Widower</option>
-            <option value="D">Divorced</option>
-          </select>
-        </div>
-        <div class="field col-12 md:col-4">
-          <label for="gen_dob" class="label_field"><b>DOB:<span class="text-red-700">*</span></b></label>&nbsp;
-          <input id="gen_dob" type="date" formControlName="gen_dob" placeholder="dd/MM/yyyy"
-            class="form-control" />
-          <div *ngIf="f['gen_dob']?.touched || f['gen_dob']?.dirty">
-            <small class="text-red-900" *ngIf="f['gen_dob']?.errors">DOB is required.</small>
-          </div>
-        </div>
-        <div class="field col-12 md:col-4">
-          <label for="phone" class="label_field"><b>Whatsapp Phone No:<span
-                class="text-red-700">*</span></b></label>&nbsp;
-          <input id="phone" type="text" formControlName="phone" maxlength="10" placeholder="Enter Phone No"
-            class="form-control" />
-          <div *ngIf="f['phone']?.touched || f['phone']?.dirty">
-            <small class="text-red-900" *ngIf="f['phone']?.errors">Phone No is required.</small>
-          </div>
-        </div>
+       <h2>Residential Information</h2>
+
+       <div class="field-group"  formGroupName="spouse_fr">
+      <mat-form-field appearance="fill" class="short-field wide-field">
+        <mat-label>Spouse Address</mat-label>
+        <textarea matInput formControlName="spou_mem_addr" rows="3" placeholder="Enter address">
+        </textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="short-field">
+        <mat-label>City / Town / District</mat-label>
+        <input matInput formControlName="spou_city">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="short-field">
+        <mat-label>Police Station</mat-label>
+        <input matInput formControlName="spou_police_st">
+      </mat-form-field>
       </div>
+    </section>
 
-      <div class="fieldGroup_Flex">
-        <div class="field col-12 md:col-4">
-          <label for="email_id" class="label_field"><b>Email ID:</b></label>&nbsp;
-          <input id="email_id" type="text" formControlName="email_id" placeholder="Enter Email ID"
-            class="form-control" />
-        </div>
-        <div class="field col-12 md:col-4">
-          <label for="blood" class="label_field"><b>Blood Group:<span class="text-red-700">*</span></b></label>&nbsp;
-          <select id="blood" formControlName="blood"
-            class="form-control"
-            >
-            <option value="">Select Blood Group</option>
-            <option value="A+">A+</option>
-            <option value="A-">A-</option>
-            <option value="B+">B+</option>
-            <option value="B-">B-</option>
-            <option value="O+">O+</option>
-            <option value="O-">O-</option>
-            <option value="AB+">AB+</option>
-            <option value="AB-">AB-</option>
-          </select>
-          <div *ngIf="f['blood']?.touched || f['blood']?.dirty">
-            <small class="text-red-900" *ngIf="f['blood']?.errors">Blood Group is required.</small>
-          </div>
-        </div>
-        <div class="field col-12 md:col-4">
-          <label for="caste" class="label_field"><b>Caste:</b></label>&nbsp;
-          <select id="caste" formControlName="caste"
-            class="form-control"
-            >
-            <option value="">Select Caste</option>
-            <option value="G">General</option>
-            <option value="S">SC</option>
-            <option value="T">ST</option>
-            <option value="O">Others</option>
-          </select>
-        </div>
-      </div>
+<section class="form-section" *ngIf="this.memberData?.mem_type == 'AI'">
+  <h2>Introducer Information</h2>
 
-      <div class="fieldGroup_Flex">
-        <div class="field col-12 md:col-4">
-          <label for="staff" class="label_field"><b>Staff No:<span class="text-red-700">*</span></b></label>&nbsp;
-          <input id="staff" type="text" formControlName="staff" placeholder="Enter Staff No"
-            class="form-control" />
-          <div *ngIf="f['staff']?.touched || f['staff']?.dirty">
-            <small class="text-red-900" *ngIf="f['staff']?.errors">Staff No is required.</small>
-          </div>
-        </div>
-        <div class="field col-12 md:col-4">
-          <label for="personal" class="label_field"><b>Personal No:<span class="text-red-700">*</span></b></label>&nbsp;
-          <input id="personal" type="text" formControlName="personal" placeholder="Enter Personal No"
-            class="form-control" />
-          <div *ngIf="f['personal']?.touched || f['personal']?.dirty">
-            <small class="text-red-900" *ngIf="f['personal']?.errors">Personal No is required.</small>
-          </div>
-        </div>
-        <div class="field col-12 md:col-4">
-          <label for="min" class="label_field"><b>MIN No:</b></label>&nbsp;
-          <input id="min" type="text" formControlName="min" placeholder="Enter MIN No"
-            class="form-control" />
-        </div>
-      </div>
+  <div  class="field-groups" formGroupName="intro_fr">
 
-      <p-divider type="dashed"></p-divider>
-      <h3 class="title_h3"><b>Residential Information</b></h3>
-      <!-- <p-divider type="dashed"></p-divider> -->
+      <!-- Member ID -->
+      <mat-form-field appearance="fill" class="short-field">
+        <mat-label>Member ID</mat-label>
+        <input matInput formControlName="intro_member_id">
+      </mat-form-field>
 
-      <div class="fieldGroup_Flex">
-        <div class="field col-12">
-          <label for="mem" class="label_field"><b>Member Address:<span class="text-red-700">*</span></b></label>&nbsp;
-          <textarea id="mem" formControlName="mem" type="text" rows="4"
-            class="form-control"></textarea>
-          <div *ngIf="f['mem']?.touched || f['mem']?.dirty">
-            <small class="text-red-900" *ngIf="f['mem']?.errors">Member Adress is required.</small>
-          </div>
-        </div>
-      </div>
+      <!-- Introducer Name -->
+      <mat-form-field appearance="fill" class="short-field">
+        <mat-label>Introducer Name</mat-label>
+        <input matInput formControlName="intro_name">
+      </mat-form-field>
 
-      <div class="fieldGroup_Flex">
-        <div class="field col-12 md:col-4">
-          <label for="city" class="label_field"><b>City / Town / District:</b></label>&nbsp;
-          <input id="city" type="text" formControlName="city" placeholder="Enter City/Town/District"
-            class="form-control" />
-        </div>
-        <div class="field col-12 md:col-4">
-          <label for="pin" class="label_field"><b>PIN No:<span class="text-red-700">*</span></b></label>&nbsp;
-          <input id="pin" type="number" formControlName="pin" placeholder="Enter PIN No"
-            class="form-control" />
-          <div *ngIf="f['pin']?.touched || f['pin']?.dirty">
-            <small class="text-red-900" *ngIf="f['pin']?.errors">PIN No is required.</small>
-          </div>
-        </div>
-        <div class="field col-12 md:col-4">
-          <label for="police_st" class="label_field"><b>Police Station:</b></label>&nbsp;
-          <input id="police_st" type="text" formControlName="police_st" placeholder="Enter Police Station"
-            class="form-control" />
-        </div>
-      </div>
-
-      <h3 class="title_h3"><b>Spouse Details</b></h3>
-      <!-- <p-divider type="dashed"></p-divider> -->
-
-      <div formGroupName="spouse_fr">
-        <div class="fieldGroup_Flex">
-          <div class="field col-12 md:col-4">
-            <label for="spou_name" class="size"><b>Spouse Name:</b></label>&nbsp;
-            <input id="spou_name" type="text" formControlName="spou_name" placeholder="Enter Spouse name"
-              class="form-control" />
-          </div>
-          <div class="field col-12 md:col-4">
-            <label for="spou_gurd_name" class="size"><b>Father / Husband Name:</b></label>&nbsp;
-            <input id="spou_gurd_name" type="text" formControlName="spou_gurd_name"
-              placeholder="Enter Father / Husband Name"
-              class="form-control" />
-          </div>
-          <div class="field col-12 md:col-4">
-            <label for="spou_blood_grp" class="size"><b>Blood Group:</b></label>&nbsp;
-            <select id="spou_blood_grp" formControlName="spou_blood_grp"
-              class="form-control"
-              >
-              <option value="">Select Blood Group</option>
-              <option value="A+">A+</option>
-              <option value="A-">A-</option>
-              <option value="B+">B+</option>
-              <option value="B-">B-</option>
-              <option value="O+">O+</option>
-              <option value="O-">O-</option>
-              <option value="AB+">AB+</option>
-              <option value="AB-">AB-</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="fieldGroup_Flex">
-          <div class="field col-12 md:col-4">
-            <label for="spou_dob" class="size"><b>DOB:</b></label>&nbsp;
-            <input id="spou_dob" type="date" formControlName="spou_dob" placeholder="dd/MM/yyyy"
-              class="form-control" />
-          </div>
-
-          <div class="field col-12 md:col-4">
-            <label for="spou_mobile_no" class="size"><b>Mobile No:</b></label>&nbsp;
-            <input id="spou_mobile_no" type="text" formControlName="spou_mobile_no" maxlength="10"
-              placeholder="Enter Mobile No"
-              class="form-control" />
-          </div>
-          <div class="field col-12 md:col-4">
-            <label for="spou_min_no" class="size"><b>MIN No:</b></label>&nbsp;
-            <input id="spou_min_no" type="text" formControlName="spou_min_no" placeholder="Enter MIN No"
-              class="form-control" />
-          </div>
-        </div>
-
-        <p-divider type="dashed"></p-divider>
-        <h3 class="title_h3"><b>Residential Information</b></h3>
-        <!-- <p-divider type="dashed"></p-divider> -->
-
-        <div class="fieldGroup_Flex">
-          <div class="field col-12">
-            <label for="spou_mem_addr" class="size"><b>Member Address:</b></label>&nbsp;
-            <textarea id="spou_mem_addr" formControlName="spou_mem_addr" type="text" rows="4"
-              class="form-control"></textarea>
-          </div>
-        </div>
-
-
-        <div class="fieldGroup_Flex">
-          <div class="field col-12 md:col-4">
-
-            <!-- <div class="flex flex-row">
-              <div class="field col-12 md:col-5"> -->
-    
-
-            <label for="spou_police_st" class="size"><b>Police Station:</b></label>&nbsp;
-            <input id="spou_police_st" type="text" formControlName="spou_police_st" placeholder="Enter Police Station"
-              class="form-control" />
-          </div>
-          <div class="field col-12 md:col-5">
-            <label for="spou_city" class="size"><b>City / Town / District:</b></label>&nbsp;
-            <input id="spou_city" type="text" formControlName="spou_city" placeholder="Enter City / Town / District"
-              class="form-control" />
-          </div>
-          <div class="field col-12 md:col-2 top">
-          <button pButton pRipple type="button" label="Delete" class="p-button-raised p-button-danger" (click)="delete_spouse()"></button>
-          </div>
-        </div>
-      </div>
-
-      <h3 class="title_h3"><b>Dependent Details</b></h3>
-      <!-- <p-divider type="dashed"></p-divider> -->
-
-      <div formArrayName="depenFields">
-
-        <div class="fieldGroup_Flex mt-5" *ngFor="let group of depenFields.controls; let i = index" [formGroupName]="i">
-          <div class="field col-12 md:col-3">
-
-            <!-- <div class="flex flex-row mt-5" *ngFor="let group of depenFields.controls; let i = index" [formGroupName]="i">
-              <div class="field col-12 md:col-4"> -->
-    
-
-            <label for="dependent_name" class="size"><b>Dependent Name:</b></label>
-            <input id="dependent_name" type="text" formControlName="dependent_name" placeholder="Enter Dependent name"
-              class="form-control" />
-          </div>
-          <div class="field col-12 md:col-3">
-            <label for="phone_no" class="size"><b>Phone No:</b></label>&nbsp;
-            <input id="phone_no" type="text" formControlName="phone_no" maxlength="10" placeholder="Enter Phone No"
-              class="form-control" />
-          </div>
-          <div class="field col-12 md:col-3">
-            <label for="relation" class="size"><b>Relationship:</b></label>
-            <select id="relation" formControlName="relation"
-              class="form-control">
-              <option value="null">Select Relationship</option>
-              <option *ngFor="let option of responsedata_rel" [value]="option.id">
-                {{ option.relation_name }}
-              </option>
-            </select>
-          </div>
-          <div *ngIf="i === 0" class="field col-12 md:col-1">
-            <p-button class="custom-tooltip" pTooltip="Add Dependent" tooltipPosition="bottom" icon="pi pi-plus"
-              styleClass="p-button-rounded p-button-text p-button-raised" (click)="onadd()"
-              [style]="{ 'background-color': 'rgb(177 209 161)', 'border-color': 'rgb(116 207 78)', color: '#ffff', 'margin-top': '1.3vw' }"></p-button>
-          </div>
-
-          <!-- <div *ngIf="i > 0" class="field col-12 md:col-3"> -->
-            <p-button class="custom-tooltip" pTooltip="Delete Dependent" tooltipPosition="bottom" icon="pi pi-minus"
-              styleClass="p-button-rounded p-button-text p-button-raised" (click)="onminus(i)"
-              [style]="{ 'background-color': 'rgb(223 105 105)', 'border-color': 'rgb(129 54 54)', color: '#ffff', 'margin-top': '1.8vw'}"></p-button>
-          <!-- </div> -->
-        </div>
-      </div>
-
-      <h3 class="title_h3"><b>Image Upload</b></h3>
-      <!-- <p-divider type="dashed"></p-divider> -->
-
-      <div class="fieldGroup_Flex">
-        <div class="field col-12 md:col-6">
-          <label for="own_img" class="size"><b>Member Photograph:<span
-                class="text-red-700">(.JPG,.JPEG,.PNG) (Max file upload size : 1MB)</span></b></label>&nbsp;
-          <div class="card flex justify-content-left">
-            <p-toast></p-toast>
-            <p-fileUpload name="own_file" (onSelect)="onUpload($event, 'O')" (onRemove)="onRemove($event, 'O')"
-              [customUpload]="true" [multiple]="false" accept="image/*">
-              <ng-template pTemplate="content">
-                <ng-container *ngIf="memFileName">
-                  <img src="{{memFileName}}" width="50%" height="50%" alt="Member Image">
-                </ng-container>
-              </ng-template>
-            </p-fileUpload>
-          </div>
-        </div>
-        <div class="field col-12 md:col-6">
-          <label for="spou_img" class="size"><b>Spouse Photograph:<span
-                class="text-red-700">(.JPG,.JPEG,.PNG) (Max file upload size : 1MB)</span></b></label>&nbsp;
-          <div class="card flex justify-content-left">
-            <p-toast></p-toast>
-            <p-fileUpload name="spouse_file" (onSelect)="onUpload($event, 'S')" [customUpload]="true" [multiple]="false"
-              accept="image/*">
-              <ng-template pTemplate="content">
-                <!-- <ul *ngIf="uploadedFiles.length">
-                  <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
-                </ul> -->
-                <ng-container *ngIf="spouseFileName">
-                  <img src="{{spouseFileName}}" width="50%" height="50%" alt="">
-                </ng-container>
-              </ng-template>
-            </p-fileUpload>
-          </div>
-        </div>
-      </div>
+      <!-- Relationship -->
+      <mat-form-field appearance="fill" class="short-field">
+        <mat-label>Relationship</mat-label>
+        <mat-select formControlName="relation_intro">
+          <mat-option value="">Select Relationship</mat-option>
+          <mat-option
+            *ngFor="let option of responsedata_rel || []"
+            [value]="option.id"
+            [disabled]="option.disabled">
+            {{ option.relation_name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
+</section>
 
-    <div *ngIf="this.memberData?.mem_type == 'AI'">
-      <div class="fieldGroup_Flex">
-        <div class="field col-12 md:col-4">
-          <label for="member_type" class="label_field"><b>Member Type:</b></label>&nbsp;
-          <input id="member_type" type="text" formControlName="member_type" placeholder="Enter Blood Group"
-            class="form-control" />
-        </div>
-        <div class="field col-12 md:col-4">
-          <label for="member" class="label_field"><b>Member Name:<span class="text-red-700">*</span></b></label>&nbsp;
-          <input id="member" type="text" formControlName="member" placeholder="Enter Member name"
-            class="form-control" />
-          <div *ngIf="f['member']?.touched || f['member']?.dirty">
-            <small class="text-red-900" *ngIf="f['member']?.errors">Member Name is required.</small>
-          </div>
-        </div>
-        <div class="field col-12 md:col-4">
-          <label for="gurdian" class="label_field"><b>Father's / Husband Name:<span
-                class="text-red-700">*</span></b></label>&nbsp;
-          <input id="gurdian" type="text" formControlName="gurdian" placeholder="Enter Father / Husband name"
-            class="form-control" />
-          <div *ngIf="f['gurdian']?.touched || f['gurdian']?.dirty">
-            <small class="text-red-900" *ngIf="f['gurdian']?.errors">Gurdian Name is required.</small>
-          </div>
-        </div>
-      </div>
+<section class="form-section" *ngIf="this.memberData?.mem_type == 'AI'">
+  <h2>Dependent Information</h2>
 
-      <div class="fieldGroup_Flex">
-        <div class="field col-12 md:col-4">
-          <label for="gen" class="label_field"><b>Gender:<span class="text-red-700">*</span></b></label>&nbsp;
-          <select id="gen" formControlName="gen"
-            class="form-control"
-            >
-            <option value="">Select Gender</option>
-            <option value="M">Male</option>
-            <option value="F">Female</option>
-          </select>
-          <div *ngIf="f['gen']?.touched || f['gen']?.dirty">
-            <small class="text-red-900" *ngIf="f['gen']?.errors">Gender is required.</small>
-          </div>
-        </div>
-        <div class="field col-12 md:col-4">
-          <label for="marital_status" class="label_field"><b>Marital Status:</b></label>&nbsp;
-          <select id="marital_status" formControlName="marital_status"
-            class="form-control"
-            >
-            <option value="">Select Marital Status</option>
-            <option value="M">Married</option>
-            <option value="U">Unmarried</option>
-            <option value="W">Widow</option>
-            <option value="WR">Widower</option>
-            <option value="D">Divorced</option>
-          </select>
-        </div>
-        <div class="field col-12 md:col-4">
-          <label for="gen_dob" class="label_field"><b>DOB:<span class="text-red-700">*</span></b></label>&nbsp;
-          <input id="gen_dob" type="date" formControlName="gen_dob" placeholder="dd/MM/yyyy"
-            class="form-control" />
-          <div *ngIf="f['gen_dob']?.touched || f['gen_dob']?.dirty">
-            <small class="text-red-900" *ngIf="f['gen_dob']?.errors">DOB is required.</small>
-          </div>
-        </div>
-      </div>
+  <div formArrayName="depenFields">
 
-      <div class="fieldGroup_Flex">
-        <div class="field col-12 md:col-4">
-          <label for="phone" class="label_field"><b>Whatsapp Phone No:<span
-                class="text-red-700">*</span></b></label>&nbsp;
-          <input id="phone" type="text" formControlName="phone" maxlength="10" placeholder="Enter Phone No"
-            class="form-control" />
-          <div *ngIf="f['phone']?.touched || f['phone']?.dirty">
-            <small class="text-red-900" *ngIf="f['phone']?.errors">Phone No is required.</small>
-          </div>
-        </div>
-        <div class="field col-12 md:col-4">
-          <label for="email_id" class="label_field"><b>Email ID:</b></label>&nbsp;
-          <input id="email_id" type="text" formControlName="email_id" placeholder="Enter Email ID"
-            class="form-control" />
-        </div>
-        <div class="field col-12 md:col-4">
-          <label for="caste" class="label_field"><b>Caste:</b></label>&nbsp;
-          <select id="caste" formControlName="caste"
-            class="form-control"
-            >
-            <option value="">Select Caste</option>
-            <option value="G">General</option>
-            <option value="S">SC</option>
-            <option value="T">ST</option>
-            <option value="O">Others</option>
-          </select>
-        </div>
-      </div>
+     <div
+      class="dependent-row"
+      *ngFor="let group of depenFields.controls; let i = index"
+      [formGroupName]="i">
 
-      <p-divider type="dashed"></p-divider>
-      <h3 class="title_h3"><b>Residential Information</b></h3>
-      <!-- <p-divider type="dashed"></p-divider> -->
+      <!-- Member ID -->
+      <mat-form-field appearance="fill" class="dep-field">
+        <mat-label>Dependent Name</mat-label>
+        <input matInput formControlName="dependent_name">
+      </mat-form-field>
 
+      <!-- Introducer Name -->
+      <mat-form-field appearance="fill" class="dep-field">
+        <mat-label>DOB</mat-label>
+        <input matInput  [matDatepicker]="dobPicker" formControlName="dob_dep">
+        <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
+       <mat-datepicker #dobPicker startView="multi-year"></mat-datepicker>
+      </mat-form-field>
 
-      <div class="fieldGroup_Flex">
-        <div class="field col-12">
-          <label for="mem" class="label_field"><b>Member Address:<span class="text-red-700">*</span></b></label>&nbsp;
-          <textarea id="mem" formControlName="mem" type="text" rows="4"
-            class="form-control"></textarea>
-          <div *ngIf="f['mem']?.touched || f['mem']?.dirty">
-            <small class="text-red-900" *ngIf="f['mem']?.errors">Member Adress is required.</small>
-          </div>
-        </div>
-      </div>
+      <!-- Relationship -->
+      <mat-form-field appearance="fill" class="dep-field">
+        <mat-label>Relationship</mat-label>
+        <mat-select formControlName="relation">
+          <mat-option value="">Select Relationship</mat-option>
+          <mat-option
+            *ngFor="let option of responsedata_rel || []"
+            [value]="option.id"
+            [disabled]="option.disabled">
+            {{ option.relation_name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-      <div class="fieldGroup_Flex">
-        <div class="field col-12 md:col-4">
-          <label for="city" class="label_field"><b>City / Town / District:</b></label>&nbsp;
-          <input id="city" type="text" formControlName="city" placeholder="Enter City/Town/District"
-            class="form-control" />
-        </div>
-        <div class="field col-12 md:col-4">
-          <label for="pin" class="label_field"><b>PIN No:<span class="text-red-700">*</span></b></label>&nbsp;
-          <input id="pin" type="number" formControlName="pin" placeholder="Enter PIN No"
-            class="form-control" />
-          <div *ngIf="f['pin']?.touched || f['pin']?.dirty">
-            <small class="text-red-900" *ngIf="f['pin']?.errors">PIN No is required.</small>
-          </div>
-        </div>
-        <div class="field col-12 md:col-4">
-          <label for="police_st" class="label_field"><b>Police Station:</b></label>&nbsp;
-          <input id="police_st" type="text" formControlName="police_st" placeholder="Enter Police Station"
-            class="form-control" />
-        </div>
-      </div>
+       <!-- ➕ ADD -->
+      <button
+        pButton
+        type="button"
+        icon="pi pi-plus"
+        pTooltip="Add Dependent"
+        class="action-btn add-btn"
+        (click)="onadd()">
+      </button>
 
-      <h3 class="title_h3"><b>Introducer Details</b></h3>
-      <!-- <p-divider type="dashed"></p-divider> -->
+      <!-- ➖ REMOVE -->
+      <button
+        pButton
+        type="button"
+        icon="pi pi-minus"
+        pTooltip="Remove Dependent"
+        class="action-btn remove-btn"
+        (click)="onminus(i)">
+      </button>
+    </div>
+    </div>
+</section>
 
-      <div formGroupName="intro_fr">
-        <div class="fieldGroup_Flex">
-          <div class="field col-12 md:col-4">
-            <label for="intro_member_id" class="label_field"><b>Member ID:</b></label>&nbsp;
-            <input id="intro_member_id" type="text" formControlName="intro_member_id" placeholder="Enter Member ID"
-              class="form-control"
-              readonly />
-          </div>
-          <div class="field col-12 md:col-4">
-            <label for="intro_name" class="label_field"><b>Introducer Name:<span
-                  class="text-red-700">*</span></b></label>&nbsp;
-            <input id="intro_name" type="text" formControlName="intro_name" placeholder="Enter Introducer Name"
-              class="form-control"
-              readonly />
-          </div>
-          <div class="field col-12 md:col-4">
-            <label for="relation_intro" class="label_field"><b>Relation:</b></label>&nbsp;
-            <select id="relation_intro" formControlName="relation_intro"
-              class="form-control"
-              >
-              <option value="null">Select Relationship</option>
-              <option *ngFor="let option of responsedata_rel" [value]="option.id">
-                {{ option.relation_name }}
-              </option>
-            </select>
-          </div>
-        </div>
-      </div>
+<section class="form-section" *ngIf="showDependentSection && this.memberData?.mem_type != 'AI'">
+  <h2>Dependent Information</h2>
 
-      <h3 class="title_h3"><b>Dependent Details</b></h3>
-      <!-- <p-divider type="dashed"></p-divider> -->
+  <div formArrayName="depenFields">
 
-      <div formArrayName="depenFields">
+    <div
+      class="dependent-row"
+      *ngFor="let group of depenFields.controls; let i = index"
+      [formGroupName]="i">
 
-        <div class="fieldGroup_Flex mt-5" *ngFor="let group of depenFields.controls; let i = index" [formGroupName]="i">
-          <div class="field col-12 md:col-3">
+      <!-- Dependent Name -->
+      <mat-form-field appearance="fill" class="dep-field">
+        <mat-label>Dependent Name</mat-label>
+        <input matInput formControlName="dependent_name">
+      </mat-form-field>
 
-            <label for="dependent_name" class="size"><b>Dependent Name:</b></label>
-            <input id="dependent_name" type="text" formControlName="dependent_name" placeholder="Enter Dependent name"
-              class="form-control" />
-          </div>
-          <div class="field col-12 md:col-3">
-            <label for="dob_dep" class="size"><b>DOB:</b></label>&nbsp;
-            <input id="dob_dep" type="date" formControlName="dob_dep" placeholder="Enter DOB"
-              class="form-control" />
-          </div>
-          <div class="field col-12 md:col-3">
-            <label for="relation" class="size"><b>Relationship:</b></label>
-            <select id="relation" formControlName="relation"
-              class="form-control">
-              <option value="null">Select Relationship</option>
-              <option *ngFor="let option of responsedata_rel" [value]="option.id">
-                {{ option.relation_name }}
-              </option>
-            </select>
-          </div>
-          <div *ngIf="i === 0" class="field col-12 md:col-1">
-            <p-button class="custom-tooltip" pTooltip="Add Dependent" tooltipPosition="bottom" icon="pi pi-plus"
-              styleClass="p-button-rounded p-button-text p-button-raised" (click)="onadd()"
-              [style]="{ 'background-color': 'rgb(177 209 161)', 'border-color': 'rgb(116 207 78)', color: '#ffff', 'margin-top': '1.3vw' }"></p-button>
-          </div>
+      <!-- Phone No -->
+      <mat-form-field appearance="fill" class="dep-field">
+        <mat-label>Phone No</mat-label>
+        <input matInput formControlName="phone_no" maxlength="10">
+      </mat-form-field>
 
-          <!-- <div *ngIf="i > 0" class="field col-12 md:col-3"> -->
-            <p-button class="custom-tooltip" pTooltip="Delete Dependent" tooltipPosition="bottom" icon="pi pi-minus"
-              styleClass="p-button-rounded p-button-text p-button-raised" (click)="onminus(i)"
-              [style]="{ 'background-color': 'rgb(223 105 105)', 'border-color': 'rgb(129 54 54)', color: '#ffff', 'margin-top': '1.7vw'}"></p-button>
-          <!-- </div> -->
-        </div>
-      </div>
+      <!-- Relationship -->
+      <mat-form-field appearance="fill" class="dep-field">
+        <mat-label>Relationship</mat-label>
+        <mat-select formControlName="relation">
+          <mat-option value="">Select Relationship</mat-option>
+          <mat-option
+            *ngFor="let option of responsedata_rel || []"
+            [value]="option.id"
+            [disabled]="option.disabled">
+            {{ option.relation_name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-      <h3 class="title_h3"><b>Image Upload</b></h3>
-      <!-- <p-divider type="dashed"></p-divider> -->
+      <!-- ➕ ADD -->
+      <button
+        pButton
+        type="button"
+        icon="pi pi-plus"
+        pTooltip="Add Dependent"
+        class="action-btn add-btn"
+        (click)="onadd()">
+      </button>
 
-      <div class="fieldGroup_Flex">
-        <div class="field col-12 md:col-6">
-          <label for="own_img" class="size"><b>Member Photograph:<span
-                class="text-red-700">(.JPG,.JPEG,.PNG) (Max file upload size : 1MB)</span></b></label>&nbsp;
-          <div class="card flex justify-content-left">
-            <p-toast></p-toast>
-            <p-fileUpload name="own_file" (onSelect)="onUpload($event, 'O')" (onRemove)="onRemove($event, 'O')"
-              [customUpload]="true" [multiple]="false" accept="image/*">
-              <ng-template pTemplate="content">
-                <ng-container *ngIf="memFileName">
-                  <img src="{{memFileName}}" width="50%" height="50%" alt="Member Image">
-                </ng-container>
-              </ng-template>
-            </p-fileUpload>
-          </div>
-        </div>
-      </div>
+      <!-- ➖ REMOVE -->
+      <button
+        pButton
+        type="button"
+        icon="pi pi-minus"
+        pTooltip="Remove Dependent"
+        class="action-btn remove-btn"
+        (click)="onminus(i)">
+      </button>
 
     </div>
 
-    <div class="field col-12 md:col-6">
-      <button pButton pRipple type="button" label="Submit" class="p-button-raised sub_btn" (click)="save()"></button>
-    </div>
+  </div>
+</section>
+
+<section class="form-section">
+  <h2>Image Upload</h2>
+
+<div class="fieldGroup_Flex">
+
+  <!-- MEMBER PHOTO -->
+  <div class="field col-12 md:col-6">
+    <label class="size">
+      <b>Member Photograph:
+        <span class="text-red-700">
+          (.JPG,.JPEG,.PNG) (Max size: 1MB)
+        </span>
+      </b>
+    </label>
+
+    <p-fileUpload
+      name="member_file"
+      [customUpload]="true"
+      [multiple]="false"
+      accept="image/jpeg,image/png,image/jpg"
+      (onSelect)="onUpload($event, 'O')"
+      (onRemove)="onRemove($event, 'O')"
+      [showUploadButton]="false"
+      [showCancelButton]="true"
+    >
+
+      <ng-template pTemplate="content">
+        <ng-container>
+          <img *ngIf="memFileName"
+            [src]="memFileName"
+            class="upload-preview-img"
+            alt="Member Image"
+          />
+        </ng-container>
+
+        <!-- <ng-template #memberPlaceholder>
+          <div class="upload-placeholder">
+            <i class="pi pi-image"></i>
+            <p>No image selected</p>
+          </div>
+        </ng-template> -->
+      </ng-template>
+
+    </p-fileUpload>
+  </div>
+
+  <!-- SPOUSE PHOTO -->
+  <div class="field col-12 md:col-6" *ngIf="showSpouseSection">
+    <label class="size">
+      <b>Spouse Photograph:
+        <span class="text-red-700">
+          (.JPG,.JPEG,.PNG) (Max size: 1MB)
+        </span>
+      </b>
+    </label>
+
+    <p-fileUpload
+      name="spouse_file"
+      [customUpload]="true"
+      [multiple]="false"
+      accept="image/jpeg,image/png,image/jpg"
+      (onSelect)="onUpload($event, 'S')"
+      (onRemove)="onRemove($event, 'S')"
+      [showUploadButton]="false"
+      [showCancelButton]="true"
+    >
+
+      <ng-template pTemplate="content">
+        <ng-container *ngIf="spouseFileName">
+          <img
+            [src]="spouseFileName"
+            class="upload-preview-img"
+            alt="Spouse Image"
+          />
+        </ng-container>
+
+        <!-- <ng-template #spousePlaceholder>
+          <div class="upload-placeholder">
+            <i class="pi pi-image"></i>
+            <p>No image selected</p>
+          </div>
+        </ng-template> -->
+      </ng-template>
+
+    </p-fileUpload>
+  </div>
+
+</div>
+</section>
+
+
+<div class="submit-container">
+  <button
+    mat-raised-button
+    color="primary"
+    class="submit-btn"
+    (click)="save()"
+    [disabled]="form.invalid">
+    <mat-icon>check_circle</mat-icon>
+    Submit
+  </button>
+</div>
   </form>
-</p-card>

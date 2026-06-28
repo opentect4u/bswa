@@ -5,9 +5,29 @@
         <h3 class="text-center"><b>Member Information For Children Group Policy</b></h3>
         <p-divider type="dashed"></p-divider>
 
+          <!-- <div class="flex flex-row">
+          <div class="field col-12 md:col-4">
+            <label for="pre_amont" class="label_field"><b>Policy Holder Type</b></label>&nbsp;
+          </div>
+          <div class="field col-12 md:col-4">
+            <div class="flex align-items-center">
+              <input type="radio" name="policyHolderType" id="member" value="M" (click)="onPolicyHolderTypeChange('M')">
+              <label for="member" class=" label_field ml-2"><b>BSPWA Member</b></label>
+            </div>
+          </div>
+          <div class="field col-12 md:col-4">
+            <div class="flex align-items-center">
+              <input type="radio" name="policyHolderType" id="non_member" value="N"
+                (click)="onPolicyHolderTypeChange('N')" checked>
+              <label for="non_member" class="label_field ml-2"><b>Member of Other SAIL Association</b></label>
+            </div>
+          </div>
+        </div> -->
+
+        <div>
         <form [formGroup]="form">
-          <div class="flex flex-row">
-            <div class="field col-12 md:col-6">
+           <!-- <div class="flex flex-row" *ngIf="!checkedmember">
+            <div class="field col-12 md:col-4">
               <label for="member_id" class="label_field"><b>Member ID:<span
                     class="text-red-700">*</span></b></label>&nbsp;
               <input id="member_id" type="text" formControlName="member_id" placeholder="Enter Member ID"
@@ -15,25 +35,40 @@
               <div *ngIf="o['member_id']?.touched || o['member_id']?.dirty">
                 <small class="text-red-900" *ngIf="o['member_id']?.errors">Member ID is required.</small>
               </div>
-            </div>
-            <div class="field col-12 md:col-6 sub_btn">
-              <p-button label="Submit" (click)="submit()"></p-button>
-            </div>
-          </div>
-
-          <div class="flex flex-row">
-            <div class="field col-12 md:col-4">
-              <label for="member_type" class="label_field"><b>Member Type:<span
+            </div> -->
+            <!-- <div class="field col-12 md:col-4">
+                <label for="unit" class="label_field"><b>Unit Name:<span
+                        class="text-red-700">*</span></b></label>&nbsp;
+                  <select id="unit" formControlName="unit"
+                    class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                    style="appearance: auto; height: 3vw; border-radius: 7px">
+                    <option value="" selected>Select Unit Name</option>
+                    <option *ngFor="let option of responsedata_unit" [value]="option.unit_id">{{ option.unit_name }}
+                    </option>
+                  </select>
+                   <div *ngIf="o['unit']?.touched || o['unit']?.dirty">
+                    <small class="text-red-900" *ngIf="o['unit']?.errors">Unit Name is required.</small>
+                  </div>
+              </div> -->
+            <!-- <div class="field col-12 md:col-4">
+               <label for="member_type" class="label_field"><b>Member Type:<span
                     class="text-red-700">*</span></b></label>&nbsp;
-              <input id="member_type" type="text" formControlName="member_type" placeholder="Enter Member Type"
-                class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-                readonly />
+                <select id="member_type" formControlName="member_type"
+                class="text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" style="appearance: auto; height: 3vw; border-radius: 7px">
+                <option value="" selected>Select Member Type</option>
+                    <option value="G">General Membership</option>
+                    <option value="L">Life Membership</option>
+                    <option value="AI">Associate Membership</option>
+                </select>
               <div *ngIf="o['member_type']?.touched || o['member_type']?.dirty">
                 <small class="text-red-900" *ngIf="o['member_type']?.errors">Member Type is required.</small>
               </div>
-            </div>
+            </div>   -->
+          <!-- </div> -->
+<!-- 
+          <div class="flex flex-row" *ngIf="!checkedmember">
             <div class="field col-12 md:col-4">
-              <label for="member" class="label_field"><b>Member Name:<span
+               <label for="member" class="label_field"><b>Member Name:<span
                     class="text-red-700">*</span></b></label>&nbsp;
               <input id="member" type="text" formControlName="member" placeholder="Enter Member name"
                 class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
@@ -45,24 +80,193 @@
             <div class="field col-12 md:col-4">
               <label for="gurdian" class="label_field"><b>Father's / Husband Name:<span
                     class="text-red-700">*</span></b></label>&nbsp;
-              <input id="gurdian" type="text" formControlName="gurdian" placeholder="Enter Father / Husband name"
+                <input id="gurdian" type="text" formControlName="gurdian" placeholder="Enter Father / Husband name"
                 class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-                readonly />
+                 />
               <div *ngIf="o['gurdian']?.touched || o['gurdian']?.dirty">
                 <small class="text-red-900" *ngIf="o['gurdian']?.errors">Gurdian Name is required.</small>
               </div>
+            </div>
+            <div class="field col-12 md:col-4">
+              <label for="gen" class="label_field"><b>Gender:<span class="text-red-700">*</span></b></label>&nbsp;
+               <select id="gen" formControlName="gen"
+                class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                <option value="" selected>Select Gender</option>
+                <option value="MALE">MALE</option>
+                <option value="FEMALE">FEMALE</option>
+              </select>
+              <div *ngIf="o['gen']?.touched || o['gen']?.dirty">
+                <small class="text-red-900" *ngIf="o['gen']?.errors">Gender is required.</small>
+              </div>
+            </div>
+          </div> -->
+
+          <!-- <div class="flex flex-row" *ngIf="!checkedmember">
+            <div class="field col-12 md:col-4">
+              <label for="marital_status" class="label_field"><b>Marital Status:<span
+                    class="text-red-700">*</span></b></label>&nbsp;
+              <select id="marital_status"  formControlName="marital_status" 
+                class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                 >
+                <option value="" selected>Select Marital Status</option>
+                <option value="M">Married</option>
+                <option value="U">Unmarried</option>
+                <option value="W">Widow</option>
+                <option value="D">Divorced</option>
+                </select>
+              <div *ngIf="o['marital_status']?.touched || o['marital_status']?.dirty">
+                <small class="text-red-900" *ngIf="o['marital_status']?.errors">Marital Status is required.</small>
+              </div>      
+            </div>    
+              <div class="field col-12 md:col-4">
+              <label for="gen_dob" class="label_field"><b>DOB:<span class="text-red-700">*</span></b></label>&nbsp;
+              <input id="gen_dob" type="date" formControlName="gen_dob" placeholder="dd/MM/yyyy"
+                class="box_input text-2xl text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+              <div *ngIf="o['gen_dob']?.touched || o['gen_dob']?.dirty">
+                <small class="text-red-900" *ngIf="o['gen_dob']?.errors">DOB is required.</small>
+              </div>
+            </div>  
+            <div class="field col-12 md:col-4">
+              <label for="age" class="label_field"><b>Age:<span class="text-red-700">*</span></b></label>&nbsp;
+              <input id="age" type="text" formControlName="age" placeholder="Enter Age"
+                class="box_input text-2xl text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" readonly/>
+              <div *ngIf="o['age']?.touched || o['age']?.dirty">
+                <small class="text-red-900" *ngIf="o['age']?.errors">Age is required.</small>
+              </div>
+            </div>  
+          </div> -->
+
+          <!-- <div class="flex flex-row" *ngIf="!checkedmember">
+             <div class="field col-12 md:col-4">
+              <label for="phone_no" class="label_field"><b>Phone No:<span
+                    class="text-red-700">*</span></b></label>&nbsp;
+              <input id="phone_no" type="text" formControlName="phone_no" placeholder="Enter Phone No"
+                class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+              <div *ngIf="o['phone_no']?.touched || o['phone_no']?.dirty">
+                <small class="text-red-900" *ngIf="o['phone_no']?.errors">Phone No is required.</small>
+              </div>
+            </div>
+            <div class="field col-12 md:col-4">
+              <label for="memb_treatment_flag" class="label_field"><b>Suffering from any diseases:</b></label>&nbsp;
+              <select id="memb_treatment_flag" formControlName="memb_treatment_flag"
+                class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                style="appearance: auto; height: 3vw; border-radius: 7px">
+                <option value="" selected>Select</option>
+                <option value="Y">Yes</option>
+                <option value="N">No</option>
+              </select>
+              <div *ngIf="o['memb_treatment_flag']?.touched || o['memb_treatment_flag']?.dirty">
+                <small class="text-red-900" *ngIf="o['memb_treatment_flag']?.errors">Suffering From Diseases is
+                  required.</small>
+              </div>
+            </div>
+
+            <div class="field col-12 md:col-4">
+              <label for="memb_treatment_dtls" class="label_field"><b>Type of Diseases:</b></label>&nbsp;
+              <input id="memb_treatment_dtls" type="text" formControlName="memb_treatment_dtls" placeholder="Enter Diseases name"
+                class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+              <div *ngIf="o['memb_treatment_dtls']?.touched || o['memb_treatment_dtls']?.dirty">
+                <small class="text-red-900" *ngIf="o['memb_treatment_dtls']?.errors">Type of Diseases is required.</small>
+              </div>
+            </div>
+          </div> -->
+
+           <!-- <div class="flex flex-row" *ngIf="!checkedmember">
+            <div class="field col-12">
+              <label for="member_address" class="label_field"><b>Member Address:<span
+                    class="text-red-700">*</span></b></label>&nbsp;
+              <textarea id="member_address" type="text" formControlName="member_address" rows="4" placeholder="Enter Member Address"
+                class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" style="height: auto;"></textarea>
+              <div *ngIf="o['member_address']?.touched || o['member_address']?.dirty">
+                <small class="text-red-900" *ngIf="o['member_address']?.errors">Member Address is required.</small>
+              </div>
+            </div>
+          </div> -->
+
+
+            <div class="flex flex-row">
+            <div class="field col-12 md:col-6">
+              <label for="member_id" class="label_field"><b>Member ID:<span
+                    class="text-red-700">*</span></b></label>&nbsp;
+              <input id="member_id" type="text" formControlName="member_id" placeholder="Enter Member ID"
+                class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+              <div *ngIf="o['member_id']?.touched || o['member_id']?.dirty">
+                <small class="text-red-900" *ngIf="o['member_id']?.errors">Member ID is required.</small>
+              </div>
+            </div>
+            <div class="field col-12 md:col-2 sub_btn">
+              <p-button label="Submit" (click)="submit()"></p-button>
+            </div>
+          </div>
+
+          <div class="flex flex-row">
+             <!-- <div class="field col-12 md:col-4">
+                <label for="unit" class="label_field"><b>Unit Name:<span
+                    class="text-red-700">*</span></b></label>&nbsp;
+                  <select id="unit" formControlName="unit"
+                    class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                    style="appearance: auto; height: 3vw; border-radius: 7px">
+                    <option value="N">Select Unit Name</option>
+                    <option *ngFor="let option of responsedata_unit" [value]="option.unit_id">{{ option.unit_name }}
+                    </option>
+                  </select>
+              </div> -->
+               <!-- <div class="field col-12 md:col-4">
+              <label for="member_type" class="label_field"><b>Member Type:<span
+                    class="text-red-700">*</span></b></label>&nbsp;
+              <input id="member_type" type="text" formControlName="member_type" placeholder="Enter Member Type"
+                class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                readonly />
+              <div *ngIf="o['member_type']?.touched || o['member_type']?.dirty">
+                <small class="text-red-900" *ngIf="o['member_type']?.errors">Member Type is required.</small>
+              </div>
+            </div> -->
+            <div class="field col-12 md:col-4">
+              <label for="member_name" class="label_field"><b>Member Name:<span
+                    class="text-red-700">*</span></b></label>&nbsp;
+              <input id="member_name" type="text" formControlName="member_name" placeholder="Enter member_name name"
+                class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                readonly />
+              <!-- <div *ngIf="o['member']?.touched || o['member']?.dirty">
+                <small class="text-red-900" *ngIf="o['member']?.errors">Member Name is required.</small>
+              </div> -->
+            </div>
+            <div class="field col-12 md:col-4">
+              <label for="dob" class="label_field"><b>DOB:<span class="text-red-700">*</span></b></label>&nbsp;
+              <input id="dob" type="date" formControlName="dob" placeholder="dd/MM/yyyy"
+                class="box_input text-2xl text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" readonly/>
+              <!-- <div *ngIf="o['gen_dob']?.touched || o['gen_dob']?.dirty">
+                <small class="text-red-900" *ngIf="o['gen_dob']?.errors">DOB is required.</small>
+              </div> -->
+            </div>
+             <div class="field col-12 md:col-4">
+              <label for="age" class="label_field"><b>Age:<span class="text-red-700">*</span></b></label>&nbsp;
+              <input id="age" type="text" formControlName="age" placeholder="Enter Age"
+                class="box_input text-2xl text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" readonly/>
+              <!-- <div *ngIf="o['age']?.touched || o['age']?.dirty">
+                <small class="text-red-900" *ngIf="o['age']?.errors">Age is required.</small>
+              </div> -->
             </div>
           </div>
 
           <div class="flex flex-row">
             <div class="field col-12 md:col-4">
-              <label for="gen" class="label_field"><b>Gender:<span class="text-red-700">*</span></b></label>&nbsp;
-              <input id="gen" type="text" formControlName="gen" placeholder="Enter Gender"
+              <label for="gurdian_name" class="label_field"><b>Father's / Husband Name:<span
+                    class="text-red-700">*</span></b></label>&nbsp;
+              <input id="gurdian_name" type="text" formControlName="gurdian_name" placeholder="Enter Father / Husband name"
                 class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                 readonly />
-              <div *ngIf="o['gen']?.touched || o['gen']?.dirty">
+              <!-- <div *ngIf="o['gurdian']?.touched || o['gurdian']?.dirty">
+                <small class="text-red-900" *ngIf="o['gurdian']?.errors">Gurdian Name is required.</small>
+              </div> -->
+            </div>
+             <div class="field col-12 md:col-4">
+              <label for="gender" class="label_field"><b>Gender:<span class="text-red-700">*</span></b></label>&nbsp;
+              <input id="gender" type="text" formControlName="gender" placeholder="Enter Gender"
+                class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" readonly>
+              <!-- <div *ngIf="o['gen']?.touched || o['gen']?.dirty">
                 <small class="text-red-900" *ngIf="o['gen']?.errors">Gender is required.</small>
-              </div>
+              </div> -->
             </div>
             <div class="field col-12 md:col-4">
               <label for="marital_status" class="label_field"><b>Marital Status:<span
@@ -70,22 +274,23 @@
               <input id="marital_status" type="text" formControlName="marital_status" placeholder="Enter Marital Status"
                 class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                 readonly />
-              <div *ngIf="o['marital_status']?.touched || o['marital_status']?.dirty">
+              <!-- <div *ngIf="o['marital_status']?.touched || o['marital_status']?.dirty">
                 <small class="text-red-900" *ngIf="o['marital_status']?.errors">Marital Status is required.</small>
-              </div>
-            </div>
-            <div class="field col-12 md:col-4">
-              <label for="gen_dob" class="label_field"><b>DOB:<span class="text-red-700">*</span></b></label>&nbsp;
-              <input id="gen_dob" type="date" formControlName="gen_dob" placeholder="dd/MM/yyyy"
-                class="box_input text-2xl text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
-              <div *ngIf="o['gen_dob']?.touched || o['gen_dob']?.dirty">
-                <small class="text-red-900" *ngIf="o['gen_dob']?.errors">DOB is required.</small>
-              </div>
+              </div> -->
             </div>
           </div>
 
           <div class="flex flex-row">
-            <div class="field col-12 md:col-4">
+             <div class="field col-12 md:col-4">
+              <label for="phone_no" class="label_field"><b>Phone No:<span
+                    class="text-red-700">*</span></b></label>&nbsp;
+              <input id="phone_no" type="text" formControlName="phone_no" placeholder="Enter Phone No"
+                class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" readonly/>
+              <!-- <div *ngIf="o['phone_no']?.touched || o['phone_no']?.dirty">
+                <small class="text-red-900" *ngIf="o['phone_no']?.errors">Phone No is required.</small>
+              </div> -->
+            </div>
+             <div class="field col-12 md:col-4">
               <label for="type_diseases" class="label_field"><b>Suffering from any diseases:</b></label>&nbsp;
               <select id="type_diseases" formControlName="type_diseases"
                 class="w-full text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
@@ -94,19 +299,34 @@
                 <option value="Y">Yes</option>
                 <option value="N">No</option>
               </select>
-              <div *ngIf="o['type_diseases']?.touched || o['type_diseases']?.dirty">
+              <!-- <div *ngIf="o['type_diseases']?.touched || o['type_diseases']?.dirty">
                 <small class="text-red-900" *ngIf="o['type_diseases']?.errors">Suffering From Diseases is
                   required.</small>
-              </div>
+              </div> -->
             </div>
 
-            <div class="field col-12 md:col-8">
+            <div class="field col-12 md:col-4">
               <label for="name_diseases" class="label_field"><b>Type of Diseases:</b></label>&nbsp;
               <input id="name_diseases" type="text" formControlName="name_diseases" placeholder="Enter Diseases name"
                 class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
-              <div *ngIf="o['name_diseases']?.touched || o['name_diseases']?.dirty">
+              <!-- <div *ngIf="o['name_diseases']?.touched || o['name_diseases']?.dirty">
                 <small class="text-red-900" *ngIf="o['name_diseases']?.errors">Type of Diseases is required.</small>
-              </div>
+              </div> -->
+            </div>
+          </div>
+
+          <!-- <div class="flex flex-row">
+          </div> -->
+
+           <div class="flex flex-row">
+            <div class="field col-12">
+              <label for="member_address" class="label_field"><b>Member Address:<span
+                    class="text-red-700">*</span></b></label>&nbsp;
+              <textarea id="member_address" type="text" formControlName="member_address" rows="4" placeholder="Enter Member Address"
+                class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" style="height: auto;" readonly></textarea>
+              <!-- <div *ngIf="o['member_address']?.touched || o['member_address']?.dirty">
+                <small class="text-red-900" *ngIf="o['member_address']?.errors">Member Address is required.</small>
+              </div> -->
             </div>
           </div>
 
@@ -214,7 +434,7 @@
 
         <button pButton pRipple type="button" label="Submit" class="p-button-raised final"
           (click)="final_submit()"></button>
-
+       </div>
       </ng-container>
     </p-card>
 

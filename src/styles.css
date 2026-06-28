@@ -282,6 +282,7 @@ h3.title_h3 {padding:0;}
   padding: 1.25rem;
   background-color: #f8fafd;
   /* background-color: #edf2fa; */
+  /* background: linear-gradient(to right, #dfe4eb, #ebecee); */
 }
 
 .custom-box-shadow {
@@ -337,3 +338,6 @@ h3.title_h3 {padding:0;}
 .mat-mdc-header-cell .mdc-data-table__header-cell .cdk-header-cell .cdk-column-treatment_details .mat-column-treatment_details .ng-star-inserted{
   color: #080808 !important;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

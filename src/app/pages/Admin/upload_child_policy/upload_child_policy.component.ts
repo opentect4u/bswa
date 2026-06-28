@@ -44,7 +44,7 @@ private route: ActivatedRoute) { }
       const wsname: string = wb.SheetNames[0];
       const ws: XLSX.WorkSheet = wb.Sheets[wsname];
 
-      this.data = XLSX.utils.sheet_to_json(ws, { raw: false });
+      this.data = XLSX.utils.sheet_to_json(ws, { raw: true });
       this.uploadedData = this.data;
 
 

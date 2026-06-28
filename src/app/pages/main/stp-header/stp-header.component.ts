@@ -33,20 +33,20 @@ export class StpHeaderComponent implements OnInit {
       //   label: 'Profile',
       //   icon: 'pi pi-fw pi-user',
       // },
-      {
-        label: 'Change Password',
-        icon: 'pi pi-fw pi-cog',
-        command: () => {
-          this.change_password_member();
-        }
-      },
-      {
-        label: 'Logout',
-        icon: 'pi pi-fw pi-sign-out',
-        command: () => {
-          this.onlogOut();
-        },
-      },
+      // {
+      //   label: 'Change Password',
+      //   icon: 'pi pi-fw pi-cog',
+      //   command: () => {
+      //     this.change_password_member();
+      //   }
+      // },
+      // {
+      //   label: 'Logout',
+      //   icon: 'pi pi-fw pi-sign-out',
+      //   command: () => {
+      //     this.onlogOut();
+      //   },
+      // },
     ];
   }
 
@@ -86,7 +86,7 @@ export class StpHeaderComponent implements OnInit {
 
   onlogOut() {
     // alert('Logout')
-    this.router.navigate(['/auth/stp_member_login']);
+    this.router.navigate(['/auth/member_login']);
   }
 
   change_password_member(){

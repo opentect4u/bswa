@@ -1,0 +1,103 @@
+<div class="change-password-container">
+  <div class="change-password-box">
+    <!-- <h2>Member Status Details ({{this.userData[0].memb_status == 'A' ? 'Active' : this.userData[0].memb_status == 'I' ? 'Inactive' : 'None'}})</h2> -->
+    <h2>
+      Member Status Details
+      (
+      <span [ngClass]="{
+      'status-active': userData?.[0]?.memb_status === 'A',
+      'status-inactive': userData?.[0]?.memb_status === 'I'
+    }">
+        {{ userData?.[0]?.memb_status === 'A'
+        ? 'Active'
+        : userData?.[0]?.memb_status === 'I'
+        ? 'Inactive'
+        : 'None'
+        }}
+      </span>
+      )
+    </h2>
+
+
+    <form [formGroup]="myForm">
+
+      <div class="row mt-5">
+        <div class="form-field col-4">
+          <mat-form-field appearance="outline">
+            <mat-label class="color">Member Form No</mat-label>
+            <input matInput id="form_no" formControlName="form_no" readonly placeholder="Member Form No..." />
+          </mat-form-field>
+        </div>
+
+        <div class="form-field col-4">
+          <mat-form-field appearance="outline">
+            <mat-label class="color">Member ID</mat-label>
+            <input matInput id="member_id" formControlName="member_id" readonly placeholder="Member ID..." />
+          </mat-form-field>
+        </div>
+
+        <div class="form-field col-4">
+          <mat-form-field appearance="outline">
+            <mat-label class="color">Member Name</mat-label>
+            <input matInput id="memb_name" formControlName="memb_name" readonly placeholder="Member Name..." />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-field col-4">
+          <mat-form-field appearance="outline">
+            <mat-label class="color">Member Type</mat-label>
+            <input matInput id="mem_type" formControlName="mem_type" readonly placeholder="Member Type..." />
+          </mat-form-field>
+        </div>
+
+        <div class="form-field col-4">
+          <mat-form-field appearance="outline">
+            <mat-label class="color">Member Operation</mat-label>
+            <input matInput id="memb_oprn" formControlName="memb_oprn" readonly placeholder="Member Operation..." />
+          </mat-form-field>
+        </div>
+
+        <div class="form-field col-4">
+          <mat-form-field appearance="outline">
+            <mat-label class="color">Member Phone No</mat-label>
+            <input matInput id="phone_no" formControlName="phone_no" readonly placeholder="Member Phone No..." />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-field col-4">
+          <mat-form-field appearance="outline">
+            <mat-label class="color">Unit Name</mat-label>
+            <input matInput id="unit_id" formControlName="unit_id" readonly placeholder="Unit Name..." />
+          </mat-form-field>
+        </div>
+
+        <div class="form-field col-4">
+          <mat-form-field appearance="outline">
+            <mat-label class="color">Member Gender</mat-label>
+            <input matInput id="gender" formControlName="gender" readonly placeholder="Member Gender..." />
+          </mat-form-field>
+        </div>
+
+        <div class="form-field col-4">
+          <mat-form-field appearance="outline" class="status-field">
+            <mat-label class="color">Member Status</mat-label>
+
+            <mat-select formControlName="memb_status">
+              <mat-option value="A">Active</mat-option>
+              <mat-option value="I">Inactive</mat-option>
+            </mat-select>
+
+          </mat-form-field>
+        </div>
+      </div>
+
+
+      <button mat-raised-button class="mt-3" color="primary" [disabled]="myForm.invalid || !myForm.dirty"
+        (click)="inactive_active_memb()">Submit</button>
+    </form>
+  </div>
+</div>

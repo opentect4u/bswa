@@ -15,10 +15,30 @@ const routes: Routes = [
         loadChildren: () =>
           import('./login/login.module').then((m) => m.LoginModule),
       },
+       {
+        path: 'choose_section',
+        loadChildren: () =>
+          import('./choose_section/choose_section.module').then((m) => m.Choose_sectionModule),
+      },
       {
         path: 'member_login',
         loadChildren: () =>
           import('./member_login/member_login.module').then((m) => m.Member_loginModule),
+      },
+       {
+        path: 'register',
+        loadChildren: () =>
+          import('./register/register.module').then((m) => m.RegisterModule),
+      },
+      {
+        path: 'verify_otp',
+        loadChildren: () =>
+          import('./verify_otp/verify_otp.module').then((m) => m.Verify_otpModule),
+      },
+      {
+        path: 'set_pin',
+        loadChildren: () =>
+          import('./set_pin/set_pin.module').then((m) => m.Set_pinModule),
       },
       {
         path: 'superadmin_login',

@@ -16,6 +16,7 @@ export class HeaderComponent implements OnInit {
   memberName: any
   labelAdmin: any = 'A';
   @Output() event = new EventEmitter();
+
   constructor(private router: Router) {
     console.log(window.innerWidth);
     if (window.innerWidth <= 480) {
@@ -31,21 +32,24 @@ export class HeaderComponent implements OnInit {
       // {
       //   label: 'Profile',
       //   icon: 'pi pi-fw pi-user',
+      //   command: () => {
+      //     this.change_password_member();
+      //   }
       // },
-      {
-        label: 'Change Password',
-        icon: 'pi pi-fw pi-cog',
-        command: () => {
-          this.change_password_member();
-        }
-      },
-      {
-        label: 'Logout',
-        icon: 'pi pi-fw pi-sign-out',
-        command: () => {
-          this.onSignOut();
-        },
-      },
+      // {
+      //   label: 'Change Password',
+      //   icon: 'pi pi-fw pi-cog',
+      //   command: () => {
+      //     this.change_password_member();
+      //   }
+      // },
+      // {
+      //   label: 'Logout',
+      //   icon: 'pi pi-fw pi-sign-out',
+      //   command: () => {
+      //     this.onSignOut();
+      //   },
+      // },
     ];
   }
 
@@ -58,7 +62,30 @@ export class HeaderComponent implements OnInit {
     this.onMenuToggle();
   }
 
-  onMenuToggle() {
+  // onMenuToggle() {
+  //   this.sidemenuOpen = !this.sidemenuOpen;
+
+  //   if (window.innerWidth <= 480) {
+  //     if (this.sidemenuOpen) {
+  //       this.classSidemenu = 'sidemenu-overlay';
+  //       this.classContent = 'content-full';
+  //     } else {
+  //       this.classSidemenu = 'sidemenu-close';
+  //       this.classContent = 'content-full';
+  //     }
+  //   } else {
+  //     if (this.sidemenuOpen) {
+  //       this.classSidemenu = 'sidemenu-open';
+  //       this.classContent = 'content-normal';
+  //     } else {
+  //       this.classSidemenu = 'sidemenu-minimize';
+  //       this.classContent = 'content-wide';
+  //     }
+  //   }
+  //   this.event.emit({sidemenuOpen: this.sidemenuOpen, classSidemenu: this.classSidemenu, classContent: this.classContent})
+  // }
+
+    onMenuToggle() {
     this.sidemenuOpen = !this.sidemenuOpen;
 
     if (window.innerWidth <= 480) {
@@ -81,8 +108,6 @@ export class HeaderComponent implements OnInit {
     this.event.emit({sidemenuOpen: this.sidemenuOpen, classSidemenu: this.classSidemenu, classContent: this.classContent})
   }
 
-  
-
   onSignOut() {
     // alert('Logout')
     this.router.navigate(['/auth/member_login']);
@@ -91,4 +116,8 @@ export class HeaderComponent implements OnInit {
   change_password_member(){
     this.router.navigate(['/main/change_password_member'])
   }
+
+  // profile(){
+  //   this.router.navigate(['/main/change_password_member'])
+  // }
 }

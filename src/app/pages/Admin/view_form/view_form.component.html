@@ -32,12 +32,103 @@
     background-color: #ffffff;
     color: rgb(0, 0, 0);
   }
+  .view{
+    margin-left: 55vw;
+  }
+ .color_app{
+  color: rgb(25, 156, 25);
+  font-weight: bold;
+ }
+ .color_acc{
+  color: #09998d;
+  font-weight: bold;
+
+ }
+ .color_head{
+  color: rgb(24, 23, 23)
+ }
+.status-box {
+background-color: #f8f9fa;
+    border: 4px solid #dee2e6;
+    padding: 12px 16px;
+    border-radius: 6px;
+    max-width: 359px;
+    font-size: 19px;
+    box-shadow: 0 2px 4px rg;
+    margin-left: 47vw
+}
+
+.status-box h6 {
+  margin: 0 0;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.color_rej {
+  color: #d9534f;
+  font-weight: bold;
+}
+
+.big-text {
+  font-size: 20px; 
+  font-weight: bold;  
+  color: #504fe7; 
+  margin-left: 8px;
+}
+.heading_style {
+    display: flex;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+}
 </style>
 
-<p-card id="divToPrint">
+<p-card id="divToPrint" class="custom-card">
   <!-- <span class="custom-badge" pTooltip="Back" tooltipPosition="top">
     <i class="pi pi-arrow-left" aria-hidden="true" style="cursor: pointer;"></i>
   </span> -->
+
+   <div class="row" *ngIf="memb_status === 'A'">
+    <div class="col-12 d-flex justify-content-end">
+      <div class="status-box"> 
+      <h6 *ngIf="mem_type != 'AI'">Member Of:</h6><span class="color_app" *ngIf="mem_type != 'AI'">{{unit_name ? unit_name : 'N/A'}}</span>
+      <h6>Form No:</h6><span class="color_app">{{form_no ? form_no : 'N/A'}}</span>
+      <h6>Status : <span class="color_app">{{memb_status == 'A' ? 'Approved' : 'N/A'}}</span></h6>
+      <h6>Resolution No : <span class="color_app">{{resolution_no ? resolution_no : 'N/A'}}</span></h6>
+      <h6>Resolution Date : <span class="color_app">{{resolution_dt | date:'dd-MM-yyyy'}}</span></h6>
+       <h6>Approved Date : <span class="color_app">{{approve_at | date:'dd-MM-yyyy'}}</span></h6>
+      <h6>Approved By : <span class="color_app">{{approve_by ? approve_by : 'N/A'}}</span></h6>
+      </div>
+    </div>
+  </div>
+
+   <div class="row" *ngIf="memb_status === 'T'">
+    <div class="col-12 d-flex justify-content-end">
+      <div class="status-box"> 
+      <h6 *ngIf="mem_type != 'AI'">Member Of:</h6><span class="color_acc" *ngIf="mem_type != 'AI'">{{unit_name ? unit_name : 'N/A'}}</span>
+      <h6>Form No:</h6><span class="color_acc">{{form_no ? form_no : 'N/A'}}</span>
+      <h6>Status : <span class="color_acc">{{memb_status == 'T' ? 'Accept' : 'N/A'}}</span></h6>
+      <h6>Resolution No : <span class="color_acc">{{resolution_no ? resolution_no : 'N/A'}}</span></h6>
+      <h6>Resolution Date : <span class="color_acc">{{resolution_dt | date:'dd-MM-yyyy'}}</span></h6>
+       <h6>Accepted Date : <span class="color_acc">{{modified_at | date:'dd-MM-yyyy'}}</span></h6>
+      <h6>Accepted By : <span class="color_acc">{{modified_by ? modified_by : 'N/A'}}</span></h6>
+      </div>
+    </div>
+  </div>
+<div class="row" *ngIf="memb_status === 'R'">
+  <div class="col-12 d-flex justify-content-end">
+    <div class="status-box">
+      <h6 *ngIf="mem_type != 'AI'">Member Of:</h6><span class="color_rej" *ngIf="mem_type != 'AI'">{{unit_name ? unit_name : 'N/A'}}</span>
+      <h6>Form No:</h6><span class="color_rej">{{form_no ? form_no : 'N/A'}}</span>
+      <h6>Status: <span class="color_rej">{{ memb_status == 'R' ? 'Reject' : 'N/A' }}</span></h6>
+      <h6>Resolution No: <span class="color_rej">{{ resolution_no ? resolution_no : 'N/A' }}</span></h6>
+      <h6>Resolution Date: <span class="color_rej">{{ resolution_dt | date:'dd-MM-yyyy' }}</span></h6>
+      <h6>Rejected Date: <span class="color_rej">{{ rejected_dt | date:'dd-MM-yyyy' }}</span></h6>
+      <h6>Rejected By: <span class="color_rej">{{ rejected_by ? rejected_by : 'N/A' }}</span></h6>
+      <h6>Remarks: <span class="color_rej">{{ remarks ? remarks : 'N/A' }}</span></h6>
+    </div>
+  </div>
+</div>
 
   <div *ngIf="mem_type === 'G'">
     <div class="row">
@@ -47,7 +138,7 @@
     </div>
     <div class="row">
       <div class="col-md-6">
-        <h4 class="color"><b><u>MEMBERSHIP FORM</u></b></h4>
+        <h4 class="colors"><b><u>MEMBERSHIP FORM</u></b></h4>
       </div>
     </div>
     <div class="row">
@@ -76,7 +167,7 @@
     </div>
     <div class="row">
       <div class="col-md-6">
-        <h4 class="color"><b><u>MEMBERSHIP FORM</u></b></h4>
+        <h4 class="colors"><b><u>MEMBERSHIP FORM</u></b></h4>
       </div>
     </div>
     <div class="row">
@@ -107,7 +198,7 @@
     </div>
     <div class="row">
       <div class="col-md-6">
-        <h4 class="color">
+        <h4 class="colors">
           <b><u>ASSOCIATE MEMBERSHIP FORM</u></b>
         </h4>
       </div>
@@ -134,7 +225,7 @@
     <div *ngIf="mem_type === 'G'">
       <table class="table_space">
         <tr>
-          <th colspan="3" class="text-center" style="background-color: aliceblue;"><label for="member_type"
+          <th colspan="3" class="text-center" style="background-color: rgb(6, 6, 7);"><label for="member_type"
               class="label_field color"><b>DETAILS OF THE MEMBER</b></label></th>
         </tr>
         <tr>
@@ -221,7 +312,7 @@
               && spou_min.length > 0 ? spou_min[0]?.spou_min : 'N/A'}}</span></th>
         </tr>
         <tr>
-          <th colspan="3" class="text-center" style="background-color: aliceblue;"><label for="member_type"
+          <th colspan="3" class="text-center" style="background-color: rgb(4, 4, 5);"><label for="member_type"
               class="label_field color"><b>DETAILS OF THE SPOUSE</b></label></th>
         </tr>
         <tr>
@@ -273,10 +364,11 @@
         <tr>
           <th><label for="member_type" class="label_field"><b>P.S. </b><span class="span_space">{{spou_min
                 && spou_min.length > 0 ? spou_min[0].spou_ps : 'N/A'}}</span></label></th>
-          <th colspan="2"><label for="member_type" class="label_field"><b>PHONE NO. </b><span
+          <!-- <th colspan="2"><label for="member_type" class="label_field"><b>PHONE NO. </b><span
                 class="span_space">{{spou_min
                 && spou_min.length > 0 ? spou_min[0].spou_phone : 'N/A'}}</span></label>
-          </th>
+          </th> -->
+          <th></th>
         </tr>
         <tr>
           <th colspan="3"><label for="member_type" class="label_field"><b>ADDRESS :</b><span
@@ -303,7 +395,7 @@
     <div *ngIf="mem_type === 'L'">
       <table class="table_space">
         <tr>
-          <th colspan="3" class="text-center" style="background-color: aliceblue;"><label for="member_type"
+          <th colspan="3" class="text-center" style="background-color: rgb(6, 6, 7);"><label for="member_type"
               class="label_field color"><b>DETAILS OF THE MEMBER</b></label></th>
         </tr>
         <tr>
@@ -389,7 +481,7 @@
               }}</span></th>
         </tr>
         <tr>
-          <th colspan="3" class="text-center" style="background-color: aliceblue;"><label for="member_type"
+          <th colspan="3" class="text-center" style="background-color: rgb(6, 6, 7);"><label for="member_type"
               class="label_field color"><b>DETAILS OF THE SPOUSE</b></label></th>
         </tr>
         <tr>
@@ -439,9 +531,10 @@
         <tr>
           <th><label for="member_type" class="label_field"><b>P.S. </b><span class="span_space"> {{ spou_min &&
                 spou_min.length > 0 ? spou_min[0].spou_ps : 'N/A' }}</span></label></th>
-          <th colspan="2"><label for="member_type" class="label_field"><b>PHONE NO. </b><span class="span_space">{{
-                spou_min && spou_min.length > 0 ? spou_min[0].spou_phone : 'N/A' }}</span></label>
-          </th>
+          <!-- <th colspan="2"><label for="member_type" class="label_field"><b>City </b><span class="span_space">{{
+                spou_min && spou_min.length > 0 ? spou_min[0].city_town_dist : 'N/A' }}</span></label>
+          </th> -->
+          <th></th>
         </tr>
         <tr>
           <th colspan="3"><label for="member_type" class="label_field"><b>ADDRESS :</b><span
@@ -468,7 +561,7 @@
     <div *ngIf="mem_type === 'AI'">
       <table class="table_space">
         <tr>
-          <th colspan="4" class="text-center" style="background-color: aliceblue">
+          <th colspan="4" class="text-center" style="background-color: rgb(6, 6, 7)">
             <label for="member_type" class="label_field color"><b>DETAILS OF THE MEMBER</b></label>
           </th>
         </tr>
@@ -567,7 +660,7 @@
           </th>
         </tr>
         <tr>
-          <th colspan="4" class="text-center" style="background-color: aliceblue">
+          <th colspan="4" class="text-center" style="background-color: rgb(10, 14, 17)">
             <label for="member_type" class="label_field color"><b>DETAILS OF THE INTRODUCER</b></label>
           </th>
         </tr>
@@ -597,7 +690,7 @@
         </tr>
 
         <tr>
-          <th colspan="4" class="text-center" style="background-color: aliceblue">
+          <th colspan="4" class="text-center" style="background-color: rgb(7, 11, 14)">
             <label for="member_type" class="label_field color"><b>DETAILS OF THE DEPENDENTS</b></label>
           </th>
         </tr>
@@ -665,7 +758,7 @@
     <div *ngIf="mem_type === 'G'">
       <div class="row mt-3">
         <div class="col-12">
-          <h4 class="letter color">FOR OFFICE USE ONLY</h4><br>
+          <h4 class="letter colors">FOR OFFICE USE ONLY</h4><br>
           <div class="col-6">
             <h4 class="letter" style="color: black;float: left;">Membership {{memb_status== 'R' ? 'Rejected' :
               ''}} vide Resolution No. <span class="span_space">{{resolution_no}}</span></h4>
@@ -704,7 +797,7 @@
     <div *ngIf="mem_type === 'L'">
       <div class="row mt-3">
         <div class="col-12">
-          <h4 class="letter color">FOR OFFICE USE ONLY</h4><br>
+          <h4 class="letter colors">FOR OFFICE USE ONLY</h4><br>
           <div class="col-6">
             <h4 class="letter" style="color: black;float: left;">Membership {{memb_status== 'R' ? 'Rejected' :
               ''}} vide Resolution No. <span class="span_space">{{resolution_no}}</span></h4>
@@ -750,7 +843,7 @@
     <div *ngIf="mem_type === 'AI'">
       <div class="row mt-3">
         <div class="col-12">
-          <h4 class="letter color">FOR OFFICE USE ONLY</h4><br>
+          <h4 class="letter colors">FOR OFFICE USE ONLY</h4><br>
           <!-- <h4 class="letter" style="color: black;">Mebership Subscription Fee <span
               class="span_space">{{subscription_1}}/- ({{subs_type== 'M' ? 'Monthly' : 'Yearly'}})</span></h4> -->
           <h4 class="letter" style="color: black;">1) Admission Fee : <span
@@ -792,9 +885,9 @@
 
   <p-divider type="dashed"></p-divider>
 
-  <h4 class="text-center" style="color: black;">Approval Section</h4>
+  <h4 class="text-center" style="color: black;" *ngIf="memb_status === 'P'">Approval Section</h4>
 
-  <form [formGroup]="form">
+  <form *ngIf="memb_status === 'P'" [formGroup]="form">
     <div class="flex flex-row mt-5">
       <div class="field col-12 md:col-4">
         <label for="resolution_no" class="label_field" style="color: black;"><b>Resolution No:<span

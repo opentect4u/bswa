@@ -187,7 +187,7 @@ export class Life_membership_formComponent implements OnInit {
   
       this.dataServe.global_service(1, '/check_staff_no', { staff_no: staffNo })
           .subscribe((response: any) => {
-              if (response.suc === 1 && response.exists) {
+              if (response.suc === 2 && response.exists) {
                   this.staffExists = true;
                   Swal.fire({
                     title: 'Warning',
@@ -220,7 +220,7 @@ export class Life_membership_formComponent implements OnInit {
 
     this.dataServe.global_service(1, '/check_mobile_no', { phone_no: mobileNo })
     .subscribe((response: any) => {
-        if (response.suc === 1 && response.exists) {
+        if (response.suc === 2 && response.exists) {
             this.mobileExists = true;
             Swal.fire({
                 title: 'Warning',

@@ -41,7 +41,7 @@
         color: rgb(0, 0, 0);
       }
     </style>
-    <p-card id="divToPrint">
+    <p-card id="divToPrint" class="custom-card">
       <div class="print_Section">
         <!-- <div class="row">
           <div class="col-md-6">
@@ -78,14 +78,8 @@
               13, CAMAC STREET, <br>
               KOLKATA 700017
             </p>
-            <h4>(Through: <span
-              style="color: rgb(55, 55, 230);"><u>{{stpinfo?.mem_type ==
-                'G' ? 'General
-                Membership' : stpinfo?.mem_type == 'L' ? 'Life membership' : stpinfo?.mem_type == 'AI' ? 'Associate
-                Membership' : 'N/A'}}</u></span>)</h4>
-            <p><strong>BOKARO STEEL PEOPLE WELFARE ASSOCIATION</strong> <br>
-              <!-- Durgapur / Burnpur <br> -->
-              Dear Sir,</p>
+            <p><strong>Dear Sir,</strong> <br>
+              </p>
             <p class="body_latter">I came to understand that the Trust will take a Tailor made Medi-claim / Health
               Insurance Policy for its beneficiaries. As I am an member of the <span
                 style="color: rgb(55, 55, 230);"><u>{{stpinfo?.unit_name}}</u></span> ASSOCIATION, having membership no

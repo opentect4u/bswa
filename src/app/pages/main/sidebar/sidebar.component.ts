@@ -12,58 +12,68 @@ export class SidebarComponent implements OnInit {
   mem_type: any;
   items!: MenuItem[]
   flag: any;
+  isExpanded: boolean = false
+  selectedItem: any;
+
   constructor(private router: Router,private route: ActivatedRoute) {}
 
   ngOnInit() {
-    // this.mem_type = this.route.snapshot.params['mem_type'];
    this.mem_type = localStorage.getItem('mem_type')
-  //  this.flag = localStorage.getItem('flag')
-  //  console.log(this.mem_type,this.flag,'kiki');
    this.items = [
     {
       label: 'Dashboard',
       icon: 'pi pi-microsoft',
-      routerLink: ['dashboard'],
+      routerLink: '/main/dashboard',
     },
     {
       label: 'Member Details',
       icon: 'pi pi-user',
-      routerLink: ['memb_dtls'],
-    },
-    {
-      label: 'Insurance Form',
-      icon: 'pi pi-list',
-      routerLink: ['ins_dtls'],
-    },
-    {
-      label: 'Children Policy',
-      icon: 'pi pi-address-book',
-      routerLink: ['child_policy'],
-    },
-    {
-      label: 'Transaction History',
-      icon: 'pi pi-indian-rupee',
-      routerLink: ['trn_history'],
-    },
-     {
-      label: 'Transaction History for Children Policy',
-      icon: 'pi pi-history',
-      routerLink: ['trn_history_child'],
+      routerLink: '/main/memb_dtls',
     },
     {
       label: 'Deposit Subscription',
       icon: 'pi pi-calendar',
-      routerLink: ['depo_subs'],
+      routerLink: '/main/depo_subs',
+    },
+    {
+      label: 'Insurance Form',
+      icon: 'pi pi-list',
+      routerLink: '/main/ins_dtls',
     },
     // {
-    //   label: 'Notification',
-    //   icon: 'pi pi-bell',
-    //   routerLink: ['memb_noti'],
+    //   label: 'Children Policy',
+    //   icon: 'pi pi-address-book',
+    //   routerLink: ['child_policy'],
     // },
+    {
+      label: 'Transaction History',
+      icon: 'pi pi-indian-rupee',
+      routerLink: '/main/trn_history',
+    },
+    //  {
+    //   label: 'Transaction History for Children Policy',
+    //   icon: 'pi pi-history',
+    //   routerLink: ['trn_history_child'],
+    // },
+    {
+      label: 'Logout',
+      icon: "pi pi-sign-out",
+      routerLink: '/auth/member_login',
+    },
   ];
   }
 
-  onClick(id: any) {
+  // onClick(id: any) {
+  //   let element = document.getElementById(id);
+
+  //   if (element?.className.includes('menu-item-open')) {
+  //     element?.classList.remove('menu-item-open');
+  //   } else {
+  //     element?.classList.add('menu-item-open');
+  //   }
+  // }
+
+    onClick(id: any) {
     let element = document.getElementById(id);
 
     if (element?.className.includes('menu-item-open')) {
@@ -76,4 +86,19 @@ export class SidebarComponent implements OnInit {
   getRoute() {
     return this.router.url;
   }
+
+      isActive(route: string): boolean {
+    return this.router.url === route;
+  }
+
+    navigate(route: any) {
+  if (typeof route === 'string' && route) {
+    this.router.navigate([route]);
+  } else if (route === null && this.selectedItem?.url) {
+    // Handle external link
+    window.open(this.selectedItem.url, '_blank');
+  } else {
+    console.warn('Invalid route or no action needed.');
+  }
+}
 }

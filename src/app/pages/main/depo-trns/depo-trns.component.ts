@@ -303,7 +303,7 @@ export class DepoTrnsComponent implements OnInit {
     var custDt = { form_no: form_no, member_id: member_id, memb_name: memberName, amount: subscriptionAmount, phone_no: this.userData.phone_no, email: this.userData.email_id, approve_status: 'A', calc_upto: this.userData?.calc_upto, subs_type: this.responsedata_subs.length > 0 ? this.responsedata_subs[0].subs_type : 'M', sub_fee: this.responsedata_subs[0].subscription_1, redirect_path: '/main/depo_subs' }
 
     const encDt = CryptoJS.AES.encrypt(JSON.stringify(custDt),this.secretKey ).toString();
-    // const decryptedSubscriptionAmount = CryptoJS.AES.decrypt(encDt, secretKey).toString(CryptoJS.enc.Utf8);
+    // const decryptedSubscripstionAmount = CryptoJS.AES.decrypt(encDt, secretKey).toString(CryptoJS.enc.Utf8);
 
     console.log(encDt,'amt');
     // console.log(decryptedSubscriptionAmount,'amt');
