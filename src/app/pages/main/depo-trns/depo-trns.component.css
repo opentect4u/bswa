@@ -19,3 +19,28 @@
   background-color: rgba(0, 0, 0, 0.3);
 }
 
+.bg-container {
+  min-height: 87vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to right, #80a0c9, #b7c5d8);
+  padding: 20px 0;
+}
+
+.sub_btn {
+  background-color: #0d2a58 !important;
+  border-color: #0d2a58 !important;
+  color: white !important;
+}
+
+.sub_btn:hover:not(:disabled) {
+  background-color: #0a2145 !important;
+  border-color: #0a2145 !important;
+}
+
+.sub_btn:disabled {
+  background-color: #3231bd !important;
+  color: #ffffff !important;
+  cursor: not-allowed;
+}

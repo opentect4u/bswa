@@ -1,116 +1,117 @@
-  <!-- Member Details Section -->
-   <form [formGroup]="form" class="form-container mat-elevation-z4">
-    <section class="form-section">
-      <h2>Member Information</h2>
-      <div class="field-group">
-         <mat-form-field appearance="fill" class="short-field">
+<!-- Member Details Section -->
+<form [formGroup]="form" class="form-container mat-elevation-z4">
+  <section class="form-section">
+    <h2>Member Information</h2>
+    <div class="field-group">
+      <mat-form-field appearance="fill" class="short-field">
         <mat-label>Member Type</mat-label>
         <input matInput formControlName="member_type" readonly>
       </mat-form-field>
 
-       <mat-form-field appearance="fill" class="short-field" *ngIf="this.memberData?.mem_type != 'AI'">
-     <mat-label>Member Operation</mat-label>
-     <mat-select formControlName="member_opt">
-      <mat-option *ngFor="let opt of memberOperationList " [value]="opt.value" [disabled]="opt.disabled">
-      {{ opt.label }}
-      </mat-option>
-      </mat-select>
-      <mat-error *ngIf="form.get('member_opt')?.hasError('required')">
-      Member Operation is required
-      </mat-error>
+      <mat-form-field appearance="fill" class="short-field" *ngIf="this.memberData?.mem_type != 'AI'">
+        <mat-label>Member Operation</mat-label>
+        <mat-select formControlName="member_opt">
+          <mat-option *ngFor="let opt of memberOperationList " [value]="opt.value" [disabled]="opt.disabled">
+            {{ opt.label }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('member_opt')?.hasError('required')">
+          Member Operation is required
+        </mat-error>
       </mat-form-field>
 
-       <mat-form-field appearance="fill" class="short-field" *ngIf="this.memberData?.mem_type != 'AI'">
+      <mat-form-field appearance="fill" class="short-field" *ngIf="this.memberData?.mem_type != 'AI'">
         <mat-label>Unit Name</mat-label>
         <mat-select formControlName="unit_nm">
           <mat-option *ngFor="let unit of responsedatas || []" [value]="unit.unit_id">
-           {{ unit.unit_name }}
+            {{ unit.unit_name }}
           </mat-option>
         </mat-select>
       </mat-form-field>
 
-       <mat-form-field appearance="fill" class="short-field">
+      <mat-form-field appearance="fill" class="short-field">
         <mat-label>Member Name</mat-label>
         <input matInput formControlName="member">
       </mat-form-field>
 
-       <mat-form-field appearance="fill" class="short-field">
+      <mat-form-field appearance="fill" class="short-field">
         <mat-label>Father's / Husband Name</mat-label>
         <input matInput formControlName="gurdian">
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="short-field">
         <mat-label>Gender</mat-label>
-         <mat-select formControlName="gen">
+        <mat-select formControlName="gen">
           <mat-option *ngFor="let gend of genderList" [value]="gend.value" [disabled]="gend.disabled">
-           {{ gend.label }}
+            {{ gend.label }}
           </mat-option>
         </mat-select>
       </mat-form-field>
 
-       <mat-form-field appearance="fill" class="short-field">
+      <mat-form-field appearance="fill" class="short-field">
         <mat-label>Marital Status</mat-label>
-         <mat-select formControlName="marital_status">
-          <mat-option *ngFor="let maritals of maritalStatusList" [value]="maritals.value" [disabled]="maritals.disabled">
-           {{ maritals.label }}
+        <mat-select formControlName="marital_status">
+          <mat-option *ngFor="let maritals of maritalStatusList" [value]="maritals.value"
+            [disabled]="maritals.disabled">
+            {{ maritals.label }}
           </mat-option>
         </mat-select>
       </mat-form-field>
 
-       <mat-form-field appearance="fill" class="short-field">
+      <mat-form-field appearance="fill" class="short-field">
         <mat-label>DOB</mat-label>
-        <input matInput  [matDatepicker]="dobPicker" formControlName="gen_dob">
+        <input matInput [matDatepicker]="dobPicker" formControlName="gen_dob">
         <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
-  <mat-datepicker #dobPicker startView="multi-year"></mat-datepicker>
+        <mat-datepicker #dobPicker startView="multi-year"></mat-datepicker>
       </mat-form-field>
 
-       <mat-form-field appearance="fill" class="short-field">
+      <mat-form-field appearance="fill" class="short-field">
         <mat-label>Phone No</mat-label>
         <input matInput formControlName="phone" maxlength="10">
       </mat-form-field>
 
-       <mat-form-field appearance="fill" class="short-field">
+      <mat-form-field appearance="fill" class="short-field">
         <mat-label>Email ID</mat-label>
         <input matInput formControlName="email_id">
       </mat-form-field>
 
-       <mat-form-field appearance="fill" class="short-field" *ngIf="this.memberData?.mem_type != 'AI'">
+      <mat-form-field appearance="fill" class="short-field" *ngIf="this.memberData?.mem_type != 'AI'">
         <mat-label>Blood Group</mat-label>
-         <mat-select formControlName="blood">
+        <mat-select formControlName="blood">
           <mat-option *ngFor="let bloods of bloodList" [value]="bloods.value" [disabled]="bloods.disabled">
-           {{ bloods.label }}
+            {{ bloods.label }}
           </mat-option>
         </mat-select>
       </mat-form-field>
 
-       <mat-form-field appearance="fill" class="short-field">
+      <mat-form-field appearance="fill" class="short-field">
         <mat-label>Caste</mat-label>
-         <mat-select formControlName="caste">
+        <mat-select formControlName="caste">
           <mat-option *ngFor="let castes of casteList" [value]="castes.value" [disabled]="castes.disabled">
-           {{ castes.label }}
+            {{ castes.label }}
           </mat-option>
         </mat-select>
       </mat-form-field>
 
-       <mat-form-field appearance="fill" class="short-field" *ngIf="this.memberData?.mem_type != 'AI'">
+      <mat-form-field appearance="fill" class="short-field" *ngIf="this.memberData?.mem_type != 'AI'">
         <mat-label>Staff No</mat-label>
         <input matInput formControlName="staff">
       </mat-form-field>
 
-       <mat-form-field appearance="fill" class="short-field" *ngIf="this.memberData?.mem_type != 'AI'">
+      <mat-form-field appearance="fill" class="short-field" *ngIf="this.memberData?.mem_type != 'AI'">
         <mat-label>Personal No</mat-label>
         <input matInput formControlName="personal">
       </mat-form-field>
 
-       <mat-form-field appearance="fill" class="short-field" *ngIf="this.memberData?.mem_type != 'AI'">
+      <mat-form-field appearance="fill" class="short-field" *ngIf="this.memberData?.mem_type != 'AI'">
         <mat-label>MIN No</mat-label>
         <input matInput formControlName="min">
       </mat-form-field>
-      </div>
+    </div>
 
-       <h2>Residential Information</h2>
+    <h2>Residential Information</h2>
 
-       <div class="field-group">
+    <div class="field-group">
       <mat-form-field appearance="fill" class="short-field wide-field">
         <mat-label>Member Address</mat-label>
         <textarea matInput formControlName="mem" rows="3" placeholder="Enter address">
@@ -122,7 +123,7 @@
         <input matInput formControlName="city">
       </mat-form-field>
 
-       <mat-form-field appearance="fill" class="short-field">
+      <mat-form-field appearance="fill" class="short-field">
         <mat-label>PIN No</mat-label>
         <input matInput formControlName="pin">
       </mat-form-field>
@@ -131,75 +132,82 @@
         <mat-label>Police Station</mat-label>
         <input matInput formControlName="police_st">
       </mat-form-field>
-      </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="form-section" *ngIf="showSpouseSection">
-      <h2>Spouse Information</h2>
+  <section class="form-section">
+    <h2>Spouse Details</h2>
+    
+    <ng-container *ngIf="showSpouseSection">
       <div class="field-group" formGroupName="spouse_fr">
 
-         <mat-form-field appearance="fill" class="short-field">
-        <mat-label>Spouse Name</mat-label>
-        <input matInput formControlName="spou_name">
-      </mat-form-field>
+        <mat-form-field appearance="fill" class="short-field">
+          <mat-label>Spouse Name</mat-label>
+          <input matInput formControlName="spou_name">
+        </mat-form-field>
 
-      <mat-form-field appearance="fill" class="short-field">
-        <mat-label>Father / Husband Name</mat-label>
-        <input matInput formControlName="spou_gurd_name">
-      </mat-form-field>
+        <mat-form-field appearance="fill" class="short-field">
+          <mat-label>Father / Husband Name</mat-label>
+          <input matInput formControlName="spou_gurd_name">
+        </mat-form-field>
 
-     <mat-form-field appearance="fill" class="short-field">
-        <mat-label>Blood Group</mat-label>
-         <mat-select formControlName="spou_blood_grp">
-          <mat-option *ngFor="let bl of bloodList" [value]="bl.value" [disabled]="bl.disabled">
-           {{ bl.label }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+        <mat-form-field appearance="fill" class="short-field">
+          <mat-label>Blood Group</mat-label>
+          <mat-select formControlName="spou_blood_grp">
+            <mat-option *ngFor="let bl of bloodList" [value]="bl.value" [disabled]="bl.disabled">
+              {{ bl.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-      <mat-form-field appearance="fill" class="short-field">
-        <mat-label>DOB</mat-label>
-        <input matInput  [matDatepicker]="dobPicker" formControlName="spou_dob">
-        <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
-  <mat-datepicker #dobPicker startView="multi-year"></mat-datepicker>
-      </mat-form-field>
+        <mat-form-field appearance="fill" class="short-field">
+          <mat-label>DOB</mat-label>
+          <input matInput [matDatepicker]="dobPickerSpouse" formControlName="spou_dob">
+          <mat-datepicker-toggle matSuffix [for]="dobPickerSpouse"></mat-datepicker-toggle>
+          <mat-datepicker #dobPickerSpouse startView="multi-year"></mat-datepicker>
+        </mat-form-field>
 
-      <mat-form-field appearance="fill" class="short-field">
-        <mat-label>Mobile No</mat-label>
-        <input matInput formControlName="spou_mobile_no" maxlength="10">
-      </mat-form-field>
+        <mat-form-field appearance="fill" class="short-field">
+          <mat-label>Mobile No</mat-label>
+          <input matInput formControlName="spou_mobile_no" maxlength="10">
+        </mat-form-field>
 
-      <mat-form-field appearance="fill" class="short-field">
-        <mat-label>MIN No</mat-label>
-        <input matInput formControlName="spou_min_no">
-      </mat-form-field>
+        <mat-form-field appearance="fill" class="short-field">
+          <mat-label>MIN No</mat-label>
+          <input matInput formControlName="spou_min_no">
+        </mat-form-field>
       </div>
 
-       <h2>Residential Information</h2>
+      <h2>Residential Information</h2>
 
-       <div class="field-group"  formGroupName="spouse_fr">
-      <mat-form-field appearance="fill" class="short-field wide-field">
-        <mat-label>Spouse Address</mat-label>
-        <textarea matInput formControlName="spou_mem_addr" rows="3" placeholder="Enter address">
-        </textarea>
-      </mat-form-field>
+      <div class="field-group" formGroupName="spouse_fr">
+        <mat-form-field appearance="fill" class="short-field wide-field">
+          <mat-label>Spouse Address</mat-label>
+          <textarea matInput formControlName="spou_mem_addr" rows="3" placeholder="Enter address">
+          </textarea>
+        </mat-form-field>
 
-      <mat-form-field appearance="fill" class="short-field">
-        <mat-label>City / Town / District</mat-label>
-        <input matInput formControlName="spou_city">
-      </mat-form-field>
+        <mat-form-field appearance="fill" class="short-field">
+          <mat-label>City / Town / District</mat-label>
+          <input matInput formControlName="spou_city">
+        </mat-form-field>
 
-      <mat-form-field appearance="fill" class="short-field">
-        <mat-label>Police Station</mat-label>
-        <input matInput formControlName="spou_police_st">
-      </mat-form-field>
+        <mat-form-field appearance="fill" class="short-field">
+          <mat-label>Police Station</mat-label>
+          <input matInput formControlName="spou_police_st">
+        </mat-form-field>
       </div>
-    </section>
+    </ng-container>
 
-<section class="form-section" *ngIf="this.memberData?.mem_type == 'AI'">
-  <h2>Introducer Information</h2>
+    <div *ngIf="!showSpouseSection" style="padding-left: 0.5rem; color: #666;">
+      <p>No spouse data</p>
+    </div>
+  </section>
 
-  <div  class="field-groups" formGroupName="intro_fr">
+  <section class="form-section" *ngIf="this.memberData?.mem_type == 'AI'">
+    <h2>Introducer Information</h2>
+
+    <div class="field-groups" formGroupName="intro_fr">
 
       <!-- Member ID -->
       <mat-form-field appearance="fill" class="short-field">
@@ -218,239 +226,101 @@
         <mat-label>Relationship</mat-label>
         <mat-select formControlName="relation_intro">
           <mat-option value="">Select Relationship</mat-option>
-          <mat-option
-            *ngFor="let option of responsedata_rel || []"
-            [value]="option.id"
-            [disabled]="option.disabled">
+          <mat-option *ngFor="let option of responsedata_rel || []" [value]="option.id" [disabled]="option.disabled">
             {{ option.relation_name }}
           </mat-option>
         </mat-select>
       </mat-form-field>
     </div>
-</section>
+  </section>
 
-<section class="form-section" *ngIf="this.memberData?.mem_type == 'AI'">
-  <h2>Dependent Information</h2>
+  <section class="form-section" *ngIf="this.memberData?.mem_type == 'AI'">
+    <h2>Dependent Details</h2>
 
-  <div formArrayName="depenFields">
+    <div formArrayName="depenFields">
+      <div class="dependent-card" *ngFor="let group of depenFields.controls; let i = index" [formGroupName]="i">
+        
+        <div class="dependent-field-group">
+          <label class="dependent-label">Dependent Name:</label>
+          <input type="text" class="dependent-input" formControlName="dependent_name" placeholder="Dependent Name">
+        </div>
 
-     <div
-      class="dependent-row"
-      *ngFor="let group of depenFields.controls; let i = index"
-      [formGroupName]="i">
+        <div class="dependent-field-group">
+          <label class="dependent-label">DOB:</label>
+          <input type="date" class="dependent-input" formControlName="dob_dep">
+        </div>
 
-      <!-- Member ID -->
-      <mat-form-field appearance="fill" class="dep-field">
-        <mat-label>Dependent Name</mat-label>
-        <input matInput formControlName="dependent_name">
-      </mat-form-field>
+        <div class="dependent-field-group">
+          <label class="dependent-label">Relationship:</label>
+          <select class="dependent-input" formControlName="relation">
+            <option value="">Select Relationship</option>
+            <option *ngFor="let option of responsedata_rel || []" [value]="option.id" [disabled]="option.disabled">
+              {{ option.relation_name }}
+            </option>
+          </select>
+        </div>
 
-      <!-- Introducer Name -->
-      <mat-form-field appearance="fill" class="dep-field">
-        <mat-label>DOB</mat-label>
-        <input matInput  [matDatepicker]="dobPicker" formControlName="dob_dep">
-        <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
-       <mat-datepicker #dobPicker startView="multi-year"></mat-datepicker>
-      </mat-form-field>
+        <div class="dependent-btn-group">
+          <button type="button" class="dep-action-btn dep-add-btn" (click)="onadd()">+</button>
+          <button type="button" class="dep-action-btn dep-remove-btn" (click)="onminus(i)">-</button>
+        </div>
 
-      <!-- Relationship -->
-      <mat-form-field appearance="fill" class="dep-field">
-        <mat-label>Relationship</mat-label>
-        <mat-select formControlName="relation">
-          <mat-option value="">Select Relationship</mat-option>
-          <mat-option
-            *ngFor="let option of responsedata_rel || []"
-            [value]="option.id"
-            [disabled]="option.disabled">
-            {{ option.relation_name }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+      </div>
 
-       <!-- ➕ ADD -->
-      <button
-        pButton
-        type="button"
-        icon="pi pi-plus"
-        pTooltip="Add Dependent"
-        class="action-btn add-btn"
-        (click)="onadd()">
-      </button>
-
-      <!-- ➖ REMOVE -->
-      <button
-        pButton
-        type="button"
-        icon="pi pi-minus"
-        pTooltip="Remove Dependent"
-        class="action-btn remove-btn"
-        (click)="onminus(i)">
-      </button>
+      <div *ngIf="depenFields.controls.length === 0" style="padding-left: 0.5rem; color: #666;">
+        <button pButton type="button" icon="pi pi-plus" label="Add Dependent" class="p-button-outlined p-button-sm"
+          (click)="onadd()" style="margin-top: 0.5rem;">
+        </button>
+      </div>
     </div>
-    </div>
-</section>
+  </section>
 
-<section class="form-section" *ngIf="showDependentSection && this.memberData?.mem_type != 'AI'">
-  <h2>Dependent Information</h2>
+  <section class="form-section" *ngIf="this.memberData?.mem_type != 'AI'">
+    <h2>Dependent Details</h2>
 
-  <div formArrayName="depenFields">
+    <div formArrayName="depenFields">
+      <div class="dependent-card" *ngFor="let group of depenFields.controls; let i = index" [formGroupName]="i">
 
-    <div
-      class="dependent-row"
-      *ngFor="let group of depenFields.controls; let i = index"
-      [formGroupName]="i">
+        <div class="dependent-field-group">
+          <label class="dependent-label">Dependent Name:</label>
+          <input type="text" class="dependent-input" formControlName="dependent_name" placeholder="Dependent Name">
+        </div>
 
-      <!-- Dependent Name -->
-      <mat-form-field appearance="fill" class="dep-field">
-        <mat-label>Dependent Name</mat-label>
-        <input matInput formControlName="dependent_name">
-      </mat-form-field>
+        <div class="dependent-field-group">
+          <label class="dependent-label">Phone No:</label>
+          <input type="text" class="dependent-input" formControlName="phone_no" maxlength="10" placeholder="Phone">
+        </div>
 
-      <!-- Phone No -->
-      <mat-form-field appearance="fill" class="dep-field">
-        <mat-label>Phone No</mat-label>
-        <input matInput formControlName="phone_no" maxlength="10">
-      </mat-form-field>
+        <div class="dependent-field-group">
+          <label class="dependent-label">Relationship:</label>
+          <select class="dependent-input" formControlName="relation">
+            <option value="">Select Relationship</option>
+            <option *ngFor="let option of responsedata_rel || []" [value]="option.id" [disabled]="option.disabled">
+              {{ option.relation_name }}
+            </option>
+          </select>
+        </div>
 
-      <!-- Relationship -->
-      <mat-form-field appearance="fill" class="dep-field">
-        <mat-label>Relationship</mat-label>
-        <mat-select formControlName="relation">
-          <mat-option value="">Select Relationship</mat-option>
-          <mat-option
-            *ngFor="let option of responsedata_rel || []"
-            [value]="option.id"
-            [disabled]="option.disabled">
-            {{ option.relation_name }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+        <div class="dependent-btn-group">
+          <button type="button" class="dep-action-btn dep-add-btn" (click)="onadd()">+</button>
+          <button type="button" class="dep-action-btn dep-remove-btn" (click)="onminus(i)">-</button>
+        </div>
 
-      <!-- ➕ ADD -->
-      <button
-        pButton
-        type="button"
-        icon="pi pi-plus"
-        pTooltip="Add Dependent"
-        class="action-btn add-btn"
-        (click)="onadd()">
-      </button>
+      </div>
 
-      <!-- ➖ REMOVE -->
-      <button
-        pButton
-        type="button"
-        icon="pi pi-minus"
-        pTooltip="Remove Dependent"
-        class="action-btn remove-btn"
-        (click)="onminus(i)">
-      </button>
+      <div *ngIf="depenFields.controls.length === 0" style="padding-left: 0.5rem; color: #666;">
+        <button pButton type="button" icon="pi pi-plus" label="Add Dependent" class="p-button-outlined p-button-sm"
+          (click)="onadd()" style="margin-top: 0.5rem;">
+        </button>
+      </div>
 
     </div>
+  </section>
 
+  <div class="submit-container">
+    <button mat-raised-button color="primary" class="submit-btn" (click)="save()" [disabled]="form.invalid">
+      <mat-icon>check_circle</mat-icon>
+      Submit
+    </button>
   </div>
-</section>
-
-<section class="form-section">
-  <h2>Image Upload</h2>
-
-<div class="fieldGroup_Flex">
-
-  <!-- MEMBER PHOTO -->
-  <div class="field col-12 md:col-6">
-    <label class="size">
-      <b>Member Photograph:
-        <span class="text-red-700">
-          (.JPG,.JPEG,.PNG) (Max size: 1MB)
-        </span>
-      </b>
-    </label>
-
-    <p-fileUpload
-      name="member_file"
-      [customUpload]="true"
-      [multiple]="false"
-      accept="image/jpeg,image/png,image/jpg"
-      (onSelect)="onUpload($event, 'O')"
-      (onRemove)="onRemove($event, 'O')"
-      [showUploadButton]="false"
-      [showCancelButton]="true"
-    >
-
-      <ng-template pTemplate="content">
-        <ng-container>
-          <img *ngIf="memFileName"
-            [src]="memFileName"
-            class="upload-preview-img"
-            alt="Member Image"
-          />
-        </ng-container>
-
-        <!-- <ng-template #memberPlaceholder>
-          <div class="upload-placeholder">
-            <i class="pi pi-image"></i>
-            <p>No image selected</p>
-          </div>
-        </ng-template> -->
-      </ng-template>
-
-    </p-fileUpload>
-  </div>
-
-  <!-- SPOUSE PHOTO -->
-  <div class="field col-12 md:col-6" *ngIf="showSpouseSection">
-    <label class="size">
-      <b>Spouse Photograph:
-        <span class="text-red-700">
-          (.JPG,.JPEG,.PNG) (Max size: 1MB)
-        </span>
-      </b>
-    </label>
-
-    <p-fileUpload
-      name="spouse_file"
-      [customUpload]="true"
-      [multiple]="false"
-      accept="image/jpeg,image/png,image/jpg"
-      (onSelect)="onUpload($event, 'S')"
-      (onRemove)="onRemove($event, 'S')"
-      [showUploadButton]="false"
-      [showCancelButton]="true"
-    >
-
-      <ng-template pTemplate="content">
-        <ng-container *ngIf="spouseFileName">
-          <img
-            [src]="spouseFileName"
-            class="upload-preview-img"
-            alt="Spouse Image"
-          />
-        </ng-container>
-
-        <!-- <ng-template #spousePlaceholder>
-          <div class="upload-placeholder">
-            <i class="pi pi-image"></i>
-            <p>No image selected</p>
-          </div>
-        </ng-template> -->
-      </ng-template>
-
-    </p-fileUpload>
-  </div>
-
-</div>
-</section>
-
-
-<div class="submit-container">
-  <button
-    mat-raised-button
-    color="primary"
-    class="submit-btn"
-    (click)="save()"
-    [disabled]="form.invalid">
-    <mat-icon>check_circle</mat-icon>
-    Submit
-  </button>
-</div>
-  </form>
+</form>
