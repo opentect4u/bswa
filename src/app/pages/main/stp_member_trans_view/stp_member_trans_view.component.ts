@@ -21,10 +21,26 @@ export class Stp_member_trans_viewComponent implements OnInit {
   constructor(private route: ActivatedRoute, private dataServe: DataService, private router: Router) { }
 
   ngOnInit() {
-     this.trn_id = this.route.snapshot.params['trn_id'];
-    this.member_id = localStorage.getItem('member_id')
-    this.form_no = localStorage.getItem('form_no')
-    this.getTransDetails(this.form_no, this.trn_id)
+    this.trn_id = this.route.snapshot.params['trn_id'];
+    this.member_id = localStorage.getItem('member_id');
+    let flag = localStorage.getItem('flag');
+    let local_form_no = localStorage.getItem('form_no');
+
+    if (flag === 'STP') {
+      this.form_no = local_form_no;
+      this.getTransDetails(this.form_no, this.trn_id);
+    } else {
+      this.dataServe.global_service(1, '/insurance_dtls', { mem_id: this.member_id })
+        .subscribe((data: any) => {
+          if (data && data.suc > 0 && data.msg && data.msg.length > 0) {
+            let stpPolicy = data.msg.find((p: any) => p.form_type != 'GP');
+            if (stpPolicy && stpPolicy.form_no) {
+              this.form_no = stpPolicy.form_no;
+              this.getTransDetails(this.form_no, this.trn_id);
+            }
+          }
+        });
+    }
   }
 
      getTransDetails(form_no:any, trn_id:any){

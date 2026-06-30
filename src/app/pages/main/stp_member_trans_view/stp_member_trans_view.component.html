@@ -1,13 +1,14 @@
 <mat-card class="receipt-card">
   <div id="divToPrint">
-      <img src="assets/images/logo.jpg" alt="Logo" class="logo-img" />
+    <img src="assets/images/logo.jpg" alt="Logo" class="logo-img" />
     <div class="header-section d-flex mt-3">
       <div class="text-center flex-grow-1">
         <h2 class="org-title">BOSEC WELFARE TRUST</h2>
         <p>13, Camac Street, Kolkata 700017</p>
         <p>(ESTD 2010)</p>
         <p class="sub-title">PREMIUM RECEIPT FOR SUPER TOP UP POLICY</p>
-        <p class="sub-titles">PREMIUM FOR SUPER TOP UP POLICY FOR {{ trnData?.policy_amount }} WITH NATIONAL INSURANCE CO</p>
+        <p class="sub-titles">PREMIUM FOR SUPER TOP UP POLICY FOR {{ trnData?.policy_amount }} WITH NATIONAL INSURANCE
+          CO</p>
       </div>
     </div>
 
@@ -27,18 +28,18 @@
         <div class="value"><b>{{ trnData?.memb_name}}</b></div>
       </div>
 
-        <div class="row">
+      <div class="row">
         <div class="label"><b>MIN No</b></div>
         <div class="colon">:</div>
         <div class="value"><b>{{ trnData?.min_no}}</b></div>
-       
+
         <div class="spacer"></div>
 
-       
+
         <div class="label"><b>Premium Type</b></div>
         <div class="colon">:</div>
         <div class="value"><b>{{ trnData?.premium_type == 'S' ? 'Single' : 'Double'}}</b></div>
-        </div>
+      </div>
 
       <div class="row">
         <div class="label"><b>Transaction ID</b></div>
@@ -81,15 +82,15 @@
         <div class="colon">:</div>
         <div class="value">M D INDIA HEALTHCARE SERVICES (TPA) Pvt Ltd.</div>
     </div> -->
-  </div>
+    </div>
 
-  <div class="text-center mt-5 btn-group">
-    <button mat-raised-button color="primary" (click)="goBack()">
-      🔙 Back
-    </button>
-    <button mat-raised-button color="primary" (click)="printDiv()">
-      🖨️ Print
-    </button>
-  </div>
+    <div class="text-center mt-5 btn-group">
+      <button mat-raised-button color="primary" (click)="goBack()">
+        🔙 Back
+      </button>
+      <button mat-raised-button color="primary" (click)="printDiv()">
+        🖨️ Print
+      </button>
+    </div>
   </div>
 </mat-card>

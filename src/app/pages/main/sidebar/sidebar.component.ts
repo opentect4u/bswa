@@ -11,7 +11,7 @@ import { DataService } from 'src/app/service/data.service';
 export class SidebarComponent implements OnInit {
   public sideMenuItem: any = [];
   mem_type: any;
-  items!: MenuItem[]
+  items!: any[]
   flag: any;
   isExpanded: boolean = false
   selectedItem: any;
@@ -84,14 +84,16 @@ export class SidebarComponent implements OnInit {
       if (hasStp) {
         insuranceItem.items.push({
           label: 'Super Topup Policy',
-          icon: 'pi pi-circle',
+          description: 'View Super Topup Policy Details',
+          icon: 'pi pi-shield',
           routerLink: '/main/ins_dtls'
         });
       }
       if (hasChild) {
         insuranceItem.items.push({
           label: 'Children Policy',
-          icon: 'pi pi-circle',
+          description: 'View Children Policy Details',
+          icon: 'pi pi-users',
           routerLink: '/main/child_policy'
         });
       }
@@ -99,18 +101,56 @@ export class SidebarComponent implements OnInit {
       this.items.push(insuranceItem);
     }
 
+    let transactionItem: any = {
+      label: 'Transaction History',
+      icon: 'pi pi-indian-rupee',
+      expanded: false,
+      items: [
+        {
+          label: 'Subscription Deposit',
+          description: 'View Deposit Transactions',
+          icon: 'pi pi-calendar',
+          routerLink: '/main/trn_history'
+        }
+      ]
+    };
+
+    if (hasStp) {
+      transactionItem.items.push({
+        label: 'Super Topup Policy',
+        description: 'View STP Transactions',
+        icon: 'pi pi-shield',
+        routerLink: '/main/stp_memb_transaction'
+      });
+    }
+
+    if (hasChild) {
+      transactionItem.items.push({
+        label: 'Children Policy',
+        description: 'View Children Transactions',
+        icon: 'pi pi-users',
+        routerLink: '/main/trn_history_child'
+      });
+    }
+
     this.items.push(
-      {
-        label: 'Transaction History',
-        icon: 'pi pi-indian-rupee',
-        routerLink: '/main/trn_history',
-      },
+      transactionItem,
       {
         label: 'Logout',
         icon: "pi pi-sign-out",
         routerLink: '/auth/member_login',
       }
     );
+
+    // Auto-expand any parent menu if one of its children is currently active
+    this.items.forEach(item => {
+      if (item.items) {
+        let isAnyChildActive = item.items.some((child: any) => this.isActive(child.routerLink));
+        if (isAnyChildActive) {
+          item.expanded = true;
+        }
+      }
+    });
   }
 
   // onClick(id: any) {
@@ -137,7 +177,25 @@ export class SidebarComponent implements OnInit {
   }
 
   isActive(route: string): boolean {
-    return this.router.url === route;
+    if (!route) return false;
+    
+    if (this.router.url === route) {
+      return true;
+    }
+    
+    if (route === '/main/trn_history' && this.router.url.includes('/main/trn_history_view')) {
+      return true;
+    }
+    
+    if (route === '/main/stp_memb_transaction' && this.router.url.includes('/main/stp_memb_trans_view')) {
+      return true;
+    }
+    
+    if (route === '/main/trn_history_child' && this.router.url.includes('/main/trn_history_child_view')) {
+      return true;
+    }
+
+    return false;
   }
 
   navigate(route: any) {

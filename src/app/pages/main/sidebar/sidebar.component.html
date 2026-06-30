@@ -40,9 +40,12 @@
         <ul *ngIf="item.items && item.expanded" class="sidebar-menu submenu">
           <li *ngFor="let sub of item.items" class="menu-item sub-item" [ngClass]="{ 'active': isActive(sub.routerLink) }"
             (click)="selectedItem = sub; navigate(sub.routerLink)">
-            <div class="menu-box" style="padding: 8px 12px; background-color: transparent; box-shadow: none;">
+            <div class="menu-box" style="padding: 8px 12px; background-color: transparent; box-shadow: none;" title="{{ sub.label }} - {{ $any(sub).description }}">
               <i class="pi" [ngClass]="sub.icon" style="font-size: 14px;"></i>
-              <span class="label" style="font-size: 14px; font-weight: 500;">{{ sub.label }}</span>
+              <div style="display: flex; flex-direction: column; overflow: hidden;">
+                <span class="label" style="font-size: 14px; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ sub.label }}</span>
+                <span *ngIf="$any(sub).description" style="font-size: 11px; color: #666; margin-top: 2px; font-weight: 400; line-height: 1.2; white-space: normal; overflow-wrap: anywhere;">{{ $any(sub).description }}</span>
+              </div>
             </div>
           </li>
         </ul>

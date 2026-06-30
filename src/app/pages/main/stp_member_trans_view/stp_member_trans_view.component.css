@@ -1,6 +1,7 @@
 .receipt-card {
   padding: 24px;
-  max-width: 950px;
+  /* max-width: 950px; */
+  max-width: 1026px;
   margin: 0 auto;
   border-radius: 12px;
   background: linear-gradient(to right, #bdcbdf, #9dbbeb);

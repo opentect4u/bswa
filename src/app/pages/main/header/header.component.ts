@@ -29,27 +29,13 @@ export class HeaderComponent implements OnInit {
     }
 
     this.headerMenuItem = [
-      // {
-      //   label: 'Profile',
-      //   icon: 'pi pi-fw pi-user',
-      //   command: () => {
-      //     this.change_password_member();
-      //   }
-      // },
-      // {
-      //   label: 'Change Password',
-      //   icon: 'pi pi-fw pi-cog',
-      //   command: () => {
-      //     this.change_password_member();
-      //   }
-      // },
-      // {
-      //   label: 'Logout',
-      //   icon: 'pi pi-fw pi-sign-out',
-      //   command: () => {
-      //     this.onSignOut();
-      //   },
-      // },
+      {
+        label: 'Logout',
+        icon: 'pi pi-fw pi-sign-out',
+        command: () => {
+          this.onSignOut();
+        },
+      }
     ];
   }
 

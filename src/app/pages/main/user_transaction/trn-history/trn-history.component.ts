@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataService } from 'src/app/service/data.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Router } from '@angular/router';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 interface membInsInfo {
   member_id: String;
@@ -23,44 +25,32 @@ export class TrnHistoryComponent implements OnInit {
   responseDt: any
   memberInsDtls: membInsInfo | any
   presentIns: boolean = false
+
+  displayedColumns: string[] = ['position', 'transactionDate', 'transactionId', 'amount', 'payMode', 'status', 'view'];
+  dataSource = new MatTableDataSource<any>([]);
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
   constructor(private dataServe: DataService, public dialogService: DialogService, private router: Router) { }
 
   ngOnInit() {
     this.form_no = localStorage.getItem('form_no')
     this.member_id = localStorage.getItem('member_id');
-    this.getInsDtls()
-  }
-
-  getInsDtls(){
-  this.dataServe
-  .global_service(1, '/get_grn_ins_dtls_with_member_id', { memb_id: this.member_id })
-  .subscribe((data: any) => {
-    this.responseDt = data;
-    
-    if(this.responseDt.suc > 0){
-      if(this.responseDt.msg.length > 0){
-        this.presentIns = true
-        this.memberInsDtls = this.responseDt.suc > 0 ? this.responseDt.msg[0] : {};
-      }
-    }
-    
     this.getTransactionDetails(this.form_no);
-  });
   }
 
   getTransactionDetails(form_no:any){
-    form_no = this.presentIns ? `'${form_no}','${this.memberInsDtls.form_no}'` : `'${form_no}'`
-    // form_no = this.presentIns 
-    // ? `${form_no},${this.memberInsDtls.form_no}`  // Don't add extra quotes here
-    // : form_no;
-    // form_no;
+    form_no = `'${form_no}'`;
     
     this.dataServe.global_service(1, '/user_tnx_details',{form_no})
           .subscribe((data: any) => {
             this.trnResData = data;
-            this.trnResData = this.trnResData.suc > 0 ? this.trnResData.msg : [];
+            const transData = this.trnResData.suc > 0 ? this.trnResData.msg : [];
+            this.dataSource.data = transData;
+            this.dataSource.paginator = this.paginator;
           });
   }
+
   preview(trn_id:any){
     this.router.navigate(['/main/trn_history_view',trn_id]);
   }

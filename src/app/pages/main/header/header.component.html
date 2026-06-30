@@ -13,20 +13,13 @@
   </div>
 
   <div class="header-right">
-    <!-- <p-avatar
+    <p-menu #headermenu [popup]="true" [model]="headerMenuItem"></p-menu>
+    <p-avatar
       [label]="labelAdmin"
       styleClass="mr-2"
       size="large"
-      [style]="{ 'background-color': '#50b0dd', color: '#ffffff' }"
+      [style]="{ 'background-color': '#50b0dd', color: '#ffffff', 'cursor': 'pointer' }"
       (click)="headermenu.toggle($event)"
-      shape="circle"
-    ></p-avatar> -->
-    <!-- <p-menu #headermenu [popup]="true" [model]="headerMenuItem"></p-menu> -->
-     <p-avatar
-      [label]="labelAdmin"
-      styleClass="mr-2"
-      size="large"
-      [style]="{ 'background-color': '#50b0dd', color: '#ffffff' }"
       shape="circle"
     ></p-avatar>
   </div>

@@ -17,16 +17,46 @@
     </div>
 
     <!-- Insurance Form Card -->
-    <div class="dashboard-card" (click)="open_insurance_details()">
+    <div class="dashboard-card" [matMenuTriggerFor]="insuranceMenu">
       <img src="/assets/images/icon/cashless-payment.png" width="40" alt="Insurance Details">
-      <p><b>Insurance Details</b></p>
+      <p style="display: flex; align-items: center; justify-content: center; gap: 5px;">
+        <b>Insurance Details</b> <i class="pi pi-chevron-down" style="font-size: 0.8rem;"></i>
+      </p>
     </div>
 
+    <mat-menu #insuranceMenu="matMenu" class="custom-ins-menu">
+      <button mat-menu-item (click)="open_stp_details()">
+        <mat-icon color="primary">health_and_safety</mat-icon>
+        <span>Super Topup Policy (STP)</span>
+      </button>
+      <button mat-menu-item (click)="open_child_policy()">
+        <mat-icon color="primary">family_restroom</mat-icon>
+        <span>Children Policy</span>
+      </button>
+    </mat-menu>
+
     <!-- Transaction History Card -->
-    <div class="dashboard-card" (click)="open_trn_history()">
+    <div class="dashboard-card" [matMenuTriggerFor]="transactionMenu">
       <img src="/assets/images/icon/bill.png" width="40" alt="Transaction History">
-      <p><b>Transaction History</b></p>
+      <p style="display: flex; align-items: center; justify-content: center; gap: 5px;">
+        <b>Transaction History</b> <i class="pi pi-chevron-down" style="font-size: 0.8rem;"></i>
+      </p>
     </div>
+
+    <mat-menu #transactionMenu="matMenu" class="custom-ins-menu">
+      <button mat-menu-item (click)="open_trn_history()">
+        <mat-icon color="primary">calendar_month</mat-icon>
+        <span>Subscription Deposit</span>
+      </button>
+      <button mat-menu-item (click)="open_stp_trn_history()">
+        <mat-icon color="primary">shield</mat-icon>
+        <span>Super Topup Policy</span>
+      </button>
+      <button mat-menu-item (click)="open_child_trn_history()">
+        <mat-icon color="primary">group</mat-icon>
+        <span>Children Policy</span>
+      </button>
+    </mat-menu>
 
     <!-- Download Ecard Card -->
     <div class="dashboard-card" (click)="open_e_card()">

@@ -24,10 +24,13 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/main/memb_dtls'])
   }
 
-  open_insurance_details(){
+  open_stp_details(){
     this.router.navigate(['/main/ins_dtls'])
   }
 
+  open_child_policy(){
+    this.router.navigate(['/main/child_policy'])
+  }
   // open_first_premium(){
   //   this.router.navigate(['/main/stp_premium_payment'])
   // }
@@ -40,6 +43,14 @@ export class DashboardComponent implements OnInit {
 
   open_trn_history(){
     this.router.navigate(['/main/trn_history'])
+  }
+
+  open_stp_trn_history() {
+    this.router.navigate(['/main/stp_memb_transaction']);
+  }
+
+  open_child_trn_history() {
+    this.router.navigate(['/main/trn_history_child']);
   }
 
     open_e_card(){

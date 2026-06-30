@@ -46,25 +46,23 @@ export class Trn_history_child_viewComponent implements OnInit {
       '<html><head><title></title><style type="text/css">'
     );
 
-    // this.WindowObject.document.writeln(
-    //   '@media print {.wraper { margin-left: 10px !important; margin-right: 10px !important; } .contant-wraper { border-top: 2px solid #32678d; background-color: white; margin-bottom: 100px; overflow: auto; }</style>'
-    // );
-
     this.WindowObject.document.writeln('@media print { .center { text-align: center;}' +
-      'body{font-family:Arial, Tahoma, Verdana;font-size: 14px;color: #6f7479;}' +
+      'body{font-family:Arial, Tahoma, Verdana;font-size: 14px;color: #333;}' +
+      '.print_btn { display: none !important; }' +
       '.wrapper{box-shadow: none !important; max-width: 1100px; width: 100%; margin: 0 auto; font-family:Arial, Tahoma, Verdana;}' +
       '.contant-wraper{box-shadow: none !important;}'+
-      // '.table_print_outer {border:red solid 2px;}' +
-      '.table_print_outer table thead tr th{background:#000 !important; color:#fff; margin: 0 !important; padding:7px 3px; border: none;}' +
-      '.table_print_outer table thead{text-align: left; background:#000 !important;}' +
-      '.table_print_outer table tbody tr td{text-align: left; text-wrap: wrap; color:#333; padding:7px 3px; word-break: break-word; border: none; margin: 0 !important;}' +
-      '.table_print_outer table tbody tr{border-bottom:#333 solid 1px;}' +
-      '.print_top_head h2{margin: 0; padding: 0; font-size:20px; color:#000;}' +
-      '.print_top_head h4{margin: 0; padding: 0; font-size:16px; color:#000;}' +
-      '.print_top_Title h4{margin: 0; padding: 0; font-size:16px; color:#000;}' +
+      '.details-table {width: 100%; border-collapse: collapse; margin-top: 20px;}' +
+      '.details-table th, .details-table td {padding: 10px 5px; font-size: 14px; text-align: left; border-bottom: 1px solid #eee;}' +
+      '.details-table th {font-weight: 600; color: #000; width: 25%;}' +
+      '.ceperate {width: 5%;}' +
+      '.print_top_head {text-align: center; margin-bottom: 20px; border-bottom: 2px solid #000; padding-bottom: 10px;}' +
+      '.print_top_head h2{margin: 0; padding: 0; font-size:22px; font-weight: bold; color:#000;}' +
+      '.print_top_head h4{margin: 5px 0 0 0; padding: 0; font-size:16px; color:#333;}' +
       '.msg_adress{width:120px;} .text-left{text-align: left;} .text-center{text-align: center;} .mt-3{margin-top: 1rem;} .break{height:30px;}'+
       '.table_head_cus tr td{background: #D9D9D9;}' +
               '} </style>');
+
+    this.WindowObject.document.writeln('<style> .print_btn { display: none !important; } </style>');
 
     this.WindowObject.document.writeln(
       '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">'
