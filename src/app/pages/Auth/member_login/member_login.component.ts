@@ -199,8 +199,14 @@ generate_pin_route (){
         localStorage.setItem('token', this.getLoginData.token);
         // localStorage.setItem('login_data', JSON.stringify(data));
 
+        // Determine if member (handle both new and old backend response)
+        let isMember = this.getLoginData.msg.ismember;
+        if (isMember === undefined && this.getLoginData.msg.userdata && this.getLoginData.msg.userdata.length > 0) {
+           isMember = this.getLoginData.msg.userdata[0].user_type === 'M' ? 'M' : 'N';
+        }
+
          // SAVE userdata ONLY if MEMBER
-        if (this.getLoginData.msg.ismember === 'M' && this.getLoginData.msg.userdata && this.getLoginData.msg.userdata.length > 0) {
+        if (isMember === 'M' && this.getLoginData.msg.userdata && this.getLoginData.msg.userdata.length > 0) {
           localStorage.setItem('user_name', this.getLoginData.msg.userdata[0].memb_name);
           localStorage.setItem('user_type', this.getLoginData.msg.userdata[0].user_type);
           localStorage.setItem('mem_type', this.getLoginData.msg.userdata[0].mem_type);
@@ -208,8 +214,8 @@ generate_pin_route (){
           localStorage.setItem('member_id', this.getLoginData.msg.userdata[0].member_id);
         }
 
-          // SAVE STP data for NON-MEMBER
-          if (this.getLoginData.msg.ismember === 'N' && this.getLoginData.msg.hasstp === 'Y') {
+          // SAVE STP data for NON-MEMBER (only available in new backend)
+          if (isMember === 'N' && this.getLoginData.msg.hasstp === 'Y') {
             localStorage.setItem('flag', 'STP');
             localStorage.setItem('form_no', this.getLoginData.msg.stp_details[0].form_no);
             localStorage.setItem('user_type', this.getLoginData.msg.stp_details[0].user_type);
@@ -220,14 +226,7 @@ generate_pin_route (){
             localStorage.setItem('stp_user_status', this.getLoginData.msg.stp_details[0].stp_user_status);
           }
        
-        // this.router.navigate(['main/dashboard']).catch((data) => {
-        //   this.messageService.add({
-        //     severity: 'success',
-        //     summary: 'Success',
-        //     detail: 'Message Content',
-        //   });
-        // });
-        if (this.getLoginData.msg.ismember === 'M') {
+        if (isMember === 'M') {
           this.router.navigate(['/main/dashboard']);
         } else {
          this.router.navigate(['/main/stp_dashboard']);
