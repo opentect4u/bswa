@@ -106,3 +106,12 @@ body, html {
   transform: translateX(5px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
+
+.submenu {
+  padding-left: 1rem !important;
+  margin-top: 0.5rem;
+}
+
+.sub-item .menu-box:hover {
+  background-color: #e6f2ff !important;
+}

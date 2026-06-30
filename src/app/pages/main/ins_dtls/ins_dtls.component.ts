@@ -177,75 +177,89 @@ export class Ins_dtlsComponent implements OnInit {
           this.insData = data.msg || [];
           this.dependentsData = data.dependents || [];
           
-          // if (this.insData.length > 0) {
-          //   this.userData = this.insData[0];
-          //   // this.userMedicalData = this.userData;
-          // }
-
           this.userData = this.insData.length > 0 ? this.insData : [];
           console.log(this.userData,'medical');
 
-          this.getPremiumInfo(this.userData[0].form_no)
+          this.getPremiumInfo(this.userData[0].form_no);
+
+          if (this.userData[0]?.form_type != 'GP') {
+            const premiumType = this.userData[0]?.memb_oprn === 'J' ? 'D' : this.userData[0]?.memb_oprn;
+            this.fetchPremiumAmount(premiumType);
+          }
           
         } else {
-          // Swal.fire(
-          //   'Warning',
-          //   'There is no access to add More Dependent',
-          //     'warning'
-          // ).then((result) => {
-          //   if (result.isConfirmed) {
-          //     this.depenFields_1.clear()
-          //         }
-          //       });
           this.insData = [];
           this.dependentsData = [];
           this.userData = [];
-          // this.userMedicalData = [];
         }
       });
   }
+
+  policyAmtList: any[] = [];
+  premiumAmtList: any[] = [];
+  selectedPolicyIndex: any = '';
+  selectedPremiumAmt: any = '';
+
+  fetchPremiumAmount(premium_type_code: string) {
+    const reqData = { premium_type: premium_type_code };
+    this.dataServe.global_service(1, '/fetch_max_premium_amt', reqData).subscribe(
+      (res: any) => {
+        if (res && res.policy_amt && res.premium_amt && res.policy_amt.length > 0) {
+          this.policyAmtList = res.policy_amt;
+          this.premiumAmtList = res.premium_amt;
+          this.selectedPolicyIndex = ''; // Start empty
+          this.selectedPremiumAmt = ''; // Start empty
+        } else {
+          this.policyAmtList = [];
+          this.premiumAmtList = [];
+          this.selectedPolicyIndex = '';
+          this.selectedPremiumAmt = '';
+        }
+      },
+      (error) => {
+        console.error("Error fetching premium amount", error);
+      }
+    );
+  }
+
+  onPolicyChange(event: any) {
+    const selectedIndex = event.target ? event.target.value : event;
+    if (selectedIndex !== '' && selectedIndex !== undefined && selectedIndex !== null) {
+      this.selectedPolicyIndex = selectedIndex;
+      this.selectedPremiumAmt = this.premiumAmtList[selectedIndex];
+    } else {
+      this.selectedPolicyIndex = '';
+      this.selectedPremiumAmt = '';
+    }
+  }
   
-  // generatePay(){
-  //   var payData = {
-  //     form_no: this.userData[0].form_no,
-  //     member_id: this.userData[0]?.member_id,
-  //     memb_name: this.userData[0]?.memb_name,
-  //     // amount: this.pre_amt_value,
-  //     amount: this.tot_pre_amt,
-  //     phone_no: this.userData[0]?.phone,
-  //     email: '',
-  //     approve_status: 'A',
-  //     calc_upto: '',
-  //     subs_type: '',
-  //     // sub_fee: this.tot_pre_amt,
-  //     sub_fee: this.pre_amt_value,
-  //     redirect_path: '/main/ins_dtls',
-  //     soc_flag: 'T',
-  //     trn_id: ''
-  //   };
+  generatePay(){
+    var payData = {
+      form_no: this.userData[0]?.form_no,
+      member_id: this.userData[0]?.member_id,
+      memb_name: this.userData[0]?.memb_name,
+      amount: this.userData[0]?.form_type == 'GP' ? this.tot_pre_amt : this.selectedPremiumAmt,
+      phone_no: this.userData[0]?.phone_no || this.userData[0]?.phone,
+      email: '',
+      approve_status: 'A',
+      calc_upto: '',
+      subs_type: '',
+      sub_fee: this.userData[0]?.form_type == 'GP' ? this.pre_amt_value : '',
+      redirect_path: '/main/ins_dtls',
+      soc_flag: 'T',
+      trn_id: '',
+      pay_flag: 'C'
+    };
 
-  //   var payEncData = CryptoJS.AES.encrypt(
-  //     JSON.stringify(payData),
-  //     this.secretKey
-  //   ).toString();
+    var payEncData = CryptoJS.AES.encrypt(
+      JSON.stringify(payData),
+      this.secretKey
+    ).toString();
 
-  //   //sayantika
-  //   // var dt = {
-  //   //   formNo: this.userData[0].form_no,
-  //   //   status: 'A',
-  //   //   user: localStorage.getItem('user_name'),
-  //   //   pre_amt: this.tot_pre_amt,
-  //   //   member: this.userData[0]?.memb_name,
-  //   //   phone_no: this.userData[0]?.phone,
-  //   //   trn_id: '',
-  //   //   payEncDataGen: payEncData,
-  //   // };
-  //   //
-
-  //   this.router.navigate(['/auth/payment_preview_page'], { 
-  //     queryParams: { enc_dt: payEncData }
-  //   });
-  // }
+    this.router.navigate(['/auth/payment_preview_page'], { 
+      queryParams: { enc_dt: payEncData }
+    });
+  }
 
   getImageUrl(imagePath: string | undefined): string {
     return imagePath ? `${this.api_base_url}/uploads/${imagePath}` : 'assets/default-image.png';

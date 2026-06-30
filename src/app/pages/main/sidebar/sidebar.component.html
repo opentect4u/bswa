@@ -30,14 +30,22 @@
 (mouseleave)="isExpanded = false">
   <div class="sidebar">
     <ul class="sidebar-menu">
-      <li *ngFor="let item of items" 
-       class="menu-item"
-       [ngClass]="{ 'active': isActive(item.routerLink) }"
-      (click)="selectedItem = item; navigate(item.routerLink)">
-      <div class="menu-box">
-        <i class="pi" [ngClass]="item.icon"></i>
-        <span class="label">{{ item.label }}</span>
+      <li *ngFor="let item of items" class="menu-item" [ngClass]="{ 'active': isActive(item.routerLink) }">
+        <div class="menu-box" (click)="onItemClick(item)">
+          <i class="pi" [ngClass]="item.icon"></i>
+          <span class="label">{{ item.label }}</span>
+          <i *ngIf="item.items" class="pi" style="margin-left: auto;" [ngClass]="item.expanded ? 'pi-angle-down' : 'pi-angle-right'"></i>
         </div>
+
+        <ul *ngIf="item.items && item.expanded" class="sidebar-menu submenu">
+          <li *ngFor="let sub of item.items" class="menu-item sub-item" [ngClass]="{ 'active': isActive(sub.routerLink) }"
+            (click)="selectedItem = sub; navigate(sub.routerLink)">
+            <div class="menu-box" style="padding: 8px 12px; background-color: transparent; box-shadow: none;">
+              <i class="pi" [ngClass]="sub.icon" style="font-size: 14px;"></i>
+              <span class="label" style="font-size: 14px; font-weight: 500;">{{ sub.label }}</span>
+            </div>
+          </li>
+        </ul>
       </li>
     </ul>
   </div>

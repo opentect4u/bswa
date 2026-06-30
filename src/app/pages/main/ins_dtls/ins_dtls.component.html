@@ -1,375 +1,369 @@
-<style>
-  table {
-    width: 96%;
-    border-collapse: collapse;
-  }
+<div class="ins-container">
+  <p-card *ngIf="userData.length === 0">
+    <h4 class="text-center" style="color: red; padding: 40px 0;">Member does not have any Insurance...</h4>
+  </p-card>
 
-  th,
-  td {
-    border: 1px solid #ddd;
-    padding: 8px;
-  }
+  <ng-container *ngIf="userData.length > 0">
+    <!-- Page Header -->
+    <div class="page-header">
+      <div>
+        <h2 class="page-title">Insurance Details</h2>
+        <p style="margin: 5px 0 0 0; color: #666;">
+          You are enlisted under
+          <span class="badge-pending">
+            {{ userData[0]?.form_type == 'GP' ? 'Existing Group Policy' : 'Super Topup Policy' }}
+          </span>
+        </p>
+      </div>
+      <div style="text-align: right;">
+        <div class="info-label">Policy Holder Type</div>
+        <div class="info-value" style="font-weight: bold; color: #0b2259;">
+          {{ userData[0]?.policy_holder_type == 'M' ? 'BSPWA Member' : userData[0]?.policy_holder_type == 'N' ? 'Member
+          of other Sail Association' : 'N/A' }}
+        </div>
+        <div class="info-label" style="margin-top: 5px; font-size: 12px;">
+          Form Fillup Date: {{ userData[0]?.form_dt | date: 'dd/MM/yyyy' }}
+        </div>
+      </div>
+    </div>
 
-  th {
-    background-color: #f2f2f2;
-    text-align: left;
-  }
+    <!-- For Group Policy (GP) -->
+    <ng-container *ngIf="userData[0]?.form_type == 'GP'">
+      <div class="cards-grid">
+        <!-- Member Details Card -->
+        <div class="info-card">
+          <div class="info-card-header">Member Details</div>
 
-  tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
+          <div class="info-row">
+            <div class="info-label">Name</div>
+            <div class="info-value">{{ userData[0]?.memb_name }}</div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">Member ID</div>
+            <div class="info-value">{{ userData[0]?.member_id }}</div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">Membership Type</div>
+            <div class="info-value">
+              {{ userData[0]?.memb_type == 'G' ? 'General Membership' : userData[0]?.memb_type == 'L' ? 'Life
+              Membership' : userData[0]?.memb_type == 'AI' ? 'Associate Membership' : '' }}
+            </div>
+          </div>
+          <div class="info-row" *ngIf="userData[0]?.memb_type != 'AI'">
+            <div class="info-label">Superannuated Unit</div>
+            <div class="info-value">{{ userData[0]?.unit_name }}</div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">Father/Husband Name</div>
+            <div class="info-value">{{ userData[0]?.father_husband_name }}</div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">Marital Status</div>
+            <div class="info-value">
+              {{ userData[0]?.marital_status == 'U' ? 'Unmarried' : userData[0]?.marital_status == 'M' ? 'Married' :
+              userData[0]?.marital_status == 'W' ? 'Widow' : userData[0]?.marital_status == 'D' ? 'Divorce' : '' }}
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">Gender</div>
+            <div class="info-value">
+              {{ (userData[0]?.sex || userData[0]?.gender) == 'M' ? 'Male' : (userData[0]?.sex || userData[0]?.gender)
+              == 'F' ? 'Female' : (userData[0]?.sex || userData[0]?.gender) }}
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">Date of Birth</div>
+            <div class="info-value">{{ userData[0]?.dob | date: 'dd/MM/yyyy' }}</div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">Phone No</div>
+            <div class="info-value">{{ userData[0]?.phone }}</div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">Member Operation</div>
+            <div class="info-value">{{ userData[0]?.memb_oprn == 'S' ? 'Self' : userData[0]?.memb_oprn == 'J' ? 'Spouse'
+              : 'N/A' }}</div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">Diseases Suffered</div>
+            <div class="info-value">{{ userData[0]?.disease_flag != 'N' ? userData[0]?.disease_type : 'N/A' }}</div>
+          </div>
+        </div>
 
-  th,
-  td {
-    padding: 15px;
-    text-align: left;
-  }
+        <!-- Premium Details Card (GP) -->
+        <div class="info-card">
+          <div class="info-card-header">Premium Details</div>
 
-  th {
-    background-color: #ffffff;
-    color: rgb(0, 0, 0);
-  }
-</style>
-<p-card *ngIf="userData.length ===0">
-  <h4 class="text-center" style="color: red;">Member does not have any Insurance...</h4>
-</p-card>
-<p-card *ngIf="userData.length > 0">
-  <ng-container *ngIf="userData[0]?.form_type == 'GP'">
-  <h1 class="text-center label_field title">You are enlisted under <span
-      class="heading badge {{ userData[0]?.form_type =='GP' ? 'badge-pending' :''}}">{{userData[0]?.form_type == 'GP' ?
-      'Existing
-      Group
-      Policy' : 'N/A'}}</span></h1>
-  <h1 class="label_field title size1">Policy Holder Type :<span class="heading"> {{userData[0]?.policy_holder_type == 'M' ?
-      'BSPWA Member' : userData[0]?.policy_holder_type == 'N' ? 'Member of other Sail Association' : 'N/A'}}</span></h1>
-  <h1 class="label_field title size">Form Fillup Date :<span class="heading"> {{userData[0]?.form_dt | date :
-      'dd/MM/yyyy'}}</span></h1>
-  <table class="table_space">
-    <tr>
-      <th colspan="8" class="text-center" style="background-color: aliceblue;"><label for="member_type"
-          class="label_field color"><b>DETAILS OF THE MEMBER</b></label></th>
-    </tr>
-    <tr>
-      <th colspan="8"><label for="mem_name" class="label_field"><b>NAME :</b><span class="label_field heading">
-            {{userData[0]?.memb_name}}</span></label>
-      </th>
-    </tr>
-    <tr>
-      <th colspan="8"><label for="addr" class="label_field"><b>MEMBER ID
-            :</b><span class="label_field heading"> {{userData[0]?.member_id}}</span></label>
-      </th>
-    </tr>
-    <tr>
-      <th colspan="8"><label for="member_type" class="label_field"><b>TYPE OF
-            MEMBERSHIP
-            :</b><span class="label_field heading"> {{userData[0]?.memb_type == 'G' ? 'General Membership' :
-            userData[0]?.memb_type ==
-            'L' ? 'Life Membership' : userData[0]?.memb_type == 'AI' ? 'Associate Membership' : ''}}</span></label></th>
-    </tr>
-    <tr *ngIf="userData[0]?.memb_type != 'AI'">
-      <th colspan="8"><label for="unit" class="label_field"><b>NAME OF THE UNIT
-            FROM
-            WHERE SUPERANNUATED
-            :</b><span class="label_field heading"> {{userData[0]?.unit_name}}</span></label></th>
-    </tr>
-    <tr>
-      <th colspan="8"><label for="gurd_name" class="label_field"><b>FATHER'S Name
-            :</b><span class="label_field heading"> {{userData[0]?.father_husband_name}}</span></label>
-      </th>
-    </tr>
-    <tr>
-      <th colspan="4"><label for="ps" class="label_field"><b>MARITAL STATUS: </b><span class="label_field heading">
-            {{userData[0]?.marital_status == 'U' ? 'Unmarried' : userData[0]?.marital_status == 'M' ? 'Married' :
-            userData[0]?.marital_status == 'W' ? 'Widow' : userData[0]?.marital_status == 'D' ? 'Divorce' :
-            ''}}</span></label>
-      </th>
-      <th colspan="4"><label for="phone" class="label_field"><b>GENDER: </b><span class="label_field heading">
-            {{userData[0]?.sex == 'M' ? 'Male' : userData[0]?.sex == 'F' ? 'Female' : ''}}</span></label>
-      </th>
-    </tr>
-    <tr>
-      <th colspan="4"><label for="dob" class="label_field"><b>DATE OF BIRTH :</b><span class="label_field heading">
-            {{userData[0]?.dob | date : 'dd/MM/yyyy'}}</span></label>
-      </th>
-      <th colspan="4"><label for="email_id" class="label_field"><b>PHONE NO: </b><span class="label_field heading">
-            {{userData[0]?.phone}}</span></label>
-      </th>
-    </tr>
-    <tr>
-      <th colspan="4"><label for="memb_oprn" class="label_field"><b>MEMBER OPERATION:
-          </b><span class="label_field heading">
-            {{userData[0]?.memb_oprn == 'S' ? 'Self' : userData[0]?.memb_oprn == 'J' ? 'Spouse' : 'N/A'}}</span></label>
-      </th>
-      <th colspan="4"><label for="dissease" class="label_field"><b>DISEASES SUFFER
-            fROM: </b><span class="label_field heading">
-            {{userData[0]?.disease_flag != 'N' ? userData[0]?.disease_type : 'N/A'}}</span></label>
-      </th>
-    </tr>
-    <!-- 27.02.2025 -->
-    <tr>
-      <!-- <th class="text-center" valign="middle"><h5><b>Upload Document</b></h5></th> -->
-      <th colspan="8" class="text-center" style="background-color: aliceblue;"><label for="member_type"
-        class="label_field color"><b>UPLOAD DOCUMENT</b></label></th>
-    </tr>
-    <tr>
-      <th class="text-center" colspan="4" style="width: 50%;">
-        <img *ngIf="userData[0]?.memb_img; else noImage"
-          [src]="getImageUrl(userData[0]?.memb_img)"
-          width="100" height="100"
-          alt="Member Photo"
-          (error)="handleImageError($event)" />
-        <ng-template #noImage>
-          <div class="no-image">
+          <div class="info-row">
+            <div class="info-label">Group Name</div>
+            <div class="info-value">{{ preinfo?.family_type }}</div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">Premium Amount</div>
+            <div class="info-value">₹ {{ preinfo?.premium_amt }}</div>
+          </div>
+          <!-- <div class="info-row">
+            <div class="info-label">Super Top Up Avail?</div>
+            <div class="info-value">{{ pre_amt_flag }}</div>
+          </div> -->
+          <!-- <div class="info-row">
+            <div class="info-label">Top Up Details</div>
+            <div class="info-value">
+              {{ preinfo?.prm_flag2 == 'Y' ? 'Super Top up Amount 12 lacs' : (preinfo?.prm_flag3 == 'Y' ? 'Super Top up Amount 24 lacs' : 'None') }} 
+              <br><small *ngIf="pre_amt_value && pre_amt_value !== '0'">(₹ {{ pre_amt_value }})</small>
+            </div>
+          </div> -->
+          <div class="info-row"
+            style="display: flex; justify-content: space-between; align-items: center; background-color: #f9fafc; border-radius: 8px; padding: 15px; margin-top: 15px; border-bottom: none; border: 1px solid #e2e8f0;">
+            <div class="info-label" style="font-size: 16px; color: #0b2259; margin: 0;">Total Premium Amount</div>
+            <div class="info-value" style="font-size: 18px; font-weight: bold; color: #0b2259; margin: 0; text-align: right;">₹ {{ tot_pre_amt }}
+            </div>
+          </div>
+
+          <div style="text-align: center; margin-top: 20px;">
+            <button class="btn-pay" style="width: auto; padding: 10px 40px; font-size: 16px; display: inline-block;" disabled>Pay ₹ {{ tot_pre_amt }}</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upload Document Card -->
+      <div class="info-card" style="margin-bottom: 20px;">
+        <div class="info-card-header">Uploaded Documents</div>
+        <div class="doc-images">
+          <div class="doc-box">
+            <div style="font-weight: 600; margin-bottom: 10px; color: #555;">Member Photo</div>
+            <img *ngIf="userData[0]?.memb_img; else noImg" [src]="getImageUrl(userData[0]?.memb_img)" width="120"
+              height="120" alt="Member Photo" (error)="handleImageError($event)" />
+          </div>
+          <div class="doc-box">
+            <div style="font-weight: 600; margin-bottom: 10px; color: #555;">Document Image</div>
+            <img *ngIf="userData[0]?.doc_img; else noImg" [src]="getImageUrl(userData[0]?.doc_img)" width="120"
+              height="120" alt="Document Image" (error)="handleImageError($event)" />
+          </div>
+        </div>
+        <ng-template #noImg>
+          <div style="padding: 20px; color: #999;">
             <i class="pi pi-camera" style="font-size: 2rem"></i>
-            <h5>No Image uploaded</h5>
+            <p style="margin: 10px 0 0 0;">No Image Uploaded</p>
           </div>
         </ng-template>
-      </th>
-    
-      <th class="text-center" colspan="4" style="width: 50%;">
-        <img *ngIf="userData[0]?.doc_img; else noImage"
-          [src]="getImageUrl(userData[0]?.doc_img)"
-          width="100" height="100"
-          alt="Document Image"
-          (error)="handleImageError($event)" />
-        <ng-template #noImage>
-          <div class="no-image">
-            <i class="pi pi-camera" style="font-size: 2rem"></i>
-            <h5>No Image uploaded</h5>
+      </div>
+
+      <!-- Dependent Information -->
+      <div class="info-card">
+        <div class="info-card-header">Dependent Information</div>
+        <div *ngIf="!dependentsData || dependentsData.length === 0"
+          style="padding: 20px; text-align: center; color: #666;">
+          No Data Found
+        </div>
+
+        <div class="dependents-grid" *ngIf="dependentsData?.length > 0">
+          <div class="dependent-card" *ngFor="let dt of dependentsData; let i = index">
+            <div
+              style="font-weight: bold; color: #0b2259; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 12px;">
+              #{{ i + 1 }} {{ dt.dept_name }}
+            </div>
+            <div class="info-row" style="border-bottom: none; padding: 4px 0;">
+              <div class="info-label">Relationship</div>
+              <div class="info-value">{{ dt.relation_name }}</div>
+            </div>
+            <div class="info-row" style="border-bottom: none; padding: 4px 0;">
+              <div class="info-label">DOB</div>
+              <div class="info-value">{{ dt.dob | date: 'dd/MM/yyyy' }}</div>
+            </div>
+            <div class="info-row" style="border-bottom: none; padding: 4px 0;">
+              <div class="info-label">Diseases</div>
+              <div class="info-value">{{ dt.disease_flag == 'Y' ? 'Yes' : dt.disease_flag == 'N' ? 'No' : '' }}</div>
+            </div>
+            <div class="info-row" *ngIf="dt.disease_flag == 'Y'" style="border-bottom: none; padding: 4px 0;">
+              <div class="info-label">Disease Details</div>
+              <div class="info-value">{{ dt.disease_type }}</div>
+            </div>
+
+            <div class="doc-images" style="margin-top: 10px;">
+              <div class="doc-box" style="padding: 5px;">
+                <img *ngIf="dt.dep_img" [src]="api_base_url + '/uploads/' + dt.dep_img" height="60" width="60"
+                  alt="Image" />
+                <div *ngIf="!dt.dep_img" style="font-size: 11px; color: #999;">No Photo</div>
+              </div>
+              <div class="doc-box" style="padding: 5px;">
+                <img *ngIf="dt.dep_doc" [src]="api_base_url + '/uploads/' + dt.dep_doc" height="60" width="60"
+                  alt="Document" />
+                <div *ngIf="!dt.dep_doc" style="font-size: 11px; color: #999;">No Doc</div>
+              </div>
+            </div>
           </div>
-        </ng-template>
-      </th>
-    </tr>
-    
+        </div>
+      </div>
+    </ng-container>
 
-<tr>
-  <!-- <th class="text-center" valign="middle"><h5><b>Upload Document</b></h5></th> -->
-  <th colspan="8" class="text-center" style="background-color: aliceblue;"><label for="member_type"
-    class="label_field color"><b>DEPENDENT INFORMATION</b></label></th>
-</tr>
-    <tr>
-      <th>
-        <label for="sl_no" class="label_field"><b>SL NO</b><span class="label_field heading"></span></label>
-      </th>
-      <th>
-        <label for="dependent_name" class="label_field"><b>NAME OF THE DEPENDENTS</b><span
-            class="label_field heading"></span></label>
-      </th>
-      <th>
-        <label for="relationship" class="label_field"><b>RELATIONSHIP</b><span
-            class="label_field heading"></span></label>
-      </th>
-      <th>
-        <label for="phone_no" class="label_field"><b>DOB</b><span class="label_field heading"></span></label>
-      </th>
-      <th>
-        <label for="phone_no" class="label_field"><b>Suffering from any diseases</b><span class="label_field heading"></span></label>
-      </th>
-      <th>
-        <label for="diseases" class="label_field"><b>DISEASES SUFFER</b><span
-            class="label_field heading"></span></label>
-      </th>
-      <th>
-        <label for="diseases" class="label_field"><b>Photograph</b><span
-            class="label_field heading"></span></label>
-      </th>
-      <th>
-        <label for="diseases" class="label_field"><b>Document</b><span
-            class="label_field heading"></span></label>
-      </th>
-    </tr>
-    <tr *ngIf="!dependentsData || dependentsData.length === 0">
-      <td colspan="8" class="text-center span_space heading"><b>No Data Found</b></td>
-    </tr>
-    <tr *ngFor="let dt of dependentsData; let i = index">
-      <th><span class="label_field heading">{{i + 1}}</span></th>
-      <th><span class="label_field heading">{{dt.dept_name}}</span></th>
-      <th><span class="label_field heading">{{dt.relation_name}}</span></th>
-      <th><span class="label_field heading">{{dt.dob | date: 'dd/MM/yyyy'}}</span></th>
-      <th><span class="label_field heading">{{dt.disease_flag == 'Y' ? 'Yes' : dt.disease_flag == 'N' ? 'No' : ''}}</span></th>
-      <th><span class="label_field heading">{{dt.disease_type}}</span></th>
-      <th align="left" valign="middle">
-        <img *ngIf="dt.dep_img" [src]="api_base_url + '/uploads/' + dt.dep_img" height="50" width="50" alt="Dependent Image" />
-      </th>
-      <th align="left" valign="middle">
-        <img *ngIf="dt.dep_doc" [src]="api_base_url + '/uploads/' + dt.dep_doc" height="50" width="50" alt="Dependent Image" />
-      </th>
-    </tr>
-  </table>
-</ng-container>
+    <!-- For Super Topup Policy (STP) -->
+    <ng-container *ngIf="userData[0]?.form_type != 'GP'">
+      <div class="cards-grid">
+        <!-- Member Details Card -->
+        <div class="info-card">
+          <div class="info-card-header">Member Details</div>
 
-<!-- <p-card *ngIf="userData.length > 0"> -->
-  <ng-container *ngIf="userData[0]?.form_type != 'GP'">
-  <h1 class="text-center label_field title">You are enlisted under <span
-      class="heading badge {{ userData[0]?.form_type !='GP' ? 'badge-pending' :''}}">{{userData[0]?.form_type !=
-      'GP' ?
-      'Super Topup
-      Policy' : 'N/A'}}</span></h1>
-  <h1 class="label_field title size1">Policy Holder Type :<span class="heading"> {{userData[0]?.policy_holder_type == 'M' ?
-      'BSPWA Member' : userData[0]?.policy_holder_type == 'N' ? 'Member of other Sail Association' : 'N/A'}}</span></h1>
-  <h1 class="label_field title size">Form Fillup Date :<span class="heading"> {{userData[0]?.form_dt | date :
-      'dd/MM/yyyy'}}</span></h1>
-  <table class="table_space">
-    <tr>
-      <th colspan="6" class="text-center" style="background-color: aliceblue;"><label for="member_type"
-          class="label_field color"><b>DETAILS OF THE MEMBER</b></label></th>
-    </tr>
-    <tr>
-      <th colspan="6"><label for="mem_name" class="label_field"><b>NAME :</b><span class="label_field heading">
-            {{userData[0]?.memb_name}}</span></label>
-      </th>
-    </tr>
-    <tr>
-      <th colspan="6"><label for="addr" class="label_field"><b>MEMBER ID
-            :</b><span class="label_field heading"> {{userData[0]?.member_id}}</span></label>
-      </th>
-    </tr>
-    <tr>
-      <th colspan="6"><label for="member_type" class="label_field"><b>TYPE OF
-            MEMBERSHIP
-            :</b><span class="label_field heading"> {{userData[0]?.memb_type == 'G' ? 'General Membership' :
-            userData[0]?.memb_type ==
-            'L' ? 'Life Membership' : ''}}</span></label></th>
-    </tr>
-    <tr *ngIf="userData[0]?.memb_type != 'AI'">
-      <th colspan="6"><label for="unit" class="label_field"><b>NAME OF THE UNIT
-            FROM
-            WHERE SUPERANNUATED
-            :</b><span class="label_field heading"> {{userData[0]?.unit_name}}</span></label></th>
-    </tr>
-    <tr>
-      <th colspan="3"><label for="gurd_name" class="label_field"><b>PERSONNEL NO
-            :</b><span class="label_field heading"> {{userData[0]?.personel_no}}</span></label>
-      </th>
-      <th colspan="3"><label for="gurd_name" class="label_field"><b>MIN NO
-            :</b><span class="label_field heading"> {{userData[0]?.min_no}}</span></label>
-      </th>
-    </tr>
-    <tr>
-      <th colspan="3"><label for="dob" class="label_field"><b>DATE OF BIRTH :</b><span class="label_field heading">
-            {{userData[0]?.dob | date: 'dd/MM/yyyy'}}</span></label>
-      </th>
-      <th colspan="3"><label for="email_id" class="label_field"><b>PHONE NO: </b><span class="label_field heading">
-            {{userData[0]?.phone_no}}</span></label>
-      </th>
-    </tr>
-    <tr>
-      <th colspan="3"><label for="memb_oprn" class="label_field"><b>MEMBER OPERATION:
-          </b><span class="label_field heading">
-            {{userData[0]?.memb_oprn == 'S' ? 'Self' : userData[0]?.memb_oprn == 'J' ? 'Spouse' : 'N/A'}}</span></label>
-      </th>
-      <th colspan="3"><label for="dissease" class="label_field"><b>JOINING YEAR: </b><span class="label_field heading">
-            {{userData[0]?.fin_yr | date: 'dd/MM/yyyy'}}</span></label>
-      </th>
-    </tr>
-    <tr>
-      <th colspan="6"><label for="address" class="label_field"><b>ADDRESS: </b><span class="label_field heading">
-            {{userData[0]?.mem_address}}</span></label>
-    </tr>
-    <tr>
-      <th colspan="6" class="text-center" style="background-color: aliceblue;"><label for="member_type"
-          class="label_field color"><b>DETAILS OF THE SPOUSE</b></label></th>
-    </tr>
-    <tr>
-      <th colspan="6"><label for="spou_name" class="label_field"><b>SPOUSE NAME :</b><span class="label_field heading">
-            {{userData[0]?.dependent_name != 'null' ? userData[0]?.dependent_name : 'N/A'}}</span></label>
-      </th>
-    </tr>
-    <tr>
-      <th colspan="3"><label for="depen_dob" class="label_field"><b>DATE OF BIRTH :</b><span
-            class="label_field heading"> {{userData[0]?.spou_dob != '0000-00-00' ? (userData[0]?.spou_dob | date:
-            'dd/MM/yyyy') :
-            'N/A'}}</span></label>
-      </th>
-      <th colspan="3"><label for="min_no" class="label_field"><b>MIN NO :</b><span class="label_field heading">
-            {{userData[0]?.spou_min_no != 'null' ? userData[0]?.spou_min_no : 'N/A'}}</span></label></th>
-    </tr>
-    <tr>
-      <th colspan="6"><label for="mob_no" class="label_field"><b>MOBILE NO :</b><span class="label_field heading">
-            {{userData[0]?.spou_phone != '0' ? userData[0]?.spou_phone : 'N/A'}}</span></label>
-      </th>
-    </tr>
-    <tr>
-      <th colspan="6"><label for="member_type" class="label_field"><b>ADDRESS :</b><span class="label_field heading">
-            {{userData[0]?.spou_address != 'null' ? userData[0]?.spou_address : 'N/A'}}</span></label>
-      </th>
-    </tr>
-    <tr>
-      <th colspan="6" class="text-center" style="background-color: aliceblue;"><label for="member_type"
-          class="label_field color"><b>MEDICAL DETAILS</b></label></th>
-    </tr>
-    <tr>
-      <th>
-        <label for="sl_no" class="label_field"><b>SL NO</b><span class="label_field heading"></span></label>
-      </th>
-      <th>
-        <label for="dependent_name" class="label_field"><b>STATUS</b><span class="label_field heading"></span></label>
-      </th>
-      <th>
-        <label for="phone_no" class="label_field"><b>YEAR</b><span class="label_field heading"></span></label>
-      </th>
-      <th>
-        <label for="relationship" class="label_field"><b>AMOUNT UTILISED</b><span
-            class="label_field heading"></span></label>
-      </th>
-      <th>
-        <label for="relationship" class="label_field"><b>DISEASES SUFFER</b><span
-            class="label_field heading"></span></label>
-      </th>
-      <th>
-        <label for="diseases" class="label_field"><b>HOSPITAL NAME</b><span class="label_field heading"></span></label>
-      </th>
-    </tr>
-    <tr *ngIf="userData && userData.length === 0">
-      <td colspan="6" class="text-center span_space heading"><b>No Data Found</b></td>
-    </tr>
-    
-    <tr *ngFor="let dt of userData; let i = index">
-      <th><span class="label_field heading">{{i+1}}</span></th>
-      <th><span class="label_field heading">{{dt.ind_type == 'S' ? 'Self' : dt.ind_type == 'P' ? 'Spouse' :
-          ''}}</span>
-      </th>
-      <th><span class="label_field heading">{{dt.fin_year}}</span></th>
-      <th><span class="label_field heading">{{dt.amount}}</span></th>
-      <th><span class="label_field heading">{{dt.particulars}}</span></th>
-      <th><span class="label_field heading">{{dt.treatment_dtls}}</span></th>
-    </tr>
-  </table>
-</ng-container>
-<!-- </p-card> -->
+          <div class="info-row">
+            <div class="info-label">Form No</div>
+            <div class="info-value">{{ userData[0]?.form_no }}</div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">Member ID</div>
+            <div class="info-value">{{ userData[0]?.member_id }}</div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">Name</div>
+            <div class="info-value">{{ userData[0]?.memb_name }}</div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">Gender</div>
+            <div class="info-value">
+              {{ (userData[0]?.sex || userData[0]?.gender) == 'M' ? 'Male' : (userData[0]?.sex || userData[0]?.gender)
+              == 'F' ? 'Female' : (userData[0]?.sex || userData[0]?.gender) }}
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">Date of Birth</div>
+            <div class="info-value">{{ userData[0]?.dob | date: 'dd/MM/yyyy' }}</div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">Phone No</div>
+            <div class="info-value">{{ userData[0]?.phone_no }}</div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">Address</div>
+            <div class="info-value">{{ userData[0]?.mem_address }}</div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">Membership Type</div>
+            <div class="info-value">
+              {{ userData[0]?.memb_type == 'G' ? 'General Membership' : userData[0]?.memb_type == 'L' ? 'Life
+              Membership' : '' }}
+            </div>
+          </div>
+          <div class="info-row" *ngIf="userData[0]?.memb_type != 'AI'">
+            <div class="info-label">Superannuated Unit</div>
+            <div class="info-value">{{ userData[0]?.unit_name }}</div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">MIN No</div>
+            <div class="info-value">{{ userData[0]?.min_no }}</div>
+          </div>
+        </div>
 
-<!-- <p-card *ngIf="userData.length > 0"> -->
-  <ng-container *ngIf="userData[0]?.form_type == 'GP'">
-  <table class="table_space">
-    <tr>
-      <th colspan="8" class="text-center" style="background-color: aliceblue;"><label for="member_type"
-          class="label_field color"><b>PREMIUM DETAILS</b></label></th>
-    </tr>
-    <tr>
-      <th colspan="8"><label for="mem_name" class="label_field"><b>Group Name :</b><span class="label_field heading">
-            {{preinfo?.family_type}}</span></label>
-      </th>
-    </tr>
-    <tr>
-      <th colspan="8"><label for="addr" class="label_field"><b>Premium Amount:</b><span class="label_field heading"> {{preinfo?.premium_amt}}</span></label>
-      </th>
-    </tr>
-    <tr>
-      <th colspan="8"><label for="member_type" class="label_field"><b>Do you want to avail a Super Top Up on this policy?:</b><span class="label_field heading"> {{pre_amt_flag}}</span></label></th>
-    </tr>
-    <tr>
-      <th colspan="8"><label for="gurd_name" class="label_field"><span class="label_field heading"> {{preinfo?.prm_flag2 == 'Y' ? 'Super Top up Amount 12 lacs' :
-        (preinfo?.prm_flag3 == 'Y' ? 'Super Top up Amount 24 lacs' : 'None')}} ({{pre_amt_value}})</span></label>
-      </th>
-    </tr>
-    <tr>
-      <th colspan="8"><label for="member_type" class="label_field"><b>Total Premium Amount:</b><span class="label_field heading"> {{tot_pre_amt}}</span></label></th>
-    </tr>
-  </table>
-  <!-- <div class="flex flex-row mt-3">
-    <button pButton pRipple type="button" label="Pay Now" class="p-button-raised sub_btn" (click)="generatePay()"></button>
-  </div> -->
-  <!-- <button class="btn-success" (click)="generatePay()">Pay Now</button> -->
-</ng-container>
-<!-- </p-card> -->
-</p-card>
+        <!-- Spouse Details Card (Commented out) -->
+        <!-- 
+        <div class="info-card">
+          <div class="info-card-header">Spouse Details</div>
+          
+          <div class="info-row">
+            <div class="info-label">Spouse Name</div>
+            <div class="info-value">{{ userData[0]?.dependent_name != 'null' ? userData[0]?.dependent_name : 'N/A' }}</div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">Date of Birth</div>
+            <div class="info-value">{{ userData[0]?.spou_dob != '0000-00-00' ? (userData[0]?.spou_dob | date: 'dd/MM/yyyy') : 'N/A' }}</div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">MIN No</div>
+            <div class="info-value">{{ userData[0]?.spou_min_no != 'null' ? userData[0]?.spou_min_no : 'N/A' }}</div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">Mobile No</div>
+            <div class="info-value">{{ userData[0]?.spou_phone != '0' ? userData[0]?.spou_phone : 'N/A' }}</div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">Address</div>
+            <div class="info-value">{{ userData[0]?.spou_address != 'null' ? userData[0]?.spou_address : 'N/A' }}</div>
+          </div>
+        </div>
+        -->
+
+        <!-- Premium Details Card (STP) -->
+        <div class="info-card">
+          <div class="info-card-header">Premium Details</div>
+
+          <div class="info-row">
+            <div class="info-label">Premium Type</div>
+            <div class="info-value">{{ userData[0]?.memb_oprn == 'S' ? 'Single' : (userData[0]?.memb_oprn == 'D' ||
+              userData[0]?.memb_oprn == 'J' ? 'Double' : 'N/A') }}</div>
+          </div>
+
+          <div style="margin-top: 25px; margin-bottom: 15px;">
+            <h4 style="font-size: 14px; color: #0b2259; margin-bottom: 8px; font-weight: 600;">Premium Amount</h4>
+            <div
+              style="position: relative; display: flex; align-items: center; background-color: #f5f5f5; border-radius: 4px; border: 1px solid #e2e8f0;">
+              <select
+                style="width: 100%; padding: 12px 16px; font-size: 16px; color: rgba(0, 0, 0, 0.87); background: transparent; border: none; appearance: none; outline: none; cursor: pointer;"
+                (change)="onPolicyChange($event)" [value]="selectedPolicyIndex">
+                <option value="" disabled selected>Select Premium Amount</option>
+                <option *ngFor="let amt of policyAmtList; let i = index" [value]="i">{{ amt }}</option>
+              </select>
+              <!-- Material Design dropdown arrow -->
+              <svg style="position: absolute; right: 16px; pointer-events: none;" width="24" height="24"
+                viewBox="0 0 24 24" fill="rgba(0,0,0,0.54)">
+                <path d="M7 10l5 5 5-5z" />
+              </svg>
+            </div>
+          </div>
+
+          <div class="info-row"
+            style="display: flex; justify-content: space-between; align-items: center; background-color: #f9fafc; border-radius: 8px; padding: 15px; margin-top: 15px; border-bottom: none; border: 1px solid #e2e8f0;">
+            <div class="info-label" style="font-size: 14px; color: #0b2259; margin: 0;">Total Premium Amount</div>
+            <div class="info-value" style="font-size: 18px; font-weight: bold; color: #0b2259; margin: 0; text-align: right;">
+              <ng-container *ngIf="selectedPremiumAmt; else noAmt">₹ {{ selectedPremiumAmt }}</ng-container>
+              <ng-template #noAmt>₹ 0</ng-template>
+            </div>
+          </div>
+
+          <div style="text-align: center; margin-top: 20px;">
+            <button class="btn-pay" style="width: auto; padding: 10px 40px; font-size: 16px; display: inline-block;" [disabled]="!selectedPremiumAmt || selectedPremiumAmt === '0'"
+              (click)="generatePay()">
+              Pay ₹ {{ selectedPremiumAmt || 0 }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Medical Details -->
+      <div class="info-card">
+        <div class="info-card-header">Medical Details</div>
+
+        <div *ngIf="!userData || userData.length === 0" style="padding: 20px; text-align: center; color: #666;">
+          No Data Found
+        </div>
+
+        <div class="dependents-grid" *ngIf="userData?.length > 0">
+          <div class="dependent-card" *ngFor="let dt of userData; let i = index">
+            <div
+              style="font-weight: bold; color: #0b2259; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 12px;">
+              #{{ i + 1 }} Medical Record
+            </div>
+            <div class="info-row" style="border-bottom: none; padding: 4px 0;">
+              <div class="info-label">Status</div>
+              <div class="info-value">{{ dt.ind_type == 'S' ? 'Self' : dt.ind_type == 'P' ? 'Spouse' : '' }}</div>
+            </div>
+            <div class="info-row" style="border-bottom: none; padding: 4px 0;">
+              <div class="info-label">Year</div>
+              <div class="info-value">{{ dt.fin_year }}</div>
+            </div>
+            <div class="info-row" style="border-bottom: none; padding: 4px 0;">
+              <div class="info-label">Amount Utilised</div>
+              <div class="info-value">₹ {{ dt.amount }}</div>
+            </div>
+            <div class="info-row" style="border-bottom: none; padding: 4px 0;">
+              <div class="info-label">Diseases</div>
+              <div class="info-value">{{ dt.particulars }}</div>
+            </div>
+            <div class="info-row" style="border-bottom: none; padding: 4px 0;">
+              <div class="info-label">Hospital Name</div>
+              <div class="info-value">{{ dt.treatment_dtls }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+  </ng-container>
+</div>
