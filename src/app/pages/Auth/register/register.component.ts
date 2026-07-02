@@ -35,21 +35,30 @@ export class RegisterComponent implements OnInit {
 }
 
 continue () {
-  const dt = {
-    member_id : this.memberInput.trim(),
-  };
-  this.dataServe.global_service(1, '/check_member_id', dt).subscribe((data) => {
+  let apiUrl = '';
+  let dt: any = {};
+  
+  if (this.loginType === 'BSPWA') {
+    apiUrl = '/check_member_id';
+    dt = { member_id: this.memberInput.trim() };
+  } else {
+    apiUrl = '/check_min_no';
+    dt = { min_no: this.memberInput.trim() };
+  }
+
+  this.dataServe.global_service(1, apiUrl, dt).subscribe((data) => {
    this.getLoginData = data;
    if (this.getLoginData.suc > 0) {
-  this.dataServe.global_service(1, '/send_phone_no_fr_otp', dt).subscribe((otpData: any) => {
-   if (otpData.suc > 0) {
-   this.router.navigate(['/auth/verify_otp'])
-   }else{
-     this.memberError = 'Unable to send OTP. Try again.';
-   }
-  });
-   }else{
-     this.memberError = 'Invalid Member ID';
+      this.dataServe.global_service(1, '/send_phone_no_fr_otp', dt).subscribe((otpData: any) => {
+       if (otpData.suc > 0) {
+         localStorage.setItem('member_id', this.memberInput.trim());
+         this.router.navigate(['/auth/verify_otp'])
+       } else {
+         this.memberError = 'Unable to send OTP. Try again.';
+       }
+      });
+   } else {
+     this.memberError = this.loginType === 'BSPWA' ? 'Invalid Member ID' : 'Invalid MIN No';
    }
   });
 }

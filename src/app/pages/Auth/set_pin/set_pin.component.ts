@@ -109,6 +109,28 @@ handleKeydown(event: KeyboardEvent, index: number, type: 'enter' | 'confirm') {
 //   }
 // }
 
+generatePin() {
+  if (this.isPinValid()) {
+    const enteredPin = this.pin.join('');
+    const dt = {
+      pin: enteredPin,
+      member_id: localStorage.getItem('member_id') || '',
+      device_id: '',
+      public_key: ''
+    };
+    this.dataServe.global_service(1, '/set_pin', dt).subscribe((data: any) => {
+      if (data.suc > 0) {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'PIN generated successfully' });
+        this.router.navigate(['/auth/member_login']);
+      } else {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: data.msg || 'Failed to generate PIN' });
+      }
+    }, error => {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Server error. Please try again.' });
+    });
+  }
+}
+
 sign_in () {
   const dt = {
 

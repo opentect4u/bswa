@@ -19,6 +19,8 @@ export class Member_loginComponent implements OnInit {
   memberInput = '';
   pin: string[] = ['', '', '', ''];
   showPin = false;
+  isMemberValid = false;
+  memberError = '';
 
    @ViewChildren('pinBox') pinBoxes!: QueryList<ElementRef>;
 
@@ -107,10 +109,41 @@ togglePin() {
   selectType(type: 'BSPWA' | 'OTHERS') {
     this.loginType = type;
     this.memberInput = '';
+    this.isMemberValid = false;
+    this.memberError = '';
+    this.pin = ['', '', '', ''];
   }
 
+verifyMember() {
+  this.memberError = '';
+  let apiUrl = '';
+  let dt: any = {};
+  
+  if (this.loginType === 'BSPWA') {
+    apiUrl = '/check_member_id';
+    dt = { member_id: this.memberInput.trim() };
+  } else {
+    apiUrl = '/check_min_no';
+    dt = { min_no: this.memberInput.trim() };
+  }
+
+  this.dataServe.global_service(1, apiUrl, dt).subscribe((data: any) => {
+    if (data.suc > 0) {
+      this.isMemberValid = true;
+      setTimeout(() => {
+        const first = document.querySelector<HTMLInputElement>('.pin-row input');
+        first?.focus();
+      });
+    } else {
+      this.memberError = this.loginType === 'BSPWA' ? 'Invalid Member ID' : 'Invalid MIN No';
+    }
+  }, (err) => {
+    this.memberError = 'Server Error. Please try again.';
+  });
+}
+
 canContinue(): boolean {
-  const memberOk = !!this.memberInput && this.memberInput.trim().length > 0;
+  const memberOk = !!this.memberInput && this.memberInput.trim().length > 0 && this.isMemberValid;
   const pinOk = this.pin.length === 4 && this.pin.every(p => p !== '');
 
   return memberOk && pinOk;

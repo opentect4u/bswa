@@ -89,7 +89,7 @@
   PIN and Confirm PIN do not match
 </p>
   <button
-  class="continue-btn mt-2" [disabled]="!isPinValid()">
+  class="continue-btn mt-2" [disabled]="!isPinValid()" (click)="generatePin()">
   Generate PIN
 </button>
 <p class="resend-line">
