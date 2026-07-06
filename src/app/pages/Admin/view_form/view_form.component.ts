@@ -444,7 +444,7 @@ export class View_formComponent implements OnInit {
       let expiryTimestamp: number = Date.now() + 24 * 60 * 60 * 1000; // 24 hours expiry
 
       if(this.f['payment'].value == 'O'){
-        var payData = {form_no: atob(decodeURIComponent(this.encodedFormNo)), member_id: '', memb_name: this.memb_name, amount: this.f['totalAmount'].value, phone_no: this.phone_no, email: this.email_id, approve_status: 'U', calc_upto: '', subs_type: '', sub_fee: this.f['totalAmount'].value, redirect_path: '/'}
+        var payData = {form_no: atob(decodeURIComponent(this.encodedFormNo)), member_id: '', memb_name: this.memb_name, amount: this.f['totalAmount'].value, phone_no: this.phone_no, email: this.email_id, approve_status: 'U', calc_upto: '', subs_type: '', sub_fee: this.f['subscriptionFee'] ? this.f['subscriptionFee'].value : 0, adm_fee: this.f['admissionFee'] ? this.f['admissionFee'].value : 0, donation_fee: this.f['donationFee'] ? this.f['donationFee'].value : 0, redirect_path: '/'}
         payEncDataGen = CryptoJS.AES.encrypt(JSON.stringify(payData),this.secretKey ).toString();
       }
       
@@ -521,7 +521,8 @@ export class View_formComponent implements OnInit {
       let expiryTimestamp: number = Date.now() + 24 * 60 * 60 * 1000; // 24 hours expiry
 
       if(this.f['payment'].value == 'O'){
-        var payData = {form_no: atob(decodeURIComponent(this.encodedFormNo)), member_id: '', memb_name: this.memb_name, amount: this.f['totalAmount_life'].value, phone_no: this.phone_no, email: this.email_id, approve_status: 'U', calc_upto: '', subs_type: '', sub_fee: this.f['totalAmount_life'].value, redirect_path: '/'}
+        var sub_fee_val = (this.f['subscriptionFee_1'] ? this.f['subscriptionFee_1'].value : 0) + (this.f['subscriptionFee_2'] ? this.f['subscriptionFee_2'].value : 0);
+        var payData = {form_no: atob(decodeURIComponent(this.encodedFormNo)), member_id: '', memb_name: this.memb_name, amount: this.f['totalAmount_life'].value, phone_no: this.phone_no, email: this.email_id, approve_status: 'U', calc_upto: '', subs_type: '', sub_fee: sub_fee_val, adm_fee: this.f['admissionFee_life'] ? this.f['admissionFee_life'].value : 0, donation_fee: this.f['donationFee_life'] ? this.f['donationFee_life'].value : 0, redirect_path: '/'}
         payEncDataLife = CryptoJS.AES.encrypt(JSON.stringify(payData),this.secretKey ).toString();
       }
 
@@ -592,7 +593,8 @@ export class View_formComponent implements OnInit {
 
 
       if(this.f['payment'].value == 'O'){
-        var payData = {form_no: atob(decodeURIComponent(this.encodedFormNo)), member_id: '', memb_name: this.memb_name, amount: this.f['totalAmount_associate'].value, phone_no: this.phone_no, email: this.email_id, approve_status: 'U', calc_upto: '', subs_type: '', sub_fee: this.f['totalAmount_associate'].value, redirect_path: '/'}
+        var sub_fee_val = (this.f['subscriptionFee_associate_one'] ? this.f['subscriptionFee_associate_one'].value : 0) + (this.f['subscriptionFee_associate'] ? this.f['subscriptionFee_associate'].value : 0);
+        var payData = {form_no: atob(decodeURIComponent(this.encodedFormNo)), member_id: '', memb_name: this.memb_name, amount: this.f['totalAmount_associate'].value, phone_no: this.phone_no, email: this.email_id, approve_status: 'U', calc_upto: '', subs_type: '', sub_fee: sub_fee_val, adm_fee: this.f['admissionFee_associate'] ? this.f['admissionFee_associate'].value : 0, donation_fee: this.f['donationFee_associate'] ? this.f['donationFee_associate'].value : 0, redirect_path: '/'}
         payEncData = CryptoJS.AES.encrypt(JSON.stringify(payData),this.secretKey ).toString();
       }
       

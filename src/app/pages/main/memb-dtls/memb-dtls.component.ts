@@ -771,6 +771,15 @@ save() {
     });
   }
 
+  addSpouse() {
+    this.showSpouseSection = true;
+  }
+
+  removeSpouse() {
+    this.showSpouseSection = false;
+    this.form.get('spouse_fr')?.reset({ sl_no: 0 });
+  }
+
 
   onminus(index: number) {
     var member_id= localStorage.getItem('member_id')
