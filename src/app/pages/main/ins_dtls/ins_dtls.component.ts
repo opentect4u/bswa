@@ -199,6 +199,7 @@ export class Ins_dtlsComponent implements OnInit {
   premiumAmtList: any[] = [];
   selectedPolicyIndex: any = '';
   selectedPremiumAmt: any = '';
+  showMobileInput: boolean = false;
 
   fetchPremiumAmount(premium_type_code: string) {
     const reqData = { premium_type: premium_type_code };
@@ -222,6 +223,27 @@ export class Ins_dtlsComponent implements OnInit {
     );
   }
 
+  updateMobile(newMobileNo: string) {
+    if (!newMobileNo || newMobileNo.length !== 10) {
+      Swal.fire('Warning', 'Please enter a valid 10-digit mobile number', 'warning');
+      return;
+    }
+    const reqData = {
+      form_no: this.userData[0]?.form_no,
+      phone_no: newMobileNo
+    };
+    this.dataServe.global_service(1, '/update_mobile_no', reqData).subscribe((res: any) => {
+      if (res.suc > 0) {
+        Swal.fire('Success', 'Mobile number updated successfully', 'success');
+        this.userData[0].phone_no = newMobileNo; // update locally
+        this.userData[0].phone = newMobileNo; // update locally
+        this.showMobileInput = false;
+      } else {
+        Swal.fire('Error', 'Failed to update mobile number', 'error');
+      }
+    });
+  }
+
   onPolicyChange(event: any) {
     const selectedIndex = event.target ? event.target.value : event;
     if (selectedIndex !== '' && selectedIndex !== undefined && selectedIndex !== null) {
@@ -234,6 +256,12 @@ export class Ins_dtlsComponent implements OnInit {
   }
   
   generatePay(){
+    const phoneNo = this.userData[0]?.phone_no || this.userData[0]?.phone;
+    if (!phoneNo) {
+      Swal.fire('Warning', 'Please update your mobile number before proceeding to payment.', 'warning');
+      return;
+    }
+
     var payData = {
       form_no: this.userData[0]?.form_no,
       member_id: this.userData[0]?.member_id,

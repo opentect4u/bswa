@@ -1,0 +1,27 @@
+.page-wrapper {
+  min-height: calc(100vh - 70px);
+  background: linear-gradient(to right, #a3afbe, #dfe4eb);
+  padding: 25px 20px;
+}
+
+.card-container {
+  background: #fff;
+  width: 75vw;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+  margin: 0 auto;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #1e293b;
+}
+
+label {
+    font-weight: 500;
+    color: #475569;
+    margin-bottom: 0.5rem;
+    display: block;
+}

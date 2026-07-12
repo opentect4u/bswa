@@ -1,0 +1,43 @@
+<div class="page-wrapper">
+    <div class="card-container">
+        <h3 class="title">Update Mobile Number</h3>
+        
+        <div class="p-fluid p-formgrid grid mt-4" [formGroup]="updateForm">
+            
+            <div class="field col-12 md:col-6">
+                <label for="update_type">Update Under <span class="text-red-500">*</span></label>
+                <p-dropdown id="update_type" [options]="updateTypes" formControlName="update_type" placeholder="Select Policy Type" optionLabel="label" optionValue="value"></p-dropdown>
+                <small class="p-error" *ngIf="updateForm.get('update_type')?.invalid && (updateForm.get('update_type')?.dirty || updateForm.get('update_type')?.touched)">
+                    Please select an update type.
+                </small>
+            </div>
+
+            <div class="field col-12 md:col-6">
+                <label for="member_id">
+                    {{ updateForm.get('update_type')?.value === 'STP' ? 'Member ID / MIN No' : 'Member ID' }}
+                    <span class="text-red-500">*</span>
+                </label>
+                <input id="member_id" type="text" pInputText formControlName="member_id" placeholder="Enter ID e.g. L-55">
+                <small class="p-error" *ngIf="updateForm.get('member_id')?.invalid && (updateForm.get('member_id')?.dirty || updateForm.get('member_id')?.touched)">
+                    Identifier is required.
+                </small>
+            </div>
+
+            <div class="field col-12 md:col-6">
+                <label for="new_mobile_no">New Mobile Number <span class="text-red-500">*</span></label>
+                <input id="new_mobile_no" type="text" pInputText formControlName="new_mobile_no" placeholder="Enter 10-digit Mobile No" maxlength="10">
+                <small class="p-error" *ngIf="updateForm.get('new_mobile_no')?.errors?.['required'] && (updateForm.get('new_mobile_no')?.dirty || updateForm.get('new_mobile_no')?.touched)">
+                    Mobile number is required.
+                </small>
+                <small class="p-error" *ngIf="updateForm.get('new_mobile_no')?.errors?.['pattern'] && (updateForm.get('new_mobile_no')?.dirty || updateForm.get('new_mobile_no')?.touched)">
+                    Please enter a valid 10-digit mobile number.
+                </small>
+            </div>
+
+            <div class="field col-12 text-center mt-3">
+                <button pButton type="button" label="Update Mobile Number" icon="pi pi-save" [loading]="isLoading" (click)="onSubmit()" style="width: auto; padding: 10px 30px;"></button>
+            </div>
+
+        </div>
+    </div>
+</div>

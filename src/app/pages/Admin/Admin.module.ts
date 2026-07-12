@@ -46,11 +46,18 @@ const routes: Routes = [
       //       (m) => m.Add_fee_typeModule
       //     ),
       // },
-       {
+      {
         path: 'admin_dashboard',
         loadChildren: () =>
           import('../Admin/dashboard/dashboard.module').then(
             (m) => m.DashboardModule
+          ),
+      },
+      {
+        path: 'update_mobile_no',
+        loadChildren: () =>
+          import('../Admin/update_mobile_no/update_mobile_no.module').then(
+            (m) => m.UpdateMobileNoModule
           ),
       },
       {

@@ -138,9 +138,12 @@
                   class="box_input text-2xl text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
             </div>
             <div class="field col-12 md:col-4">
-              <label for="mobile" class="label_field"><b>Mobile No:</b></label>&nbsp;
+              <label for="mobile" class="label_field"><b>Mobile No:<span class="text-red-700">*</span></b></label>&nbsp;
                 <input id="mobile" type="text" formControlName="mobile" placeholder="Enter Mobile No"
-                  class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                  class="box_input text-2xl text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" maxlength="10" />
+                <div *ngIf="o['mobile']?.touched || o['mobile']?.dirty">
+                  <small class="text-red-900" *ngIf="o['mobile']?.errors">Mobile No is required.</small>
+                </div>
             </div>
             <!-- <div class="field col-12 md:col-4">
               <label for="fin_yr" class="label_field"><b>Joining Year:</b></label>&nbsp;

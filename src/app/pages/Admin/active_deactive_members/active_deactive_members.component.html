@@ -22,6 +22,15 @@
       </div>
     </form>
 
+    <div class="search-box">
+      <i class="fa fa-search"></i>
+      <input
+        type="text"
+        placeholder="Search Member ID / Name / Mobile"
+        (input)="filterRes($event)"
+      />
+    </div>
+
     <!-- Table -->
     <div class="table-responsive">
       <table class="member-table">

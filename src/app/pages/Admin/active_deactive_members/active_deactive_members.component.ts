@@ -20,6 +20,7 @@ export class Active_deactive_membersComponent implements OnInit {
  limit = 10;
  totalRecords = 0;
  totalPages = 0;
+ searchText: any = '';
 
   constructor(private router: Router, private dataServe: DataService, private formBuilder: FormBuilder,private route: ActivatedRoute,private messageService: MessageService) { }
 
@@ -40,7 +41,8 @@ export class Active_deactive_membersComponent implements OnInit {
     const dt = {
      status: status,
      page: this.page,
-     limit: this.limit
+     limit: this.limit,
+     search: this.searchText
     }
     this.dataServe.global_service(1,'/fetch_active_deactive_memb_dtls',dt).subscribe(data => {
       this.userData = data;
@@ -71,6 +73,12 @@ export class Active_deactive_membersComponent implements OnInit {
     this.page--;
     this.fetch_member_status(this.form.value.status);
   }
+  }
+
+  filterRes(event:any){
+    this.searchText = event.target.value;
+    this.page = 1;
+    this.fetch_member_status(this.form.value.status);
   }
 
   view_member_dtls(member_id:any, phone_no:any){

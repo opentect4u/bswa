@@ -224,3 +224,49 @@
   min-height: 55px;
 }
 
+/* Premium Search Box styling */
+.search-box {
+  position: relative;
+  width: 100%;
+  margin-bottom: 25px;
+  max-width: 400px;
+}
+
+.search-box i {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #8c98a4;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 12px 20px 12px 45px;
+  border: 1px solid #e0e6ed;
+  border-radius: 30px; /* Fully rounded pill shape */
+  background: #f8fafc;
+  color: #334155;
+  font-size: 15px;
+  font-weight: 500;
+  outline: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.search-box input::placeholder {
+  color: #94a3b8;
+}
+
+.search-box input:focus {
+  background: #ffffff;
+  border-color: #4e73df;
+  box-shadow: 0 8px 15px rgba(78, 115, 223, 0.15), 0 0 0 4px rgba(78, 115, 223, 0.1);
+}
+
+.search-box:focus-within i {
+  color: #4e73df;
+}
+

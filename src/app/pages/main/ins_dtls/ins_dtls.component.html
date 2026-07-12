@@ -77,7 +77,17 @@
           </div>
           <div class="info-row">
             <div class="info-label">Phone No</div>
-            <div class="info-value">{{ userData[0]?.phone }}</div>
+            <div class="info-value">
+              <span *ngIf="userData[0]?.phone">{{ userData[0]?.phone }}</span>
+              <span *ngIf="!userData[0]?.phone">
+                <button *ngIf="!showMobileInput" pButton class="p-button-sm p-button-outlined" label="Update Mobile No" (click)="showMobileInput = true"></button>
+                <div *ngIf="showMobileInput" style="display: flex; gap: 10px; align-items: center;">
+                  <input type="text" pInputText #mobileInputGP placeholder="Enter Mobile No" maxlength="10" style="padding: 8px 12px; width: 160px; border: 1px solid #94a3b8; border-radius: 6px; outline: none; font-size: 14px; background: #f8fafc; color: #334155; box-shadow: 0 2px 4px rgba(0,0,0,0.05);" />
+                  <button pButton class="p-button-sm p-button-success" icon="pi pi-check" (click)="updateMobile(mobileInputGP.value)" style="background-color: #166534; border-color: #166534;"></button>
+                  <button pButton class="p-button-sm p-button-danger" icon="pi pi-times" (click)="showMobileInput = false"></button>
+                </div>
+              </span>
+            </div>
           </div>
           <div class="info-row">
             <div class="info-label">Member Operation</div>
@@ -229,7 +239,17 @@
           </div>
           <div class="info-row">
             <div class="info-label">Phone No</div>
-            <div class="info-value">{{ userData[0]?.phone_no }}</div>
+            <div class="info-value">
+              <span *ngIf="userData[0]?.phone_no">{{ userData[0]?.phone_no }}</span>
+              <span *ngIf="!userData[0]?.phone_no">
+                <button *ngIf="!showMobileInput" pButton class="p-button-sm p-button-outlined" label="Update Mobile No" (click)="showMobileInput = true"></button>
+                <div *ngIf="showMobileInput" style="display: flex; gap: 10px; align-items: center;">
+                  <input type="text" pInputText #mobileInputSTP placeholder="Enter Mobile No" maxlength="10" style="padding: 8px 12px; width: 160px; border: 1px solid #94a3b8; border-radius: 6px; outline: none; font-size: 14px; background: #f8fafc; color: #334155; box-shadow: 0 2px 4px rgba(0,0,0,0.05);" />
+                  <button pButton class="p-button-sm p-button-success" icon="pi pi-check" (click)="updateMobile(mobileInputSTP.value)" style="background-color: #166534; border-color: #166534;"></button>
+                  <button pButton class="p-button-sm p-button-danger" icon="pi pi-times" (click)="showMobileInput = false"></button>
+                </div>
+              </span>
+            </div>
           </div>
           <div class="info-row">
             <div class="info-label">Address</div>

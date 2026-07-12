@@ -95,7 +95,7 @@ export class Super_top_up_policy_registerComponent implements OnInit {
       member: [''],
       gender: [''],
       gen_dob: [''],
-      mobile: [''],
+      mobile: ['', Validators.required],
       fin_yr: [''],
       mem: [''],
       spouse: ['', Validators.required],

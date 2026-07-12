@@ -205,6 +205,11 @@ ngOnInit(): void {
         routerLink: '/admin/active_deactive_members',
    },
    {
+        label: 'Update Mobile Number',
+        icon: 'pi pi-mobile',
+        routerLink: '/admin/update_mobile_no',
+   },
+   {
         label: 'Super Topup Policy',
         icon: 'pi pi-fw pi-bookmark',
         items: [

@@ -179,10 +179,10 @@ export class Show_stp_trans_reportComponent implements OnInit {
         }
       }
 
-      baseData['Premium Type'] = customer.premium_type == 'S' ? 'Single' : customer.premium_type == 'D' ? 'Double' : 'N/A';
+      baseData['Premium Type'] = customer.memb_oprn == 'S' ? 'Single' : customer.memb_oprn == 'D' ? 'Double' : 'N/A';
       baseData['Policy Amount'] = customer.policy_amount ? customer.policy_amount : '0';
       baseData['Premium Amount'] = customer?.premium_amt ?? '0';
-      baseData['Financial Year'] = customer.fin_year ? customer.fin_year : 'N/A';
+      baseData['Financial Year'] = customer.financial_year ? customer.financial_year : (customer.fin_year ? customer.fin_year : 'N/A');
       baseData['Total Amount'] = customer?.tot_amt ?? '0';
       baseData['Pay Mode'] = customer?.pay_mode === 'O' ? 'Online' : 'N/A';
       baseData['Approval Status'] = customer?.approval_status == 'A' ? 'Approved' : 'Unapproved';
