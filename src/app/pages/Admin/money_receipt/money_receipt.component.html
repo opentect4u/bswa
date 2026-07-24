@@ -75,27 +75,25 @@
 
 <mat-card class="receipt-card" id="divToPrint">
   <div class="receipt-header text-center">
-    <img
-      *ngIf="trnData?.mem_type === 'G' || trnData?.mem_type === 'L' || trnData?.mem_type === 'AI'; else defaultImg"
-      src="../../../../assets/images/bokaro.jpg"
-    />
+    <img *ngIf="trnData?.mem_type === 'G' || trnData?.mem_type === 'L' || trnData?.mem_type === 'AI'; else defaultImg"
+      src="../../../../assets/images/bokaro.jpg" />
     <ng-template #defaultImg>
       <img src="../../../../assets/images/logo.jpg" />
     </ng-template>
 
     <h4>
       {{
-        trnData?.mem_type === 'G' || trnData?.mem_type === 'L' || trnData?.mem_type === 'AI'
-          ? 'BOKARO STEEL PEOPLE WELFARE ASSOCIATION'
-          : 'BOSEC WELFARE TRUST'
+      trnData?.mem_type === 'G' || trnData?.mem_type === 'L' || trnData?.mem_type === 'AI'
+      ? 'BOKARO STEEL PEOPLE WELFARE ASSOCIATION'
+      : 'BOSEC WELFARE TRUST'
       }}
     </h4>
     <h4>13, Camac Street, Kolkata 700017</h4>
     <h4>
       {{
-        trnData?.mem_type === 'G' || trnData?.mem_type === 'L' || trnData?.mem_type === 'AI'
-          ? 'Registration No : S017807'
-          : 'Registration No : ESTD 2010'
+      trnData?.mem_type === 'G' || trnData?.mem_type === 'L' || trnData?.mem_type === 'AI'
+      ? 'Registration No : S017807'
+      : 'Registration No : ESTD 2010'
       }}
     </h4>
     <h4 class="color">Money Receipt</h4>
@@ -126,11 +124,11 @@
         <div class="receipt-separator">:</div>
         <div class="receipt-value">
           {{
-            trnData?.approval_status === 'U'
-              ? 'Unapproved'
-              : trnData?.approval_status === 'A'
-              ? 'Approved'
-              : ''
+          trnData?.approval_status === 'U'
+          ? 'Unapproved'
+          : trnData?.approval_status === 'A'
+          ? 'Approved'
+          : ''
           }}
         </div>
       </div>
@@ -174,16 +172,16 @@
     </div>
   </div>
 
-    <div class="receipt-section" *ngIf="trnData?.flag === 'STP'">
+  <div class="receipt-section" *ngIf="trnData?.flag === 'STP'">
     <!-- Left Column -->
-      <div class="receipt-column">
+    <div class="receipt-column">
       <div class="receipt-row">
         <div class="receipt-label">Member ID</div>
         <div class="receipt-separator">:</div>
         <div class="receipt-value">{{ trnData?.member_id }}</div>
       </div>
 
-       <div class="receipt-row">
+      <div class="receipt-row">
         <div class="receipt-label">MIN No</div>
         <div class="receipt-separator">:</div>
         <div class="receipt-value">{{ trnData?.min_no }}</div>
@@ -195,13 +193,13 @@
         <div class="receipt-value">{{ trnData?.trn_id }}</div>
       </div>
 
-       <div class="receipt-row">
+      <div class="receipt-row">
         <div class="receipt-label">Premium Amount</div>
         <div class="receipt-separator">:</div>
         <div class="receipt-value">{{ trnData?.premium_amt }}</div>
       </div>
-     
-       <div class="receipt-row">
+
+      <div class="receipt-row">
         <div class="receipt-label">Paymode</div>
         <div class="receipt-separator">:</div>
         <div class="receipt-value">{{ payMode[trnData?.pay_mode] }}</div>
@@ -209,17 +207,18 @@
     </div>
 
     <!-- Right Column -->
-      <div class="receipt-column">
+    <div class="receipt-column">
       <div class="receipt-row">
         <div class="receipt-label">Member Name</div>
         <div class="receipt-separator">:</div>
         <div class="receipt-value">{{ trnData?.memb_name }}</div>
       </div>
 
-       <div class="receipt-row">
+      <div class="receipt-row">
         <div class="receipt-label">Premium Type</div>
         <div class="receipt-separator">:</div>
-        <div class="receipt-value">{{ trnData?.premium_type == 'S' ? 'Single' :  trnData?.premium_type == 'D' ? 'Double' : ''}}</div>
+        <div class="receipt-value">{{ trnData?.premium_type == 'S' ? 'Single' : trnData?.premium_type == 'D' ? 'Double'
+          : ''}}</div>
       </div>
 
       <div class="receipt-row">
@@ -232,27 +231,30 @@
         <div class="receipt-separator">:</div>
         <div class="receipt-value">{{ trnData?.tot_amt }}</div>
       </div>
-     
-       <div class="receipt-row">
+
+      <div class="receipt-row">
         <div class="receipt-label">Status</div>
         <div class="receipt-separator">:</div>
         <div class="receipt-value">
           {{
-            trnData?.approval_status === 'U'
-              ? 'Unapproved'
-              : trnData?.approval_status === 'A'
-              ? 'Approved'
-              : ''
+          trnData?.approval_status === 'U'
+          ? 'Unapproved'
+          : trnData?.approval_status === 'A'
+          ? 'Approved'
+          : ''
           }}
         </div>
       </div>
     </div>
-      <!-- <p class="sub-titles">
+    <!-- <p class="sub-titles">
     **PREMIUM FOR SUPER TOP UP POLICY FOR 5 LACS FOR THE PERIOD FROM 11/07/2025 TO 10/07/2026 WITH NATIONAL INSURANCE CO**
   </p> -->
-   <p class="sub-titles" style="text-align: center; margin-top: 2rem; font-weight: bold; width: 100%;">
-    **PREMIUM FOR SUPER TOP UP POLICY FOR {{ (trnData?.policy_amount | uppercase) || '5 LACS' }} FOR THE PERIOD FROM 11/07/2026 TO 10/07/2027 WITH NATIONAL INSURANCE CO**
-  </p>
+    <p class="sub-titles" style="text-align: center; margin-top: 2rem; font-weight: bold; width: 100%;">
+      **PREMIUM FOR THE SUPER TOP UP POLICY OF {{ (trnData?.policy_amount | uppercase) || '5 LACS' }} FOR THE PERIOD
+      FROM
+      11/07/2026 TO 10/07/2027 UNDER THE CORPORATE POLICY WITH NATIONAL INSURANCE
+      CO. LTD., BEARING POLICY NO. 150100502610005348**
+    </p>
   </div>
 </mat-card>
 

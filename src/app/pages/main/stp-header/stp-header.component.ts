@@ -29,24 +29,13 @@ export class StpHeaderComponent implements OnInit {
     }
 
     this.headerMenuItem = [
-      // {
-      //   label: 'Profile',
-      //   icon: 'pi pi-fw pi-user',
-      // },
-      // {
-      //   label: 'Change Password',
-      //   icon: 'pi pi-fw pi-cog',
-      //   command: () => {
-      //     this.change_password_member();
-      //   }
-      // },
-      // {
-      //   label: 'Logout',
-      //   icon: 'pi pi-fw pi-sign-out',
-      //   command: () => {
-      //     this.onlogOut();
-      //   },
-      // },
+      {
+        label: 'Logout',
+        icon: 'pi pi-fw pi-sign-out',
+        command: () => {
+          this.onlogOut();
+        },
+      }
     ];
   }
 

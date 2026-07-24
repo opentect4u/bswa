@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-dashboard',
@@ -54,7 +55,15 @@ export class DashboardComponent implements OnInit {
   }
 
     open_e_card(){
-    window.open(`https://mdindiaonline.com/E-Cardrequest.aspx`, '_blank');
+    Swal.fire({
+      text: 'Super top up E Card is active for cashless only after exhaust of SAIL MEDICLAIM S. I. (Sum insured)',
+      icon: 'info',
+      confirmButtonText: 'OK'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.open(`https://mdindiaonline.com/E-Cardrequest.aspx`, '_blank');
+      }
+    });
   }
 
 }

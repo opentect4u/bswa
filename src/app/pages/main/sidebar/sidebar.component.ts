@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { DataService } from 'src/app/service/data.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-sidebar',
@@ -17,8 +18,8 @@ export class SidebarComponent implements OnInit {
   selectedItem: any;
 
   constructor(
-    private router: Router, 
-    private route: ActivatedRoute, 
+    private router: Router,
+    private route: ActivatedRoute,
     private dataServe: DataService,
     private cdr: ChangeDetectorRef
   ) { }
@@ -26,7 +27,7 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
     this.mem_type = localStorage.getItem('mem_type');
     const mem_id = localStorage.getItem('member_id');
-    
+
     // Default menu before API call
     this.buildMenu(false, false);
 
@@ -97,7 +98,7 @@ export class SidebarComponent implements OnInit {
           routerLink: '/main/child_policy'
         });
       }
-      
+
       this.items.push(insuranceItem);
     }
 
@@ -135,6 +136,12 @@ export class SidebarComponent implements OnInit {
 
     this.items.push(
       transactionItem,
+      {
+        label: 'Download E-card',
+        icon: 'pi pi-id-card',
+        routerLink: null,
+        url: 'https://mdindiaonline.com/E-Cardrequest.aspx'
+      },
       {
         label: 'Logout',
         icon: "pi pi-sign-out",
@@ -178,19 +185,19 @@ export class SidebarComponent implements OnInit {
 
   isActive(route: string): boolean {
     if (!route) return false;
-    
+
     if (this.router.url === route) {
       return true;
     }
-    
+
     if (route === '/main/trn_history' && this.router.url.includes('/main/trn_history_view')) {
       return true;
     }
-    
+
     if (route === '/main/stp_memb_transaction' && this.router.url.includes('/main/stp_memb_trans_view')) {
       return true;
     }
-    
+
     if (route === '/main/trn_history_child' && this.router.url.includes('/main/trn_history_child_view')) {
       return true;
     }
@@ -203,7 +210,19 @@ export class SidebarComponent implements OnInit {
       this.router.navigate([route]);
     } else if (route === null && this.selectedItem?.url) {
       // Handle external link
-      window.open(this.selectedItem.url, '_blank');
+      if (this.selectedItem.url.includes('E-Cardrequest.aspx')) {
+        Swal.fire({
+          text: 'Super top up E Card is active for cashless only after exhaust of SAIL MEDICLAIM S. I. (Sum insured)',
+          icon: 'info',
+          confirmButtonText: 'OK'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.open(this.selectedItem.url, '_blank');
+          }
+        });
+      } else {
+        window.open(this.selectedItem.url, '_blank');
+      }
     } else {
       console.warn('Invalid route or no action needed.');
     }

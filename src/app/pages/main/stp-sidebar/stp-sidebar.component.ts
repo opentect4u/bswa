@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-stp-sidebar',
@@ -112,7 +113,19 @@ public sideMenuItem: any = [];
     this.router.navigate([route]);
   } else if (route === null && this.selectedItem?.url) {
     // Handle external link
-    window.open(this.selectedItem.url, '_blank');
+    if (this.selectedItem.url.includes('E-Cardrequest.aspx')) {
+      Swal.fire({
+        text: 'Super top up E Card is active for cashless only after exhaust of SAIL MEDICLAIM S. I. (Sum insured)',
+        icon: 'info',
+        confirmButtonText: 'OK'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.open(this.selectedItem.url, '_blank');
+        }
+      });
+    } else {
+      window.open(this.selectedItem.url, '_blank');
+    }
   } else {
     console.warn('Invalid route or no action needed.');
   }
