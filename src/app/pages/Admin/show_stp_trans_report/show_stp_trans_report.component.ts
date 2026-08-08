@@ -163,6 +163,7 @@ export class Show_stp_trans_reportComponent implements OnInit {
         'Member Name': customer?.memb_name ?? 'N/A',
         'Member Gender': customer.gender == 'M' ? 'Male' : customer.gender == 'F' ? 'Female' : 'N/A',
         'Member Dob': formatDate(customer?.dob),
+        'Member Phone No': customer?.phone_no || 0,
       };
 
       if (this.hasSpouseData) {
