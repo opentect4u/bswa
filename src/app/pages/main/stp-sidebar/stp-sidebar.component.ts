@@ -69,7 +69,8 @@ public sideMenuItem: any = [];
    {
       label: 'Download E-card',
       icon: 'pi pi-id-card',
-      url: 'https://mdindiaonline.com/E-Cardrequest.aspx',
+      // url: 'https://mdindiaonline.com/E-Cardrequest.aspx',
+      url: 'https://mdindiaonline.com/loginpage.aspx?l=ce',
       target: '_blank',
       routerLink: null
    },
@@ -113,7 +114,7 @@ public sideMenuItem: any = [];
     this.router.navigate([route]);
   } else if (route === null && this.selectedItem?.url) {
     // Handle external link
-    if (this.selectedItem.url.includes('E-Cardrequest.aspx')) {
+    if (this.selectedItem.url.includes('loginpage.aspx?l=ce')) {
       Swal.fire({
         text: 'Super top up E Card is active for cashless only after exhaust of SAIL MEDICLAIM S. I. (Sum insured)',
         icon: 'info',
