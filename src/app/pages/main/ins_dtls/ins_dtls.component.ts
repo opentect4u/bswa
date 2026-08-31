@@ -108,29 +108,37 @@ interface PremiumInfo {
 })
 export class Ins_dtlsComponent implements OnInit {
   secretKey = environment.secretKey;
-  mem_id:any
-  mem_type:any
-  insData: any  = {};
+  mem_id: any
+  mem_type: any
+  insData: any = {};
   userData: UserInfo | any;
   dependentsData: any = [];
   preinfo: PremiumInfo | undefined;
-  responsedata:any
+  responsedata: any
   pre_amt_flag: any;
   pre_amt_value: any;
   tot_pre_amt: number = 0;
   api_base_url = environment.api_url;
+  isCutoffPassed: boolean = false;
 
   // userMedicalData: MedicalInfo | any ;
 
   constructor(private router: Router, private dataServe: DataService) { }
 
   ngOnInit() {
-  // this.form_no = localStorage.getItem('form_no')
-  const mem_id = localStorage.getItem('member_id')
-   this.getInsuranceDetails(mem_id);
+    // this.form_no = localStorage.getItem('form_no')
+    this.checkCutoff();
+    const mem_id = localStorage.getItem('member_id')
+    this.getInsuranceDetails(mem_id);
   }
 
-  getPremiumInfo(form_no:any) {
+  checkCutoff() {
+    const cutoff = new Date('2026-08-31T23:59:59+05:30');
+    const now = new Date();
+    this.isCutoffPassed = now > cutoff;
+  }
+
+  getPremiumInfo(form_no: any) {
     this.dataServe
       .global_service(0, '/premium_dtls', `form_no=${form_no}`)
       .subscribe((data: any) => {
@@ -151,8 +159,8 @@ export class Ins_dtlsComponent implements OnInit {
           this.preinfo!['prm_flag2'] == 'Y'
             ? this.preinfo!['premium_amt2']
             : this.preinfo!['prm_flag3'] == 'Y'
-            ? this.preinfo!['premium_amt3']
-            : '0';
+              ? this.preinfo!['premium_amt3']
+              : '0';
         this.tot_pre_amt =
           parseInt(this.preinfo!.premium_amt) + parseInt(this.pre_amt_value);
         console.log(this.preinfo, 'pre');
@@ -170,15 +178,15 @@ export class Ins_dtlsComponent implements OnInit {
   //         });
   // }
 
-  getInsuranceDetails(mem_id : any){
-    this.dataServe.global_service(1, '/insurance_dtls', {mem_id})
+  getInsuranceDetails(mem_id: any) {
+    this.dataServe.global_service(1, '/insurance_dtls', { mem_id })
       .subscribe((data: any) => {
         if (data && data.suc > 0) {
           this.insData = data.msg || [];
           this.dependentsData = data.dependents || [];
-          
+
           this.userData = this.insData.length > 0 ? this.insData : [];
-          console.log(this.userData,'medical');
+          console.log(this.userData, 'medical');
 
           this.getPremiumInfo(this.userData[0].form_no);
 
@@ -186,7 +194,7 @@ export class Ins_dtlsComponent implements OnInit {
             const premiumType = this.userData[0]?.memb_oprn === 'J' ? 'D' : this.userData[0]?.memb_oprn;
             this.fetchPremiumAmount(premiumType);
           }
-          
+
         } else {
           this.insData = [];
           this.dependentsData = [];
@@ -254,8 +262,13 @@ export class Ins_dtlsComponent implements OnInit {
       this.selectedPremiumAmt = '';
     }
   }
-  
-  generatePay(){
+
+  generatePay() {
+    if (this.isCutoffPassed) {
+      Swal.fire('Payment Closed', 'Payment closed after 31.08.2026 12:00 AM', 'warning');
+      return;
+    }
+
     const phoneNo = this.userData[0]?.phone_no || this.userData[0]?.phone;
     if (!phoneNo) {
       Swal.fire('Warning', 'Please update your mobile number before proceeding to payment.', 'warning');
@@ -284,7 +297,7 @@ export class Ins_dtlsComponent implements OnInit {
       this.secretKey
     ).toString();
 
-    this.router.navigate(['/auth/payment_preview_page'], { 
+    this.router.navigate(['/auth/payment_preview_page'], {
       queryParams: { enc_dt: payEncData }
     });
   }
@@ -292,9 +305,9 @@ export class Ins_dtlsComponent implements OnInit {
   getImageUrl(imagePath: string | undefined): string {
     return imagePath ? `${this.api_base_url}/uploads/${imagePath}` : 'assets/default-image.png';
   }
-  
+
   handleImageError(event: any) {
     event.target.src = 'assets/default-image.png'; // Fallback image if loading fails
   }
-  
+
 }

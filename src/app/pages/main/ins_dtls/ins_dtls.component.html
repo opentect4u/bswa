@@ -80,11 +80,16 @@
             <div class="info-value">
               <span *ngIf="userData[0]?.phone">{{ userData[0]?.phone }}</span>
               <span *ngIf="!userData[0]?.phone">
-                <button *ngIf="!showMobileInput" pButton class="p-button-sm p-button-outlined" label="Update Mobile No" (click)="showMobileInput = true"></button>
+                <button *ngIf="!showMobileInput" pButton class="p-button-sm p-button-outlined" label="Update Mobile No"
+                  (click)="showMobileInput = true"></button>
                 <div *ngIf="showMobileInput" style="display: flex; gap: 10px; align-items: center;">
-                  <input type="text" pInputText #mobileInputGP placeholder="Enter Mobile No" maxlength="10" style="padding: 8px 12px; width: 160px; border: 1px solid #94a3b8; border-radius: 6px; outline: none; font-size: 14px; background: #f8fafc; color: #334155; box-shadow: 0 2px 4px rgba(0,0,0,0.05);" />
-                  <button pButton class="p-button-sm p-button-success" icon="pi pi-check" (click)="updateMobile(mobileInputGP.value)" style="background-color: #166534; border-color: #166534;"></button>
-                  <button pButton class="p-button-sm p-button-danger" icon="pi pi-times" (click)="showMobileInput = false"></button>
+                  <input type="text" pInputText #mobileInputGP placeholder="Enter Mobile No" maxlength="10"
+                    style="padding: 8px 12px; width: 160px; border: 1px solid #94a3b8; border-radius: 6px; outline: none; font-size: 14px; background: #f8fafc; color: #334155; box-shadow: 0 2px 4px rgba(0,0,0,0.05);" />
+                  <button pButton class="p-button-sm p-button-success" icon="pi pi-check"
+                    (click)="updateMobile(mobileInputGP.value)"
+                    style="background-color: #166534; border-color: #166534;"></button>
+                  <button pButton class="p-button-sm p-button-danger" icon="pi pi-times"
+                    (click)="showMobileInput = false"></button>
                 </div>
               </span>
             </div>
@@ -126,12 +131,19 @@
           <div class="info-row"
             style="display: flex; justify-content: space-between; align-items: center; background-color: #f9fafc; border-radius: 8px; padding: 15px; margin-top: 15px; border-bottom: none; border: 1px solid #e2e8f0;">
             <div class="info-label" style="font-size: 16px; color: #0b2259; margin: 0;">Total Premium Amount</div>
-            <div class="info-value" style="font-size: 18px; font-weight: bold; color: #0b2259; margin: 0; text-align: right;">₹ {{ tot_pre_amt }}
+            <div class="info-value"
+              style="font-size: 18px; font-weight: bold; color: #0b2259; margin: 0; text-align: right;">₹ {{ tot_pre_amt
+              }}
             </div>
           </div>
 
           <div style="text-align: center; margin-top: 20px;">
-            <button class="btn-pay" style="width: auto; padding: 10px 40px; font-size: 16px; display: inline-block;" disabled>Pay ₹ {{ tot_pre_amt }}</button>
+            <button *ngIf="!isCutoffPassed" class="btn-pay"
+              style="width: auto; padding: 10px 40px; font-size: 16px; display: inline-block;" disabled>Pay ₹ {{
+              tot_pre_amt }}</button>
+            <p *ngIf="isCutoffPassed" style="color: #dc2626; font-weight: bold; margin-top: 10px; font-size: 14px;">
+              Payment closed after 31.08.2026 12:00 AM
+            </p>
           </div>
         </div>
       </div>
@@ -242,11 +254,16 @@
             <div class="info-value">
               <span *ngIf="userData[0]?.phone_no">{{ userData[0]?.phone_no }}</span>
               <span *ngIf="!userData[0]?.phone_no">
-                <button *ngIf="!showMobileInput" pButton class="p-button-sm p-button-outlined" label="Update Mobile No" (click)="showMobileInput = true"></button>
+                <button *ngIf="!showMobileInput" pButton class="p-button-sm p-button-outlined" label="Update Mobile No"
+                  (click)="showMobileInput = true"></button>
                 <div *ngIf="showMobileInput" style="display: flex; gap: 10px; align-items: center;">
-                  <input type="text" pInputText #mobileInputSTP placeholder="Enter Mobile No" maxlength="10" style="padding: 8px 12px; width: 160px; border: 1px solid #94a3b8; border-radius: 6px; outline: none; font-size: 14px; background: #f8fafc; color: #334155; box-shadow: 0 2px 4px rgba(0,0,0,0.05);" />
-                  <button pButton class="p-button-sm p-button-success" icon="pi pi-check" (click)="updateMobile(mobileInputSTP.value)" style="background-color: #166534; border-color: #166534;"></button>
-                  <button pButton class="p-button-sm p-button-danger" icon="pi pi-times" (click)="showMobileInput = false"></button>
+                  <input type="text" pInputText #mobileInputSTP placeholder="Enter Mobile No" maxlength="10"
+                    style="padding: 8px 12px; width: 160px; border: 1px solid #94a3b8; border-radius: 6px; outline: none; font-size: 14px; background: #f8fafc; color: #334155; box-shadow: 0 2px 4px rgba(0,0,0,0.05);" />
+                  <button pButton class="p-button-sm p-button-success" icon="pi pi-check"
+                    (click)="updateMobile(mobileInputSTP.value)"
+                    style="background-color: #166534; border-color: #166534;"></button>
+                  <button pButton class="p-button-sm p-button-danger" icon="pi pi-times"
+                    (click)="showMobileInput = false"></button>
                 </div>
               </span>
             </div>
@@ -331,17 +348,22 @@
           <div class="info-row"
             style="display: flex; justify-content: space-between; align-items: center; background-color: #f9fafc; border-radius: 8px; padding: 15px; margin-top: 15px; border-bottom: none; border: 1px solid #e2e8f0;">
             <div class="info-label" style="font-size: 14px; color: #0b2259; margin: 0;">Total Premium Amount</div>
-            <div class="info-value" style="font-size: 18px; font-weight: bold; color: #0b2259; margin: 0; text-align: right;">
+            <div class="info-value"
+              style="font-size: 18px; font-weight: bold; color: #0b2259; margin: 0; text-align: right;">
               <ng-container *ngIf="selectedPremiumAmt; else noAmt">₹ {{ selectedPremiumAmt }}</ng-container>
               <ng-template #noAmt>₹ 0</ng-template>
             </div>
           </div>
 
           <div style="text-align: center; margin-top: 20px;">
-            <button class="btn-pay" style="width: auto; padding: 10px 40px; font-size: 16px; display: inline-block;" [disabled]="!selectedPremiumAmt || selectedPremiumAmt === '0'"
-              (click)="generatePay()">
+            <button *ngIf="!isCutoffPassed" class="btn-pay"
+              style="width: auto; padding: 10px 40px; font-size: 16px; display: inline-block;"
+              [disabled]="!selectedPremiumAmt || selectedPremiumAmt === '0'" (click)="generatePay()">
               Pay ₹ {{ selectedPremiumAmt || 0 }}
             </button>
+            <p *ngIf="isCutoffPassed" style="color: #dc2626; font-weight: bold; margin-top: 10px; font-size: 14px;">
+              Payment closed after 31.08.2026 12:00 AM
+            </p>
           </div>
         </div>
       </div>
