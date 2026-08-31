@@ -103,6 +103,14 @@ select:hover {
   transition: 0.3s ease;
 }
 
-.continue-button:hover {
+.continue-button:hover:not(:disabled) {
   background: linear-gradient(to right, #6a1b9a, #c2185b);
+}
+
+.continue-button:disabled {
+  background: #cbd5e1;
+  color: #64748b;
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.8;
 }

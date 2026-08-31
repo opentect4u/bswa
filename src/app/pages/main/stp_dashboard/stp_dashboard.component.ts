@@ -50,7 +50,7 @@ export class Stp_dashboardComponent implements OnInit {
       confirmButtonText: 'OK'
     }).then((result) => {
       if (result.isConfirmed) {
-        window.open(`https://mdindiaonline.com/E-Cardrequest.aspx`, '_blank');
+        window.open(`https://mdindiaonline.com/loginpage.aspx?l=ce`, '_blank');
       }
     });
   }
