@@ -23,9 +23,21 @@
   min-height: 87vh;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   background: linear-gradient(to right, #80a0c9, #b7c5d8);
-  padding: 20px 0;
+  padding: 35px 0;
+}
+
+::ng-deep .p-card .p-card-body {
+  padding: 1.5rem 2rem !important;
+}
+
+::ng-deep .p-card .p-card-content {
+  padding: 0 !important;
+}
+
+::ng-deep .p-divider.p-divider-horizontal {
+  margin: 0.85rem 0 !important;
 }
 
 .sub_btn {

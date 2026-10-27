@@ -34,9 +34,11 @@ export class DepoTrnsComponent implements OnInit {
   memberType: any = { 'G': 'General Membership', 'L': 'Life Membership', 'AI': 'Associate Membership' };
   showModal: boolean = true;
   maxAllowedAmt: number = 0;
+  minDueAmt: number = 0;
   isAlreadyPaid: boolean = false;
   financialYearStr: string = '';
   remainingMonths: number = 0;
+  dueMonths: number = 0;
 
   constructor(private router: Router, private formBuilder: FormBuilder, private dataServe: DataService) { }
 
@@ -130,16 +132,15 @@ export class DepoTrnsComponent implements OnInit {
       };
     }
     if (typeof dateVal === 'string') {
-      const match = dateVal.match(/^(\d{4})-(\d{2})-(\d{2})/);
+      const match = dateVal.match(/^(\d{4})-(\d{2})/);
       if (match) {
         const year = parseInt(match[1], 10);
         const month = parseInt(match[2], 10) - 1;
-        const day = parseInt(match[3], 10);
         return {
           year,
           month,
-          day,
-          dateObj: new Date(year, month, day)
+          day: 1,
+          dateObj: new Date(year, month, 1)
         };
       }
     }
@@ -185,6 +186,11 @@ export class DepoTrnsComponent implements OnInit {
         return { invalidSubscriptionFee: { sub_fee: sub_fee } };
       }
 
+      // Check if amount is less than minimum due
+      if (this.minDueAmt > 0 && numVal < this.minDueAmt) {
+        return { lessThanMinDue: { minAmount: this.minDueAmt, actual: numVal } };
+      }
+
       // Check if amount exceeds the maximum allowed for current financial year
       if (this.maxAllowedAmt > 0 && numVal > this.maxAllowedAmt) {
         return { exceedsFinancialYear: { maxAmount: this.maxAllowedAmt, actual: numVal } };
@@ -199,6 +205,14 @@ export class DepoTrnsComponent implements OnInit {
 
       return null;
     };
+  }
+
+  setAmount(amt: number) {
+    if (this.isAlreadyPaid) return;
+    this.entryForm.patchValue({ subs_amt: amt });
+    this.entryForm.get('subs_amt')?.markAsDirty();
+    this.entryForm.get('subs_amt')?.markAsTouched();
+    this.entryForm.get('subs_amt')?.updateValueAndValidity();
   }
 
   subscription_fee(memb_type: any) {
@@ -226,16 +240,22 @@ export class DepoTrnsComponent implements OnInit {
       let calAmt = 0;
       this.isAlreadyPaid = false;
       this.maxAllowedAmt = 0;
+      this.minDueAmt = 0;
       this.remainingMonths = 0;
+      this.dueMonths = 0;
 
       switch (sub.memb_type) {
         case 'G':
         case 'default': {
           if (!paidDateParsed) {
-            // No previous payment date found, full 12 months for current financial year
+            // No previous payment date found, calculate dues from start of current financial year (April) to current month
+            const monthsFromFYStart = (nowDate.getFullYear() - currentFY.fyStartYear) * 12 + (nowDate.getMonth() - 3) + 1;
+            this.dueMonths = Math.max(0, Math.min(12, monthsFromFYStart));
             this.remainingMonths = 12;
-            calAmt = this.remainingMonths * monthlyFee + previousDue;
-            this.maxAllowedAmt = calAmt;
+
+            this.minDueAmt = this.dueMonths * monthlyFee + previousDue;
+            this.maxAllowedAmt = this.remainingMonths * monthlyFee + previousDue;
+            calAmt = this.maxAllowedAmt;
           } else {
             // Check if already paid up to or beyond March of current financial year end (month index 2 of currentFY.fyEndYear)
             const isCoveredTillFYEnd = paidDateParsed.year > currentFY.fyEndYear ||
@@ -244,14 +264,23 @@ export class DepoTrnsComponent implements OnInit {
             if (isCoveredTillFYEnd) {
               this.isAlreadyPaid = true;
               this.remainingMonths = 0;
-              calAmt = previousDue;
+              this.dueMonths = 0;
+              this.minDueAmt = previousDue;
               this.maxAllowedAmt = previousDue;
+              calAmt = previousDue;
             } else {
               // Calculate remaining months up to March of currentFY.fyEndYear
               const monthsToFYEnd = (currentFY.fyEndYear - paidDateParsed.year) * 12 + (2 - paidDateParsed.month);
               this.remainingMonths = monthsToFYEnd > 0 ? monthsToFYEnd : 0;
-              calAmt = this.remainingMonths * monthlyFee + previousDue;
-              this.maxAllowedAmt = calAmt;
+              this.maxAllowedAmt = this.remainingMonths * monthlyFee + previousDue;
+
+              // Calculate due months up to current month (nowDate)
+              const monthsDueTillNow = (nowDate.getFullYear() - paidDateParsed.year) * 12 + (nowDate.getMonth() - paidDateParsed.month);
+              this.dueMonths = monthsDueTillNow > 0 ? Math.min(monthsDueTillNow, this.remainingMonths) : 0;
+              this.minDueAmt = this.dueMonths * monthlyFee + previousDue;
+
+              // Default payment amount: total financial year balance
+              calAmt = this.maxAllowedAmt;
             }
           }
           break;
@@ -262,6 +291,7 @@ export class DepoTrnsComponent implements OnInit {
           if (!paidDateParsed) {
             this.isAlreadyPaid = false;
             calAmt = annualFee + previousDue;
+            this.minDueAmt = calAmt;
             this.maxAllowedAmt = calAmt;
           } else {
             // Determine the FY end year that the last payment covered:
@@ -272,11 +302,25 @@ export class DepoTrnsComponent implements OnInit {
             if (yearsDue <= 0) {
               this.isAlreadyPaid = true;
               calAmt = previousDue;
+              this.minDueAmt = previousDue;
               this.maxAllowedAmt = previousDue;
             } else {
               this.isAlreadyPaid = false;
-              calAmt = yearsDue * annualFee + previousDue;
-              this.maxAllowedAmt = calAmt;
+              this.remainingMonths = yearsDue;
+              this.maxAllowedAmt = yearsDue * annualFee + previousDue;
+
+              // Past completed FYs that are overdue (prior to current FY start)
+              const pastYearsDue = currentFY.fyStartYear - lastPaidFYEndYear;
+              if (pastYearsDue > 0) {
+                this.dueMonths = pastYearsDue;
+                this.minDueAmt = pastYearsDue * annualFee + previousDue;
+              } else {
+                this.dueMonths = 1;
+                this.minDueAmt = annualFee + previousDue;
+              }
+
+              // Default payment amount: total financial year balance
+              calAmt = this.maxAllowedAmt;
             }
           }
           break;
@@ -284,6 +328,7 @@ export class DepoTrnsComponent implements OnInit {
 
         case 'AI': {
           calAmt = (Number(sub.subscription_2) || 0) + previousDue;
+          this.minDueAmt = calAmt;
           this.maxAllowedAmt = calAmt;
           break;
         }
@@ -317,6 +362,16 @@ export class DepoTrnsComponent implements OnInit {
     var subscriptionAmount = this.entryForm.get('subs_amt')?.value;
     var form_no = this.userData?.form_no; 
     var member_id = this.userData?.member_id;
+
+    if (this.minDueAmt > 0 && Number(subscriptionAmount) < this.minDueAmt) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Amount Less Than Due',
+        text: `Amount cannot be less than the minimum due of ₹${this.minDueAmt}.`,
+        confirmButtonText: 'OK'
+      });
+      return;
+    }
 
     if (this.maxAllowedAmt > 0 && Number(subscriptionAmount) > this.maxAllowedAmt) {
       Swal.fire({
