@@ -27,11 +27,25 @@
         <label class="font-semibold text-lg">Subscription Upto: </label>
         <label><b>{{userData?.subscription_upto | date: 'MM-yyyy'}}</b></label>
       </p>
+      <p *ngIf="financialYearStr">
+        <label class="font-semibold text-lg">Current Financial Year: </label>
+        <label><b>{{financialYearStr}}</b></label>
+      </p>
       <p *ngIf="userData?.calc_amt > 0">
         <label><b>Opening: </b></label>
         <label><b>{{ userData?.calc_amt }}</b></label>
       </p>
       <p-divider type="dashed"></p-divider>
+
+      <!-- Already paid notification banner -->
+      <div *ngIf="isAlreadyPaid" class="mb-3 p-3 border-round" style="background-color: #e8f5e9; border-left: 5px solid #4caf50;">
+        <div class="flex align-items-center">
+          <i class="pi pi-check-circle mr-2" style="font-size: 1.4rem; color: #2e7d32;"></i>
+          <span style="color: #1b5e20; font-weight: 600; font-size: 1rem;">
+            Subscription fee for the current financial year ({{financialYearStr}}) is already paid up to {{userData?.subscription_upto | date: 'MM-yyyy'}}. No payment is required until the current financial year ends.
+          </span>
+        </div>
+      </div>
 
       <h3 class="title_h3">Subscription Details</h3>
       <div class="formgrid grid mt-1">
@@ -40,7 +54,11 @@
           <div class="flex gap-3 align-items-start mt-1">
             <div class="flex flex-column" style="width: 350px;">
               <input id="subs_amt" type="number" formControlName="subs_amt" placeholder="Enter subscription fee...."
-                class="form-control" />
+                class="form-control" [readonly]="isAlreadyPaid" />
+
+              <small class="text-600 mt-1" *ngIf="!isAlreadyPaid && maxAllowedAmt > 0">
+                Total dues up to current FY ({{financialYearStr}}): ₹{{maxAllowedAmt}} (Max payable: ₹{{maxAllowedAmt}})
+              </small>
 
               <div *ngIf="f['subs_amt'].dirty || f['subs_amt'].touched || f['subs_amt'].errors" class="error-message">
                 <small class="text-red-700" *ngIf="f['subs_amt'].hasError('invalidAmount')">
@@ -52,11 +70,17 @@
                 <small class="text-red-700" *ngIf="f['subs_amt'].hasError('invalidSubscriptionFee')">
                   Invalid subscription fee.
                 </small>
+                <small class="text-red-700" *ngIf="f['subs_amt'].hasError('exceedsFinancialYear')">
+                  Amount cannot exceed total dues up to current financial year (Maximum allowed: ₹{{maxAllowedAmt}}).
+                </small>
+                <small class="text-red-700" *ngIf="f['subs_amt'].hasError('alreadyPaid')">
+                  Subscription fee for the current financial year is already paid.
+                </small>
               </div>
             </div>
             
             <button pButton pRipple type="button" label="Continue" class="p-button-raised sub_btn" (click)="save()"
-              [disabled]="f['subs_amt'].invalid"></button>
+              [disabled]="f['subs_amt'].invalid || isAlreadyPaid"></button>
           </div>
         </div>
       </div>
